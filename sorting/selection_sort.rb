@@ -1,31 +1,24 @@
 #!/usr/bin/env ruby
 
-
 # --------------------------------------------------------------------------------
 # Selection Sort
-# -------------------------------------------------------------------------------- 
-class SelectionSorter
+# --------------------------------------------------------------------------------
+def selection_sort(data)
+  n = data.count
 
-  def sort(data)
-    n = data.count
-    0.upto(n - 1) do |i|
-      puts "i: #{i}"
-      min = i
-      (i + 1).upto(n - 1) do |j|
-        puts "j: #{j}"
-        min = j if data[j] < data[min]
-      end
-      puts "data is: #{data}"
-      puts "data[i] is #{data[i]}"
-      puts "data[min] is #{data[min]}"
-
-      data[i], data[min] = data[min], data[i]
-    end
+  0.upto(n - 1) do |i|
+    min_idx = i
+    (i + 1).upto(n - 1) { |j| min_idx = j if data[j] < data[min_idx] }
+    # puts "data is: #{data}"; puts "data[i] is #{data[i]}"; puts "data[min_idx] is #{data[min_idx]}"
+    data[i], data[min_idx] = data[min_idx], data[i] # unless min.eql?(i)
   end
 end
 
-data = [10, 4, 1, 2, 8, 3, 7, 5, 0, 6, 9]
-sorter = SelectionSorter.new
-sorter.sort(data)
 
+data = [11, 0, 10, 1, 9, 2, 8, 3, 7, 4, 6, 5]
+selection_sort(data)
+puts "Data is: #{data}"
+
+data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 10]
+selection_sort(data)
 puts "Data is: #{data}"
