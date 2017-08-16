@@ -1,9 +1,7 @@
 #!/usr/bin/env ruby
 
 def selection_sort(data)
-  n = data.count - 1
-
-  0.upto(n) do |i|
+  0.upto(data.count - 1) do |i|
     min_idx = i
     (i + 1).upto(n) { |j| min_idx = j if data[j] < data[min_idx] }
     data[i], data[min_idx] = data[min_idx], data[i] unless min_idx.eql?(i)

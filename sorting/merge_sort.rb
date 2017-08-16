@@ -1,9 +1,5 @@
 #!/usr/bin/env ruby
 
-def merge_sort()
-
-end
-
 def merge(array, p, q, r)
   n1 = q - p + 1
   n2 = r - q
