@@ -2,11 +2,11 @@
 
 def reduce_string(s)
   reduce(s) until reduced?(s)
-  s.empty? ? "Empty String" : s
+  s.empty? ? 'Empty String' : s
 end
 
 def reduce(s)
-  s.gsub!(adjacent_pairs(s).first.join, "")
+  s.gsub!(adjacent_pairs(s).first.join, '')
 end
 
 def reduced?(s)
@@ -14,7 +14,7 @@ def reduced?(s)
 end
 
 def adjacent_pairs(s)
-  s.chars.each_cons(2).select { |a, b| a == b }
+  s.chars.each_cons(2).select { |c1, c2| c1 == c2 }
 end
 
 s = gets.strip
