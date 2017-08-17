@@ -16,27 +16,27 @@ def merge(array, p, q, r)
   end
 
   p.upto(r) do |k|
-    return if right.empty? && left.empty?
-    array[k] =  if right.empty? && !left.empty?
-                  left.shift
-                elsif left.empty? && !right.empty?
-                  right.shift
-                else
-                  left.first > right.first ? right.shift : left.shift
-                end
+    next if right.empty? && left.empty?
+    array[k] = if right.empty? && !left.empty?
+                 left.shift
+               elsif left.empty? && !right.empty?
+                 right.shift
+               else
+                 left.first > right.first ? right.shift : left.shift
+               end
   end
 end
 
-def merge_sort(array, p = nil, r = nil)
+def merge_sort(a, p = nil, r = nil)
   p = 0 if p.nil?
-  r = array.length - 1 if r.nil?
+  r = a.length - 1 if r.nil?
 
   return if p >= r
 
   q = (p + r) / 2
-  merge_sort(array, p, q)
-  merge_sort(array, q + 1, r)
-  merge(array, p, q, r)
+  merge_sort(a, p, q)
+  merge_sort(a, q + 1, r)
+  merge(a, p, q, r)
 
-  array
+  a
 end
