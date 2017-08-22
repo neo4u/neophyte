@@ -16,3 +16,8 @@ p((Integer::MAX + 1).class) #=> Bignum
 p(Integer::MIN)             #=> -1073741824
 p(Integer::MIN.class)       #=> Fixnum
 p((Integer::MIN - 1).class) #=> Bignum
+
+N_BYTES = 0.size
+N_BITS = N_BYTES * 8
+FIXNUM_MAX = 2 ** (N_BITS - 2) - 1
+FIXNUM_MIN = -FIXNUM_MAX - 1

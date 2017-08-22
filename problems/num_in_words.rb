@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-
 # --------------------------------------------------------------------------------
 # Class to do word conversion
 # --------------------------------------------------------------------------------
@@ -70,7 +69,7 @@ class WordConverter
   end
 end
 
-converter = WordConverter.new
-num = -999_999_500_121
-puts "Number in digits: #{num}"
-puts "Number in words: #{converter.convert(num)}"
+# converter = WordConverter.new
+# num = -999_999_500_121
+# puts "Number in digits: #{num}"
+# puts "Number in words: #{converter.convert(num)}"

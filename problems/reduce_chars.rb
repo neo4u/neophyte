@@ -17,6 +17,6 @@ def adjacent_pairs(s)
   s.chars.each_cons(2).select { |c1, c2| c1 == c2 }
 end
 
-s = gets.strip
-result = reduced_string(s)
-puts result
+# s = gets.strip
+# result = reduced_string(s)
+# puts result
