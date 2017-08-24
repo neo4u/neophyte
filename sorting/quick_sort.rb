@@ -13,15 +13,14 @@ def quick_sort(array, p = nil, r = nil)
   array
 end
 
-def partition(array, p, r)
-  i = p - 1
-  pivot = array[r]
-  (p...r).each do |j|
-    next if array[j] > pivot
-    i += 1
-    array[i], array[j] = array[j], array[i]
+def partition(a, p, r)
+  i = p - 1                       # Choose the index before the pth index
+  pivot = a[r]                    # Choose the last element as pivot
+  (p...r).each do |j|             # Loop from p to r-1 moving elements to either side of pivot
+    next if a[j] > pivot          # Move to next element if array element greater than pivot
+    i += 1                        # Increment index i for current placement index
+    a[i], a[j] = a[j], a[i]       # Swap elements at pivot placement index with the current index j
   end
-  array[i + 1], array[r] = array[r], array[i + 1]
-
-  i + 1
+  a[i + 1], a[r] = a[r], a[i + 1] # Move the pivot to its final place: index after which elements < pivot
+  i + 1                           # return pivot index
 end

@@ -4,7 +4,7 @@
 # Binary Heap as per CLRS
 # ------------------------------------------------------------------------
 class BinaryMaxHeap
-
+  attr_accessor :data
   SINGLE_INT_BYTES = 0.size
   SINGLE_INT_BITS = SINGLE_INT_BYTES * 8
   FIXNUM_MAX = 2**(SINGLE_INT_BITS - 2) - 1
@@ -84,6 +84,8 @@ class BinaryMaxHeap
   def increase_key(i, key)
     @data[i] = key
     self.class.sift_up(@data, i)
+
+    @data
   end
 
   def peek
@@ -108,4 +110,3 @@ class BinaryMaxHeap
     puts "Data: #{@data}"
   end
 end
-
