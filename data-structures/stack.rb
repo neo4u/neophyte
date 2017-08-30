@@ -12,11 +12,13 @@ class Stack
   end
 
   def push(x)
+    raise 'Stack Overflow' if @data.size + 1 > @max_size
     @data.push(x)
   end
 
   def pop
-    @data.empty? ? nil : @data.pop
+    raise 'Stack Underflow' if empty?
+    @data.pop
   end
 
   def top
@@ -37,3 +39,21 @@ class Stack
     @data.empty?
   end
 end
+
+stack = Stack.new(5)
+stack.push(1)
+stack.push(2)
+stack.push(3)
+stack.push(4)
+stack.push(5)
+puts stack.top
+puts stack.pop
+puts stack.top
+stack.push(5)
+# stack.push(6)
+puts stack.pop
+puts stack.pop
+puts stack.pop
+puts stack.pop
+puts stack.pop
+puts stack.pop
