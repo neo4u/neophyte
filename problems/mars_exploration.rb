@@ -17,13 +17,13 @@ def sig_changes(s)
   s.chars.each_slice(3) do |c1, c2, c3|
     mods += if c1.eql?('S') && c2.eql?('O') && c3.eql?('S')
               0
-            elsif (c1.eql?('S') && !c2.eql?('O') && !c3.eql?('S')) ||
-                  ( !c1.eql?('S') && c2.eql?('O') && !c3.eql?('S') ) ||
-                  ( !c1.eql?('S') && !c2.eql?('O') && c3.eql?('S') )
+            elsif (c1.eql?('S') && !c2.eql?('O') && !c3.eql?('S'))||
+                  (!c1.eql?('S') && c2.eql?('O') && !c3.eql?('S')) ||
+                  (!c1.eql?('S') && !c2.eql?('O') && c3.eql?('S'))
               2
-            elsif ( !c1.eql?('S') && c2.eql?('O') && c3.eql?('S') ) ||
-                  ( c1.eql?('S') && !c2.eql?('O') && c3.eql?('S') ) ||
-                  ( c1.eql?('S') && c2.eql?('O') && !c3.eql?('S') )
+            elsif (!c1.eql?('S') && c2.eql?('O') && c3.eql?('S')) ||
+                  (c1.eql?('S') && !c2.eql?('O') && c3.eql?('S')) ||
+                  (c1.eql?('S') && c2.eql?('O') && !c3.eql?('S'))
               1
             else
               3
