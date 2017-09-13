@@ -29,7 +29,7 @@ end
 
 def merge_sort(a, p = nil, r = nil)
   p = 0 if p.nil?
-  r = a.length - 1 if r.nil?
+  r = a.size - 1 if r.nil?
 
   return if p >= r
 
