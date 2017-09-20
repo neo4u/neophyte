@@ -6,3 +6,12 @@ AllCops:
   Exclude:
     - 'tmp/*.rb'
     - 'vendor/**/*'
+
+Style/AccessorMethodName:
+  Enabled: false
+  
+Style/ParallelAssignment:
+  Enabled: false
+
+Style/MethodCallWithoutArgsParentheses:
+  Enabled: false

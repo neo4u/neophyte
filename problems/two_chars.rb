@@ -19,7 +19,6 @@
 # Thus, we print the length of babab, which is , as our answer.
 # -------------------------------------------------------------------------------
 
-
 def valid_t?(s)
   two_chars = s.chars.uniq
   return false if two_chars.size != 2
