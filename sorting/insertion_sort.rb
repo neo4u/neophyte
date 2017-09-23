@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-def insertion_sort(a)
+def insertion_sort_prac(a)
   (1...a.size).each do |j|
     key = a[j]
     i = j - 1
