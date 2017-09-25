@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 
 # ------------------------------------------------------------------------
-# Binary Heap as per CLRS
+# Binary Heap as per CLRS  THis should be changed to priority queue
+# as PQ is the ADT and heap is the data structure
 # ------------------------------------------------------------------------
 class BinaryMaxHeap
   attr_accessor :data
