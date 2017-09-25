@@ -11,33 +11,30 @@ def dfs(graph, start)
     end
   end
 
-  visited.to_a
+  visited
 end
 
 def dfs_recursive(graph, start, visited = nil)
-  visited ||= Set.new
-  visited.add(start)
-  (graph[start] - visited).to_a.each do |vertex|
-    dfs_recursive(graph, vertex, visited)
-  end
+  visited = Set.new([start]) if visited.nil?
+  (graph[start] - visited).to_a.each { |v| dfs_recursive(graph, v, visited) }
 
-  visited.to_a
+  visited
 end
 
 def dfs_paths(graph, src, dst)
-  stack = [[src, [src]]] # Current vertex and path upto the curr vertex
-  paths = []
-  shortest = nil
+  return [src, [src]] if src == dst # Trivial case of src being the destination
+  stack = [[src, [src]]]            # [vertex, path up to the vertex]
+  paths, shortest = [], nil         # Init the paths and shortest path
 
   until stack.empty?
     vertex, path = stack.pop
-    (graph[vertex] - Set.new(path)).to_a.each do |next_vertex|
-      if next_vertex == dst
-        curr_path = path + [next_vertex]
-        paths.push(curr_path)
+    (graph[vertex] - Set.new(path)).to_a.each do |v|
+      curr_path = path + [v]
+      if v == dst
+        paths << curr_path
         shortest = curr_path if shortest.nil? || shortest.size > curr_path.size
       else
-        stack.push([next_vertex, path + [next_vertex]])
+        stack.push([v, curr_path])
       end
     end
   end
@@ -45,52 +42,37 @@ def dfs_paths(graph, src, dst)
   [paths, shortest]
 end
 
-def bfs(graph, start)
-  visited, queue = Set.new, [start]
-  until queue.empty?
-    puts "visited: #{visited.to_a} | queue: #{queue}"
-    vertex = queue.shift
-    unless visited.include?(vertex)
-      visited.add(vertex)
-      queue += (graph[vertex] - visited).to_a
-    end
+def dfs_paths_recursive(graph, src, dst, path = nil, paths_shortest = nil)
+  path = [src] if path.nil?
+  paths_shortest = [[], nil] if paths_shortest.nil?
+
+  if src == dst
+    paths_shortest[0] << path
+    paths_shortest[1] = path if paths_shortest[1].nil? || paths_shortest[1].size > path.size
+    return paths_shortest
   end
 
-  visited.to_a
-end
-
-def bfs_recursive(graph, start, visited = nil, neighbours = nil)
-  visited = Set.new([start]) if visited.nil?
-
-  neighbours = [start] if neighbours.nil?
-  return if neighbours.empty?
-
-  until neighbours.empty?
-    vertex = neighbours.shift
-    visited.add(vertex)
-    neighbours += (graph[vertex] - visited).to_a
+  (graph[src] - Set.new(path)).to_a.each do |v|
+    dfs_paths_recursive(graph, v, dst, path + [v], paths_shortest)
   end
-  bfs_recursive(graph, nil, visited, neighbours)
 
-  visited.to_a
+  paths_shortest
 end
 
-graph = {
-  'A' => Set.new(['B', 'C']),
-  'B' => Set.new(['A', 'D', 'E']),
-  'C' => Set.new(['A', 'F']),
-  'D' => Set.new(['B']),
-  'E' => Set.new(['B', 'F']),
-  'F' => Set.new(['C', 'E'])
-}
+def check_component(v, components)
+  components.each_with_index { |c, idx| return idx + 1 if c.include?(v) }
 
-# # p(dfs(graph, 'A'))
-# # p(dfs_recursive(graph, 'A'))
-# print(dfs_paths(graph, 'A', 'D'))
-# # print(dfs(graph, 'C'))
-# # print(dfs_recursive(graph, 'A'))
-# # print(list(dfs_paths_recursive(graph, 'C', 'F')))
+  nil
+end
 
-p(bfs(graph, 'A'))
-p(bfs_recursive(graph, 'A'))
-p()
+def connected_components(graph)
+  vertices = graph.keys()
+  components = []
+  vertices.each do |v|
+    components << dfs(graph, v).to_a.sort if check_component(v, components).nil?
+  end
+
+  components
+end
+
+# p(connected_components(graph))

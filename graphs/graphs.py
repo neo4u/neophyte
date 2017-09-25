@@ -18,7 +18,7 @@ def bfs_paths(graph, start, end):
 			if next == end:
 				yield path + [next]
 			else:
-				queue.append((next, path + [next]))
+				queue.append((next, [path + [next]))
 
 
 def dfs(graph, start):
