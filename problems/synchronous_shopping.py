@@ -30,6 +30,7 @@ def solve(n,m,k,ds,graph):
 	queue = [(0, 1, ds[1])]
 	while queue:
 		path_len, v, f = heappop(queue)
+
 		if A[v] is None:
 			if v == n:
 				if check(r,f,g): return path_len

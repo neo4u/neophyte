@@ -50,7 +50,23 @@ module Helpers
       'J' => Set.new(['H', 'I'])
     }
 
-    graphs = [graph1, graph2, graph3, graph4, graph5]
+    graph6 = {
+      's' => { 'a' => 2, 'b' => 1 },
+      'a' => { 's' => 3, 'b' => 4, 'c' => 8 },
+      'b' => { 's' => 4, 'a' => 2, 'd' => 2 },
+      'c' => { 'a' => 2, 'd' => 7, 't' => 4 },
+      'd' => { 'b' => 1, 'c' => 11, 't' => 5 },
+      't' => { 'c' => 3, 'd' => 5 }
+    }
+    graph8 = {
+      'a' => { 'b' => -1, 'c' =>	4 },
+      'b' => { 'c' =>	3, 'd' =>	2, 'e' => 2 },
+      'c' => {},
+      'd' => { 'b' =>	1, 'c' => 5 },
+      'e' => { 'd' => -3 }
+    }
+
+    graphs = [graph1, graph2, graph3, graph4, graph5, graph6, nil, graph8]
     enumerator = Enumerator.new do |y|
       y.yield(graphs.shift) until graphs.empty?
     end

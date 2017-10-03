@@ -6,10 +6,6 @@
 # ------------------------------------------------------------------------
 class BinaryMaxHeap
   attr_accessor :data
-  SINGLE_INT_BYTES = 0.size
-  SINGLE_INT_BITS = SINGLE_INT_BYTES * 8
-  FIXNUM_MAX = 2**(SINGLE_INT_BITS - 2) - 1
-  FIXNUM_MIN = -FIXNUM_MAX - 1
 
   def initialize(a)
     @size = a.size
@@ -74,7 +70,7 @@ class BinaryMaxHeap
   def delete(i)
     alias :remove :delete
 
-    @data[i] = FIXNUM_MIN
+    @data[i] = -Float::INFINITY
     @data[i], @data[-1] = @data[-1], @data[i]
     self.class.max_heapify(@data, i, @size)
     @size -= 1
@@ -98,7 +94,7 @@ class BinaryMaxHeap
   def extract_max
     ret = @data.first
 
-    @data[0] = FIXNUM_MIN
+    @data[0] = -Float::INFINITY
     @data[0], @data[-1] = @data[-1], @data[0]
     @data.pop
     @size -= 1

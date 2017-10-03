@@ -39,9 +39,9 @@ class SortTests < Test::Unit::TestCase
   def test_selection_sort_prac
     assert_equal([1, 2, 3, 4, 5, 6, 7, 8], selection_sort_prac([5, 6, 7, 8, 1, 2, 3, 4]))
     assert_equal([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], selection_sort_prac([11, 0, 10, 1, 9, 2, 8, 3, 7, 4, 6, 5]))
-    assert_equal([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], selection_sort_prac([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]))
-    assert_equal([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], selection_sort_prac([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]))
-    assert_equal([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], selection_sort_prac([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]))
+    assert_equal([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], selection_sort_prac([0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 9, 11]))
+    assert_equal([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], selection_sort_prac([0, 1, 2, 3, 4, 5, 6, 7, -10, 9, 0, 11]))
+    assert_equal([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], selection_sort_prac([0, 1, 2, 3, 4, -50000, 6, 7, 8, 9, 10, 11]))
     # assert_equal(rand_n(1_000_000, 1_000_000).sort, selection_sort(rand_n(1_000_000, 1_000_000)))
   end
 

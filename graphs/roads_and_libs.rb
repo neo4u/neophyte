@@ -1,43 +1,46 @@
 #!/bin/ruby
 
+require 'set'
+
 def dfs(g, v, visited)
-  visited[v] = true
+  visited.add(v)
   roads = 0
-  #puts "at #{v}"
   g[v].each do |w|
-      if not visited[w]
-          roads += dfs(g, w, visited) + 1
-      end
+    roads += dfs(g, w, visited) + 1 unless visited.include?(w)
   end
-  return roads
+
+  roads
 end
 
-def cc(g, clib, croad)
-  visited = Array.new(g.size, false)
+def cc(g, city_count, clib, croad)
+  visited = Set.new
   nlibs, nroads = 0, 0
-  for v in (1..g.size-1)
-    if not visited[v]
+  1.upto(city_count) { |i| g[i] = [] if g[i].nil? }
+  g.keys.each do |v|
+    if !visited.include?(v) && !g[v].nil?
       nroads += dfs(g, v, visited)
       nlibs += 1
     end
   end
-  #puts "libs:#{nlibs}  roads:#{nroads}"
-  return clib*nlibs + croad*nroads
+
+  clib * nlibs + croad * nroads
 end
 
 q = gets.strip.to_i
-for a0 in (0..q-1)
+(0..q - 1).each do |_|
   n, m, clib, croad = gets.strip.split.map(&:to_i)
-  g = Array.new(n + 1) { Array.new }
-  for i in (1..m)
+  g = {}
+  0.upto(m - 1) do |_|
     v, w = gets.strip.split.map(&:to_i)
+    g[v] ||= []
+    g[w] ||= []
     g[v] << w
     g[w] << v
   end
 
   if croad >= clib
-    puts n*clib
+    puts n * clib
   else
-    puts cc(g, clib, croad)
+    puts cc(g, n, clib, croad)
   end
 end
