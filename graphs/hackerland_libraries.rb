@@ -28,20 +28,20 @@ def dfs(i, adj_list, visited)
   connected_grid_size
 end
 
-q = gets.strip.to_i
-costs = []
-q.times do
-  n, m, cl, cr = gets.strip.split.map(&:to_i)
-  adj_list = {}
-  m.times do
-    u, v = gets.strip.split.map(&:to_i)
-    adj_list[u] ||= Set.new
-    adj_list[v] ||= Set.new
-    adj_list[u].add(v)
-    adj_list[v].add(u)
-  end
+# q = gets.strip.to_i
+# costs = []
+# q.times do
+#   n, m, cl, cr = gets.strip.split.map(&:to_i)
+#   adj_list = {}
+#   m.times do
+#     u, v = gets.strip.split.map(&:to_i)
+#     adj_list[u] ||= Set.new
+#     adj_list[v] ||= Set.new
+#     adj_list[u].add(v)
+#     adj_list[v].add(u)
+#   end
 
-  costs << get_cost(n, m, cl, cr, adj_list)
-end
+#   costs << get_cost(n, m, cl, cr, adj_list)
+# end
 
-costs.each { |cost| puts cost }
+# costs.each { |cost| puts cost }

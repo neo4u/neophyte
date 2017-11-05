@@ -13,14 +13,14 @@ def valid_tree(n, edges)
   visited.all?
 end
 
-def dfs(g, src, visited)
-  visited[src] = true
-  g[src].each { |v| dfs(g, v, visited) unless visited[v] }
-end
+# def dfs(g, src, visited)
+#   visited[src] = true
+#   g[src].each { |v| dfs(g, v, visited) unless visited[v] }
+# end
 
-n, edges = 6, [[0, 1], [0, 2], [2, 5], [3, 4], [3, 5]]
-# n, edges =
-p valid_tree(n, edges)
+# n, edges = 6, [[0, 1], [0, 2], [2, 5], [3, 4], [3, 5]]
+# # n, edges =
+# p valid_tree(n, edges)
 
-n, edges = 5, [[0,1],[0,2],[1,2],[2,3],[2,4]]
-p valid_tree(n, edges)
+# n, edges = 5, [[0,1],[0,2],[1,2],[2,3],[2,4]]
+# p valid_tree(n, edges)
