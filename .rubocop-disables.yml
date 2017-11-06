@@ -31,7 +31,7 @@ Metrics/PerceivedComplexity:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/EmptyLines:
+Layout/EmptyLines:
   Exclude:
     - 'problems/num_in_words.rb'
 
@@ -44,7 +44,7 @@ Style/GuardClause:
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: AllowForAlignment.
-Style/SpaceAroundOperators:
+Layout/SpaceAroundOperators:
   Exclude:
     - 'bits_bytes/min_max_ints.rb'
 
