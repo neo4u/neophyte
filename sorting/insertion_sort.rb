@@ -8,7 +8,7 @@ def insertion_sort_prac(a)
       a[i + 1] = a[i]
       i -= 1
     end
-    a[i + 1] = key unless j.eql?(i + 1) # its already in place
+    a[i + 1] = key unless j.eql?(i + 1) # unless its already in place
   end
 
   a

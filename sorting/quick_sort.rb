@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
 def quick_sort(array, p = nil, r = nil)
-  p = 0 if p.eql?(nil)
-  r = array.length - 1 if r.eql?(nil)
+  p = 0 if p.nil?
+  r = array.length - 1 if r.nil?
 
   return if p >= r
 
