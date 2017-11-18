@@ -1,12 +1,11 @@
-def insertion_sort(a)
+def insertion_sort_prac(a)
   1.upto(a.size - 1) do |j|
-    key = a[j]
-    i = j - 1
-    while a[i] > key && i >= 0
+    key, i = a[j], j - 1
+    while i >= 0 && key < a[i]
       a[i + 1] = a[i]
       i -= 1
     end
     a[i + 1] = key unless j == i + 1
   end
+  a
 end
-

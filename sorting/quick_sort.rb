@@ -18,9 +18,10 @@ def partition(a, p, r)
   pivot = a[r]                    # Choose the last element as pivot
   (p...r).each do |j|             # Loop from p to r-1 moving elements to either side of pivot
     next if a[j] > pivot          # Move to next element if array element greater than pivot
-    i += 1                        # Increment index i for current placement index
+    i += 1                        # Increment index i for current pivot placement index
     a[i], a[j] = a[j], a[i]       # Swap elements at pivot placement index with the current index j
   end
-  a[i + 1], a[r] = a[r], a[i + 1] # Move the pivot to its final place: index after which elements < pivot
+  a[i + 1], a[r] = a[r], a[i + 1] # Move the pivot element to its final place: index after which elements < pivot
+
   i + 1                           # return pivot index
 end

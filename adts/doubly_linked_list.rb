@@ -37,7 +37,6 @@ class LinkedList
     raise 'Value Not Found' if curr.next.nil? && curr.val != val          # Error if value was not found
     prev.next = curr.next                                                 # Set the next of prev element to next of curr elmnt
     curr.next.prev = prev unless curr.next.nil?                           # Set prev of element after deleted to one before deleted
-    curr = nil
   end
 
   def show()

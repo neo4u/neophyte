@@ -5,13 +5,7 @@ end
 describe '#merge_sort' do
   it 'Should sort arrays' do
     expect(merge_sort([5, 6, 7, 8, 1, 2, 3, 4])).to eql([1, 2, 3, 4, 5, 6, 7, 8])
-  end
-
-  it 'Should sort arrays' do
     expect(merge_sort([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])).to eql([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
-  end
-
-  it 'Should sort arrays' do
     expect(merge_sort([11, 0, 10, 1, 9, 2, 8, 3, 7, 4, 6, 5])).to eql([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
   end
 end
@@ -19,31 +13,40 @@ end
 describe '#counting_sort' do
   it 'Should sort arrays' do
     expect(counting_sort([5, 6, 7, 8, 1, 2, 3, 4])).to eql([1, 2, 3, 4, 5, 6, 7, 8])
-  end
-
-  it 'Should sort arrays' do
     expect(counting_sort([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])).to eql([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
-  end
-
-  it 'Should sort arrays' do
     expect(counting_sort([11, 0, 10, 1, 9, 2, 8, 3, 7, 4, 6, 5])).to eql([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+  end
+end
+
+describe '#insertion_sort' do
+  it 'Should sort arrays' do
+    expect(insertion_sort([5, 6, 7, 8, 1, 2, 3, 4])).to eql([1, 2, 3, 4, 5, 6, 7, 8])
+    expect(insertion_sort([0, 1, 2, 3, 4, -5, 6, 7, 8, 9, -10, -11])).to eql([-11, -10, -5, 0, 1, 2, 3, 4, 6, 7, 8, 9])
+    expect(insertion_sort([1_100_000, 0, 10, 1, 9, 29_038_453, 8, 3, 7, 4, 6, 5])).to eql([0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 1_100_000, 29_038_453])
+  end
+end
+
+describe '#counting_sort' do
+  it 'Should sort arrays' do
+    expect(counting_sort([5, 6, 7, 8, 1, 2, 3, 4])).to eql([1, 2, 3, 4, 5, 6, 7, 8])
+    expect(counting_sort([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])).to eql([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+    expect(counting_sort([11, 0, 10, 1, 9, 2, 8, 3, 7, 4, 6, 5])).to eql([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+  end
+end
+
+describe '#quick_sort' do
+  it 'Should sort arrays' do
+    expect(quick_sort_prac([5, 6, 7, 8, 1, 2, 3, 4])).to eql([1, 2, 3, 4, 5, 6, 7, 8])
+    expect(quick_sort_prac([0, 1, 2, 3, 4, -5, 6, 7, 8, 9, -10, -11])).to eql([-11, -10, -5, 0, 1, 2, 3, 4, 6, 7, 8, 9])
+    expect(quick_sort_prac([1_100_000, 0, 10, 1, 9, 29_038_453, 8, 3, 7, 4, 6, 5])).to eql([0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 1_100_000, 29_038_453])
   end
 end
 
 describe '#heap_sort' do
   it 'Should sort arrays' do
     expect(heap_sort([5, 6, 7, 8, 1, 2, 3, 4])).to eql([1, 2, 3, 4, 5, 6, 7, 8])
-  end
-
-  it 'Should sort arrays' do
     expect(heap_sort([11, 0, 10, 1, 9, 2, 8, 3, 7, 4, 6, 5])).to eql([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
-  end
-
-  it 'Should sort arrays' do
     expect(heap_sort([0, 1, 2, 3, 4, 5, 6, 7, -10, 9, 0, 11])).to eql([-10, 0, 0, 1, 2, 3, 4, 5, 6, 7, 9, 11])
-  end
-
-  it 'Should sort arrays' do
-    expect(heap_sort([0, 1, 2, 3, 4, -50000, 6, 7, 8, 9, 10, 11])).to eql([-50000, 0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11])
+    expect(heap_sort([0, 1, 2, 3, 4, -50_000, 6, 7, 8, 9, 10, 11])).to eql([-50_000, 0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11])
   end
 end
