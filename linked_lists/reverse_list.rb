@@ -11,18 +11,7 @@
 # @return {ListNode}
 def reverse_list(head)
   cur, prv = head, nil
-  prv, prv.next, cur = cur, prv, cur.next while cur
+  cur.next, cur, prv = prv, cur.next, cur while cur
+
   prv
 end
-
-# # Recursive solution, a lil slower
-# def reverse_list(head)
-#   _reverse(head)
-# end
-
-# def _reverse(node, prv = nil)
-#   return prv unless node
-#   nxt = node.next
-#   node.next = prv
-#   _reverse(nxt, node)
-# end

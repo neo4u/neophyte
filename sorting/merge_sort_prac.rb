@@ -5,7 +5,7 @@
 # merge
 
 def merge(a, p, q, r)
-  n1, n2 = q - p + 1, r - q
+  n1, n2 = q - p + 1, r - (q + 1) + 1
   left, right = [], []
 
   0.upto(n1 - 1) do |i|
@@ -17,14 +17,14 @@ def merge(a, p, q, r)
   end
 
   p.upto(r) do |k|
-    return if left.empty? && right.empty?
-    a[k] =  if right.empty? && !left.empty?
-              left.shift
-            elsif left.empty? && !right.empty?
-              right.shift
-            else
-              left.first > right.first ? right.shift : left.shift
-            end
+    next if left.empty? && right.empty?
+    a[k] = if left.empty? && !right.empty?
+             right.shift
+           elsif !left.empty? && right.empty?
+             left.shift
+           else
+             left.first < right.first ? left.shift : right.shift
+           end
   end
 end
 

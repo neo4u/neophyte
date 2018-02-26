@@ -48,9 +48,9 @@ l = "abcdefg".each_char.map { |c| Node.new(c) }
 l.each { |node| make_set(node) }
 
 sets = l.map { |x| find(x).to_s }
-puts "set representatives:\t#{sets}"
+puts "set representatives:  #{sets}"
 set_count = sets.group_by { |v| v }.size
-puts "number of disjoint sets:\t#{set_count}"
+puts "number of disjoint sets:  #{set_count}"
 
 assert_not_equal(find(l[0]), find(l[2]))
 union(l[0], l[2])                    # joining first and third
@@ -66,6 +66,6 @@ union(l[-2], l[-1])                  # joining last two sets
 union(l[-3], l[-1])                  # joining last two sets
 
 sets = l.map { |x| find(x).to_s }
-puts "set representatives:\t#{sets}"
+puts "set representatives:  #{sets}"
 set_count = sets.group_by { |v| v }.size
-puts "number of disjoint sets:\t#{set_count}"
+puts "number of disjoint sets:  #{set_count}"

@@ -1,14 +1,11 @@
 #!/usr/bin/env ruby
 
 def insertion_sort(a)
-  (1...a.size).each do |j|
-    key, i = a[j], j - 1
-    while key < a[i] && i >= 0
-      a[i + 1] = a[i]
-      i -= 1
-    end
-    a[i + 1] = key unless j == i + 1 # unless its already in place
+  1.upto(a.size - 1) do |j|
+    i, key = j, a[j]
+    a[i + 1] = a[i] while (i -= 1) >= 0 && key < a[i] # The (i -= 1) in while condition is equivalent to initializing i = j - 1
+    a[i + 1] = key unless j == i + 1
   end
-
   a
 end
+

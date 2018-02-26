@@ -19,8 +19,8 @@ end
 # -------------------------------------------------------------------------------
 # Ensure that the heap rooted at i satisfies the max-heap property
 #   a[parent(i)] >= a[i]
-# Recursively call the max_heapify where there is a swap which may cause the
-# above property to fail
+# Recursively call the max_heapify because there is a swap which may cause the
+# above property to fail at the tree rooted at the new largest
 # -------------------------------------------------------------------------------
 def max_heapify(a, i, heapsize)
   l = left_child(i)
@@ -31,7 +31,6 @@ def max_heapify(a, i, heapsize)
               i
             end
   largest = r if r < heapsize && a[r] > a[largest]
-
   return if i == largest
 
   a[i], a[largest] = a[largest], a[i]

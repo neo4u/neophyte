@@ -1,24 +1,37 @@
 # @param {Integer} n
 # @return {String}
 def count_and_say(n)
-  return '1' if n == 1
   nums = ['1']
-  nums.push(process_num(nums.last)) until (n -= 1).zero?
+  until (n -= 1).zero?
+    nums << say(nums.last)
+  end
+
   nums.last
 end
 
-def process_num(num)
-  count, prev, str = 0, '', ''
+def say(num)
+  str, prv_c, count = '', '', 0
+
   num.each_char do |c|
-    if prev == c || prev == ''
+    if prv_c == c || prv_c.empty?
       count += 1
     else
-      str += count.to_s + prev
-      count = 1
+      str += count.to_s + prv_c
+      count = 1 # because we've seen this number(char) once
     end
-    prev = c
+    prv_c = c
   end
-  str += count.to_s + prev
+
+  str += count.to_s + prv_c
 end
 
-puts count_and_say(4)
+require 'test/unit'
+extend Test::Unit::Assertions
+
+assert_equal(count_and_say(1), '1')
+assert_equal(count_and_say(2), '11')
+assert_equal(count_and_say(3), '21')
+assert_equal(count_and_say(4), '1211')
+assert_equal(count_and_say(5), '111221')
+
+# 38. Count and Say
