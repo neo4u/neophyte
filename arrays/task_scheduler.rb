@@ -1,7 +1,7 @@
 # @param {Character[]} tasks
 # @param {Integer} n
 # @return {Integer}
-def least_interval_alt(tasks, n)
+def least_interval(tasks, n)
   return tasks.length if n.zero?
   map = Hash.new(0)
 
@@ -34,4 +34,4 @@ end
 require 'test/unit'
 extend Test::Unit::Assertions
 
-assert_equal(least_interval_alt(["A","A","A","B","B","B"], 2), 8)
+assert_equal(least_interval(["A","A","A","B","B","B"], 2), 8)

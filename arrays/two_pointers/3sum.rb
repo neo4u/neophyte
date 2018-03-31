@@ -2,11 +2,11 @@
 # @return {Integer[][]}
 def three_sum(nums)
   nums.sort!
-  result = []
+  result, n = [], nums.length
 
-  0.upto(nums.length - 1) do |i|
+  0.upto(n - 1) do |i|
     next if i > 0 && nums[i] == nums[i - 1]               # Skip dups
-    l, r = i + 1, nums.length - 1
+    l, r = i + 1, n - 1																		# Iterate from after
 
     while l < r
       sum = nums[i] + nums[l] + nums[r]
