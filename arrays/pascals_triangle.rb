@@ -1,18 +1,18 @@
 # @param {Integer} num_rows
 # @return {Integer[][]}
 def generate(num_rows)
-	result = []
-	curr_row, prev_row = nil, nil
-	0.upto(num_rows - 1) do |i|
-		curr_row = []
-		0.upto(i) do |j|
-			curr_row.push([i, 0].include?(j) ? 1 : prev_row[j - 1] + prev_row[j])
-		end
-		prev_row = curr_row
-		result.push(curr_row)
-	end
+  result = []
+  curr_row, prev_row = nil, nil
+  0.upto(num_rows - 1) do |i|
+    curr_row = []
+    0.upto(i) do |j|
+      curr_row.push([i, 0].include?(j) ? 1 : prev_row[j - 1] + prev_row[j])
+    end
+    prev_row = curr_row
+    result.push(curr_row)
+  end
 
-	result
+  result
 end
 
 

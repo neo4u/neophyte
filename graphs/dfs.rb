@@ -194,7 +194,7 @@ def dijkstra(graph, src, dst, visited = nil, d = {}, p = {})
   dijkstra(graph, x, dst, visited, d, p)
 end
 
-# graph = { 
+# graph = {
 #   's' => { 'a' => 2, 'b' => 1 },
 #   'a' => { 's' => 3, 'b' => 4, 'c' => 8 },
 #   'b' => { 's' => 4, 'a' => 2, 'd' => 2 },

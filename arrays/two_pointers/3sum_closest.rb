@@ -3,7 +3,7 @@
 # @return {Integer}
 def three_sum_closest(nums, target)
   nums.sort!
-	result, n = nums[0,3].reduce(:+), nums.length - 1
+  result, n = nums[0,3].reduce(:+), nums.length - 1
 
   0.upto(n) do |i|
     l, r = i + 1, n

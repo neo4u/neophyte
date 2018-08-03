@@ -11,7 +11,7 @@ def three_sum(nums)
     while l < r
       s = nums[i] + nums[l] + nums[r]
       if s.zero?
-				res.push([nums[i], nums[l], nums[r]])
+        res.push([nums[i], nums[l], nums[r]])
         while l < r && nums[l += 1] == nums[l - 1] do end
         while l < r && nums[r -= 1] == nums[r + 1] do end
       elsif s < 0
