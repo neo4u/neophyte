@@ -7,18 +7,6 @@ require 'set'
 # 4. Path    : Vertices cannot repeat. Edges cannot repeat (Open)
 # 5. Cycle   : Vertices cannot repeat. Edges cannot repeat (Closed)
 
-def dfs_iterative(graph, start)
-  visited, stack = Set.new, [start]
-
-  until stack.empty?
-    v = stack.pop
-    visited.add(v)
-    stack += (graph[v] - visited).to_a
-  end
-
-  visited
-end
-
 def dfs(graph, start, visited = nil)
   visited.nil? ? visited = Set.new([start]) : visited.add(start)
 
@@ -27,27 +15,6 @@ def dfs(graph, start, visited = nil)
   end
 
   visited
-end
-
-def dfs_paths_iterative(graph, src, dst)
-  return [src, [src]] if src == dst # Trivial case of src being the destination
-  stack = [[src, [src]]]            # [vertex, path up to the vertex]
-  paths, shortest = [], nil         # Init the paths and shortest path
-
-  until stack.empty?
-    vertex, path = stack.pop
-    (graph[vertex] - Set.new(path)).to_a.each do |v|
-      curr_path = path + [v]
-      if v == dst
-        paths << curr_path
-        shortest = curr_path if shortest.nil? || shortest.size > curr_path.size
-      else
-        stack.push([v, curr_path])
-      end
-    end
-  end
-
-  [paths, shortest]
 end
 
 def dfs_paths(graph, src, dst, path = nil, paths_shortest = nil)
@@ -214,3 +181,44 @@ end
 # }
 # p dijstra_all_v(graph, 'a')
 # p(connected_components(graph))
+
+
+
+
+
+
+
+
+
+def dfs_iterative(graph, start)
+	visited, stack = Set.new, [start]
+  
+	until stack.empty?
+	  v = stack.pop
+	  visited.add(v)
+	  stack += (graph[v] - visited).to_a
+	end
+  
+	visited
+  end
+
+def dfs_paths_iterative(graph, src, dst)
+  return [src, [src]] if src == dst # Trivial case of src being the destination
+  stack = [[src, [src]]]            # [vertex, path up to the vertex]
+  paths, shortest = [], nil         # Init the paths and shortest path
+
+  until stack.empty?
+    vertex, path = stack.pop
+    (graph[vertex] - Set.new(path)).to_a.each do |v|
+      curr_path = path + [v]
+      if v == dst
+        paths << curr_path
+        shortest = curr_path if shortest.nil? || shortest.size > curr_path.size
+      else
+        stack.push([v, curr_path])
+      end
+    end
+  end
+
+  [paths, shortest]
+end
