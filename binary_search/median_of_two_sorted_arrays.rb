@@ -3,11 +3,12 @@
 # @return {Float}
 def find_median_sorted_arrays(a, b)
   k = (a.size + b.size) / 2
-
   even = (a.size + b.size).even?
-  ans = find(a, b, k + 1).to_f
 
-  (ans + real_find(a, b, k)) / 2 if even
+  ans = find(a, b, k + 1).to_f
+  ans = (ans + find(a, b, k)) / 2 if even
+
+  ans
 end
 
 def find(a, b, k)
@@ -21,7 +22,6 @@ def find(a, b, k)
     y = k - x;
     ax = a[x - 1]
     by = b[y - 1]
-
     return ax if ax == by
 
     if ax > by
@@ -38,4 +38,4 @@ require 'test/unit'
 extend Test::Unit::Assertions
 
 assert_equal(find_median_sorted_arrays([1, 3], [2]), 2.0)
-assert_equal(find_median_sorted_arrays([1, 2], [1, 2]), 2.5)
+assert_equal(find_median_sorted_arrays([1, 2], [3, 4]), 2.5)

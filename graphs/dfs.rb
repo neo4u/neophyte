@@ -29,7 +29,7 @@ def dfs(graph, start, visited = nil)
   visited
 end
 
-def dfs_paths(graph, src, dst)
+def dfs_paths_iterative(graph, src, dst)
   return [src, [src]] if src == dst # Trivial case of src being the destination
   stack = [[src, [src]]]            # [vertex, path up to the vertex]
   paths, shortest = [], nil         # Init the paths and shortest path
@@ -50,7 +50,7 @@ def dfs_paths(graph, src, dst)
   [paths, shortest]
 end
 
-def dfs_paths_recursive(graph, src, dst, path = nil, paths_shortest = nil)
+def dfs_paths(graph, src, dst, path = nil, paths_shortest = nil)
   path = [src] if path.nil?
   paths_shortest = [[], nil] if paths_shortest.nil?
 
@@ -61,7 +61,7 @@ def dfs_paths_recursive(graph, src, dst, path = nil, paths_shortest = nil)
   end
 
   (graph[src] - Set.new(path)).to_a.each do |v|
-    dfs_paths_recursive(graph, v, dst, path + [v], paths_shortest)
+    dfs_paths(graph, v, dst, path + [v], paths_shortest)
   end
 
   paths_shortest
@@ -70,8 +70,9 @@ end
 def connected_components(graph)
   visited = Set.new
   components = []
+
   graph.keys.each do |v, _|
-    components << dfs_recursive(graph, v, visited).to_a.sort unless visited.include?(v)
+    components << dfs(graph, v, visited).to_a.sort unless visited.include?(v)
   end
 
   components
@@ -205,10 +206,10 @@ end
 # p dijkstra(graph, 's', 't')
 
 # graph = {
-#   'a' => { 'b' => -1, 'c' =>	4 },
-#   'b' => { 'c' =>	3, 'd' =>	2, 'e' => 2 },
+#   'a' => { 'b' => -1, 'c' =>  4 },
+#   'b' => { 'c' =>  3, 'd' =>  2, 'e' => 2 },
 #   'c' => {},
-#   'd' => { 'b' =>	1, 'c' => 5 },
+#   'd' => { 'b' =>  1, 'c' => 5 },
 #   'e' => { 'd' => -3 }
 # }
 # p dijstra_all_v(graph, 'a')

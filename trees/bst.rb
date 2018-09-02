@@ -43,6 +43,33 @@ module Trees
       end
     end
 
+    def delete_node(root, key)
+      return nil if root.nil?
+
+      if key < root.val
+        root.left = delete_node(root.left, key)
+      elsif key > root.val
+        root.right = delete_node(root.right, key)
+      else
+        if root.left.nil?
+          root = root.right
+        elsif root.right.nil?
+          root = root.left
+        else
+          min = find_min_node(root)
+          root.val = min
+          root.right = delete_node(root, min)
+        end
+      end
+
+      root
+    end
+
+    def find_min_node(root)
+      root = root.left while root.left
+      root
+    end
+
     def balanced?(node)
       return true if node.nil?
       (height(node.left) - height(node.right)).abs <= 1 && balanced?(node.left) && balanced?(node.right)

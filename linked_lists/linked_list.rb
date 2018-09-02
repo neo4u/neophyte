@@ -44,6 +44,12 @@ class LinkedList
     @head = prv
   end
 
+  def find_mid()
+	slow = fast = @head
+
+	
+  end
+
   def show
     elements = []
     curent = @head
@@ -72,4 +78,5 @@ ll.delete(5)
 ll.show
 
 ll.reverse()
-ll.show
+ll.show()
+

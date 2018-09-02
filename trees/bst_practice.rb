@@ -18,15 +18,15 @@ module Trees
     end
 
     def insert(value, node = nil)
-      return @root = Node.new(value) if @root.nil?
+      return Node.new(value) if @root.nil?
       node = @root if node.nil?
 
       if value == node.value
         node
       elsif value < node.value
         node.left.nil? ? node.left = Node.new(value) : insert(value, node.left)
-      elsif value > node.value
-        node.right.nil? ? node.right = Node.new(value) : insert(value, node.right)
+      else
+        node.right.nil? ? node.right = Node.new(value) : insert(value, node.left)
       end
     end
 

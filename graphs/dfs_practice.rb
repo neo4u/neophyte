@@ -11,7 +11,7 @@ def dfs_iterative(graph, start)
   visited, stack = Set.new, [start]
 
   until stack.empty?
-    v = stack.pop
+    v = stack.pop()
     visited.add(v)
     stack += (graph[v] - visited).to_a
   end
@@ -30,11 +30,12 @@ def dfs(graph, start, visited = nil)
 end
 
 def dfs_paths_iterative(graph, src, dst)
-  return [[src], [src]] if src == dst
-  paths, shortest, stack = [], nil, [[src, [src]]] # Stack contains array of [vertex, path_to_vertex]
+  return [src, [src]] if src == dst
+  stack = [[src, [src]]]
+  paths, shortest = [], nil
 
   until stack.empty?
-    vertex, path = stack.pop
+    vertex, path = stack.pop()
     (graph[vertex] - Set.new(path)).each do |v|
       curr_path = path + [v]
       if v == dst
@@ -69,10 +70,6 @@ end
 def connected_components(graph)
   visited, components = Set.new, Set.new
 
-  graph.each_key do |v|
-    components << dfs(graph, v, visited).to_a.sort unless visited.include?(v)
-    visited = Set.new() # Reset visited before each dfs call for each v
-  end
 
   components.to_a
 end
@@ -82,24 +79,11 @@ end
 # neighbour is lower than the one I have now
 # -------------------------------------------------------------------------------
 def relax(graph, u, v, d, p)
-  puts "d[v]: #{d[v]}| d[u]: #{d[u]} | graph[u][v]: #{graph[u][v]}"
-  if d[v] > d[u] + graph[u][v] # Relaxation Property
-    d[v] = d[u] + graph[u][v]
-    p[v] = u
-  else
-    puts "can't relax"
-    return
-  end
+
 end
 
 def init_single_source(graph, src)
-  d = {}                      # Stands for destination
-  p = {}                      # Stands for predecessor
-  graph.each do |v, _|
-    d[v] = Float::INFINITY    # Set all nodes are far from src
-    p[v] = nil                # Initially they don't have any preds
-  end
-  d[src] = 0                  # For the source we know how to reach
+
   [d, p]
 end
 
@@ -112,39 +96,11 @@ end
 # Complexity: O(VE)
 # -------------------------------------------------------------------------------
 def bellman_ford(graph, src)
-  d, p = init_single_source(graph, src)
-
-  # Run this until is converges
 
   [d, p]
 end
 
-# def extract_min(q, d)
-#   min = [nil, Float::INFINITY]
-#   q.each do |k|
-#     min = [k, d[k]] if d[k] < min[1]
-#   end
-#   q.delete(min[0])
-
-#   min[0]
-# end
-
-# def dijstra_all_v(graph, src)
-#   d, p = init_single_source(graph, src)
-
-#   [d, p]
-# end
-
-# def dijkstra(graph, src, dst, visited = nil, d = {}, p = {})
-#   puts "dijstra called with src: #{src} | dst: #{dst}"
-#   # http://www.gilles-bertrand.com/2014/03/dijkstra-algorithm-python-example-source-code-shortest-path.html
-#   raise TypeError('The root of the shortest path tree cannot be found') unless graph.include?(src)
-#   raise TypeError('The target of the shortest path cannot be found') unless graph.include?(dst)
-#   visited ||= Set.new()
-
-# end
-
-# graph = { 
+# graph = {
 #   's' => { 'a' => 2, 'b' => 1 },
 #   'a' => { 's' => 3, 'b' => 4, 'c' => 8 },
 #   'b' => { 's' => 4, 'a' => 2, 'd' => 2 },
