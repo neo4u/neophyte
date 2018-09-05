@@ -1,16 +1,18 @@
-#!/usr/bin/env ruby
-
 def insertion_sort(a)
-  1.upto(a.size - 1) do |j|
-    i, key = j, a[j]
+	n = a.size
 
-    a[i + 1] = a[i] while (i -= 1) >= 0 && key < a[i] # The (i -= 1) in while condition is equivalent to initializing i = j - 1
-    a[i + 1] = key unless i == j - 1 # Note that a[i + 1] from above is different from a[i + 1] in this statement as i -= 1 was done
-  end
+	1.upto(n - 1) do |j|
+		i, key = j - 1, a[j]
+		
+		while i >= 0 && a[i] > key
+			a[i + 1] = a[i]
+			i -= 1
+		end
+		a[i + 1] = key unless i == j - 1 # i + 1 holds the last moved element's position
+	end
 
-  a
+	a
 end
-
 
 require 'test/unit'
 extend Test::Unit::Assertions

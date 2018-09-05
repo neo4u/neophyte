@@ -35,8 +35,7 @@ def dfs_paths(graph, src, dst, path = nil, paths_shortest = nil)
 end
 
 def connected_components(graph)
-  visited = Set.new
-  components = []
+  visited, components = Set.new, []
 
   graph.keys.each do |v, _|
     components << dfs(graph, v, visited).to_a.sort unless visited.include?(v)

@@ -10,20 +10,24 @@ end
 # @param {TreeNode} root
 # @return {Integer}
 def max_path_sum(root)
-  @max = -Float::INFINITY
-  max_path(root)
+	@max = -Float::INFINITY
+	dfs(root)
 
-  @max
+	@max
 end
 
-def max_path(root)
-  return 0 if root.nil?
-  left, right = max_path(root.left), max_path(root.right)
-  path_sum = root.val + left + right
-  @max = path_sum if path_sum > @max
+def dfs(root)
+	return 0 if root.nil?
+	l, r = dfs(root.left), dfs(root.right)
+	cur = l + root.val + r # Path sum
+	@max = [cur, @max].max
 
-  [[left, right].max + root.val, 0].max
+	[l + root.val, r + root.val, 0].max # Node sum
 end
+
+# 2 Things to keep track of
+# 1. Node Sum: Maximum path sum ending at the current node (Returned from dfs)
+# 2. Path Sum: Path sum including current node (Update max if this is greater)
 
 # 124. Binary Tree Maximum Path Sum
 # https://leetcode.com/problems/binary-tree-maximum-path-sum/description/
@@ -34,7 +38,7 @@ extend Test::Unit::Assertions
 left = TreeNode.new(2)
 right = TreeNode.new(3)
 root = TreeNode.new(1)
-root.left, root.right = left, right 
+root.left, root.right = left, right
 assert_equal(max_path_sum(root), 6)
 
 l2_left2, l2_right2 = TreeNode.new(15), TreeNode.new(7)

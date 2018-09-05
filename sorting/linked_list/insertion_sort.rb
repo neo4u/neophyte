@@ -22,8 +22,8 @@ def insertion_sort_list(head)
       next
     end
 
-    prv = dummy if prv.next.val > key
-    prv = prv.next while prv.next.val < key
+    prv = dummy if prv.next.val > key		# Reset prv to the start of list if prev is point to a val > key
+    prv = prv.next while prv.next.val < key	# Keep moving till we find a position after which key can be place
 
     tmp = cur.next
     cur.next = tmp.next

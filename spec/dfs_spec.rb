@@ -1,4 +1,4 @@
-require_relative "../graphs/dfs_practice"
+require_relative "../dfs/dfs"
 require 'support/graphs_helpers'
 
 describe '#dfs' do

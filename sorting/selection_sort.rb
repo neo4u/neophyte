@@ -1,14 +1,19 @@
-#!/usr/bin/env ruby
-
 def selection_sort(a)
-  0.upto(a.size - 2) do |i|
-    min_idx = i
-    (i + 1).upto(a.size - 1) { |j| min_idx = j if a[j] < a[min_idx] }
-    a[min_idx], a[i] = a[i], a[min_idx]
-  end
+	n = a.size
+	0.upto(n - 1) do |i|
+		min_idx = i
+		(i + 1).upto(n - 1) do |j|
+			min_idx = j if a[j] < a[min_idx]
+		end
+		a[min_idx], a[i] = a[i], a[min_idx]
+	end
 
-  a
+	a
 end
+
+# Two loops
+# 1. to iterate through array elements and pick the minimum index
+# 2. iterate through rest of the array to pick the element lesser than minimum index
 
 require 'test/unit'
 extend Test::Unit::Assertions
