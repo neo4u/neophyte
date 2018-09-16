@@ -3,17 +3,20 @@
 # @return {Boolean}
 
 def word_break(s, word_dict)
-  n = s.size
-  dp, dp[0] = Array.new(n + 1, false), true
-  1.upto(n) do |i|
-    0.upto(i - 1) do |j|
-      if dp[j] && word_dict.include?(s[j..(i - 1)])
-        dp[i] = true
-        break
-      end
+    n = s.size
+
+    dp, dp[0] = Array.new(n + 1, false), true
+
+    1.upto(n) do |i|
+        0.upto(i - 1) do |j|
+            if dp[j] && word_dict.include?(s[j..(i - 1)])
+                dp[i] = true
+                break
+            end
+        end
     end
-  end
-  dp[n]
+
+    dp[n]
 end
 
 require 'test/unit'

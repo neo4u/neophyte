@@ -44,5 +44,9 @@ end
 # puts "array is #{rand_quick_sort(a, 0, a.size - 1)}"
 # puts quick_select(a, 0, a.size - 1, 0)
 
-a = [9, 8, 7, 6, 5, 0, 1, 2, 3, 4]
-p(a.each_index.map { |i| quick_select(a, 0, a.size - 1, i) })
+require 'test/unit'
+extend Test::Unit::Assertions
+
+a = [3,2,1,5,6,4]
+# a.each_index { |i| assert_equal(quick_select(a, 0, a.size - 1, 1), i + 1) }
+assert_equal(quick_select(a, 0, a.size - 1, 1), 2)

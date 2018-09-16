@@ -7,42 +7,44 @@
 # bottom-up method
 
 class DynamicCut
-  def initialize(prices)
-    @prices = prices
-    @memo = {}
-  end
+	def initialize(prices)
+		@prices = prices
+		@memo = {}
+	end
 
-  def solve(length)
-    return @memo[length] if @memo.key?(length)
-    if length.zero?
-      best_price = 0
-    else
-      best_price = -1
-      1.upto(length) do |i|
-        best_price = [best_price, @prices[i] + solve(length - i)].max
-      end
-    end
-    @memo[length] = best_price
+	def solve(length)
+		return @memo[length] if @memo.key?(length)
 
-    best_price
-  end
+		if length.zero?
+			best_price = 0
+		else
+			best_price = -1
+			1.upto(length) do |i|
+				best_price = [best_price, @prices[i] + solve(length - i)].max
+			end
+		end
+		@memo[length] = best_price
+
+		best_price
+	end
 end
 
 class BottomUpDynamicCut
-  def initialize(prices)
-    @prices = prices
-  end
+	def initialize(prices)
+		@prices = prices
+	end
 
-  def solve(length)
-    memo = { 0 => 0 }
-    1.upto(length) do |j|
-      max_value = -1
-      1.upto(j) do |i|
-        max_value = [max_value, @prices[i] + memo[j - i]].max
-      end
-      memo[j] = max_value
-    end
+	def solve(length)
+		memo = { 0 => 0 }
 
-    memo[length]
-  end
+		1.upto(length) do |j|
+			max_value = -1
+			1.upto(j) do |i|
+				max_value = [max_value, @prices[i] + memo[j - i]].max
+			end
+			memo[j] = max_value
+		end
+
+		memo[length]
+	end
 end
