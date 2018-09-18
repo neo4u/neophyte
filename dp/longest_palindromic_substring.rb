@@ -20,6 +20,7 @@ def longest_palindrome(s)
         0.upto(n - k) do |i|
             # Considering strings of length 3 to n
             j = i + k - 1
+
             if dp[i + 1][j - 1] && s[i] == s[j]
                 dp[i][j] = true
                 start, max_len = i, k if k > max_len
