@@ -10,24 +10,24 @@ end
 # @param {TreeNode} root
 # @return {Integer}
 def max_path_sum(root)
-	@max = -Float::INFINITY
-	dfs(root)
+    @max = -Float::INFINITY
+    dfs(root)
 
-	@max
+    @max
 end
 
 def dfs(root)
-	return 0 if root.nil?
-	l, r = dfs(root.left), dfs(root.right)
-	cur = l + root.val + r # Path sum
-	@max = [cur, @max].max
+    return 0 if root.nil?
+    l, r = dfs(root.left), dfs(root.right)
+    cur = l + root.val + r # Path sum
+    @max = [cur, @max].max
 
-	[l + root.val, r + root.val, 0].max # Node sum
+    [l + root.val, r + root.val, 0].max # Node sum
 end
 
-# 2 Things to keep track of
+# Things to keep track of
 # 1. Node Sum: Maximum path sum ending at the current node (Returned from dfs)
-# 2. Path Sum: Path sum including current node (Update max if this is greater)
+# 2. Path Sum: Path sum for path including current node (Update max if this is greater)
 
 # 124. Binary Tree Maximum Path Sum
 # https://leetcode.com/problems/binary-tree-maximum-path-sum/description/

@@ -26,15 +26,15 @@ def find_ladders(begin_word, end_word, word_list)
                 end
             end
         end
-        puts
     end
 
     word_path[end_word]
 end
 
-# To avoid TLE you must replace word_list with a Set.new(word_list)
 # https://leetcode.com/problems/word-ladder
 # 127. Word Ladder
+
+# To avoid TLE you must replace word_list with a Set.new(word_list)
 # > Algo：BFS
 # > Time Complexity O(n * 26 ^ l) where n = word_list.size and l = word.size
 # > Space Complexity O(n) queue and visited
