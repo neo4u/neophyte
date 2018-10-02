@@ -31,6 +31,12 @@ end
 # Space: O(m * n) We can argue that this is O(1) because we're using input array.
 # and IO is not counted towards complexity calculations
 
+# Graph Model
+# Each cell is a node and there is an edge between each node and the right and bottom cells
+# But the weird trick is:
+# 1. Start from the princess (m - 1, n - 1)
+# 2. and store the expected min health to be alive for each visited cell
+
 # The minimum health that a knight needs to start from (i, j) is
 # the minimum health of that it needs to start from any surrounding cell
 # minus the value of the cell.

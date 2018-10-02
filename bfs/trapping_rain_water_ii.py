@@ -34,6 +34,8 @@ class Solution:
 
 # https://leetcode.com/problems/trapping-rain-water-ii/
 # 407. Trapping Rain Water II
+
+# Do it in python because priority queue is already available
 # Time: O(mn), queue with check through all items
 # Space: O(mn), queue size
 # Video Visualization of the solution: https://www.youtube.com/watch?v=cJayBq38VYw
