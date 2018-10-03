@@ -12,6 +12,7 @@ def findOrder1(self, numCourses, prerequisites):
     # queue stores the courses which have no prerequisites
     queue = collections.deque([i for i in dic if not dic[i]])
     count, res = 0, []
+
     while queue:
         node = queue.popleft()
         res.append(node)
