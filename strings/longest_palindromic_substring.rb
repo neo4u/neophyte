@@ -1,7 +1,7 @@
 # @param {String} s
 # @return {String}
 def longest_palindrome(s)
-    longest, n = '', s.size
+    longest, n = '', s.size()
 
     0.upto(n - 1) do |i|
         longest = [
@@ -15,7 +15,7 @@ def longest_palindrome(s)
 end
 
 def get_longest_palindrome(s, l, r)
-    while 0 <= l && r < s.size && s[l] == s[r]
+    while 0 <= l && r < s.size() && s[l] == s[r]
         l -= 1; r += 1
     end
 
@@ -29,3 +29,7 @@ assert_equal(longest_palindrome("a"), "a")
 assert_equal(longest_palindrome("ccc"), "ccc")
 assert_equal(longest_palindrome("babad"), "aba")
 assert_equal(longest_palindrome("civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth"), "ranynar")
+
+# Expand from center technique
+# Explore all 2n - 1 centers (i, i)s and (i, i + 1)s
+# O(n^2)
