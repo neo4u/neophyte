@@ -2,23 +2,22 @@
 
 # This question is very similar to https://leetcode.com/problems/longest-increasing-path-in-a-matrix/ And here are some common tips for this kind of question
 
-# init a directions var like self.directions = [(1,0),(-1,0),(0,1),(0,-1)] so that when you want to explore from a node, you can just do
-# for direction in self.directions:
-#             x, y = i + direction[0], j + direction[1]
-# this is a what I normally do for a dfs helper method for exploring a matrix
+# 1. init a directions var like self.directions = [(1,0),(-1,0),(0,1),(0,-1)] so that when you want to explore from a node, you can just do
+#       for direction in self.directions:
+#                   x, y = i + direction[0], j + direction[1]
 
-# def dfs(self, i, j, matrix, visited, m, n):
-#     if visited: 
-#         # return or return a value
-#     for dir in self.directions:
-#         x, y = i + direction[0], j + direction[1]
-#             if x < 0 or x >= m or y < 0 or y >= n or matrix[x][y] <= matrix[i][j] (or a condition you want to skip this round):
-#             continue
-#             # do something like
-#             visited[i][j] = True
-#             # explore the next level like
-#             self.dfs(x, y, matrix, visited, m, n)
-
+# 2. this is a what I normally do for a dfs helper method for exploring a matrix
+#       def dfs(self, i, j, matrix, visited, m, n):
+#           if visited: 
+#               # return or return a value
+#           for dir in self.directions:
+#               x, y = i + direction[0], j + direction[1]
+#                   if x < 0 or x >= m or y < 0 or y >= n or matrix[x][y] <= matrix[i][j] (or a condition you want to skip this round):
+#                   continue
+#                   # do something like
+#                   visited[i][j] = True
+#                   # explore the next level like
+#                   self.dfs(x, y, matrix, visited, m, n)
 # Hope it helps
 # Solution
 
@@ -33,10 +32,10 @@ class Solution(object):
         m = len(matrix)
         n = len(matrix[0])
         p_visited = [[False for _ in range(n)] for _ in range(m)]
-        
+
         a_visited = [[False for _ in range(n)] for _ in range(m)]
         result = []
-        
+
         for i in range(m):
             # p_visited[i][0] = True
             # a_visited[i][n-1] = True
@@ -47,7 +46,7 @@ class Solution(object):
             # a_visited[m-1][j] = True
             self.dfs(matrix, 0, j, p_visited, m, n)
             self.dfs(matrix, m-1, j, a_visited, m, n)
-            
+
         for i in range(m):
             for j in range(n):
                 if p_visited[i][j] and a_visited[i][j]:
@@ -68,7 +67,7 @@ class Solution(object):
 # Runtime: 196 ms
 # Solution for longest increasing path in matrix
 
-class Solution(object):
+class Solution2(object):
     def longestIncreasingPath(self, matrix):
         """
         :type matrix: List[List[int]]
@@ -85,7 +84,7 @@ class Solution(object):
                 cur_len = self.dfs(i, j, matrix, cache, m, n)
                 res = max(res, cur_len)
         return res
-        
+
     def dfs(self, i, j, matrix, cache, m, n):
         if cache[i][j] != -1:
             return cache[i][j]

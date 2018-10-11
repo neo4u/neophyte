@@ -32,4 +32,5 @@ assert_equal(longest_palindrome("civilwartestingwhetherthatnaptionoranynartionso
 
 # Expand from center technique
 # Explore all 2n - 1 centers (i, i)s and (i, i + 1)s
-# O(n^2)
+# Time: O(n^2)
+# Space: O(1)

@@ -5,7 +5,7 @@ def count_substrings(s)
 
     0.upto(n - 1) do |i|
         count += count_for_center(s, i, i)       # Case of centers between chars
-        count += count_for_center(s, i, i + 1)   #  Case of centers around a char
+        count += count_for_center(s, i, i + 1)   # Case of centers around a char
     end
 
     count
@@ -20,7 +20,6 @@ def count_for_center(s, l, r)
 
     count
 end
-
 
 # https://leetcode.com/problems/palindromic-substrings/description/
 # 647. Palindromic Substrings

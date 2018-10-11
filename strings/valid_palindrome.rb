@@ -15,7 +15,6 @@ extend Test::Unit::Assertions
 require 'test/unit'
 extend Test::Unit::Assertions
 
-
 assert_equal(is_palindrome("abba"), true)
 assert_equal(is_palindrome("race a car"), false)
 assert_equal(is_palindrome("A man, a plan, a canal: Panama"), true)

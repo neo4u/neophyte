@@ -1,33 +1,37 @@
 # @param {Integer[][]} matrix
 # @return {Void} Do not return anything, modify matrix in-place instead.
 def rotate(matrix)
-  m, n = matrix.length, matrix[0].length
-  puts "Before"
-  puts matrix.map(&:inspect)
-  matrix.reverse!
-  0.upto(m - 1) do |i|
-    0.upto(i - 1) do |j|
-      matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+    m, n = matrix.length, matrix[0].length
+    puts "Before"
+    puts matrix.map(&:inspect)
+    matrix.reverse!
+
+    0.upto(m - 1) do |i|
+        0.upto(i - 1) do |j|
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+        end
     end
-  end
-  puts "After"
-  puts matrix.map(&:inspect)
-  matrix
+
+    puts "After"
+    puts matrix.map(&:inspect)
+    matrix
 end
 
 def anti_rotate(matrix)
-  m, n = matrix.length, matrix[0].length
-  puts "Before"
-  puts matrix.map(&:inspect)
-  matrix.each { |row| row.reverse! }
-  0.upto(m - 1) do |i|
-    0.upto(i - 1) do |j|
-      matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+    m, n = matrix.length, matrix[0].length
+    puts "Before"
+    puts matrix.map(&:inspect)
+    matrix.each { |row| row.reverse! }
+
+    0.upto(m - 1) do |i|
+        0.upto(i - 1) do |j|
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+        end
     end
-  end
-  puts "After"
-  puts matrix.map(&:inspect)
-  matrix
+
+    puts "After"
+    puts matrix.map(&:inspect)
+    matrix
 end
 
 require "test/unit"

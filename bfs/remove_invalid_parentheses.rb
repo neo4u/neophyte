@@ -42,16 +42,15 @@ def valid?(s)
     count == 0
 end
 
-# On the first level, there's only one string which is the input string s, let's say the length of it is n, to check whether it's valid, we need O(n) time.
-# On the second level, we remove one ( or ) from the first level, so there are C(n, n-1) new strings, each of them has n-1 characters, and for each string,
-# we need to check whether it's valid or not, thus the total time complexity on this level is (n-1) x C(n, n-1).
+# On the first level, there's only one string which is the input string s,
+# let's say the length of it is n, to check whether it's valid, we need O(n) time.
+# On the second level, we remove one ( or ) from the first level,
+# so there are C(n, n-1) new strings, each of them has n-1 characters, and for each string,
+# we need to check whether it's valid or not,
+# thus the total time complexity on this level is (n-1) x C(n, n-1).
 # Come to the third level, total time complexity is (n-2) x C(n, n-2), so on and so forth...
 
 # Finally we have this formula:
-
-# T(n) = n x C(n, n) + (n-1) x C(n, n-1) + ... + 1 x C(n, 1) = n x 2^(n-1).
-
-
 # T(n) = n x C(n, n) + (n-1) x C(n, n-1) + ... + 1 x C(n, 1) = n x 2^(n-1).
 
 require 'set'

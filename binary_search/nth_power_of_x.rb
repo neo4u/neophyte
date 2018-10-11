@@ -2,15 +2,14 @@
 # @param {Integer} n
 # @return {Float}
 def my_pow(x, n)
-    return 0 if x == 0 
-    return 1 if n == 0 
+    return 0 if x == 0
+    return 1 if n == 0
     return 1 / my_pow(x, -n) if n < 0
-    
-    half = my_pow(x, n/2)
-    half_half = half * half 
+
+    half = my_pow(x, n / 2)
+    half_half = half * half
     n.even? ? half_half : half_half * x
 end
-
 
 # Concise looking solution
 # if n is odd it automatically does half * half * x
@@ -31,7 +30,35 @@ end
 # 50. Pow(x, n)
 # https://leetcode.com/problems/powx-n/
 
-# O(n) multiply one by one 
-# O(logn) divide and conquer
+# Approach 1: O(n) multiply one by one Brute-force
+
+# Approach 2: Fast Power Algorithm Recursive
+# Time: O(log(n)). Each time we apply the formula (x ^ n) ^ 2 = x ^ (2∗n), n is reduced by half.
+#       Thus we need at most O(log(n)) computations to get the result.
+# Space: O(log(n)). For each computation, we need to store the result of x^n/2.
+#        We need to do the computation for O(log(n)) times, so the space complexity is O(log(n)).
+
+# O(logn) 
 # x^n = x^(n/2) * x^(n/2) * optionally x
-# special, negative, x=0, n=0 
+# special, negative, x=0, n=0
+
+# Approach 3: Fast Power Algorithm Iterative
+# There is a O(log(n)) time and O(1) space algorithm 
+# class Solution {
+#     public double myPow(double x, int n) {
+#         long N = n;
+#         if (N < 0) {
+#             x = 1 / x;
+#             N = -N;
+#         }
+#         double ans = 1;
+#         double current_product = x;
+#         for (long i = N; i > 0; i /= 2) {
+#             if ((i % 2) == 1) {
+#                 ans = ans * current_product;
+#             }
+#             current_product = current_product * current_product;
+#         }
+#         return ans;
+#     }
+# };

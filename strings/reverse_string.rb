@@ -1,12 +1,12 @@
 # @param {String} s
 # @return {String}
 def reverse_string(s)
-  n = s.size - 1 # highest index
-  0.upto(n / 2) do |i|
-    s[i], s[-i - 1] = s[-i - 1], s[i]
-  end
+    n = s.size
+    0.upto((n - 1)/ 2) do |i|
+        s[i], s[-i - 1] = s[-i - 1], s[i]
+    end
 
-  s
+    s
 end
 
 # 344. Reverse String
