@@ -11,14 +11,13 @@ def letter_combinations(digits)
     dfs(digits, 0, "", [])
 end
 
-def dfs(digits, index, path, result)
-    puts path
+def dfs(digits, idx, path, result)
     if path.size == digits.size
         result.push(path)
         return
     end
-    
-    index.upto(digits.size - 1) do |i|
+
+    idx.upto(digits.size - 1) do |i|
         DICT[digits[i]].each_char do |c|
             dfs(digits, i + 1, path + c, result)
         end
@@ -28,6 +27,10 @@ end
 
 # 17. Letter Combinations of a Phone Number
 # https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+
+# Recursive solution (DFS)
+# Time complexity O(4 ^ n), where n is length of string [for number 7, recursion tree will have 4 nodes]
+# Space complexity O(4 ^ n)
 
 require 'test/unit'
 extend Test::Unit::Assertions

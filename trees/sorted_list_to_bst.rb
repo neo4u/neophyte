@@ -19,27 +19,33 @@
 # @param {ListNode} head
 # @return {TreeNode}
 def sorted_list_to_bst(head)
-  return nil if head.nil?
-  return TreeNode.new(head.val) if head.next.nil?
+    return nil if head.nil?
+    return TreeNode.new(head.val) if head.next.nil?
 
-  mid = find_mid_list(head)
-  root = TreeNode.new(mid.val)
-  l, r = head, mid.next
-  
-  root.left, root.right = sorted_list_to_bst(l), sorted_list_to_bst(r)
-  
-  root
+    mid = find_mid_list(head)
+    root = TreeNode.new(mid.val)
+    l, r = head, mid.next
+
+    root.left, root.right = sorted_list_to_bst(l), sorted_list_to_bst(r)
+
+    root
 end
 
 def find_mid_list(head)
-  prev, slow, fast = nil, head, head
+    prev, slow, fast = nil, head, head
 
-  while fast && fast.next
-    prev, slow, fast = slow, slow.next, fast.next.next
-  end
+    while fast && fast.next
+        prev, slow, fast = slow, slow.next, fast.next.next
+    end
 
-  # set prev pointer to nil to end the list there
-  prev.next = nil
+    # set prev pointer to nil to end the list there
+    prev.next = nil
 
-  slow
+    slow
 end
+
+# here we get the middle point,
+# even case, like '1234', slow points to '2',
+# '3' is root, '12' belongs to left, '4' is right
+# odd case, like '12345', slow points to '2', '12'
+# belongs to left, '3' is root, '45' belongs to right

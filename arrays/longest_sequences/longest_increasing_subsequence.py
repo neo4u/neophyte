@@ -18,20 +18,20 @@
 # MOre detailed explanation:
 # https://leetcode.com/problems/longest-increasing-subsequence/discuss/152065/Python-explain-the-O(nlogn)-solution-step-by-step
 
-# def lengthOfLIS(self, nums):
-#     tails = [0] * len(nums)
-#     size = 0
-#     for x in nums:
-#         i, j = 0, size
-#         while i != j:
-#             m = (i + j) / 2
-#             if tails[m] < x:
-#                 i = m + 1
-#             else:
-#                 j = m
-#         tails[i] = x
-#         size = max(i + 1, size)
-#     return size
+def lengthOfLIS(self, nums):
+    tails = [0] * len(nums)
+    size = 0
+    for x in nums:
+        i, j = 0, size
+        while i != j:
+            m = (i + j) / 2
+            if tails[m] < x:
+                i = m + 1
+            else:
+                j = m
+        tails[i] = x
+        size = max(i + 1, size)
+    return size
 
 # Runtime: 48 ms
 
@@ -54,16 +54,16 @@
 # i = 3:    sub = [1, 10];
 # i = 4:    sub = [1, 8];
 # i = 5:    sub[1] < 9, done.
-# def increasingTriplet(self, nums):
-#         sub = [float('inf'), float('inf')]
-#         for n in nums:
-#             if n <= sub[0]:
-#                 sub[0] = n
-#             elif n <= sub[1]:
-#                 sub[1] = n
-#             else:
-#                 return True
-#         return False
+def increasingTriplet(self, nums):
+        sub = [float('inf'), float('inf')]
+        for n in nums:
+            if n <= sub[0]:
+                sub[0] = n
+            elif n <= sub[1]:
+                sub[1] = n
+            else:
+                return True
+        return False
 # So back to this question, the idea extends to:
 
 # 1. initial sub = [ ].
@@ -84,19 +84,19 @@
 # i = 7,    sub = [1, 3, 6, 7, 9]    #done! Although the elements are not correct, but the length is correct.
 
 # # O(n*m) solution. m is the sub[]'s length
-# def lengthOfLIS(self, nums):
-#         sub = []
-#         for val in nums:
-#             pos , sub_len = 0, len(sub)
-#             while(pos <= sub_len):    # update the element to the correct position of the sub.
-#                 if pos == sub_len:
-#                     sub.append(val)
-#                     break
-#                 elif val <= sub[pos]:
-#                     sub[pos] = val
-#                     break
-#                 else:
-#                     pos += 1
+def lengthOfLIS(self, nums):
+        sub = []
+        for val in nums:
+            pos , sub_len = 0, len(sub)
+            while(pos <= sub_len):    # update the element to the correct position of the sub.
+                if pos == sub_len:
+                    sub.append(val)
+                    break
+                elif val <= sub[pos]:
+                    sub[pos] = val
+                    break
+                else:
+                    pos += 1
         
 #         return len(sub)
 # Because of sub[ ] is incremental, we can use a binary search to find the correct insertion position.

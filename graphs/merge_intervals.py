@@ -12,7 +12,6 @@ class Solution:
                 if self.overlap(interval_i, intervals[j]):
                     graph[interval_i].append(intervals[j])
                     graph[intervals[j]].append(interval_i)
-        
         return graph
 
     # merges all of the nodes in this connected component into one interval.
