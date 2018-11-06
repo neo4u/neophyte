@@ -4,7 +4,6 @@
 #         self.start = s
 #         self.end = e
 
-
 class Solution(object):
     def minMeetingRooms(self, intervals):
         """
@@ -41,14 +40,17 @@ class Solution(object):
 
 # Algorithm
 # 1. Sort the given meetings by their start time.
-# 2. Initialize a new min-heap and add the first meeting's ending time to the heap. We simply need to keep track of the ending times as that tells us when a meeting room will get free.
-# 3. For every meeting room check if the minimum element of the heap i.e. the room at the top of the heap is free or not.
-# 4. If the room is free, then we extract the topmost element and add it back with the ending time of the current meeting we are processing.
+# 2. Initialize a new min-heap and add the first meeting's ending time to the heap.
+#    We simply need to keep track of the ending times as that tells us when a meeting room will get free.
+# 3. For every meeting room check if the minimum element of the heap i.e.
+#    the room at the top of the heap is free or not.
+# 4. If the room is free, then we extract the topmost element and
+#    add it back with the ending time of the current meeting we are processing.
 # 5. If not, then we allocate a new room and add it to the heap.
-# 6. After processing all the meetings, the size of the heap will tell us the number of rooms allocated. This will be the minimum number of rooms needed to accommodate all the meetings.
+# 6. After processing all the meetings, the size of the heap will tell us the number of rooms allocated.
+#    This will be the minimum number of rooms needed to accommodate all the meetings.
 
 # Complexity Analysis
-
 # Time Complexity: O(NlogN). There are two major portions that take up time here.
 #                  One is sorting of the array that takes O(NlogN) considering that the array consists of N elements.
 #                  Then we have the min-heap. In the worst case, all N meetings will collide with each other.

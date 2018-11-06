@@ -1,15 +1,14 @@
-#!/usr/bin/env ruby
-
 # @param {Integer[]} nums
 # @return {Integer}
 def pivot_index(nums)
-  sum, left_sum = nums.reduce(:+), 0
-  nums.each_with_index do |num, i|
-    return i if left_sum == sum - left_sum - num
-    left_sum += num
-  end
+    sum, left_sum = nums.reduce(:+), 0
 
-  -1
+    nums.each_with_index do |num, i|
+        return i if left_sum == sum - left_sum - num
+        left_sum += num
+    end
+
+    -1
 end
 
 # 724. Find Pivot Index

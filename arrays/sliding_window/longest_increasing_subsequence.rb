@@ -52,12 +52,28 @@ def find_length_of_lcis(nums)
     ans = anchor = 0
 
     0.upto(nums.size - 1) do |i|
-        anchor = i if i != 0 && nums[i - 1] >= nums[i]  # New window
+        anchor = i if i != 0 && nums[i - 1] >= nums[i]  # Reset window to i
         ans = [ans, i - anchor + 1].max                 # Extend window
     end
 
     ans
 end
+
+# Kadane method, Almost same as DP Time: O(n), Space: O(1)
+# @param {Integer[]} nums
+# @return {Integer}
+def find_length_of_lcis(nums)
+    return 0 if !nums || nums.empty?
+    longest_so_far, longest_curr = 1, 1
+
+    1.upto(nums.size - 1) do |i|
+        nums[i] > nums[i - 1] ? longest_curr += 1 : longest_curr = 1 # Extend or reset
+        longest_so_far = [longest_so_far, longest_curr].max
+    end
+
+    longest_so_far
+end
+
 
 # 300. Longest Increasing Subsequence
 # https://leetcode.com/problems/longest-increasing-subsequence/

@@ -5,17 +5,16 @@ TENS = %w[Ten Twenty Thirty Forty Fifty Sixty Seventy Eighty Ninety].unshift("")
 # @return {String}
 def number_to_words(num)
     return "Zero" if num == 0
-    helper(num).strip
+    helper(num)
 end
 
 def helper(num)
-    if num < 20 then WITHIN_20[num]
+    (if num < 20 then WITHIN_20[num]
     elsif num < 100 then TENS[num / 10] + " " + WITHIN_20[num % 10]
-    elsif num < 1000 then WITHIN_20[num / 100] + " Hundred " + helper(num % 100)
+    elsif num < 1_000 then WITHIN_20[num / 100] + " Hundred " + helper(num % 100)
     elsif num < 1_000_000 then helper(num / 1000) + " Thousand " + helper(num % 1000)
     elsif num < 1_000_000_000 then helper(num / 1_000_000) + " Million " + helper(num % 1_000_000)
-    else helper(num / 1_000_000_000) + " Billion " + helper(num % 1_000_000_000)
-    end
+    else helper(num / 1_000_000_000) + " Billion " + helper(num % 1_000_000_000) end).strip
 end
 
 
@@ -43,4 +42,4 @@ assert_equal(number_to_words(999_001), 'Nine Hundred Ninety Nine Thousand One')
 assert_equal(number_to_words(99_000_001), 'Ninety Nine Million One')
 assert_equal(number_to_words(1_000_000_000), 'One Billion')
 assert_equal(number_to_words(989_000_000_001), 'Nine Hundred Eighty Nine Billion One')
-
+assert_equal(number_to_words(50868), "Fifty Thousand Eight Hundred Sixty Eight")

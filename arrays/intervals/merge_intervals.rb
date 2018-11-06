@@ -12,18 +12,17 @@ end
 def merge(intervals)
     intervals.sort_by!(&:start)
     merged = []
-
-    intervals.each do |interval|
-        if merged.empty? || merged.last.end < interval.start
-            merged.push(interval)
+    
+    intervals.each do |i|
+        if merged.empty? || merged.last.end < i.start
+            merged.push(i)
         else
-            merged.last.end = [merged.last.end, interval.end].max
+            merged.last.end = [merged.last.end, i.end].max
         end
     end
-
+    
     merged
 end
-
 
 # 56. Merge Intervals
 # https://leetcode.com/problems/merge-intervals/description/
@@ -31,16 +30,13 @@ end
 # Approach
 # 1. sort by start times
 # 2. iterate through interval
-# 3. if last of merged has end time < curr intervals start then push the element into merged as it is not overlapping
+# 3. if last of merged has end time < curr intervals start
+#    then push the element into merged as it is not overlapping
 # 4. if overlappping then merge with last interval by taking max of the ends of merged.last.end and curr.end
 
 # Complexity Analysis
-# Time complexity: O(nlgn) Other than the sort invocation,
-#                  we do a simple linear scan of the list,
-#                  so the runtime is dominated by the O(nlgn) complexity of sorting.
-# Space complexity: O(1) (or O(n)), If we can sort intervals in place,
-#                   we do not need more than constant additional space.
-#                   Otherwise, we must allocate linear space to store a copy of intervals and sort that.
+# Time: O(nlog(n)), Due to the sort
+# Space: O(1), Sort in-place
 
 require 'test/unit'
 extend Test::Unit::Assertions

@@ -50,7 +50,7 @@ def intersection(nums1, nums2)
             nums2.shift
         end
     end
-    
+
     intersect
 end
 

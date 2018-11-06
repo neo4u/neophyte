@@ -1,22 +1,20 @@
-#!/usr/bin/env ruby
-
 # @param {Integer[]} nums
 # @return {Integer}
-def dominant_index(nums)
-  largest, largest_idx = -1, -1
+def pivot_index(nums)
+    largest, largest_idx = -1, -1
 
-  nums.each_with_index do |num, i|
-    if num > largest
-      largest = num
-      largest_idx = i
+    nums.each_with_index do |num, i|
+        if num > largest
+            largest = num
+            largest_idx = i
+        end
     end
-  end
 
-  nums.each do |num|
-    return -1 if largest < 2 * num && largest != num
-  end
+    nums.each do |num|
+        return -1 if largest < 2 * num && largest != num
+    end
 
-  largest_idx
+    largest_idx
 end
 
 # 724. Find Pivot Index

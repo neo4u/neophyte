@@ -2,7 +2,8 @@
 # @param {String} s
 # @return {String[]}
 def remove_invalid_parentheses(s)
-    @str, @result = String.new(s), Set.new() # Set to avoid duplicates, because removing same number of diff parentheses, can lead to same result
+    # Set to avoid duplicates, because removing same number of diff parentheses, can lead to same result
+    @str, @result = s, Set.new()
     l, r = get_counts(@str)
 
     return [""] if l + r == @str.size
@@ -92,7 +93,7 @@ def dfs(s, start, l, r)
     n = s.size
     start.upto(n - 1) do |i|
         next if i > start && s[i] == s[i - 1] # we restrict ourself to remove the first )
-        cur = s[0...i] + s[i + 1...n]
+        cur = s[0, i] + s[i + 1, n] # s[a, b] is substring starting from index a of length b
 
         if r > 0 && s[i] == ")"
             dfs(cur, i, l, r - 1)
