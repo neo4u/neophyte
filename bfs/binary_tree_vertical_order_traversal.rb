@@ -1,11 +1,11 @@
 # Definition for a binary tree node.
-# class TreeNode
-#     attr_accessor :val, :left, :right
-#     def initialize(val)
-#         @val = val
-#         @left, @right = nil, nil
-#     end
-# end
+class TreeNode
+    attr_accessor :val, :left, :right
+    def initialize(val)
+        @val = val
+        @left, @right = nil, nil
+    end
+end
 
 # @param {TreeNode} root
 # @return {Integer[][]}
@@ -23,6 +23,7 @@ def vertical_order(root)
     end
 
     levels = output.keys.sort()
+    puts levels
     vert_order = []
     levels.each do |l| vert_order.push(output[l]) end
 
@@ -42,3 +43,21 @@ end
 # where h is height of the tree, n is number of nodes in tree
 # Time: O(nlog(h))
 # Space: O(h)
+
+require 'test/unit'
+extend Test::Unit::Assertions
+
+n1 = TreeNode.new(3)
+n2l = TreeNode.new(9)
+n2r = TreeNode.new(20)
+
+n3l1 = TreeNode.new(nil)
+n3l2 = TreeNode.new(nil)
+n3r1 = TreeNode.new(15)
+n3r2 = TreeNode.new(7)
+
+n1.left, n1.right = n2l, n2r
+n2l.left, n2l.right = n3l1, n3l2
+n2r.left, n2r.right = n3r1, n3r2
+output = [[nil], [9], [3, nil, 15], [20], [7]]
+assert_equal(vertical_order(n1), output)

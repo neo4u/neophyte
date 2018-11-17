@@ -2,13 +2,13 @@
 # @param {Integer} k
 # @return {Boolean}
 def contains_nearby_duplicate(nums, k)
-	map = {}
-	nums.each_with_index do |num, i|
-		return true if map.key?(num) && (i - map[num]).abs <= k
-		map[num] = i
-	end
+    map = {}
+    nums.each_with_index do |num, i|
+        return true if map.key?(num) && (i - map[num]).abs <= k
+        map[num] = i
+    end
 
-	false
+    false
 end
 
 # 219. Contains Duplicate II

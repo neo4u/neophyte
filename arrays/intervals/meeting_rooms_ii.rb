@@ -19,8 +19,7 @@ def min_meeting_rooms(intervals)
         ends[i] = intervals[i].end
     end
 
-    starts.sort!
-    ends.sort!
+    starts.sort!; ends.sort!
     s_ptr, e_ptr = 0, 0
 
     # Until all the meetings have been processed.
@@ -42,7 +41,7 @@ end
 # https://leetcode.com/problems/meeting-rooms-ii/
 
 # Approach 1: Sort by start times and use Priority Queue for end times.
-# Refer to the python code from same file name in directory with .py
+# Refer to the python code from same file name in directory  with name ending in _pq.py
 
 # Approach 2: Chronological Ordering:
 # Keep independent array of start and end times,

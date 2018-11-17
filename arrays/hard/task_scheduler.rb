@@ -2,33 +2,33 @@
 # @param {Integer} n
 # @return {Integer}
 def least_interval(tasks, n)
-  return tasks.length if n.zero?
-  map = Hash.new(0)
+    return tasks.length if n.zero?
+    map = Hash.new(0)
 
-  tasks.each do |task|
-    map[task] += 1
-  end
-
-  queue, cooldown, current = [], {}, 0
-  queue += map.values.sort.reverse
-
-  while !queue.empty? || !cooldown.empty?
-    if cooldown.key?(current - n - 1)
-      task = cooldown.delete(current - n - 1)
-      i = 0
-      i += 1 while i < queue.size && queue[i] > task
-      queue.insert(i, task)
+    tasks.each do |task|
+        map[task] += 1
     end
 
-    unless queue.empty?
-      left = queue.shift - 1
-      cooldown[current] = left unless left.zero?
+    queue, cooldown, current = [], {}, 0
+    queue += map.values.sort.reverse
+
+    while !queue.empty? || !cooldown.empty?
+        if cooldown.key?(current - n - 1)
+            task = cooldown.delete(current - n - 1)
+            i = 0
+            i += 1 while i < queue.size && queue[i] > task
+            queue.insert(i, task)
+        end
+
+        unless queue.empty?
+            left = queue.shift - 1
+            cooldown[current] = left unless left.zero?
+        end
+
+        current += 1
     end
 
-    current += 1
-  end
-
-  current
+    current
 end
 
 require 'test/unit'

@@ -15,17 +15,17 @@ def swap_pairs(head)
     dummy = ListNode.new(-1)
     dummy.next = head
     curr = dummy
-    
+
     while curr.next && curr.next.next
         first, second = curr.next, curr.next.next
-        
+
         curr.next = second
         first.next = second.next
         second.next = first
-        
+
         curr = curr.next.next
     end
-    
+
     dummy.next
 end
 

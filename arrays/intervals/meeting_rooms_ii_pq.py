@@ -38,6 +38,10 @@ class Solution(object):
         # The size of the heap tells us the minimum rooms required for all the meetings.
         return len(free_rooms)
 
+# 253. Meeting Rooms II
+# https://leetcode.com/problems/meeting-rooms-ii/
+
+# Approach 1: Sort by start times and use Priority Queue for end times.
 # Algorithm
 # 1. Sort the given meetings by their start time.
 # 2. Initialize a new min-heap and add the first meeting's ending time to the heap.
@@ -59,3 +63,6 @@ class Solution(object):
 # Space Complexity: O(N) because we construct the min-heap and that can contain N elements
 #                   in the worst case as described above in the time complexity section.
 #                   Hence, the space complexity is O(N). 
+
+# Approach 2: Chronological Ordering:
+# Refer to the ruby code from same file name in directory with similar name

@@ -2,38 +2,38 @@
 # @param {Integer[]} nums2
 # @return {Float}
 def find_median_sorted_arrays(nums1, nums2)
-	m, n = nums1.size, nums2.size
-  
-	# to ensure m<=n
-	nums1, nums2, m, n = nums2, nums1, n, m if m > n
-	imin, imax, halflen = 0, m, (m + n + 1) / 2
+    m, n = nums1.size, nums2.size
 
-	while imin <= imax
-		i = (imin + imax) / 2
-		j = halflen - i
-  
-		if i < imax && nums2[j - 1] > nums1[i] # i is too small
-			imin = i + 1
-		elsif i > imin && nums1[i - 1] > nums2[j] # i is too big
-			imax = i - 1
-		else # i is perfect
-			max_left = 0
-			if i == 0 then max_left = nums2[j - 1]
-			elsif j == 0 then max_left = nums1[i - 1]
-			else max_left = [nums1[i - 1], nums2[j - 1]].max end
-	
-			return max_left if (m + n).odd?
-	
-			min_right = 0
-			if i == m then min_right = nums2[j]
-			elsif j == n then min_right = nums1[i]
-			else min_right = [nums2[j], nums1[i]].min end
-	
-			return (max_left + min_right) / 2.0
-		end
-	end
+    # to ensure m<=n
+    nums1, nums2, m, n = nums2, nums1, n, m if m > n
+    imin, imax, halflen = 0, m, (m + n + 1) / 2
 
-	0.0
+    while imin <= imax
+        i = (imin + imax) / 2
+        j = halflen - i
+  
+        if i < imax && nums2[j - 1] > nums1[i] # i is too small
+            imin = i + 1
+        elsif i > imin && nums1[i - 1] > nums2[j] # i is too big
+            imax = i - 1
+        else # i is perfect
+            max_left = 0
+            if i == 0 then max_left = nums2[j - 1]
+            elsif j == 0 then max_left = nums1[i - 1]
+            else max_left = [nums1[i - 1], nums2[j - 1]].max end
+    
+            return max_left if (m + n).odd?
+    
+            min_right = 0
+            if i == m then min_right = nums2[j]
+            elsif j == n then min_right = nums1[i]
+            else min_right = [nums2[j], nums1[i]].min end
+    
+            return (max_left + min_right) / 2.0
+        end
+    end
+
+    0.0
 end
 
 # https://leetcode.com/problems/median-of-two-sorted-arrays/description/

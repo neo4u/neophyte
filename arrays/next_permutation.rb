@@ -1,10 +1,37 @@
-# @param {Integer[]} nums
-# @return {Void} Do not return anything, modify nums in-place instead.
+# Condensed and for local testing
 def next_permutation(nums)
     n = nums.size
     r = n - 1
+    r -= 1 while nums[r - 1] >= nums[r]  && r > 0
+    return reverse(nums, 0, n - 1) if r == 0
+    pivot, scssr = r - 1, 0
 
-    # Select the right most two elements that break the property of a[i - 1] >= a[i]
+    (n - 1).downto(pivot) do |i|
+        next if nums[i] <= nums[pivot]
+        scssr = i
+        break
+    end
+    nums[scssr], nums[pivot] = nums[pivot], nums[scssr]
+    reverse(nums, pivot + 1, n - 1)
+end
+
+def reverse(nums, l, r)
+    while l < r
+        nums[l], nums[r] = nums[r], nums[l]
+        l += 1; r -= 1
+    end
+
+    nums
+end
+
+
+# @param {Integer[]} nums
+# @return {Void} Do not return anything, modify nums in-place instead.
+def next_permutation2(nums)
+    n = nums.size
+    r = n - 1
+
+    # Select the right most element that breaks the property of a[i - 1] >= a[i]
     r -= 1 while nums[r] <= nums[r - 1] && r - 1 >= 0
     return reverse(nums, 0, n - 1) if r == 0 # Case for whole array in dec order like: ['3', '2', '1']
 
@@ -25,7 +52,7 @@ def next_permutation(nums)
     reverse(nums, pivot + 1, n - 1)
 end
 
-def reverse(nums, l, r)
+def reverse2(nums, l, r)
     while l < r
         nums[l], nums[r] = nums[r], nums[l]
         l += 1
@@ -49,3 +76,10 @@ end
 
 # Time: O(n)
 # Space: O(1)
+
+require 'test/unit'
+extend Test::Unit::Assertions
+
+assert_equal(next_permutation([1,2,3]), [1,3,2])
+assert_equal(next_permutation([3,2,1]), [1,2,3])
+assert_equal(next_permutation([1,1,5]), [1,5,1])
