@@ -1,3 +1,4 @@
+# Approach 3: PrefixSum + Dictionary, Time: O(N), Space: O(N)
 # @param {Integer[]} nums
 # @param {Integer} k
 # @return {Integer}
@@ -7,7 +8,7 @@ def subarray_sum(nums, k)
 
     nums.each do |num|
         pre_sum += num
-        result += counts.fetch(pre_sum - k, 0)
+        result += counts.fetch(pre_sum - k, 0) # We add number of subarrays upto pre_sum - k 
         counts[pre_sum] = counts.fetch(pre_sum, 0) + 1
     end
 
@@ -17,9 +18,9 @@ end
 # 560. Subarray Sum Equals K
 # https://leetcode.com/problems/subarray-sum-equals-k/
 
-# Different approaches and Complexity in python
-# # Brute Force (TLE), Time: O(N^3), Space: O(1)
-# # For every sub-array calculate the sub-array sum and count how many of them == k
+
+# Approach 1: Brute Force (TLE), Time: O(N^3), Space: O(1)
+# For every sub-array calculate the sub-array sum and count how many of them == k
 # class Solution:
 #     def subarraySum(self, nums, k):
 #         res = 0
@@ -29,10 +30,10 @@ end
 #                     res += 1
 #         return res
 
-# # PrefixSum (TLE), Time: O(N^2), Space: O(1)
-# # 1. Calculate sum of all elements upto nums[i] for every i in array
-# # 2. if prefix sum is already k add to result
-# # 3. from i to j if sum at j - sum at i is k that means sub-array nums[i to j] had sum k
+# Approach 2: PrefixSum (TLE), Time: O(N^2), Space: O(1)
+# 1. Calculate sum of all elements upto nums[i] for every i in array
+# 2. if prefix sum is already k add to result
+# 3. from i to j if sum at j - sum at i is k that means sub-array nums[i to j] had sum k
 # class Solution:
 #     def subarraySum(self, nums, k):
 #         res = 0
@@ -46,12 +47,22 @@ end
 
 #         return res
 
-# # PrefixSum + Dictionary, Time: O(N), Space: O(N)
-# # Let's remember count[V], the number of previous prefix sums with value V.
-# # If our newest prefix sum has value W, and W-V == K, then we add count[V] to our answer.
-# # This is because at time t, A[0] + A[1] + ... + A[t-1] = W,
-# # and there are count[V] indices j with j < t-1 and A[0] + A[1] + ... + A[j] = V.
-# # Thus, there are count[V] subarrays A[j+1] + A[j+2] + ... + A[t-1] = K.
+# Approach 3: PrefixSum + Dictionary, Time: O(N), Space: O(N)
+# 1. Let's map[V], be the number of previous prefix sums with value V
+# 2. If our current prefix sum has value W, and W - V == K, think of sequences
+#    with sum W and sequences with sum V, such that W - V == k, then we do result += map[V].
+# 3. This is because at time t, A[0] + A[1] + ... + A[t-1] = W,
+#    and there are count[V] indices j with j < t-1 and A[0] + A[1] + ... + A[j] = V.
+#    Thus, there are count[V] subarrays A[j+1] + A[j+2] + ... + A[t-1] = K.
+
+# Imagine as
+# A[0] + A[1] + ... + ... + ... + ... + ... + ... + A[t - 1] = W
+#                          W
+# ---------------------------------------------------------
+#           V                               k
+# ------------------------   ------------------------------
+# A[0] + A[1] + ... + A[j] + A[j+1] + A[j+2] + ...  + A[t-1]
+
 # class Solution:
 #     def subarraySum(self, nums, k):
 #         dic = {0:1}
@@ -62,6 +73,6 @@ end
 #             dic[pre_sum] = dic.get(pre_sum, 0) + 1
 #         return res
 
-# Complexity Analysis
+# Best you can do is
 # Time: O(n), The entire nums array is traversed only once.
 # Space: O(n), Hashmap map can contain upto n distinct entries in the worst case.

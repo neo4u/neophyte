@@ -1,4 +1,6 @@
 class Node
+    attr_accessor :key, :val, :prv, :nxt
+
     def initialize(k, v)
         @key = k
         @val = v
@@ -7,16 +9,17 @@ class Node
 end
 
 class LRUCache
+    attr_accessor :head, :tail, :dict, :capacity
     def initialize(capacity)
         @capacity = capacity
-        @dict = {}
-        @hea, @tail = Node.new(0, 0), Node.new(0, 0)
+        @dict = Set.new()
+        @head, @tail = Node.new(0, 0), Node.new(0, 0)
 
-        @head.next, @tail.prev = @tail, @head
+        @head.nxt, @tail.prv = @tail, @head
     end
 
     def get(key)
-        return - 1 if !@dict.key?(key)
+        return -1 if !@dict.key?(key)
 
         n = @dict[key]
         remove(n)
@@ -33,7 +36,7 @@ class LRUCache
         @dict[key] = n
 
         if @dict.size > @capacity
-            n = @head.next
+            n = @head.nxt
             remove(n)
             @dict.delete(n.key)
         end
@@ -55,3 +58,23 @@ class LRUCache
         node.nxt = @tail
     end
 end
+
+
+# 146. LRU Cache
+# https://leetcode.com/problems/lru-cache/description/
+
+require 'test/unit'
+extend Test::Unit::Assertions
+
+cache = LRUCache.new(2)
+
+cache.put(1, 1)
+cache.put(2, 2)
+assert_equal(cache.get(1), 1)
+cache.put(3, 3)
+assert_equal(cache.get(2), -1)
+cache.put(4, 4)
+assert_equal(cache.get(1), -1)
+assert_equal(cache.get(3), 3)
+assert_equal(cache.get(4), 4)
+

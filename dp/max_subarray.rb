@@ -1,6 +1,21 @@
 # @param {Integer[]} nums
 # @return {Integer}
 def max_sub_array(nums)
+    n = nums.size
+    dp = [-Float::INFINITY] * n
+    max = dp[0] = nums[0]
+
+    1.upto(n - 1) do |i|
+        dp[i] = [dp[i - 1] + nums[i], nums[i]].max
+        max = [dp[i], max].max
+    end
+
+    max
+end
+
+# @param {Integer[]} nums
+# @return {Integer}
+def max_sub_array2(nums)
     return 0 if !nums
     cur_sum, max_sum, n = nums[0], nums[0], nums.size
 
@@ -12,14 +27,20 @@ def max_sub_array(nums)
     max_sum
 end
 
-
 # 53. Maximum Subarray
 # https://leetcode.com/problems/maximum-subarray/
 
-# Space: O(1)
+# Approach 1: DP
 # Time: O(n)
+# Space: O(n)
+
+# Approach 2: Kadane
+# Time: O(n)
+# Space: O(1)
 
 require 'test/unit'
 extend Test::Unit::Assertions
 
 assert_equal(max_sub_array([-2,1,-3,4,-1,2,1,-5,4]), 6)
+
+assert_equal(max_sub_array2([-2,1,-3,4,-1,2,1,-5,4]), 6)

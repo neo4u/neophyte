@@ -14,3 +14,7 @@ end
 # 11. Container With Most Water
 # https://leetcode.com/problems/container-with-most-water/description/
 
+require 'test/unit'
+extend Test::Unit::Assertions
+
+assert_equal(max_area([1,8,6,2,5,4,8,3,7]), 49)

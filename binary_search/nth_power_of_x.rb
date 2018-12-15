@@ -1,3 +1,4 @@
+# Approach 1: Recursive
 # @param {Float} x
 # @param {Integer} n
 # @return {Float}
@@ -11,26 +12,19 @@ def my_pow(x, n)
     n.even? ? half_half : half_half * x
 end
 
-# Concise looking solution
-# if n is odd it automatically does half * half * x
-# if n is even it does half * half * 
-# # @param {Float} x
-# # @param {Integer} n
-# # @return {Float}
+# Approach 2: Iterative
+# @param {Float} x
+# @param {Integer} n
+# @return {Float}
 def my_pow(x, n)
-    return 1 if n == 0
-    return x if n == 1
-    return 0 if x == 0
-    return 1 / my_pow(x, -n) if n < 0
 
-    my_pow(x, n / 2) * my_pow(x, n / 2) * my_pow(x, n % 2)
 end
 
 
 # 50. Pow(x, n)
 # https://leetcode.com/problems/powx-n/
 
-# Approach 1: O(n) multiply one by one Brute-force
+# Approach 1: Brute-Force, O(n) multiply one by one
 
 # Approach 2: Fast Power Algorithm Recursive
 # Time: O(log(n)). Each time we apply the formula (x ^ n) ^ 2 = x ^ (2∗n), n is reduced by half.

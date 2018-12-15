@@ -43,7 +43,7 @@ class Solution(object):
 # https://leetcode.com/problems/word-pattern/
 
 # Approach 1:
-# 1. Bijection between pattern and str1 implies that if at index i we have (pattern[i],
+# 1. Bijection between pattern and str implies that if at index i we have (pattern[i],
 #    str1[i]), then at any index j (j>i), if pattern[j] == pattern[i],
 #    then str1[j] must be equal to str1[i]. Similarly, if str1[j] == str1[i],
 #    then pattern[j] must be same as pattern[i].

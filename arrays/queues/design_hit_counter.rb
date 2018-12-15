@@ -39,7 +39,7 @@ class HitCounter
         end
     end
 
-    # Time: O(n)
+    # Time: O(1)
     def get_hits(timestamp)
         total = 0
         0.upto(299) do |i|
@@ -53,7 +53,7 @@ end
 # https://leetcode.com/problems/design-hit-counter/
 
 # Approach 1: Using Queue, hit() Time: O(1), get_hits() Time: O(n), Space: O(n)
-# Approach 2: Using Modular Arithmatic (Buckets) hit() Time: O(1), get_hits() Time: O(n), Space: O(1)
+# Approach 2: Using Modular Arithmatic (Buckets) hit() Time: O(1), get_hits() Time: O(1), Space: O(1)
 
 require 'test/unit'
 extend Test::Unit::Assertions

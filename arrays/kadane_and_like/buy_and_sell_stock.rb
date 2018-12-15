@@ -5,7 +5,7 @@ def max_profit(prices)
     return 0 if !prices || prices.size <= 1
 
     n = prices.size
-    dp_sell = Array.new(n, 0)     # dp_sell[i] is the profits from selling on day i
+    dp_sell = Array.new(n, 0)   # dp_sell[i] is the profits from selling on day i
     dp_buy = Array.new(n, 0)    # dp_buy[i] is the loss from buying on day i
 
     # dp_sell[i] = dp_sell[i - 1] or prices[i] - dp_buy[i - 1] do nothing or sell at today's price selling price - cost price
@@ -30,7 +30,7 @@ def max_profit(prices)
         cur_profit = [0, cur_profit + prices[i] - prices[i - 1]].max
         max_profit = [cur_profit, max_profit].max
     end
-    
+
     max_profit
 end
 
@@ -53,12 +53,13 @@ end
 # 121. Best Time to Buy and Sell Stock
 # https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/
 
+# Time: O(n)
+# Space: O(1)
+# For DP space is O(n)
+# For Kadane space is O(1)
+
 require 'test/unit'
 extend Test::Unit::Assertions
 
 assert_equal(max_profit([7,1,5,3,6,4]), 5)
 assert_equal(max_profit([]), 0)
-
-# Time: O(n)
-# Space: O(1)
-# For DP space is O(n)

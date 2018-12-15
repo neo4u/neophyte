@@ -26,6 +26,10 @@ require 'set'
 require 'test/unit'
 extend Test::Unit::Assertions
 
+# Approach 1: Brute-Force
+# Approach 2: Recursion with memoization
+# Approach 3: DP
+
 assert_equal(word_break("catsanddog", ["cat","cats","and","sand","dog"]), ["cat sand dog", "cats and dog"])
 # Call output
 # dfs() with word: catsanddog

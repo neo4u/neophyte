@@ -1,17 +1,17 @@
 # @param {String} s
 # @return {Integer}
 def roman_to_int(s)
-  roman = { 'M' => 1000, 'D' => 500, 'C' => 100, 'L' => 50, 'X' => 10, 'V' => 5, 'I' => 1 }
-  z = 0
-  0.upto(s.size - 2) do |i|
-    if roman[s[i].upcase] < roman[s[i + 1].upcase]
-      z -= roman[s[i].upcase]
-    else
-      z += roman[s[i].upcase]
+    roman = { 'M' => 1000, 'D' => 500, 'C' => 100, 'L' => 50, 'X' => 10, 'V' => 5, 'I' => 1 }
+    z = 0
+    0.upto(s.size - 2) do |i|
+        if roman[s[i].upcase] < roman[s[i + 1].upcase]
+            z -= roman[s[i].upcase]
+        else
+            z += roman[s[i].upcase]
+        end
     end
-  end
 
-  z + roman[s[-1].upcase]
+    z + roman[s[-1].upcase]
 end
 
 require 'test/unit'
