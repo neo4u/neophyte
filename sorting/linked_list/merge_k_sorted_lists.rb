@@ -18,44 +18,58 @@ def merge_k_lists(lists)
             l = l.next
         end
     end
-  
+
     nodes = nodes.sort_by(&:val)
     dummy = tmp = ListNode.new(nil)
     nodes.each do |node|
         tmp.next = node
         tmp = tmp.next
     end
-  
+
     dummy.next
 end
 
 # Approach 5 (Merge Sort way)
+# Definition for singly-linked list.
+# class ListNode
+#     attr_accessor :val, :next
+#     def initialize(val)
+#         @val = val
+#         @next = nil
+#     end
+# end
+
 # @param {ListNode[]} lists
 # @return {ListNode}
-def merge_k_lists(lists, beginIndex = 0, endIndex = lists.length - 1)
-    return nil if lists.length == 0
-    return lists[endIndex] if beginIndex === endIndex
-  
-    mid = ((beginIndex + endIndex)/ 2).floor
-    left = merge_k_lists(lists, beginIndex, mid)
-    right = merge_k_lists(lists, mid + 1, endIndex)
-  
-    return merge_two_lists(left, right)
+def merge_k_lists(lists, s_idx = 0, e_idx = lists.size - 1)
+    return if lists.empty?
+    return lists[e_idx] if s_idx === e_idx
+
+    mid = (s_idx + e_idx) / 2
+    left = merge_k_lists(lists, s_idx, mid)
+    right = merge_k_lists(lists, mid + 1, e_idx)
+
+    merge_two_lists(left, right)
 end
 
 def merge_two_lists(l1, l2)
-    dummy = cur = ListNode.new(0)
+    dummy = curr = ListNode.new(nil)
+
     while l1 || l2
-        if (l1 && l2 && l1.val < l2.val) || l2.nil?
-            cur.next, l1 = l1, l1.next
-        elsif (l1 && l2) || l1.nil?
-            cur.next, l2 = l2, l2.next
+        if (l1 && l2 && l1.val < l2.val) || !l2
+            curr.next, l1 = l1, l1.next
+        elsif (l1 && l2) || !l1
+            curr.next, l2 = l2, l2.next
         end
-        cur = cur.next
+        curr = curr.next
     end
 
     dummy.next
 end
+
+
+# 23. Merge k Sorted Lists
+# https://leetcode.com/problems/merge-k-sorted-lists/description/
 
 # There are really 5 approaches
 # 1. Brute force, collect all nodes and sort by value. Approach from above. Time: O(nlog(n)) Space: O(n)

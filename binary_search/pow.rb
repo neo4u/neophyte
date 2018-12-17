@@ -9,7 +9,7 @@ def my_pow(x, n)
 
     half = my_pow(x, n / 2)
     half_half = half * half
-    n.even? ? half_half : half_half * x
+    n.even? ? half_half : half_half * x  # exmaple 2 ^ 7 = (2 ^ 3) * (2 ^ 3) * 2
 end
 
 # Approach 2: Iterative

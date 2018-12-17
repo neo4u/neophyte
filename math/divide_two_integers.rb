@@ -3,7 +3,7 @@
 # @return {Integer}
 def divide(dividend, divisor)
     # Calculate sign of divisor i.e., sign will be negative
-    # only iff either one of them is -ve else it will be +ve
+    # only iff either one of them is -ve else it will be +ve. If do a XOR
     sign = (dividend < 0) ^ (divisor < 0) ? -1 : 1
     dividend, divisor, quotient = dividend.abs, divisor.abs, 0
 
@@ -17,8 +17,8 @@ def divide(dividend, divisor)
             dividend -= temp
             quotient += i
 
-            i <<= 1
-            temp <<= 1
+            i <<= 1     # same as i *= 2
+            temp <<= 1  # same as temp *= 2
         end
     end
     # Max of least and answer and min of max 32 int and answer,

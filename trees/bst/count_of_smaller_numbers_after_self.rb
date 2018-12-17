@@ -1,134 +1,59 @@
-# Segment Tree
-class SegmentTreeNode(object):
-    def __init__(self, val, start, end):
-        self.val = val
-        self.start = start
-        self.end = end
-        self.children = []
+class BST
+    attr_accessor :root
+    class BstNode
+        attr_accessor :val, :left, :right, :count, :left_tree_size
+        
+        def initialize(val)
+            @val = val
+            @left, @right = nil, nil
+            @count = 1
+            @left_tree_size = 0
+        end
+    end
 
-class SegmentTree(object):
-    def __init__(self, n):
-        self.root = self.build(0, n - 1)
+    def initialize()
+        @root = nil
+    end
 
-    def build(self, start, end):
-        if start > end:
-            return
+    # 1. Inserts the value in the BST
+    # 2. Returns the count of values after self that are lesser than self
+    def insert(val, node = nil)
+        node = @root if node.nil?
 
-        root = SegmentTreeNode(0, start, end)
-        if start == end:
-            return root
-
-        mid = start + end >> 1
-        root.children = filter(None, [
-            self.build(start, end)
-            for start, end in ((start, mid), (mid + 1, end))])
-        return root
-
-    def update(self, i, val, root=None):
-        root = root or self.root
-        if i < root.start or i > root.end:
-            return root.val
-
-        if i == root.start == root.end:
-            root.val += val
-            return root.val
-
-        root.val = sum([self.update(i, val, c) for c in root.children])
-        return root.val
-
-    def sum(self, start, end, root=None):
-        root = root or self.root
-        if end < root.start or start > root.end:
+        # 1: If val == node.val, count = left_tree_size.
+        # 2: If val > node.val, count = left_tree_size + count + insert(val, node.right)
+        # 3: If val < node.val, count = insert(val, node.left)
+        if node.nil?
+            @root = BstNode.new(val)
             return 0
+        elsif val < node.val
+            node.left_tree_size += 1                                                        # We found more value less that node.val so inc its left_tree_size for future reference, this makes no differnce for current insert
+            return insert(val, node.left) if node.left                                      # If left sub-tree exists, use it to insert the val accordingly
+            node.left = BstNode.new(val)                                                    # if left sub-tree was nil
+            return 0                                                                        # Values less than self are 0 at this point
+        elsif val > node.val
+            return node.count + node.left_tree_size + insert(val, node.right) if node.right # if right sub-tree exists, use it to insert the val accordingly
+            node.right = BstNode.new(val)                                                   # if right sub-tree was nil
+            return node.count + node.left_tree_size                                         # we just return node count + left_tree_size as that gives the values less that val
+        else                                                                                # if val == node.val
+            node.count += 1                                                                 # We just increment the count of the val
+            return node.left_tree_size                                                      # return left_tree_size for the curr node
+        end
+    end
+end
 
-        if start <= root.start and end >= root.end:
-            return root.val
+# @param {Integer[]} nums
+# @return {Integer[]}
+def count_smaller(nums)
+    tree = BST.new()
+    counts, n = [], nums.size
 
-        return sum([self.sum(start, end, c) for c in root.children])
+    (n - 1).downto(0) do |i|                    # Iterate from the end and insert into tree
+        counts.unshift(tree.insert(nums[i]))    # Since we're going from back insert from front of list 
+    end
 
-class Solution(object):
-    def countSmaller(self, nums):
-        hashTable = {v: i for i, v in enumerate(sorted(set(nums)))}
-
-        tree, r = SegmentTree(len(hashTable)), []
-        for i in xrange(len(nums) - 1, -1, -1):
-            r.append(tree.sum(0, hashTable[nums[i]] - 1))
-            tree.update(hashTable[nums[i]], 1)
-        return r[::-1]
-
-
-# Binary Indexed Tree
-class BinaryIndexedTree(object):
-    def __init__(self, n):
-        self.sums = [0] * (n + 1)
-
-    def update(self, i, val):
-        while i < len(self.sums):
-            self.sums[i] += 1
-            i += i & -i
-
-    def sum(self, i):
-        r = 0
-        while i > 0:
-            r += self.sums[i]
-            i -= i & -i
-        return r
-
-class Solution(object):
-    def countSmaller(self, nums):
-        hashTable = {v: i for i, v in enumerate(sorted(set(nums)))}
-
-        tree, r = BinaryIndexedTree(len(hashTable)), []
-        for i in xrange(len(nums) - 1, -1, -1):
-            r.append(tree.sum(hashTable[nums[i]]))
-            tree.update(hashTable[nums[i]] + 1, 1)
-        return r[::-1]
-
-
-# Binary Search Tree
-class BinarySearchTreeNode(object):
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
-        self.count = 1
-        self.leftTreeSize = 0
-
-class BinarySearchTree(object):
-    def __init__(self):
-        self.root = None
-
-    def insert(self, val, root):
-        if not root:
-            self.root = BinarySearchTreeNode(val)
-            return 0
-
-        if val == root.val:
-            root.count += 1
-            return root.leftTreeSize
-
-        if val < root.val:
-            root.leftTreeSize += 1
-
-            if not root.left:
-                root.left = BinarySearchTreeNode(val)
-                return 0
-            return self.insert(val, root.left)
-
-        if not root.right:
-            root.right = BinarySearchTreeNode(val)
-            return root.count + root.leftTreeSize
-
-        return root.count + root.leftTreeSize + self.insert(
-            val, root.right)
-
-class Solution(object):
-    def countSmaller(self, nums):
-        tree = BinarySearchTree()
-        return [
-            tree.insert(nums[i], tree.root)
-            for i in range(len(nums) - 1, -1, -1)
-        ][::-1]
+    counts
+end
 
 
 # 315. Count of Smaller Numbers After Self
@@ -137,17 +62,18 @@ class Solution(object):
 # Approach 1: Segment Tree
 # Approach 2: Binary Indexed Tree
 # Approach 3: Binary Search Tree
+
+# Example 1: [4, 3, 2, 1]
+
+
 # Approach 4: Merge-sort
 # MergeSort-based solution is a standard way to solve problems related to inverse numbers.
-
 # Here is an example to illustrate the general idea of MergeSort-based algorithm:
 # Now we want to consider an array
 #             6 4 1 8 7 5 2 9
-
 # First thing first, split the array into to subarrays:
 #             6 4 1 8
 #             7 5 2 9
-
 # and then calculate the inverse numbers within the group:
 #                   1 4(1) 6(1,4) 8
 #                   2 5(2) 7(2,5) 9
@@ -172,12 +98,17 @@ class Solution(object):
 # Next (add the inverse number of element "6" by 2)
 #  1 2 4(1,2) 5(2) 6(1,4,2,5)     8
 #                          7(2,5) 9               merged elements in the 2nd array = (2,5)
-
 # So and so forth, finally reach
 #  1 2 4(1,2) 5(2) 6(1,4,2,5) 7(2,5) 8(2,5,7) 9
 #                                                 merged elements in the 2nd array = (2,5,7,9)
 # Additionally, when we need to count the inverse number, we do not need to record the exact elements, we only need to record the numbers. So, we can use a variable to record the number of "merged elements in the 2nd array" (for example, semilen in the code beneath) and the number of smaller elements of each element (for example, results[idx] in the code beneath).
 
-# Complexities:
+# Complexity:
 # Time: O(n log n)
 # Space: O(n)
+
+require 'test/unit'
+extend Test::Unit::Assertions
+
+assert_equal(count_smaller([5,2,6,1]), [2,1,1,0])
+assert_equal(count_smaller([4, 3, 2, 1]), [3, 2, 1, 0])

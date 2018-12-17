@@ -12,7 +12,7 @@ end
 def merge(intervals)
     intervals.sort_by!(&:start)
     merged = []
-    
+
     intervals.each do |i|
         if merged.empty? || merged.last.end < i.start
             merged.push(i)
@@ -20,7 +20,7 @@ def merge(intervals)
             merged.last.end = [merged.last.end, i.end].max
         end
     end
-    
+
     merged
 end
 

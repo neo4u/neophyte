@@ -1,26 +1,4 @@
-class Solution:
-    # @param intervals, a list of Intervals
-    # @param newInterval, a Interval
-    # @return a list of Interval
-    def insert(self, intervals, newInterval):
-        start, end = newInterval.start, newInterval.end
-        result, i = [], 0
-
-        while i < len(intervals):
-            if start <= intervals[i].end:
-                if end < intervals[i].start: break
-                start = min(start, intervals[i].start)
-                end = max(end, intervals[i].end)
-            else:
-                result.append(intervals[i])
-            i += 1
-
-        result.append(Interval(start, end))
-        result += intervals[i:]
-        return result
-
-
-class SolutionBinarySearch(object):
+class Solution(object):
     def insert(self, intervals, newInterval):
         """
         :type intervals: List[Interval]
@@ -35,26 +13,29 @@ class SolutionBinarySearch(object):
 
         n = len(intervals)
 
-        # binary search
-        # python implementation of bisect.bisect_left and bisect_right using binary search. Very straightforward.
-        # https://github.com/python/cpython/blob/master/Lib/bisect.py
-        low = bisect.bisect_left([i.end for i in intervals], newInterval.start) # Find a place for the start
-        high = bisect.bisect_right([i.start for i in intervals], newInterval.end) # Fina a place for the end
+        # low is the index of ends such that, for all e in ends[:low], e < newInt.start
+        # high is the index of starts such that, for all s in starts[high:], newInt.end < s
+        
+        # Essentially finding ends less than newInt's start and starts after newInt's end
+        low = bisect.bisect_left([i.end for i in intervals], newInterval.start)     # Find a place for the newInterval start
+        high = bisect.bisect_right([i.start for i in intervals], newInterval.end)   # Find a place for the newInterval end
 
-        # determine left half, newInterval.start > intervals[low - 1].end
-        # if newInterval has overlap with interval[low], expand it
+        
+        # determine left half, newInterval.start > intervals[low].end
+        # if newInterval has overlap with interval[low], merge it by taking min of starts
         if low < n:
             newInterval.start = min(newInterval.start, intervals[low].start)
         left = intervals[:low]
 
-        # determine right half, newInterval.end < intervals[high].start
-        # if newInterval has overlap with interval[high - 1], expand it
+        # determine right half, newInterval.end < intervals[high - 1].start
+        # if newInterval has overlap with interval[high - 1], merge it by taking max of ends
         if high > 0:
             newInterval.end = max(newInterval.end, intervals[high - 1].end)
         right = intervals[high:]
 
         # return the merged list
         return left + [newInterval] + right
+
 
 # 57. Insert Interval
 # https://leetcode.com/problems/insert-interval/
@@ -71,3 +52,22 @@ class SolutionBinarySearch(object):
 # Time: O(log(n)) or O(n). Not fully sure the finds for low and high take log(n),
 #       but the last return statement may take O(n)
 # Space: O(n)
+
+
+Bisect left
+The return value i is such that all e in a[:i] have e < x, and all e in
+a[i:] have e >= x.  So if x already appears in the list, a.insert(x) will
+insert just before the leftmost x already there.
+
+    e < x              x <= e
+--------------  --------------------
+0, ...., i - 1, i, i + 1, ..., n - 1
+
+Bisect right
+The return value i is such that all e in a[:i] have e <= x, and all e in
+a[i:] have e > x.  So if x already appears in the list, a.insert(x) will
+insert just after the rightmost x already there.
+
+    e <= x             x < e
+--------------  --------------------
+0, ...., i - 1, i, i + 1, ..., n - 1

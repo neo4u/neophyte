@@ -45,8 +45,8 @@ end
 # https://leetcode.com/problems/game-of-life/
 
 # We denote:
-# 2 to represent trainsition dead -> live
-# 3 to represent trainsition live -> dead
+# 2 to represent transition dead -> alive
+# 3 to represent transition alive -> dead
 
 # These are the possible states and conditions:
 
