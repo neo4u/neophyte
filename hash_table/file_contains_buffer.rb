@@ -23,10 +23,10 @@ def file_contains(filepath, buffer)
 
     file = file_open(filepath)
     magic_bytes = buffer[0, 2]
-    f_bytes = file_read(file, b_size, 0)
     match_index, match_size = 0, 0
     rem_b_size = b_size
     b_offset = 0
+    f_bytes = nil
 
     while f_bytes != 0
         f_bytes = file_read(file, b_size, match_index)
