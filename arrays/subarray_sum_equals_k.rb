@@ -63,15 +63,6 @@ end
 # ------------------------   ------------------------------
 # A[0] + A[1] + ... + A[j] + A[j+1] + A[j+2] + ...  + A[t-1]
 
-# class Solution:
-#     def subarraySum(self, nums, k):
-#         dic = {0:1}
-#         res = pre_sum = 0
-#         for num in nums:
-#             pre_sum += num
-#             res += dic.get(pre_sum - k, 0)
-#             dic[pre_sum] = dic.get(pre_sum, 0) + 1
-#         return res
 
 # Best you can do is
 # Time: O(n), The entire nums array is traversed only once.

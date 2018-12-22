@@ -52,7 +52,6 @@ end
 # [3,4,7]
 # (Note that we could not have picked more than one evelope with width 6)
 # Answer: 3
-
 # ----------------------------------------------------------------------------
 # My own understanding
 # 1. width needs to be strictly increasing

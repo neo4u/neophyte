@@ -4,7 +4,10 @@ class Solution:
         :type board: List[List[int]]
         :rtype: void Do not return anything, modify board in-place instead.
         """
-        self.neighbors = [(0, 1), (0, -1), (1, 0), (-1, 0), (-1, -1), (1, 1), (-1, 1), (1, -1)]
+        self.neighbors = [
+            (0, 1), (0, -1), (1, 0), (-1, 0),
+            (-1, -1), (1, 1), (-1, 1), (1, -1)
+        ]
 
         m,n = len(board), len(board[0])
         for i in range(m):

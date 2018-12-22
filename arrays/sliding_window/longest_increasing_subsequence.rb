@@ -34,7 +34,8 @@ end
 
 # Intuition and Algorithm
 # This solution is essentialy binary search + Dynamic Programming (tails)
-# tails is an array storing the smallest tail of all increasing subsequences with length i+1 in tails[i] scanned so far.
+# tails is an array storing the smallest tail of all increasing subsequences
+# with length i+1 in tails[i] scanned so far.
 # For example, say we have nums = [4,5,6,3], then all the available increasing subsequences are:
 
 # len = 1:  [4], [5], [6], [3] => tails[0] = 3

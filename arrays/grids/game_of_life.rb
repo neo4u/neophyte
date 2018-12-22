@@ -10,7 +10,7 @@ def game_of_life(board)
             if board[i][j] == 0 # if dead
                 board[i][j] = 2 if count == 3 # dead and 3 neighbours mark to bring to life
             else                # if alive
-                board[i][j] = 3 if count < 2 or count > 3 # alive and <2 or >3 nbs make dead
+                board[i][j] = 3 if count < 2 || count > 3 # alive and <2 or >3 nbs make dead
             end
         end
     end
@@ -28,16 +28,16 @@ end
 def live_neighbours(board, i, j)
     count = 0
     nbs = [
-        [0, 1], [1, 0], [1, 1], [1, -1],
-        [0, -1], [-1, 0], [-1, -1], [-1, 1]
+        [0, 1], [1, 0], [1, -1], [1, 1],    # right, down, down left, down right
+        [0, -1], [-1, 0], [-1, -1], [-1, 1] # left, up, up left, up right
     ]
     m, n = board.size, board[0].size
-    nbs.each do |nb|
-        x, y = [i + nb[0], j + nb[1]] 
+    nbs.each do |x1, y1|
+        x, y = i + x1, j + y1
         next if !x.between?(0, m - 1) || !y.between?(0, n - 1) # skip if not in range
         count += board[x][y] % 2 # returns 1 for 1, 3, and 0 for 0, 2, Remember it could be either of 0, 1, 2, 3
     end
-    
+
     count
 end
 
@@ -49,7 +49,6 @@ end
 # 3 to represent transition alive -> dead
 
 # These are the possible states and conditions:
-
 # Current State: Dead (0)
 # Neighbours conditions:
 # - < 2     -> remain dead
@@ -67,8 +66,12 @@ end
 # We only need to care about the following two conditions as they cause a switch of state:
 # | State |live neighbrs | new value | change |
 # |-------|--------------|-----------|--------|
-# | alive | < 2 and > 3  | 3         | 1->0   |
-# | dead  | 3            | 2         | 0->1   |
+# | alive | < 2 or > 3   | 3         | 1->0   |
+# | dead  | == 3         | 2         | 0->1   |
+
+# Steps:
+# 1. Based on the above table, do a first pass to capture the transistions required
+# 2. Based on the new transistions, do a second pass to finally store the next state
 
 # Complexity
 # Time: O(m * n)

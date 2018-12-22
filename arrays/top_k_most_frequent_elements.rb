@@ -11,6 +11,7 @@ def top_k_frequent(nums, k)
     m.sort_by { |key, val| val }.take(k).map(&:first)
 end
 
+
 # Approach 1: Sorting the hash by values and taking k
 
 # Approach 2: Heap

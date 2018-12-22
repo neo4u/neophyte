@@ -26,7 +26,7 @@ end
 def word_pattern(pattern, str)
     words = str.split()
     return false if pattern.size != words.size
-    
+
     p_hash, w_hash = {}, {}
     0.upto(words.size - 1) do |i|
         p, w = pattern[i], words[i]
@@ -42,6 +42,6 @@ def word_pattern(pattern, str)
             w_hash[w] = i
         end
     end
-    
+
     true
 end

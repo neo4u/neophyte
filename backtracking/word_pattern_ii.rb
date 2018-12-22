@@ -41,22 +41,21 @@ end
 
 def bt(pattern, str, p_idx = 0, s_idx = 0, map = {}, words_used = Set.new)
     return s_idx == str.size if p_idx == pattern.size
-
     p = pattern[p_idx]
-    mapped_s = map[p]
+    w = map[p]
 
-    if mapped_s
-        return false if !str[s_idx...str.size].start_with?(mapped_s)
-        return true if bt(pattern, str, p_idx + 1, s_idx + mapped_s.size, map, words_used) # Recursively solve sub-problem
+    if w
+        return false if !str[s_idx...str.size].start_with?(w)
+        return true if bt(pattern, str, p_idx + 1, s_idx + w.size, map, words_used) # Recursively solve sub-problem
     else
         s_idx.upto(str.size - 1) do |i|
-            w = str[s_idx..i]
-            next if words_used.include?(w)
-            words_used.add(w)
-            map[p] = w
+            word = str[s_idx..i]
+            next if words_used.include?(word) # is 'a' is used to match 'red' then 'b' can't be used to match red
+            words_used.add(word)
+            map[p] = word
             return true if bt(pattern, str, p_idx + 1, i + 1, map, words_used)
             map.delete(p)
-            words_used.delete(w)
+            words_used.delete(word)
 
             # The above three lines can be replaced by below lines.
             # Since we're creating duplicate hashes, we don't need to to delete after bt
@@ -70,6 +69,11 @@ end
 
 # 291. Word Pattern II
 # https://leetcode.com/problems/word-pattern-ii/
+
+# Approach 1: Backtracking
+
+# Steps
+# 1. 
 
 
 require 'test/unit'

@@ -67,11 +67,42 @@ def merge_two_lists(l1, l2)
     dummy.next
 end
 
+# Approach 5: Iterative
+# @param {ListNode[]} lists
+# @return {ListNode}
+def merge_k_lists(lists)
+    k, interval = lists.size, 1
+
+    while interval < k
+        0.step(k - interval, interval * 2) do |i|
+            l, r = lists[i], lists[i + interval]
+            lists[i] = merge_two_lists(l, r)
+        end
+        interval *= 2
+    end
+
+    k > 0 ? lists.first : lists
+end
+
+def merge_two_lists(l1, l2)
+    dummy = curr = ListNode.new(nil)
+
+    while l1 || l2
+        if (l1 && l2 && l1.val < l2.val) || !l2
+            curr.next, l1 = l1, l1.next
+        elsif (l1 && l2) || !l1
+            curr.next, l2 = l2, l2.next
+        end
+        curr = curr.next
+    end
+
+    dummy.next
+end
 
 # 23. Merge k Sorted Lists
 # https://leetcode.com/problems/merge-k-sorted-lists/description/
 
-# There are really 5 approaches
+# There are 5 approaches
 # 1. Brute force, collect all nodes and sort by value. Approach from above. Time: O(nlog(n)) Space: O(n)
 # 2. Iterate through all the lists and take the minimum from the k lists Time: O(k * n) Space: O(1)
 # 3. The comparison process can be optimized in the above process using priority queue. Solution2 above. Time: O(nlogk) Space: O(1)
@@ -81,3 +112,6 @@ end
 # Best
 # Time: O(nlogk)
 # Space: O(1)
+
+
+# List = 

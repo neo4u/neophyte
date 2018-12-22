@@ -11,7 +11,7 @@ def find_duplicate(paths)
         end
     end
 
-    map.values.select { |files| files.length > 1 }
+    map.values.select { |files_list| files_list.length > 1 }
 end
 
 # 609. Find Duplicate File in System
