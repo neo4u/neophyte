@@ -58,6 +58,7 @@ def check_chunk_for_buffer(chunk, buffer)
     found = true
     match_idx, match_size = 0, 0
     0.upto(b_size - 1) do |i|
+        match_idx, match_size = 0, 0
         0.upto(b_size - 1) do |j|
             if chunk[i] != buffer[j]
                 found = false
