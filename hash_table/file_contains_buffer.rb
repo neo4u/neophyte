@@ -45,7 +45,7 @@ end
 
 # O(b_size)
 def check_chunk_for_header(chunk, magic_bytes)
-    0.step(chunk.size - 1, 2) do |i|
+    0.upto(chunk.size - 1) do |i|
         return true if chunk[i, 2] == magic_bytes
     end
 
