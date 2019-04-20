@@ -1,5 +1,5 @@
 # Approach 1: Store message and timestamp. We can do better by storing only the last 10 messages
-class Logger2
+class Logger_Hash
     def initialize()
         @hash = {}
     end
@@ -8,13 +8,28 @@ class Logger2
         digest = Digest::MD5.hexdigest(message)
         time_diff = timestamp - @hash[digest]
         if @hash.key?(digest) && time_diff >= 10
-                @hash[digest] = timestamp
-                return true
+            @hash[digest] = timestamp
+            true
         elsif @hash.key?(digest) && time_diff < 10
-                return false
+            false
         else
             @hash[digest] = timestamp
-            return true
+            true
+        end
+    end
+end
+
+class Logger
+    def initialize()
+        @msg_ts = {}
+    end
+
+    def should_print_message(ts, msg)
+        if @msg_ts[msg] && ts - @msg_ts[msg] < 10
+            false
+        else
+            @msg_ts[msg] = ts
+            true
         end
     end
 end
@@ -25,7 +40,6 @@ require 'set'
 
 # Approach 2: priority queue (Can use any normal queue if timestamps are givein in sorted order as shown below)
 # Needs pqueue gem installed
-
 class Log
     attr_accessor :ts, :digest
     def initialize(ts, digest)
@@ -34,7 +48,7 @@ class Log
     end
 end
 
-class Logger1
+class Logger_Q
     def initialize()
         @recent_logs_queue = PQueue.new(){ |a, b| a.ts < b.ts }
         @recent_messages = Set.new()
@@ -87,7 +101,7 @@ class Logger
             log = @logs_queue.first
             # Discard the logs older than 10 secs
             if timestamp - log.ts >= 10
-                @logs_queue.shift
+                @logs_queue.shift()
                 @last_10.delete(log.digest)
             else
                 break
@@ -103,6 +117,9 @@ class Logger
         result
     end
 end
+
+
+
 
 # Approach 1: Hashmap
 # 1. Use a hashmap to map message digest of message to recent print time
@@ -121,10 +138,9 @@ end
 #   - We add the message digest to last_10 and return true if the digest in not present in last_10
 #   - We return false if message is already present in last_10
 
+# 359. Logger Rate Limiter
+# https://leetcode.com/problems/logger-rate-limiter/description/
 
-# Your Logger object will be instantiated and called as such:
-# obj = Logger.new()
-# param_1 = obj.should_print_message(timestamp, message)
 
 require 'test/unit'
 extend Test::Unit::Assertions

@@ -1,5 +1,3 @@
-# @param {Integer} num
-# @return {String}
 def number_to_words(num)
   num.eql?(0) ? "Zero" : in_words(num)
 end
@@ -18,7 +16,7 @@ def in_words(num)
   if num < 20
     return words[num]
   elsif num < 100
-    return "#{words[num / 10 * 10]} #{in_words(num % 10)}".strip
+    return "#{words[num / 10 * 10]} #{words[num % 10]}".strip
   elsif num < 1000
     return "#{words[num / 100]} Hundred #{in_words(num % 100)}".strip
   elsif num < 1_000_000
@@ -29,7 +27,6 @@ def in_words(num)
     return "#{in_words(num / 1_000_000_000)} Billion #{in_words(num % 1_000_000_000)}".strip
   end
 end
-
 require 'test/unit'
 extend Test::Unit::Assertions
 

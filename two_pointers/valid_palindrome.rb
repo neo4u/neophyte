@@ -4,20 +4,18 @@
 def is_palindrome(s)
     return true if !s || s.empty?
     l, r = 0, s.size - 1
-
     while l < r
         l += 1 while !alpha_num?(s[l]) && l < r # Skip non-alpha numeric from left
         r -= 1 while !alpha_num?(s[r]) && l < r # Skip non-alpha numeric from right
-  
-        return false unless s[l].casecmp(s[r]).zero?
+        return false if s[l].downcase != s[r].downcase
         l += 1; r -= 1
     end
-
+    
     true
 end
 
-def alpha_num?(s)
-    s.match(/[a-zA-Z0-9]/)
+def alpha_num?(c)
+    c.match(/[a-zA-Z0-9]/)
 end
 
 # Gsub method

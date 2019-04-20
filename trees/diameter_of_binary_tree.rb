@@ -11,7 +11,7 @@
 # @return {Integer}
 def diameter_of_binary_tree(root)
     @result = 1
-    
+
     dfs(root)
     @result - 1 # result has number of nodes in longest path, -1 of the gives us edges
 end

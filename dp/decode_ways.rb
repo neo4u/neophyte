@@ -45,5 +45,12 @@ end
 # 2. We have the combo of curr and prev char are between '10', '26'
 #    then we add ways to encode of upto i - 2 to the curr value
 
+# Example: 123
+# 1 2 3, 12 3, 1 23
+# a b c, lc, aw
+
+# 12 = 1 + 1, 
+# dp [1, 1, 1 + 1, 2 + 1, 3 + 1]
+
 # Time: O(n)
 # Space: O(n)

@@ -1,4 +1,4 @@
-Using backtrack to check each character of word to search.
+// Using backtrack to check each character of word to search.
 
 public class WordDictionary {
     public class TrieNode {

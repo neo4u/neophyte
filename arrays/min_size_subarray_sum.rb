@@ -6,7 +6,7 @@ def min_sub_array_len(s, nums)
     result, n = nums.size + 1, nums.size
 
     1.upto(n - 1) do |i|
-        nums[i] += nums[i - 1] 
+        nums[i] += nums[i - 1]
     end
 
     l = 0

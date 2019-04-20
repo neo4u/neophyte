@@ -4,8 +4,8 @@ def next_permutation(nums)
     r = n - 1
     r -= 1 while nums[r - 1] >= nums[r]  && r > 0
     return reverse(nums, 0, n - 1) if r == 0
-    pivot, scssr = r - 1, 0
 
+    pivot, scssr = r - 1, 0
     (n - 1).downto(pivot) do |i|
         next if nums[i] <= nums[pivot]
         scssr = i
@@ -31,9 +31,10 @@ def next_permutation2(nums)
     n = nums.size
     r = n - 1
 
-    # Select the right most element that breaks the property of a[i - 1] >= a[i]
+    # Select the right most element that breaks the property of a[i - 1] >= a[i],
+    # which is the 1st valley from back
     r -= 1 while nums[r] <= nums[r - 1] && r - 1 >= 0
-    return reverse(nums, 0, n - 1) if r == 0 # Case for whole array in dec order like: ['3', '2', '1']
+    return reverse2(nums, 0, n - 1) if r == 0 # Case for whole array in dec order like: ['3', '2', '1']
 
     # find pivot and successor are the candidates for the swap
     pivot, successor = r - 1, 0
@@ -49,7 +50,7 @@ def next_permutation2(nums)
     nums[pivot], nums[successor] = nums[successor], nums[pivot]
 
     # reverse suffix
-    reverse(nums, pivot + 1, n - 1)
+    reverse2(nums, pivot + 1, n - 1)
 end
 
 def reverse2(nums, l, r)

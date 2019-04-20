@@ -31,10 +31,10 @@ end
 # Approach #2: Greedy [Accepted]  Time: O(n), Space: O(1)
 # Solution above
 
-Example 1:
-Input: "aba"
-Output: True
-Example 2:
-Input: "abca"
-Output: True
-Explanation: You could delete the character 'c'.
+# Example 1:
+# Input: "aba"
+# Output: True
+# Example 2:
+# Input: "abca"
+# Output: True
+# Explanation: You could delete the character 'c'.

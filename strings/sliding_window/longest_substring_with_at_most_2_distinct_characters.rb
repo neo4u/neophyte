@@ -5,27 +5,27 @@ def length_of_longest_substring_two_distinct(s)
     return s.size if s.size <= 2    # Trivial case
 
     map = Array.new(128, 0)         # O(1)
-    # left and right bounds for window (l and r),
-    # longest length of string to return as result (longets),
-    # counter for number of elements in the window,
-    # replace s with the an array of bytes for the characters
-    l, r, longest, counter = 0, 0, 0, 0 
+    # left and right:   bounds for window (l and r),
+    # longest:          length of string to return as result (longest),
+    # counter:          var for number of elements in the window,
+    # replace s with the an array of bytes for the chars which contains
+    l, r, longest, counter = 0, 0, 0, 0
     s = s.bytes
 
     while r < s.size
-        counter += 1 if map[s[r]] == 0
-        map[s[r]] += 1
-        r += 1
+        counter += 1 if map[s[r]] == 0  # Inc counter if the char at r has not been seen before
+        map[s[r]] += 1                  # Update the no. of times it was seen.
+        r += 1                          # Extend window to right
 
-        while counter > 2
-            map[s[l]] -= 1
-            counter -= 1 if map[s[l]] == 0
-            l += 1
+        while counter > 2                   # while chars are > 2
+            map[s[l]] -= 1                  # kick out a char and reduce its count in map 
+            counter -= 1 if map[s[l]] == 0  # If all instances of char are kicked out, then reduce counter
+            l += 1                          # reduce window from left
         end
-        longest = [longest, r - l].max
+        longest = [longest, r - l].max      # Keep checking the current window size to maintain a maximum
     end
 
-    longest
+    longest                                 # Return max window size
 end
 
 # 159. Longest Substring with At Most Two Distinct Characters

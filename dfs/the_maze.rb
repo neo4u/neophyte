@@ -1,4 +1,4 @@
-# BFS
+# Approach 1: BFS
 # @param {Integer[][]} maze
 # @param {Integer[]} start
 # @param {Integer[]} destination
@@ -16,7 +16,7 @@ def has_path(maze, start, destination)
             r, c = i, j
             
             # Keep going in the same direction till you hit a wall
-            while (r + x).between?(0, m - 1) && (c + y).between?(0, n - 1) && maze[r + x][c + y] != 1
+            while (r + x).between?(0, m - 1) && (c + y).between?(0, n - 1) && maze[r + x][c + y] == 0
                 r += x; c += y
             end
 
@@ -27,8 +27,7 @@ def has_path(maze, start, destination)
     false
 end
 
-require 'set'
-# DFS
+# Approach 2: DFS
 # @param {Integer[][]} maze
 # @param {Integer[]} start
 # @param {Integer[]} destination
@@ -65,7 +64,7 @@ end
 # Apporach 1: BFS, Time: O(m * n), Space: O(m * n)
 # Approach 2: DFS, Time: O(m * n), Space: O(m * n)
 
-
+require 'set'
 require 'test/unit'
 extend Test::Unit::Assertions
 

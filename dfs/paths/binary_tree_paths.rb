@@ -25,7 +25,6 @@ def dfs(node, visited = [])
         @paths << visited.join('->')
     # For all other cases, just traverse down left and right children
     else
-        node_val
         dfs(node.left, visited + [node_val])
         dfs(node.right, visited + [node_val])
     end

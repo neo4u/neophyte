@@ -4,7 +4,7 @@
 def license_key_formatting(s, k)
     result, tmp = [], []
     (s.size - 1).downto(0) do |i|
-        tmp.unshift(s[i].upcase) if alpha_num?(s[i].upcase)
+        tmp.unshift(s[i].upcase) if alpha_num?(s[i])
         if tmp.size == k
             result.unshift(tmp.join(''))
             tmp = []
@@ -15,13 +15,20 @@ def license_key_formatting(s, k)
     result.join('-')
 end
 
-def alpha_num?(c)
-    c.between?('A', 'Z') || c.between?('0', '9')
+def alpha_num?(str)
+    str.match(/^[a-zA-Z0-9]$/)
 end
 
 def license_key_formatting_short(s, k)
     s.upcase.tr('-', '').reverse.scan(/.{1,#{k}}/).join('-').reverse
 end
+
+
+
+
+# 482. License Key Formatting
+# https://leetcode.com/problems/license-key-formatting/description/
+
 
 require 'test/unit'
 extend Test::Unit::Assertions

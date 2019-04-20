@@ -62,5 +62,5 @@ end
 # 5. If a meeting has indeed ended i.e. if start[s_ptr] >= end[e_ptr], then we increment e_ptr.
 # 6. Repeat this process until s_ptr processes all of the meetings.
 
-# Time: O(nlog(n))
+# Time: O(nlog(n)), For the sorts
 # Space: O(n)

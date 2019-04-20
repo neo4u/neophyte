@@ -12,13 +12,47 @@ def my_pow(x, n)
     n.even? ? half_half : half_half * x  # exmaple 2 ^ 7 = (2 ^ 3) * (2 ^ 3) * 2
 end
 
-# Approach 2: Iterative
+# Approach 3: Iterative
 # @param {Float} x
 # @param {Integer} n
 # @return {Float}
-def my_pow(x, n)
+def my_pow_iter(x, n)
+    m = n
+    n = n.abs
+    ans, curr, i = 1, x, n
+    while i > 0
+        ans *= curr if i % 2 == 1
+        
+        curr *= curr
+        i /= 2
+        puts "ans: #{ans} | curr: #{curr} | i: #{i}"
+    end
 
+    m < 0 ? 1/ans : ans
 end
+
+# def myPow(self, x, n):
+#     m = abs(n)
+#     ans = 1.0
+#     while m:
+#         if m & 1:
+#             ans *= x
+#         x *= x
+#         m >>= 1
+#     return ans if n >= 0 else 1 / ans
+
+# def my_pow(x, n)
+#     m = n.abs
+#     ans = 1.0
+
+#     while m > 0
+#         ans *= x if m & 1
+#         x *= x
+#         m >>= 1
+#     end
+
+#     n < 0 ? 1/ans : ans
+# end
 
 
 # 50. Pow(x, n)
@@ -37,22 +71,10 @@ end
 # special, negative, x=0, n=0
 
 # Approach 3: Fast Power Algorithm Iterative
-# There is a O(log(n)) time and O(1) space algorithm 
-# class Solution {
-#     public double myPow(double x, int n) {
-#         long N = n;
-#         if (N < 0) {
-#             x = 1 / x;
-#             N = -N;
-#         }
-#         double ans = 1;
-#         double current_product = x;
-#         for (long i = N; i > 0; i /= 2) {
-#             if ((i % 2) == 1) {
-#                 ans = ans * current_product;
-#             }
-#             current_product = current_product * current_product;
-#         }
-#         return ans;
-#     }
-# };
+
+
+require 'test/unit'
+extend Test::Unit::Assertions
+
+
+assert_equal(my_pow_iter(2, 2), 4)

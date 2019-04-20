@@ -1,22 +1,19 @@
-# @param {Integer[]} nums
-# @return {Integer[][]}
 def three_sum(nums)
     nums.sort!
-    result, n = [], nums.size
-
-    0.upto(n - 3) do |i|                        # We can use n - 3 because last 2 will be handled by l and r
-        next if i > 0 && nums[i] == nums[i - 1] # Skip dups
-        l, r = i + 1, n - 1                     # Iterate from after
-
+    n, result = nums.size, []
+    0.upto(n - 3) do |i|
+        next if i > 0 && nums[i] == nums[i - 1]     # skip dups from left
+        l, r = i + 1, n - 1
         while l < r
             sum = nums[i] + nums[l] + nums[r]
-            if sum.zero?
+            if sum == 0
                 result.push([nums[i], nums[l], nums[r]])
-                while l < r && nums[l += 1] == nums[l - 1] do end # Skip dups
-                while l < r && nums[r -= 1] == nums[r + 1] do end # Skip dups
-            elsif sum < 0
+                l += 1; r -= 1
+                l += 1 while nums[l] == nums[l - 1] # Skip dups from left
+                r -= 1 while nums[r] == nums[r + 1] # Skip dups from right
+            elsif sum < 0                           # Move left pointer
                 l += 1
-            elsif sum > 0
+            elsif sum > 0                           # Move right pointer
                 r -= 1
             end
         end

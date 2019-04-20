@@ -8,7 +8,7 @@ def subarray_sum(nums, k)
 
     nums.each do |num|
         pre_sum += num
-        result += counts.fetch(pre_sum - k, 0) # We add number of subarrays upto pre_sum - k 
+        result += counts.fetch(pre_sum - k, 0) # We add number of subarrays upto pre_sum - k
         counts[pre_sum] = counts.fetch(pre_sum, 0) + 1
     end
 

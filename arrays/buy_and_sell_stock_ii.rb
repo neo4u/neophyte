@@ -18,12 +18,12 @@ end
 # @param {Integer[]} prices
 # @return {Integer}
 def max_profit(prices)
-    max_profit = 0
+    profit = 0
     1.upto(prices.length - 1) do |i|
-        max_profit += prices[i] - prices[i - 1] if prices[i] > prices[i - 1]
+        profit += prices[i] - prices[i - 1] if prices[i] > prices[i - 1]
     end
 
-    max_profit
+    profit
 end
 
 # @note Using Dynamic programming
@@ -57,6 +57,17 @@ end
 
 # 122. Best Time to Buy and Sell Stock II
 # https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/
+# Unimited transactions
+
+# 1. DP
+
+# 2. Simple One Pass
+# Steps
+# - For every day check if today's price > y'day's price
+# - If yes, then sell and add to profit
+
+# Time: O(n)
+# Space: O(1) for 1 pass, O(n) for dp.
 
 require 'test/unit'
 extend Test::Unit::Assertions
@@ -66,5 +77,3 @@ assert_equal(max_profit([1,2,3,4,5]), 4)
 assert_equal(max_profit([7,6,4,3,1]), 0)
 assert_equal(max_profit([]), 0)
 
-# Time: O(n)
-# Space: O(1) for 1 pass, O(n) for dp.

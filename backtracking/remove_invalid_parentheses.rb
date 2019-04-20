@@ -1,7 +1,7 @@
-# Approach 2: Optimal, Backtracking with pruning Time: O(2^n), Space: O(n)
+# Approach 1: Sub-Optimal, Backtracking with pruning Time: O(2^n), Space: O(n)
 # @param {String} s
 # @return {String[]}
-def remove_invalid_parentheses(s)
+def remove_invalid_parentheses_bt(s)
     # Set to avoid duplicates, because removing same number of diff parentheses, can lead to same result
     @str, @result = s, Set.new()
     l, r = get_counts(@str)
@@ -12,25 +12,29 @@ def remove_invalid_parentheses(s)
     @result.to_a
 end
 
-def backtrack(i, l_rem, r_rem, left_count, prev)
+def backtrack(i, l_rem, r_rem, l_cnt, prefix, depth = 0)
     # If we reached the end of the string, just check if the resulting expression is
     # valid or not and also if we have removed the total number of left and right
     # parentheses that we should have removed.
+    puts "#{"\t" * depth}bt_call i: #{i}, l_rem: #{l_rem}, r_rem: #{r_rem}, l_cnt: #{l_cnt}, prefix: #{prefix}"
     if i == @str.size
-        @result.add(prev) if left_count == 0 && l_rem.zero? && r_rem.zero?
-        return
+        if l_cnt == 0 && l_rem.zero? && r_rem.zero?
+            @result.add(prefix) 
+            puts "pushing prefix: #{prefex} to result"
+            return
+        end
     end
 
     # The discard case. Note that here we have our pruning condition.
     # We don't recurse if the remaining count for that parenthesis is == 0.
     if @str[i] == "("
-        backtrack(i + 1, l_rem - 1, r_rem, left_count, prev) if l_rem > 0  # The discard case, it will work without the if condition, which is for pruning/optimization
-        backtrack(i + 1, l_rem, r_rem, left_count + 1, prev + "(")         # The consider case
+        backtrack(i + 1, l_rem - 1, r_rem, l_cnt, prefix, depth + 1) if l_rem > 0  # The discard case, it will work without the if condition, which is for pruning/optimization
+        backtrack(i + 1, l_rem, r_rem, l_cnt + 1, prefix + "(", depth + 1)         # The consider case
     elsif @str[i] == ")"
-        backtrack(i + 1, l_rem, r_rem - 1, left_count, prev) if r_rem > 0              # The discard case, it will work without the if, which is for pruning
-        backtrack(i + 1, l_rem, r_rem, left_count - 1, prev + ")") if left_count > 0   # The consider case, but only when more left than right
+        backtrack(i + 1, l_rem, r_rem - 1, l_cnt, prefix, depth + 1) if r_rem > 0        # The discard case, it will work without the if, which is for pruning
+        backtrack(i + 1, l_rem, r_rem, l_cnt - 1, prefix + ")", depth + 1) if l_cnt > 0  # The consider case, but only when more left than right
     else
-        backtrack(i + 1, l_rem, r_rem, left_count, prev + @str[i])
+        backtrack(i + 1, l_rem, r_rem, l_cnt, prev + @str[i], depth + 1)
     end
 end
 
@@ -48,68 +52,115 @@ def get_counts(s)
     [l, r]
 end
 
-# Approach 1: Using valid? to check counts each time. Almost optimal. As same pruning in 
-# @param {String} s
-# @return {String[]}
-def remove_invalid_parentheses_using_valid(s)
-    l, r = get_counts(s)
-    @result = []
-    dfs(s, 0, l, r)
 
+# Best solution
+def remove_invalid_parentheses(s)
+    @result, parens  = [], ['(', ')']
+    remove(s, 0, 0, parens)
     @result
 end
 
-def get_counts(s)
-    l, r = 0, 0
-    s.each_char do |c|
-        l += c == "(" ? 1 : 0
+# To keep track of:
 
-        if l == 0
-            r += c == ")" ? 1 : 0 # If we don't have a matching left, then this is a misplaced right, record it.
-        else
-            l -= c == ")" ? 1 : 0 # Decrement count of left parentheses because we have found a right which CAN be a matching one for a left.
+def remove(s, last_valid_loc, last_remove_loc, parens)
+    stack = 0
+    open, close = parens[0], parens[1]
+    last_valid_loc.upto(s.size - 1) do |i|
+        stack += 1 if s[i] == open
+        stack -= 1 if s[i] == close
+        next if stack >= 0
+        # s is not valid, try removing every possible closeParen, skipping duplicates
+
+        # normally we should use i + 1 and j + 1 as next starting location
+        # but after deleting one char, i and j are effectivelly increased by 1 already
+        last_remove_loc.upto(i) do |j|
+            if s[j] == close && (j == last_remove_loc || s[j - 1] != s[j])
+                remove(s[0...j] + s[j + 1..-1], i, j, parens)
+            end
         end
+        return # whenever was is invalid, the child of recursive pushes valid sub string into the result, so return as nothing to after this
     end
-    [l, r]
-end
-
-def valid?(s)
-    cnt = 0
-    s.each_char do |c|
-        if c == "(" then cnt += 1
-        elsif c == ")" then cnt -= 1 end
-        return false if cnt < 0
-    end
-
-    true
-end
-
-def dfs(s, start, l, r)
-    if l == 0 && r == 0 && valid?(s)
-        @result.push(s)
-        return
-    end
-
-    n = s.size
-    start.upto(n - 1) do |i|
-        next if i > start && s[i] == s[i - 1] # we restrict ourself to remove the first )
-        cur = s[0, i] + s[i + 1, n] # s[a, b] is substring starting from index a of length b
-
-        if r > 0 && s[i] == ")"
-            dfs(cur, i, l, r - 1)
-        elsif l > 0 && s[i] == "("
-            dfs(cur, i, l - 1, r)
-        end
+    #  if we reach here, current s is valid without any fix.
+    #  But each s should go through two pass, the second pass is for reversed string.
+    #  so we need to check if this is the first pass, if yes, reverse s and check again
+    #  if this is second pass, just save result
+    #  how to check if it's first pass? use the order of open/close Parentheses as flag
+    if open == '('
+        remove(s.reverse, 0, 0, [')', '('])
+    else
+        @result << s.reverse
     end
 end
 
-# time complexity: T(n) = n^2 * T(n-1). One point is : valid is only called at the bottom of recursion tree.
-# T(n)=n^2 * (n-1)^2 * (n-2)^2 ...2^2 * n1 = n(n!)^2
+# Approach 1:
+# 1. We use last_valid_loc, last_remove_loc which start at 0, 0 to keep track of:
+#    last_valid_loc: The last ith position brackets were unbalanced.
+#    last_remove_loc: The last position at which last bracket was removed.
+# 2. We use stack as a counter to see that there are more closing parantheses than open
+# 3. If we find that the stack counter is -ve, we recurse removing a close paran char
+#    test each char between last_remove_loc to last_valid_loc conditionally
+# 4. We do the recursion only if char is a closed paren and one of 2 cases:
+#    1. s[j] != s[j - 1]        cuz == can result in duplicates cuz if the previous char
+#                               was the same paren type then causing recursive removal can cause a duplicate
+#    2. j == last_remove_loc    We're starting from the last j 
 
-# Explanation Approach 1:
-# We all know how to check a string of parentheses is valid using a stack. Or even simpler use a counter.
-# The counter will increase when it is ‘(‘ and decrease when it is ‘)’.
-# Whenever the counter is negative, we have more ‘)’ than ‘(‘ in the prefix.
+# Example Walkthrough
+# Input: "())()))()", Output: ["(())()", "()()()"]
+
+# ())()))()
+# i: 0, stack: 1
+# i: 1, stack: 0
+# i: 2, stack: -1
+# j: 0, i: 2
+# j: 1, i: 2
+# s[j - 1] != s[j], last_j: 0, s[j]: ), s[j - 1]: (
+#     ()()))()
+#     i: 2, stack: 1
+#     i: 3, stack: 0
+#     i: 4, stack: -1
+#     j: 1, i: 4
+#     j == last_j, j: 1 last_remove_loc: 1
+#     s[j - 1] != s[j], last_j: 1, s[j]: ), s[j - 1]: (
+#         (()))()
+#         i: 4, stack: -1
+#         j: 1, i: 4
+#         j: 2, i: 4
+#         s[j - 1] != s[j], last_j: 1, s[j]: ), s[j - 1]: (
+#             (())()
+#             i: 4, stack: 1
+#             i: 5, stack: 0
+#                 )())((
+#                 i: 0, stack: 1
+#                 i: 1, stack: 0
+#                 i: 2, stack: 1
+#                 i: 3, stack: 2
+#                 i: 4, stack: 1
+#                 i: 5, stack: 0
+#                 Reversed string so reverse and append: (())()
+#         j: 3, i: 4
+#         j: 4, i: 4
+#     j: 2, i: 4
+#     j: 3, i: 4
+#     s[j - 1] != s[j], last_j: 1, s[j]: ), s[j - 1]: (
+#         ()())()
+#         i: 4, stack: -1
+#         j: 3, i: 4
+#         j == last_j, j: 3 last_remove_loc: 3
+#         s[j - 1] != s[j], last_j: 3, s[j]: ), s[j - 1]: (
+#             ()()()
+#             i: 4, stack: 1
+#             i: 5, stack: 0
+#                 )()()(
+#                 i: 0, stack: 1
+#                 i: 1, stack: 0
+#                 i: 2, stack: 1
+#                 i: 3, stack: 0
+#                 i: 4, stack: 1
+#                 i: 5, stack: 0
+#                 Reversed string so reverse and append: ()()()
+#         j: 4, i: 4
+#     j: 4, i: 4
+# j: 2, i: 2
 
 # To make the prefix valid, we need to remove a ‘)’.
 # The problem is: which one? The answer is any one in the prefix.
@@ -120,9 +171,11 @@ end
 # After the removal, the prefix is then valid. We then call the function recursively to solve the rest of the string. However, we need to keep another information: the last removal position. If we do not have this position, we will generate duplicate by removing two ‘)’ in two steps only with a different order.
 # For this, we keep tracking the last removal position and only remove ‘)’ after that.
 
+
+# Approach 2: 
 # refer same name file in leetcode_solutions directory
 # 1. We use l_rem, r_rem for maintaining "(" and ")" to be removed
-# 2. We use left_count to track if there is an imbalance of left vs right parans
+# 2. We use l_cnt to track if there is an imbalance of left vs right parans
 # 3. if we reached the end of string, we add to result set, if prev_s is valid (l_rem, r_rem, l_cnt == 0)
 
 # Approach without pruning optimizations used above.
@@ -151,21 +204,26 @@ end
 #                   Note that we are not considering the space required to store the valid expressions.
 #                   We only count the intermediate space here.
 
-# Time: O(2^n)
-# Space: O(n)
+# Time: O(2^n), Recursion tree contains 2^n leaf nodes at the final level, increase by power 2 at every level.
+# Space: O(n), Stack size can go only upto length of string
+
+
+# 301. Remove Invalid Parentheses
+# https://leetcode.com/problems/remove-invalid-parentheses/description/
+
 
 require 'set'
 require 'test/unit'
 extend Test::Unit::Assertions
 
-assert_equal(remove_invalid_parentheses('())())()'), ["(())()", "()()()"])
-assert_equal(remove_invalid_parentheses('()())()'), ["(())()", "()()()"])
-assert_equal(remove_invalid_parentheses("(a)())()"), ["(a())()", "(a)()()"])
-assert_equal(remove_invalid_parentheses(")("), [""])
-assert_equal(remove_invalid_parentheses("())"), ["()"])
+# assert_equal(remove_invalid_parentheses_bt('())())()'), ["(())()", "()()()"])
+# assert_equal(remove_invalid_parentheses_bt('()())()'), ["(())()", "()()()"])
+# assert_equal(remove_invalid_parentheses_bt("(a)())()"), ["(a())()", "(a)()()"])
+# assert_equal(remove_invalid_parentheses_bt(")("), [""])
+assert_equal(remove_invalid_parentheses_bt("())"), ["()"])
 
-assert_equal(remove_invalid_parentheses_using_valid('())())()'), ["(())()", "()()()"])
-assert_equal(remove_invalid_parentheses_using_valid('()())()'), ["(())()", "()()()"])
-assert_equal(remove_invalid_parentheses_using_valid("(a)())()"), ["(a())()", "(a)()()"])
-assert_equal(remove_invalid_parentheses_using_valid(")("), [""])
-assert_equal(remove_invalid_parentheses_using_valid("())"), ["()"])
+# assert_equal(remove_invalid_parentheses('())()))()'), ["(())()", "()()()"])
+# assert_equal(remove_invalid_parentheses('()())()'), ["(())()", "()()()"])
+# assert_equal(remove_invalid_parentheses("(a)())()"), ["(a())()", "(a)()()"])
+# assert_equal(remove_invalid_parentheses(")("), [""])
+# assert_equal(remove_invalid_parentheses("())"), ["()"])

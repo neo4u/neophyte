@@ -26,10 +26,10 @@ class Solution(object):
 
             if not count: return idx # EOF
             
-            if count > n: # We called read with n = 1 but read4 returned 4, we need to cache 3 chars
-                self.q += buf4[n:count]
+            if count > n:               # We called read with n = 1 but read4 returned 4, we need to cache 3 chars
+                self.q += buf4[n:]      # Think of this as taken what you need this run, and saving the rest for next run, Same as buf4[n:count]
 
-            for i in xrange(min(count, n)):
+            for i in range(min(count, n)):
                 buf[idx] = buf4[i]
                 idx += 1
                 n -= 1

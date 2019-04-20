@@ -1,53 +1,53 @@
 # Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
+import sys
+import collections
 
 class Codec:
 
     def serialize(self, root):
-        """Encodes a tree to a single string.
+        """
+        Encodes a tree to a single string.
 
         :type root: TreeNode
         :rtype: str
         """
-        def buildString(root, res):
-            if not root:
-                return
+        def dfs(root, res):
+            if not root: return
             res.append(str(root.val))
-            buildString(root.left, res)
-            buildString(root.right, res)
+            dfs(root.left, res)
+            dfs(root.right, res)
 
         res = []
-        buildString(root, res)
+        dfs(root, res)
         return ','.join(res)
 
     def deserialize(self, data):
-        """Decodes your encoded data to tree.
+        """
+        Decodes your encoded data to tree.
 
         :type data: str
         :rtype: TreeNode
         """
-        def buildTree(data, vmin, vmax):
-            if not data:
-                return None
+        def dfs(data, vmin, vmax):
+            if not data: return None
             val = int(data[0])
-            if val < vmin or val > vmax:
-                return None
+            if val < vmin or val > vmax: return None
             data.popleft()
             node = TreeNode(val)
-            node.left = buildTree(data, vmin, val)
-            node.right = buildTree(data, val, vmax)
+            node.left = dfs(data, vmin, val)
+            node.right = dfs(data, val, vmax)
             return node
 
-        if not data:
-            return None
+        if not data: return None
         vmin, vmax = -sys.maxint-1, sys.maxint
         nodes = collections.deque(data.split(','))
-        return buildTree(nodes, vmin, vmax)
+        return dfs(nodes, vmin, vmax)
 
 
 # Your Codec object will be instantiated and called as such:
@@ -78,3 +78,6 @@ class Codec:
 # the values were inserted into the tree. Since you just need the order the values were inserted,
 # you do not need to account for null nodes in the string with "#" or "null".
 # Hence, the final string contains only the values and separators, which makes it the most compact possible.
+
+sol = Codec()
+print(sol.serialize(None))

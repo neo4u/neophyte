@@ -1,4 +1,4 @@
-# BFS
+# Approach 1: BFS
 # @param {Integer[][]} maze
 # @param {Integer[]} start
 # @param {Integer[]} destination
@@ -28,7 +28,7 @@ def has_path(maze, start, destination)
 end
 
 require 'set'
-# DFS
+# Approach 2: DFS
 # @param {Integer[][]} maze
 # @param {Integer[]} start
 # @param {Integer[]} destination

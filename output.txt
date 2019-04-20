@@ -1,0 +1,27 @@
+c:  
+before: num: 0 | sign: 1 | stack: [] | res: 0
+after: num: 0 | sign: 1 | stack: [] | res: 0
+c: 2
+before: num: 0 | sign: 1 | stack: [] | res: 0
+after: num: 2 | sign: 1 | stack: [] | res: 0
+c: -
+before: num: 2 | sign: 1 | stack: [] | res: 0
+after: num: 0 | sign: -1 | stack: [] | res: 2
+c: 1
+before: num: 0 | sign: -1 | stack: [] | res: 2
+after: num: 1 | sign: -1 | stack: [] | res: 2
+c:  
+before: num: 1 | sign: -1 | stack: [] | res: 2
+after: num: 1 | sign: -1 | stack: [] | res: 2
+c: +
+before: num: 1 | sign: -1 | stack: [] | res: 2
+after: num: 0 | sign: 1 | stack: [] | res: 1
+c:  
+before: num: 0 | sign: 1 | stack: [] | res: 1
+after: num: 0 | sign: 1 | stack: [] | res: 1
+c: 2
+before: num: 0 | sign: 1 | stack: [] | res: 1
+after: num: 2 | sign: 1 | stack: [] | res: 1
+c:  
+before: num: 2 | sign: 1 | stack: [] | res: 1
+after: num: 2 | sign: 1 | stack: [] | res: 1

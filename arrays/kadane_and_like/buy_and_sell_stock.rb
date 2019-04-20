@@ -1,4 +1,4 @@
-# For more detailed understanding
+# Approach 1: DP, For more detailed understanding
 # @param {Integer[]} prices
 # @return {Integer}
 def max_profit(prices)
@@ -21,7 +21,7 @@ def max_profit(prices)
     dp_sell[n - 1]
 end
 
-# Simpler looking soluton, using kadane algorithm
+# Approach 2: Simpler looking soluton, using kadane algorithm
 # @param {Integer[]} prices
 # @return {Integer}
 def max_profit(prices)
@@ -35,28 +35,19 @@ def max_profit(prices)
 end
 
 
-# # @param {Integer[]} prices
-# # @return {Integer}
-# def max_profit(prices)
-#     return 0 if !prices || prices.size <= 1
-#     n = prices.size
-#     dp_sell, dp_buy = 0, prices[0]
-
-#     1.upto(n - 1) do |i|
-#         dp_sell = [dp_sell, prices[i] - dp_buy].max
-#         dp_buy = [dp_buy, prices[i]].min
-#     end
-
-#     dp_sell
-# end
-
 # 121. Best Time to Buy and Sell Stock
 # https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/
+# At most 1 transaction
 
 # Time: O(n)
 # Space: O(1)
-# For DP space is O(n)
-# For Kadane space is O(1)
+
+# Approach 1: DP
+# Approach 2: Kadane
+# Approach 3: Simple One Pass
+# Steps
+# Max profit is when we buy when it is cheapest and sell when it is the costliest
+
 
 require 'test/unit'
 extend Test::Unit::Assertions

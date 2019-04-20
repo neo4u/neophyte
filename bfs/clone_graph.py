@@ -1,4 +1,6 @@
 # Definition for a undirected graph node
+import collections
+
 class UndirectedGraphNode:
     def __init__(self, x):
         self.label = x
@@ -24,4 +26,3 @@ class Solution:
         return cloned[node]
 
 
-import collections

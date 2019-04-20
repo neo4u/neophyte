@@ -19,3 +19,9 @@ def search(nums, target)
 
     false
 end
+
+
+# Key Insights:
+# 1. One of Left sub-array or right-subarray has to be sorted
+# 2. We eliminated half using target and check the other half.
+

@@ -16,19 +16,19 @@ end
 # @param {Integer[]} nums1
 # @param {Integer[]} nums2
 # @return {Integer[]}
-def intersection(nums1, nums2)
-    hash, result = {}, []
+def intersect(nums1, nums2)
+    map = Hash.new(0)
+    result = []
+    m, n = nums1.size, nums2.size
+    nums1, nums2, m, n = nums2, nums1, n, m if m > n
+    nums1.each { |num| map[num] += 1 }
 
-    nums1.each do |n|
-        hash[n] = 1 unless hash[n]
+    nums2.each do |num|
+        next if map[num] == 0
+        result.push(num)
+        map[num] -= 1
     end
     
-    nums2.each do |n|
-        next if hash[n] != 1 # Skip the ones that have > 1 or nil
-        result << n
-        hash[n] += 1
-    end
-
     result
 end
 

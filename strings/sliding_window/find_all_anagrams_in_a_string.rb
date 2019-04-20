@@ -2,6 +2,30 @@
 # @param {String} p
 # @return {Integer[]}
 def find_anagrams(s, p)
+    return [] if s.size < p.size
+    
+    m, n, result = s.size, p.size, []
+    curr, desired = [0] * 26, [0] * 26
+    
+    0.upto(p.size - 1) do |i|
+        curr[s[i].ord - 'a'.ord] += 1
+        desired[p[i].ord - 'a'.ord] += 1
+    end
+    result.push(0) if curr == desired
+    
+    1.upto(m - n) do |i|
+        curr[s[i - 1].ord - 'a'.ord] -= 1
+        desired[s[i - 1 + n].ord - 'a'.ord] += 1
+        result.push(i) if curr == desired
+    end
+    
+    result
+end
+
+# @param {String} s
+# @param {String} p
+# @return {Integer[]}
+def find_anagrams(s, p)
     return [] if s.size < p.size        # Can't have an anagram without all the chars from p
 
     m, n = s.size, p.size

@@ -1,3 +1,5 @@
+# @param {String} digits
+# @return {String[]}
 MAP = {
     "2" => "abc", "3" => "def",
     "4" => "ghi", "5" => "jkl", "6" => "mno",
@@ -17,10 +19,8 @@ def bt(digits, index, path, result)
         return
     end
 
-    index.upto(digits.size - 1) do |i|
-        MAP[digits[i]].each_char do |c|
-            bt(digits, i + 1, path + c, result)
-        end
+    MAP[digits[index]].each_char do |c|
+        bt(digits, index + 1, path + c, result)
     end
 
     result
