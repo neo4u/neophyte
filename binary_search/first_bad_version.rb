@@ -22,8 +22,10 @@ end
 # https://leetcode.com/problems/first-bad-version/
 
 # Approach binary search
-# start from middle if you find that the mid is bad then you know the answer is to the left of it,
-# So we abandon the right half, right of mid to end. This can be achieved by setting r to mid
+# 1. Find mid and check if bad
+# 2. If bad, you know that everything to right is bad
+#    and we want to find the first bad one so search left (r = mid)
+# 3. If good, then 
 
 # If you are setting mid=(left+right)/2, you have to be very careful.
 # Unless you are using a language that does not overflow such as Python,

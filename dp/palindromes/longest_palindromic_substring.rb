@@ -27,7 +27,7 @@ def longest_palindrome(s)
             end
         end
     end
-    
+
     s[start...start + max_len]
 end
 

@@ -8,18 +8,18 @@ def num_decodings(s)
     dp[1] = s[0] != '0' ? 1 : 0
 
     2.upto(n) do |i|
-        # if current char is a number other than zero, then add way to decode from i - 1.
+        # if current char is a number other than zero, then add way to decode from dp[i - 1].
         # consider "1234" if we're at '4', its a non-zero char,
         # thus the curr value '4' adds to the same decoding of '123' as 'abc'
         # and forms 'abcd' which is one encoding of '1234'
         # Also we can make this condition as s[i - 1] != '0',
         # which means the same thing as between '1', '9', whitelist vs blacklist kinda thing
-        dp[i] += dp[i - 1] if s[i - 1].between?('1', '9') # Or s[i - 1...i] which is equivalent to s[i - 1] as it gives 1 char
+        dp[i] += dp[i - 1] if s[i - 1].between?('1', '9')
 
-        # Continuing the '1234' example we're at '3', and thus '34' is between '10' and '26'
-        # So, we have another encoding for '123' which is taking '12' and '3' together 'LC'
-        # So we're adding to an existing decoding from length i - 2, which is dp[i - 2]
-        # However, if we're using '1208' and we were at '8' then 08 doesn't add another way to encode to '0'
+        # Continuing the '1234' example we're at '4', given that '34' is not between '10' and '26'
+        # we don't add any new decoding ways by adding 4.
+        # However, if we're using '1224' and we were at '4' then '24' has a mapping and hence we add
+        # dp[i - 2] which is ways of decoding '12' to the current number of ways
         dp[i] += dp[i - 2] if s[i - 2...i].between?('10', '26') # s[i - 2...i] gives the current char along with the previous char
     end
 
@@ -41,16 +41,26 @@ end
 
 # 2 conditions
 # 1. We have curr char between '1' and '9' (non-zero),
-#    we just use previous number of decoding for upto length i - 1
+#    we just use previous number of decodings for upto length i - 1
 # 2. We have the combo of curr and prev char are between '10', '26'
 #    then we add ways to encode of upto i - 2 to the curr value
 
-# Example: 123
-# 1 2 3, 12 3, 1 23
-# a b c, lc, aw
+# Example: "123"
+# Ways to decode = 3; 1 2 3, 12 3, 1 23
+# dp = [1, 1, 0, 0]
+# i: 2, need to find: dp[2], we need to check:
+# s[i - 1] = s[1] = "2", s[i-2 to i - 1] = s[0 to 1] = "12", both have mappings so add both
+#             |
+#             v
+# dp = [1, 1, 1 + 1, 0]
 
-# 12 = 1 + 1, 
-# dp [1, 1, 1 + 1, 2 + 1, 3 + 1]
+# i: 3, need to find: dp[3], we need to check:
+# s[i - 1] = s[2] = "3", s[i-2 to i - 1] = s[1 to 2] = "23", both have mappings so add both
+#                |
+#                v
+# dp [1, 1, 2, 2 + 1]
+# Finally, answer is dp[n]
+# 3 ways to decode
 
 # Time: O(n)
 # Space: O(n)

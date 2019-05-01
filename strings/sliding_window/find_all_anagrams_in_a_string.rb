@@ -48,6 +48,43 @@ def find_anagrams(s, p)
     result
 end
 
+
+# @param {String} s
+# @param {String} p
+# @return {Integer[]}
+def find_anagrams(s, p)
+    return [] if s.size < p.size
+    
+    m, n, result = s.size, p.size, []
+    curr, desired = [0] * 26, [0] * 26
+    count = 0
+    
+    0.upto(p.size - 1) do |i|
+        curr[s[i].ord - 'a'.ord] += 1
+        desired[p[i].ord - 'a'.ord] += 1
+    end
+    0.upto(25) do |i|
+        count += 1 if curr[i] == desired[i]
+    end
+    result.push(0) if count == 26
+    
+    1.upto(m - n) do |i|
+        l = s[i - 1].ord - 'a'.ord
+        r = s[i - 1 + n].ord - 'a'.ord
+        count -= 1 if curr[l] == desired[l]
+        curr[l] -= 1
+        count += 1 if curr[l] == desired[l]
+
+        count -= 1 if curr[r] == desired[r]
+        curr[r] += 1
+        count += 1 if curr[r] == desired[r]
+
+        result.push(i) if count == 26
+    end
+
+    result
+end
+
 # 438. Find All Anagrams in a String
 # https://leetcode.com/problems/find-all-anagrams-in-a-string
 
@@ -56,4 +93,4 @@ end
 # https://leetcode.com/problems/longest-substring-without-repeating-characters/
 # https://leetcode.com/problems/substring-with-concatenation-of-all-words/
 # https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/
-# https://leetcode.com/problems/find-all-anagrams-in-a-string/
+# https://leetcode.com/problems/find-all-anagrams-in-a-string/a

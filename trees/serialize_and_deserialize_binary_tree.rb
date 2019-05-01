@@ -11,39 +11,33 @@ end
 # @param {TreeNode} root
 # @return {string}
 def serialize(root)
-    pre_order = []
-    dfs_serialize(root, pre_order)
-    pre_order.join(",")
+    @pre_order = []
+    dfs_serialize(root)
+    @pre_order.join(',')
 end
 
-def dfs_serialize(node, pre_order)
-    if !node
-        pre_order.push("#")
-        return
-    end
-
-    pre_order.push(node.val.to_s)
-    dfs_serialize(node.left, pre_order)
-    dfs_serialize(node.right, pre_order)
+def dfs_serialize(node)
+    node ? @pre_order.push(node.val.to_s) : @pre_order.push('#')
+    return if !node
+    dfs_serialize(node.left)
+    dfs_serialize(node.right)
 end
-
 
 # Decodes your encoded data to tree.
 # @param {string} data
 # @return {TreeNode}
 def deserialize(data)
     return if data.empty?
-    pre_order = data.split(",")
+    pre_order = data.split(',')
     dfs_deserialize(pre_order)
 end
 
 def dfs_deserialize(pre_order)
     return if pre_order.empty?
-
-    val = pre_order.shift()
+    
+    val = pre_order.shift
     val == '#' ? return : val = val.to_i
     root = TreeNode.new(val)
-
     root.left = dfs_deserialize(pre_order)
     root.right = dfs_deserialize(pre_order)
 

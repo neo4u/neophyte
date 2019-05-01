@@ -23,7 +23,7 @@ def divide(dividend, divisor)
     end
     # Max of least and answer and min of max 32 int and answer,
     # as our solution is bounded by min_int and max_int
-    [[-2147483648, sign * quotient].max, 2147483647].min
+    [[-2**31, sign * quotient].max, 2**31-1].min
 end
 
 # 29. Divide Two Integers

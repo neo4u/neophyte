@@ -54,12 +54,12 @@ def find_path_bfs(src, dst)
     q, visited = [[src, 1.0]], Set.new()
 
     while !q.empty?
-        node, path = q.shift()
+        node, path = q.shift
         return path if node == dst
-        visited.add(node)
 
         @graph[node].each do |n|
             next if visited.include?(n)
+            visited.add(n)
             q.push([n, path * @weights[[node, n]]])
         end
     end
@@ -67,6 +67,7 @@ def find_path_bfs(src, dst)
     -1.0
 end
 
+# Approach 3: UF
 class DisjointSet
     def initialize(parent, weight)
         @parent = parent
@@ -136,7 +137,7 @@ end
 # Key Insights
 # 1. A series of equations A / B = k can be seen as a graph
 # 2. Nodes on either sides of an edge are the dividend and divisor A and B
-# 3. The weight of the edge itself is the result of the division.
+# 3. The weight of the edge itself is the result of the division
 # 4. Hence, we create the graph and traverse it with DFS/BFS/DSUF to get our result.
 
 

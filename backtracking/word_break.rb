@@ -50,8 +50,8 @@ def word_break_dp(s, word_dict)
     dp[0] = true                    # We assume empty string to be part of dictionary and to be breakable
 
     1.upto(n) do |i|                                    # consider substrings of lengths from 1 to n
-        0.upto(i - 1) do |j|                            # At every potential break point j that goes from 0 to i - 1 (length i) we check if:
-            if dp[j] && word_dict.include?(s[j...i])    # 1. dp[j] == true (s[0...j] is breakable)
+        0.upto(i - 1) do |j|                            # At every potential break point j that goes from 0 to i - 1 (len i) we check if:
+            if dp[j] && word_dict.include?(s[j...i])    # 1. dp[j] == true (s[0 to j - 1] is breakable)
                 dp[i] = true                            # 2. s[j...i] is in dictionary
                 break                                   # break to next i because we found a breakpoint for the substrings of size i
             end

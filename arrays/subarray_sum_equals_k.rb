@@ -1,4 +1,4 @@
-# Approach 3: PrefixSum + Dictionary, Time: O(N), Space: O(N)
+# Approach 2: PrefixSum + Dictionary, Time: O(N), Space: O(N)
 # @param {Integer[]} nums
 # @param {Integer} k
 # @return {Integer}
@@ -18,7 +18,6 @@ end
 # 560. Subarray Sum Equals K
 # https://leetcode.com/problems/subarray-sum-equals-k/
 
-
 # Approach 1: Brute Force (TLE), Time: O(N^3), Space: O(1)
 # For every sub-array calculate the sub-array sum and count how many of them == k
 # class Solution:
@@ -30,24 +29,7 @@ end
 #                     res += 1
 #         return res
 
-# Approach 2: PrefixSum (TLE), Time: O(N^2), Space: O(1)
-# 1. Calculate sum of all elements upto nums[i] for every i in array
-# 2. if prefix sum is already k add to result
-# 3. from i to j if sum at j - sum at i is k that means sub-array nums[i to j] had sum k
-# class Solution:
-#     def subarraySum(self, nums, k):
-#         res = 0
-#         for i in range(1, len(nums)):
-#             nums[i] += nums[i - 1]
-
-#         for i in range(len(nums)):
-#             if nums[i] == k: res += 1
-#             for j in range(i + 1, len(nums)):
-#                 if nums[j] - nums[i] == k: count += 1
-
-#         return res
-
-# Approach 3: PrefixSum + Dictionary, Time: O(N), Space: O(N)
+# Approach 2: PrefixSum + Dictionary, Time: O(N), Space: O(N)
 # 1. Let's map[V], be the number of previous prefix sums with value V
 # 2. If our current prefix sum has value W, and W - V == K, think of sequences
 #    with sum W and sequences with sum V, such that W - V == k, then we do result += map[V].

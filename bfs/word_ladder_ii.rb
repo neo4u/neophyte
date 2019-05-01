@@ -31,6 +31,92 @@ def find_ladders(begin_word, end_word, word_list)
     word_path[end_word]
 end
 
+
+# def find_ladders_preprocess(begin_word, end_word, word_list)
+#     return 0 if end_word.empty? || begin_word.empty? || word_list.empty?
+#     paths, shortest = [], nil
+#     n = begin_word.size
+#     all_combo_dict = Hash.new { |h, k| h[k] = [] }
+#     word_list.each do |word|
+#         0.upto(n - 1) do |i|
+#             generic_word = "#{word[0...i]}*#{word[i + 1...n]}"
+#             all_combo_dict[generic_word] << word
+#         end
+#     end
+
+#     q, visited = [[begin_word, [begin_word]]], Set.new([begin_word])
+#     word_path[begin_word] = [[begin_word]]
+#     while !q.empty?
+#         curr_word, path = q.shift()
+#         0.upto(n - 1) do |i|
+#             next_word = "#{curr_word[0...i]}*#{curr_word[i + 1...n]}"
+#             puts "curr_word: #{curr_word}, curr_path: #{path}, next_word: #{next_word}"
+#             next if all_combo_dict[next_word].empty?
+
+#             all_combo_dict[next_word].each do |word|
+                
+#                 next if visited.include?(word)
+#                 visited.add(word)
+#                 q.push([word, path + [word]])
+#                 puts "q: #{q}"
+#             end
+#         end
+#     end
+
+#     paths
+# end
+
+# NOT WORKING
+def find_ladders_preprocess(begin_word, end_word, word_list)
+    return 0 if end_word.empty? || begin_word.empty? || word_list.empty?
+    paths, shortest = [], nil
+    level = 1
+    n = begin_word.size
+    all_combo_dict = Hash.new { |h, k| h[k] = [] }
+    word_list.each do |word|
+        0.upto(n - 1) do |i|
+            generic_word = "#{word[0...i]}*#{word[i + 1...n]}"
+            all_combo_dict[generic_word] << word
+        end
+    end
+
+    p all_combo_dict
+    q, visited = [[begin_word, [begin_word]]], Set.new([begin_word])
+    while !q.empty?
+        curr_word, path = q.shift()
+        if path.size > level
+            break if shortest && path.size > shortest
+            level = path.size
+            visited = Set.new()
+            puts "clearing visite set for level: #{level}"
+        end
+
+        0.upto(n - 1) do |i|
+            next_word = "#{curr_word[0...i]}*#{curr_word[i + 1...n]}"
+            puts "curr_word: #{curr_word}, curr_path: #{path}, next_word: #{next_word}"
+            next if all_combo_dict[next_word].empty?
+
+            all_combo_dict[next_word].each do |word|
+                puts "Trying #{word}"
+                new_path = path + [word]
+                next if shortest && new_path.size > shortest
+                puts 'after next'
+                if word == end_word
+                    shortest = new_path.size if !shortest
+                    paths.push(new_path)
+                    next
+                end
+                next if visited.include?(word)
+                visited.add(word)
+                q.push([word, path + [word]])
+                puts "q: #{q}"
+            end
+        end
+    end
+
+    paths
+end
+
 # https://leetcode.com/problems/word-ladder
 # 127. Word Ladder
 
@@ -39,8 +125,38 @@ end
 # > Time Complexity O(n * 26 ^ l) where n = word_list.size and l = word.size
 # > Space Complexity O(n) queue and visited
 
+
+# {
+#     "*ed"=>["ted", "red"],
+#     "t*d"=>["ted", "tad"],
+#     "te*"=>["ted", "tex"],
+#     "*ex"=>["tex", "rex"],
+#     "t*x"=>["tex", "tax"],
+#     "r*d"=>["red"],
+#     "re*"=>["red", "rex"],
+#     "*ax"=>["tax"],
+#     "ta*"=>["tax", "tad"],
+#     "*ad"=>["tad"],
+#     "*en"=>["den"],
+#     "d*n"=>["den"],
+#     "de*"=>["den"],
+#     "r*x"=>["rex"],
+#     "*ee"=>["pee"],
+#     "p*e"=>["pee"],
+#     "pe*"=>["pee"]
+# }
+
+
 require 'set'
 require 'test/unit'
 extend Test::Unit::Assertions
 
-assert_equal(find_ladders('hit', 'cog', ["hot","dot","dog","lot","log","cog"]), [["hit", "hot", "dot", "dog", "cog"], ["hit", "hot", "lot", "log", "cog"]])
+# assert_equal(find_ladders('hit', 'cog', ["hot","dot","dog","lot","log","cog"]), [["hit", "hot", "dot", "dog", "cog"], ["hit", "hot", "lot", "log", "cog"]])
+
+
+# assert_equal(find_ladders_preprocess('hit', 'cog', ["hot","dot","dog","lot","log","cog"]), [["hit", "hot", "dot", "dog", "cog"], ["hit", "hot", "lot", "log", "cog"]])
+
+assert_equal(
+    find_ladders_preprocess("red", "tax", ["ted","tex","red","tax","tad","den","rex","pee"]),
+    [["red","ted","tad","tax"],["red","ted","tex","tax"],["red","rex","tex","tax"]]
+)

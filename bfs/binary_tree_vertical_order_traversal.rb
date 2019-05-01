@@ -11,24 +11,21 @@ end
 # @return {Integer[][]}
 def vertical_order(root)
     return [] if !root
-    q, node, output = [[root, 0]], root, {}
+    q, map = [[root, 0]], Hash.new { |h, k| h[k] = [] }
+    min, max = 0, 0
 
     while !q.empty?
         node, level = q.shift
-        output[level] ||= []
-        output[level].push(node.val)
-
+        map[level].push(node.val)
+        min = level if level < min
+        max = level if level > max
         q.push([node.left, level - 1]) if node.left
         q.push([node.right, level + 1]) if node.right
     end
-
-    levels = output.keys.sort()
-    puts levels
-    vert_order = []
-    levels.each do |l| vert_order.push(output[l]) end
-
-    vert_order
+    
+    (min..max).map { |i| map[i] }.reject(&:empty?)
 end
+
 
 # 314. Binary Tree Vertical Order Traversal
 # https://leetcode.com/problems/binary-tree-vertical-order-traversal/

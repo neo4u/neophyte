@@ -36,7 +36,7 @@ end
 # @return {TreeNode}
 def deserialize(data)
     return if data.empty?
-    v_min, v_max = Integer::MIN, Integer::MAX
+    v_min, v_max = -Float::INFINITY, Float::INFINITY
     pre_order = data.split(",")
     dfs_deserialize(pre_order, v_min, v_max)
 end

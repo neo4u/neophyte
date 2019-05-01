@@ -50,3 +50,4 @@ extend Test::Unit::Assertions
 a = [3,2,1,5,6,4]
 # a.each_index { |i| assert_equal(quick_select(a, 0, a.size - 1, 1), i + 1) }
 assert_equal(quick_select(a, 0, a.size - 1, 1), 2)
+assert_equal(quick_select(a, 0, a.size - 1, 1), 2)

@@ -11,7 +11,7 @@
 # @return {Boolean}
 def is_valid_bst(root, l = -Float::INFINITY, r = Float::INFINITY)
     return true if !root
-    return false if root.val < l || root.val > r
+    return false if !root.val.between?(l, r)
     is_valid_bst(root.left, l, root.val - 1) && is_valid_bst(root.right, root.val + 1, r)
 end
 

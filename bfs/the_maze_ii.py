@@ -17,7 +17,7 @@ class Solution:
 
             for x, y in dirs:
                 r, c, d = i, j, 0
-                
+
                 while is_valid(r + x, c + y): r += x; c += y; d += 1
 
                 if (r, c) not in visited or dist + d < visited[(r, c)]:

@@ -30,6 +30,7 @@ end
 
 # 1. Find inflection point
 # 2. Find an array such that first element is smaller than the last
+
 # Time: O(log(n))
 # Space: O(1)
 

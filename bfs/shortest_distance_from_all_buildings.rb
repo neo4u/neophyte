@@ -1,3 +1,5 @@
+require 'set'
+
 # @param {Integer[][]} grid
 # @return {Integer}
 def shortest_distance(grid)
@@ -43,18 +45,15 @@ def bfs(grid, start_x, start_y, c, d, num_buildings)
     count = 1 # Bcuz we only start the BFS after building was found so the count should already be 1
     dirs = [[-1, 0], [1, 0], [0, -1], [0, 1]]
     m, n = grid.size, grid[0].size
-    visited = Array.new(m) { Array.new(n, false) }
-
-    q = [[start_x, start_y, 0]] # Start with the building co-ordinates and a distance of 0
-    visited[start_x][start_y] = true
+    q, visited = [[start_x, start_y, 0]], Set.new([[start_x, start_y]]) # Start with the building co-ordinates and a distance of 0
 
     while !q.empty?
         x, y, dist = q.shift()
         dirs.each do |di, dj|
             i, j = x + di, y + dj
-            next if !i.between?(0, m - 1) || !j.between?(0, n - 1) || visited[i][j]
+            next if !i.between?(0, m - 1) || !j.between?(0, n - 1) || visited.include?([i, j])
             # Only when the points are within the bounds of the matrix && not yet visited
-            visited[i][j] = true
+            visited.add([i, j])
             if grid[i][j] == 0 # Only add 0 points to the queue, cuz we only needs distances of each 0 to all 1s
                 q.push([i, j, dist + 1])
                 d[i][j] += dist + 1
@@ -83,7 +82,8 @@ end
 # 2. We have to reach ALL the 1 points
 # 3. We want to choose a 0 point that has the least total distance to all such 1 points
 # 4. All 1's should be reachable from each other,
-#    because they're not connected means there is no 0 point between then to consider
+#    because they're not connected means that  there is no 0 point between them
+#    to consider as a potential house building point
 
 # Approach 1: BFS from each building to all the 0s
 # Steps:

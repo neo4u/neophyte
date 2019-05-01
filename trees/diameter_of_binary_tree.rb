@@ -18,10 +18,10 @@ end
 
 def dfs(node)
     return 0 if !node
-    
+
     l, r = dfs(node.left), dfs(node.right)
     @result = [@result, l + r + 1].max
-    
+
     [l, r].max + 1
 end
 

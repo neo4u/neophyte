@@ -1,34 +1,33 @@
-# Time: O(n)
-# Space: O(1)
 # Definition for singly-linked list.
-# class ListNode
-#     attr_accessor :val, :next
-#     def initialize(val)
-#         @val = val
-#         @next = nil
-#     end
-# end
+class ListNode
+    attr_accessor :val, :next
+    def initialize(val)
+        @val = val
+        @next = nil
+    end
+end
 
 # @param {ListNode} head
 # @return {Boolean}
 def is_palindrome(head)
-  fast = slow = head
-  # find the mid node
-  fast, slow = fast.next.next, slow.next while fast && fast.next
+    fast = slow = head
+    # find the mid node
+    fast, slow = fast.next.next, slow.next while fast && fast.next
 
-  # reverse the second half
-  prv, cur = nil, slow
-  prv, prv.next, cur = cur, prv, cur.next while cur
+    # reverse the second half
+    prv, cur = nil, slow
+    prv, prv.next, cur = cur, prv, cur.next while cur
 
-  # compare the first and second half nodes
-  while prv # as long as prv is not nil
-    return false if prv.val != head.val
-    prv = prv.next
-    head = head.next
-  end
+    # compare the first and second half nodes
+    while prv # as long as prv is not nil
+        return false if prv.val != head.val
+        prv = prv.next
+        head = head.next
+    end
 
-  true
+    true
 end
+
 
 # Odd case
 # a,b,c,b,a
@@ -57,3 +56,7 @@ end
 # 2 prv.val = b, head.val = b pass and then prv points to c, and head points to c
 # 3 prv.val = c, head.val = c pass and then prv points to nil, and head points to 2nd c
 # We exit before 4th iteration because prv becomes next item of c which is nil
+
+
+# Time: O(n)
+# Space: O(1)

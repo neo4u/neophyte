@@ -8,7 +8,7 @@ def max_sub_array_len(nums, k)
     0.upto(nums.size - 1) do |i|
         pre_sum += nums[i]
         if pre_sum == k
-            max = i + 1
+            max = i + 1     # Window is everything from 0 to i (len i + 1)
         elsif map.key?(pre_sum - k)
             max = [i - map[sum - k], max].max
         end

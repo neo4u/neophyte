@@ -1,10 +1,7 @@
 # Approach 1: BFS
-# @param {Integer[][]} maze
-# @param {Integer[]} start
-# @param {Integer[]} destination
-# @return {Boolean}
-def has_path(maze, start, destination)
-    q, m, n = [start], maze.size, maze[0].size
+def has_path(maze, src, dst)
+    @maze = maze
+    q, @m, @n = [start], @maze.size, @maze[0].size
     dirs = [[0, 1], [0, -1], [1, 0], [-1, 0]] # [right, left, down, up]
 
     while !q.empty?
@@ -14,49 +11,47 @@ def has_path(maze, start, destination)
 
         dirs.each do |x, y|
             r, c = i, j
-            
-            # Keep going in the same direction till you hit a wall
-            while (r + x).between?(0, m - 1) && (c + y).between?(0, n - 1) && maze[r + x][c + y] == 0
+            while valid?(r + x, c + y)
                 r += x; c += y
             end
-
-            q.push([r, c]) if maze[r][c].zero?
+            q.push([r, c]) if @maze[r][c].zero?
         end
     end
 
     false
+end
+
+def valid?(r, c)
+    r.between?(0, @m - 1) && c.between?(0, @n - 1) && @maze[r][c] != 1
 end
 
 require 'set'
 # Approach 2: DFS
-# @param {Integer[][]} maze
-# @param {Integer[]} start
-# @param {Integer[]} destination
-# @return {Boolean}
-def has_path2(maze, start, destination)
-    dfs(maze, start, destination)
+def has_path_dfs(maze, src, dst)
+    @maze, @m, @n = maze, maze.size, maze[0].size 
+    dfs(src, dst)
 end
 
 DIRS = [[0, 1], [0, -1], [1, 0], [-1, 0]] # [right, left, down, up]
-def dfs(maze, s, d)
-    m, n = maze.size, maze[0].size
+def dfs(s, d)
     i, j = s
-    return false if maze[i][j] == 2
-    maze[i][j] = 2
+    return false if @maze[i][j] == 2
+    @maze[i][j] = 2
     return true if s == d
 
     DIRS.each do |x, y|
         r, c = s
-
-        # Keep going in the same direction till you hit a wall
-        while (r + x).between?(0, m - 1) && (c + y).between?(0, n - 1) && maze[r + x][c + y] != 1
+        while valid?(r + x, c + y)
             r += x; c += y
         end
-
-        return true if dfs(maze, [r, c], d)
+        return true if dfs([r, c], d)
     end
 
     false
+end
+
+def valid?(r, c)
+    r.between?(0, @m - 1) && c.between?(0, @n - 1) && @maze[r][c] != 1
 end
 
 # 490. The Maze
@@ -69,6 +64,7 @@ end
 require 'test/unit'
 extend Test::Unit::Assertions
 
+# BFS Tests
 maze = [[0,0,1,0,0],
         [0,0,0,0,0],
         [0,0,0,1,0],
@@ -81,15 +77,17 @@ maze = [[0,0,1,0,0],
         [1,1,0,1,1],
         [0,0,0,0,0]]
 assert_equal(has_path(maze, [0,4], [4,4]), true)
+
+# DFS Tests
 maze = [[0,0,1,0,0],
         [0,0,0,0,0],
         [0,0,0,1,0],
         [1,1,0,1,1],
         [0,0,0,0,0]]
-assert_equal(has_path2(maze, [0,4], [3,2]), false)
+assert_equal(has_path_dfs(maze, [0,4], [3,2]), false)
 maze = [[0,0,1,0,0],
         [0,0,0,0,0],
         [0,0,0,1,0],
         [1,1,0,1,1],
         [0,0,0,0,0]]
-assert_equal(has_path2(maze, [0,4], [4,4]), true)
+assert_equal(has_path_dfs(maze, [0,4], [4,4]), true)
