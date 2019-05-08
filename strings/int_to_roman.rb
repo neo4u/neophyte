@@ -1,11 +1,10 @@
-ROMANS = ['I', 'IV', 'V', 'IX', 'X', 'XL', 'L', 'XC', 'C', 'CD', 'D', 'CM', 'M'].reverse
-VALUES = [  1,    4,   5,    9,  10,   40,  50,   90, 100,  400, 500,  900, 1000].reverse
+ROMANS = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
+VALUES = [1000, 900, 500,  400, 100,   90,  50,   40,  10,    9,   5,    4,  1]
 
 def int_to_roman(num)
     res, i = "", 0
 
-    until num.zero?
-        puts i
+    while num != 0
         res += (ROMANS[i] * (num / VALUES[i])) # Gives number of romans[i] in num
         num %= VALUES[i]
         i += 1

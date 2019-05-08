@@ -26,3 +26,20 @@ class Solution:
                 root = root.right
 
             root.right = temp
+
+class Solution:
+    def flatten(self, root):
+        if not root: return
+
+        self.flatten(root.right)
+        tmp = root.right
+
+        if not root.left: return
+        self.flatten(root.left)
+        tail = root.left
+
+        while tail.right: tail = tail.right
+
+        root.right = root.left
+        root.left = None
+        tail.right = tmp

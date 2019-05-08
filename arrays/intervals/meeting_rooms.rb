@@ -1,13 +1,22 @@
 def can_attend_meetings(intervals)
-    intervals.sort_by! { |a, b| a[0] < b[0] }
-    p intervals
-    0.upto(intervals.size - 1) do |i|
-        return false if i > 0 && intervals[i][0] < intervals[i - 1][1]
+    intervals.sort_by! { |s, e| s }
+    1.upto(intervals.size - 1) do |i|
+        return false if intervals[i][0] < intervals[i - 1][1]
     end
 
     true
 end
 
+# @param {Integer[][]} intervals
+# @return {Boolean}
+def can_attend_meetings(intervals)
+    intervals.sort!
+    1.upto(intervals.size - 1) do |i|
+        return false if intervals[i][0] < intervals[i - 1][1]
+    end
+
+    true
+end
 
 require 'test/unit'
 extend Test::Unit::Assertions

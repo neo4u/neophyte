@@ -6,8 +6,8 @@ def is_palindrome(s)
   l, r = 0, s.size - 1
 
   while l < r
-      l += 1 while !alpha_num?(s[l]) && l < r # Skip non-alpha numeric from left
-      r -= 1 while !alpha_num?(s[r]) && l < r # Skip non-alpha numeric from right
+      l += 1 while !alpha_num?(s[l]) && l < r # Skip non-alpha numeric from left, within bounds
+      r -= 1 while !alpha_num?(s[r]) && l < r # Skip non-alpha numeric from right, within bounds
 
       return false unless s[l].casecmp(s[r]).zero?
       l += 1; r -= 1
@@ -32,7 +32,7 @@ end
 # 1. two pointers from either end
 # 2. return as soon as mismatch
 # 3. If match keep inc l and dec r
-# 4. If either of the chars are non-alpha keep inc/dec accordingly
+# 4. If either of the chars are non-alpha keep inc/dec accordingly, within bounds
 
 # Approach 2: Gsub method
 # delete unneccessary chars 

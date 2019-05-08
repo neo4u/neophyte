@@ -4,14 +4,14 @@ def generate_parenthesis(n)
     backtrack(n)
 end
 
-def backtrack(n, s = "", l = 0, r = 0, result = [])
-    if s.size == 2 * n
-        result.push(s)
+def backtrack(n, path = "", l = 0, r = 0, result = [])
+    if path.size == 2 * n
+        result.push(path)
         return
     end
 
-    backtrack(n, s + "(", l + 1, r, result) if l < n
-    backtrack(n, s + ")", l, r + 1, result) if r < l
+    backtrack(n, path + "(", l + 1, r, result) if l < n
+    backtrack(n, path + ")", l, r + 1, result) if r < l
 
     result
 end
@@ -28,8 +28,26 @@ end
 # Time: O(4^n/sqrt(n), Each valid sequence has at most n steps during the backtracking procedure.
 # Space: O(4^n/sqrt(n), as described above, and using O(n) space to store the sequence.
 
+
+# n = 2
+
+# bt("", 0, 0)
+#     bt("(", 1, 0)
+#         bt("((", 2, 0)
+#         bt('(()', 2, 1)
+#             bt('(())', 2, 2)
+#             can't open can't close
+#             ret
+#         ret
+#     bt('()', 1, 1)
+#         bt('()(', 2, 1)
+#             bt('()()', 2, 2)
+#             ret
+#         ret
+#     ret
+
 # *** Example: n = 3 *** Space after each DFS instance
-# backtrack called with  0 0 []
+# backtrack called with  "" 0 0 []
 #   backtrack called with ( 1 0 []
 #     backtrack called with (( 2 0 []
 #       backtrack called with ((( 3 0 []
@@ -69,6 +87,11 @@ end
 #   backtrack return with ( 1 0 ["((()))", "(()())", "(())()", "()(())", "()()()"]
 # backtrack return with  0 0 ["((()))", "(()())", "(())()", "()(())", "()()()"]
 
+
+
+
+
+
 # Refer to the attached diagram for recursion,
 # The numbers next to each node are the counts of left and right parantheses
 
@@ -81,4 +104,9 @@ assert_equal(generate_parenthesis(3), [
     "(())()",
     "()(())",
     "()()()"
+])
+
+assert_equal(generate_parenthesis(2), [
+    "(())",
+    "()()"
 ])

@@ -1,40 +1,30 @@
 # Definition for singly-linked list.
-# class ListNode
-#     attr_accessor :val, :next
-#     def initialize(val)
-#         @val = val
-#         @next = nil
-#     end
-# end
+class ListNode
+    attr_accessor :val, :next
+    def initialize(val)
+        @val = val
+        @next = nil
+    end
+end
 
-# @param {ListNode} head
-# @return {ListNode}
 def insertion_sort_list(head)
-  return head if head.nil? || head.next.nil?
+    return head if !head || !head.next
 
-  p = dummy = ListNode.new(nil)
-  cur = dummy.next = head
+    dummy = ListNode.new(-1)
+    cur = head
+    prv = dummy
+    nxt = nil
 
-  while cur && cur.next
-    key = cur.next.val
+    while cur
+        nxt = cur.next
+        prv = prv.next while prv.next && prv.next.val < cur.val
 
-    # keep navigating the list as long as key > current element
-    if cur.val < key
-      cur = cur.next
-      next
+        cur.next = prv.next
+        prv.next = cur
+        prv = dummy
+        cur = nxt
     end
 
-    # Make prev point to the starting element and then keep
-    # moving until we find the last element less than key
-    p = dummy if p.next.val > key
-    p = p.next while p.next.val < key
-
-    # swap the key element after p element
-    new = cur.next
-    cur.next = new.next
-    new.next = p.next
-    p.next = new
-  end
-
-  dummy.next
+    dummy.next
 end
+

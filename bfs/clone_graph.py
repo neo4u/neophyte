@@ -1,47 +1,48 @@
 # Definition for a undirected graph node
-import collections
-
 class Node:
     def __init__(self, val, neighbors):
         self.val = val
         self.neighbors = neighbors
 
 # Approach 1: BFS
+from collections import deque
 class SolutionBFS:
-    def cloneGraph(self, node):
-        if not node: return None
-        cloned = {node: Node(node.label)}
-        queue = collections.deque([(node, cloned[node])])
+    def cloneGraph(self, root):
+        if not root: return
+        root_clone = Node(root.val, [])
+        d = {root: root_clone}
+        q = deque([root])
+        
+        while q:
+            node = q.popleft()
+            for nbr in node.neighbors:
+                if nbr not in d:
+                    clone = Node(nbr.val, [])
+                    d[nbr] = clone
+                    q.append(nbr)
 
-        while queue:
-            src, dst = queue.pop()
-            for nbr in src.neighbors:
-                if nbr not in cloned:
-                    cloned[nbr] = Node(nbr.val)
-                    queue.appendleft((nbr, cloned[nbr]))
-                dst.neighbors.append(cloned[nbr])
+                d[node].neighbors.append(d[nbr])
 
-        return cloned[node]
+        return root_clone
 
 # Approach 2: DFS
 class Solution:
     def cloneGraph(self, node):
-        def dfs(node, cloned, depth=1):
-            if node in cloned: return cloned[node]
+        if not node: return
+        self.cloned = {}
+        return self.dfs(node)
 
-            clone = Node(node.val, [])
-            cloned[node] = clone
+    def dfs(self, node):
+        if not node: return
+        if node in self.cloned: return self.cloned[node]
+        
+        clone = Node(node.val, [])
+        self.cloned[node] = clone
+        for nbr in node.neighbors:
+            clone.neighbors.append(self.dfs(nbr))
 
-            for nbr in node.neighbors:
-                clone.neighbors.append(dfs(nbr, cloned, depth + 1))
+        return clone
 
-            return clone
-
-        if not node: return None
-        cloned = {}
-        dfs(node, cloned, 0)
-
-        return cloned[node]
 
 
 # 133. Clone Graph

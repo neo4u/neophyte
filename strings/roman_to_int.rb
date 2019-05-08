@@ -1,16 +1,12 @@
 # @param {String} s
 # @return {Integer}
 def roman_to_int(s)
-    prev, val = nil, 0
+    prev, val = 0, 0
     romans = { 'I' => 1, 'V' => 5, 'X' => 10, 'L' => 50, 'C' => 100, 'D' => 500, 'M' => 1000 }
 
-    s.chars.reverse.each do |c|
+    s.chars.reverse_each do |c|
         curr = romans[c]
-        if !prev || curr >= prev
-            val += curr
-        elsif prev && curr < prev
-            val -= curr
-        end
+        curr >= prev ? val += curr : val -= curr
         prev = curr
     end
 

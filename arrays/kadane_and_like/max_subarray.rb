@@ -44,3 +44,30 @@ extend Test::Unit::Assertions
 assert_equal(max_sub_array([-2,1,-3,4,-1,2,1,-5,4]), 6)
 
 assert_equal(max_sub_array2([-2,1,-3,4,-1,2,1,-5,4]), 6)
+
+# ms, cs = -2 . -2
+
+# i = 1
+# cs = 1, ms = 1
+
+# i = 2
+# cs = -2, ms = 1
+
+# i = 3
+# cs = 4, ms = 4
+
+# i = 4
+# cs = 3, ms = 4
+
+# i = 5
+# cs = 5, ms = 5
+
+# i = 6
+# cs = 6, ms = 6
+
+# i = 7
+# cs = 1, ms = 6
+
+# i = 8
+# cs = 5, ms = 6
+

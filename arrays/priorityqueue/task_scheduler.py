@@ -23,30 +23,19 @@ from collections import Counter
 # Space: O(1), will not be more than O(26).
 class Solution(object):
     def leastInterval(self, tasks, n):
-        """
-        :type tasks: List[str]
-        :type n: int
-        :rtype: int
-        """
         time, q = 0, []
-
-        for k, v in Counter(tasks).items():
-            heappush(q, -v) # Use negatives to make min heap, max heap
+        for v in Counter(tasks).values():
+            heappush(q, -v) # Use negatives to get max heap
 
         while q:
-            i, temp = 0, []
-
-            while i <= n:
+            cool_timer, temp = 0, []
+            while cool_timer <= n and (q or temp): # q is empty or but we have cooling to do cuz there are items in temp
                 time += 1
+                cool_timer += 1                              # keep inrementing the cooling timer
 
                 if q:
                     x = heappop(q)
-                    if x < -1: temp.append(x + 1)   # >= -1 means, the task was completed,
-                                                    # else dec frequency and add to temp for next round
-
-                if not q and not temp: break        # q is empty and no more tasks left
-                i += 1                              # keep inrementing the cooling timer
-
+                    if x < -1: temp.append(x + 1)   # >= -1 means, the task was completed, else dec frequency and add to temp for next round
             for item in temp: heappush(q, item)     # push all pending task frequencies onto maxheap (min heap with -ve values)
                                                     # or ADT priority queue (hence the variable name q)
         return time
@@ -67,6 +56,6 @@ class Solution2(object):
         ans = (longest - 1) * (n + 1)
 
         for count in counts:
-            ans += 1 if count == longestor else 0
+            if count == longest: ans += 1
 
         return max(len(tasks), ans)

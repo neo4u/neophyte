@@ -1,11 +1,11 @@
 # Definition for singly-linked list.
-# class ListNode
-#         attr_accessor :val, :next
-#         def initialize(val)
-#                 @val = val
-#                 @next = nil
-#         end
-# end
+class ListNode
+    attr_accessor :val, :next
+    def initialize(val)
+        @val = val
+        @next = nil
+    end
+end
 
 # Iterative
 # @param {ListNode} head
@@ -23,9 +23,9 @@ end
 def reverse_list(head, prev = nil)
     return prev if !head
 
-    n = head.next
+    nxt = head.next
     head.next = prev
     
-    reverse_list(n, head)
+    reverse_list(nxt, prev=head)
 end
 

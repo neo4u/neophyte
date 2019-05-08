@@ -1,33 +1,33 @@
-# @param {Character[]} chars
-# @return {Integer}
 def compress(chars)
-    len = chars.size
-    run_idx, out_idx = 0, 0
+    n = chars.size
+    w, r = 0, 0
 
-    chars.each do |c|
-        while run_idx < len # Each time we enter this loop we've encountered a new char
-            # Capture the current character (number) and reset count
-            curr, count = chars[run_idx], 0
+    while r < n
+        curr, count = chars[r], 0                                       # Read using read head 'r'
+        r, count = r + 1, count + 1 while r < n && chars[r] == curr     # Read until diff char using 'r'
 
-            # Keep looping forward until we encounter a new char and break from this small while loop
-            while run_idx < len && chars[run_idx] == curr
-                count += 1
-                run_idx += 1
-            end
-
-            # Save the current char following by the count of the char. Count is saved char by char
-            chars[out_idx], out_idx = curr, out_idx + 1
-
-            next if count <= 1
-            count.to_s.each_char do |i|
-                chars[out_idx] = i
-                out_idx += 1
-            end
-        end
+        chars[w], w = curr, w + 1                                       # Write the curr char using write head 'w'
+        next if count <= 1                                              # if only 1 char, then we've already written it
+        count.to_s.each_char { |i| chars[w], w = i, w + 1 }             # Write the count of char using write head 'w'
     end
-    chars = chars[0, out_idx]
 
-    chars.size
+    w
+end
+
+# Slight optimiation
+def compress(chars)
+    n = chars.size
+    r, w = 0, 0
+
+    while r < n
+        curr, count = chars[r], 0
+        count, r = count + 1, r + 1 while r < n && curr == chars[r]
+
+        chars[w], w = curr, w + 1
+        count.to_s.each_char { |i| chars[w], w = i, w + 1 } if count > 1
+    end
+
+    w
 end
 
 # ------------------------------------------------------------------------------------------------
@@ -38,9 +38,11 @@ end
 # Follow up:
 # Could you solve it using only O(1) extra space?
 # ------------------------------------------------------------------------------------------------
+
 require 'test/unit'
 extend Test::Unit::Assertions
 
 assert_equal(compress(["a","a","b","b","c","c","c"]), 6)
 assert_equal(compress(["a"]), 1)
 assert_equal(compress(["a","b","b","b","b","b","b","b","b","b","b","b","b"]), 4)
+

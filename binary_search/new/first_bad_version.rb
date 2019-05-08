@@ -61,5 +61,5 @@ end
 # Even Jon Bentley's own implementation of binary search had this overflow
 # bug and remained undetected for over twenty years.
 
-# Time complexity: O(logn), The search space is halved each time, so the time complexity is O(logn).
-# Space complexity: O(1),
+# Time: O(logn), The search space is halved each time, so the time complexity is O(logn).
+# Space: O(1)

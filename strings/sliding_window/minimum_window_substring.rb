@@ -54,11 +54,8 @@ end
 def min_window2(s, t)
     return "" if !s || s.empty? || !t || t.empty?
 
-    dict_t = {}
-    t.each_char do |c|
-        dict_t[c] ||= 0
-        dict_t[c] += 1
-    end
+    dict_t = Hash.new(0)
+    t.each_char { |c| dict_t[c] += 1 }
 
     # Only contains the chars in t and corresp indices
     filtered_s = []
@@ -98,7 +95,7 @@ def min_window2(s, t)
             window_counts[char] -= 1
             formed -= 1 if window_counts[char] < dict_t[char]
 
-            # Move the left pointer ahead, this would help to look for a new window.
+            # Move the left pointer ahead, this would help to look for a shorter window.
             l += 1
         end
 
@@ -120,30 +117,29 @@ def min_window3(s, t)
 
     # Because z represents int value of 122 so we need 123 elements in the array, only last 26 entries will be used.
     rem = Array.new(123, 0)
-    required = t.length
+    required = t.size
     t.each_byte { |byte| rem[byte] += 1 }
 
-    i, start, head = 0, 0, 0
+    r, l, head = 0, 0, 0
     string = s
     s = s.bytes
     diff = s.size + 1
 
-    while i < s.size
-        # if(required > 0)
-        rem[s[i]] -= 1
-        required -= 1 if rem[s[i]] >= 0
-        i += 1
-        # end
+    while r < s.size
+        rem[s[r]] -= 1
+        required -= 1 if rem[s[r]] >= 0
+        r += 1
+
         while required == 0
             # Update the new start and length of window
-            if i - start < diff
-                diff  = i - start
-                head = start
+            if r - l < diff
+                diff  = r - l
+                head = l
             end
 
-            rem[s[start]] += 1
-            required += 1 if rem[s[start]] > 0
-            start += 1
+            rem[s[l]] += 1
+            required += 1 if rem[s[l]] > 0
+            l += 1
         end
     end
 

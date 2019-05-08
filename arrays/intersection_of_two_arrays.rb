@@ -4,7 +4,7 @@
 # @return {Integer[]}
 def intersection(nums1, nums2)
     set1, set2 = Set.new(nums1), Set.new()
-    
+
     nums2.each do |n|
         set2.add(n) if set1.include?(n)
     end
@@ -39,7 +39,7 @@ end
 def intersection(nums1, nums2)
     nums1.sort!; nums2.sort!
     intersect = []
-    
+
     while !nums1.empty? && !nums2.empty?
         if nums1.first < nums2.first
             nums1.shift
@@ -65,6 +65,5 @@ end
 # Where n is the combined length of both arrays
 # Approach 1: Using two sets Time: O(n) Space: O(n)
 # Approach 2: Using a hash, Time: O(n) Space: O(n)
-# Approach 3: Binary search, iterate through one and sort and do binary search on the other, Time: O(nlog(n)), Space: O(1)
+# Approach 3: Binary search, iterate through one and sort and do bi nary search on the other, Time: O(nlog(n)), Space: O(1)
 # Approach 4: Two pointer (java) or using first/last and shift (ruby), Time: O(nlog(n)), Space: O(1)
-

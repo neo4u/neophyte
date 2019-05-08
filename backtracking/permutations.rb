@@ -19,6 +19,63 @@ def bt(nums, path = [], result = [])
     result
 end
 
+# class Solution:
+#     def permute(self, nums):
+#         """
+#         :type nums: List[int]
+#         :rtype: List[List[int]]
+#         """
+#         def backtrack(first = 0):
+#             # if all integers are used up
+#             if first == n:  
+#                 output.append(nums[:])
+#             for i in range(first, n):
+#                 # place i-th integer first 
+#                 # in the current permutation
+#                 nums[first], nums[i] = nums[i], nums[first]
+#                 # use next integers to complete the permutations
+#                 backtrack(first + 1)
+#                 # backtrack
+#                 nums[first], nums[i] = nums[i], nums[first]
+        
+#         n = len(nums)
+#         output = []
+#         backtrack()
+#         return output
+
+def permute(nums)
+    return [] if !nums || nums.empty?
+    bt(nums)
+end
+
+def bt(nums, first = 0, results = [])
+    results.push(nums.dup) if first == n
+
+    first.upto(nums.size - 1) do |i|
+        nums[first], nums[i] = nums[i], nums[first]
+        bt(nums, first + 1, results)
+        nums[first], nums[i] = nums[i], nums[first]
+    end
+
+    results
+end
+
+
+
+# bt(0, [1 2 3])
+#     bt(1, [1,2,3])
+#         bt(2, [1,2,3])
+#         ret
+#         bt(2, [1,3,2])
+#         ret
+#     bt(1, [2,1,3])
+#         bt(2, [2,1,3])
+#         bt(2, [2,3,1])
+#     bt(1, [3,2,1])
+#         bt(2, [3,2,1])
+#         bt(2, [3,1,2])
+
+
 
 # 46. Permutations
 # https://leetcode.com/problems/permutations/description/

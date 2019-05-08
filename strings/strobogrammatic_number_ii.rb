@@ -1,24 +1,25 @@
 # @param {Integer} n
 # @return {String[]}
 def find_strobogrammatic(n)
-    odd_mid_candidates = ['0', '1', '8']
-    even_mid_candidates = ['11', '69', '88', '96', '00']
+    one_size_mid_candidates = ['0', '1', '8']
+    two_size_mid_candidates = ['11', '69', '88', '96', '00']
 
     if n == 1
-        return odd_mid_candidates
+        return one_size_mid_candidates
     elsif n == 2
-        return even_mid_candidates[0...-1]
+        return two_size_mid_candidates[0...-1]
     elsif n % 2 == 1 # Odd case
-        outer, inner = find_strobogrammatic(n - 1), odd_mid_candidates
+        outer, inner = find_strobogrammatic(n - 1), one_size_mid_candidates
     else
-        outer, inner = find_strobogrammatic(n - 2), even_mid_candidates
+        outer, inner = find_strobogrammatic(n - 2), two_size_mid_candidates
     end
 
-    mid = (n - 1) / 2
+    mid = outer.first.size / 2 # Outer elements are always even, cuz n being odd or even we convert it to a problem of even
     result = []
     outer.each do |o|
         inner.each do |i|
-            result.push(o[0, mid] + i + o[mid, o.size])
+            l, r = o[0...mid], o[mid...o.size]
+            result.push(l + i + r)
         end
     end
 

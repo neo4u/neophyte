@@ -1,17 +1,17 @@
 def insertion_sort(a)
-	n = a.size
+    n = a.size
 
-	1.upto(n - 1) do |j|
-		i, key = j - 1, a[j]
-		
-		while i >= 0 && a[i] > key
-			a[i + 1] = a[i]
-			i -= 1
-		end
-		a[i + 1] = key unless i == j - 1 # i + 1 holds the last moved element's position
-	end
+    1.upto(n - 1) do |j|
+        i, key = j - 1, a[j]
 
-	a
+        while i >= 0 && a[i] > key
+            a[i + 1] = a[i]
+            i -= 1
+        end
+        a[i + 1] = key #unless i == j - 1 # i + 1 holds the last moved element's position
+    end
+
+    a
 end
 
 require 'test/unit'

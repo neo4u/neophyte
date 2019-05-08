@@ -2,26 +2,53 @@
 # @param {Integer[]} nums
 # @return {Integer}
 def length_of_lis(nums)
-    tails, size = Array.new(nums.size), 0
+    tails, max_size = Array.new(nums.size), 0
     nums.each do |x|
         # Binary search on tails to find the right postion for x
-        pos = bin_search(tails, x, size)
+        pos = bin_search(tails, x, max_size)
 
         # At this point the result of the binary search is in pos
         tails[pos] = x # if tails[i-1] < x <= tails[i], update tails[i]
-        size = [pos + 1, size].max # pos + 1 is to convert from index to length
+        max_size = [max_size, pos + 1].max # pos + 1 is to convert from index to length
     end
-    size
+
+    max_size
 end
 
 def bin_search(a, x, size)
     l, r = 0, size
+
     while l < r
         mid = (l + r) / 2
         a[mid] < x ? l = mid + 1 : r = mid
     end
+
     l
 end
+
+# [0, 8, 4, 12, 2, 5, 6]
+
+# tails [0, nil, nil, nil, nil]
+# max_size = 1
+
+# tails [0, 8, nil, nil, nil]
+# max_size = 2
+
+# tails [0, 4, nil, nil, nil]
+# max_size = 2
+
+# tails [0, 4, 12, nil, nil]
+# max_size = 3
+
+# tails [0, 2, 5, nil, nil]
+# max_size = 3
+
+# tails [0, 2, 5, 6, nil]
+# pos = 3
+# max_size = 4
+
+# tails [0, 2, 12, nil, nil]
+# max_size = 3
 
 
 # 300. Longest Increasing Subsequence
@@ -35,7 +62,7 @@ end
 # Intuition and Algorithm
 # This solution is essentialy binary search + Dynamic Programming (tails)
 # tails is an array storing the smallest tail of all increasing subsequences
-# with length i+1 in tails[i] scanned so far.
+# with length i in tails[i - 1] scanned so far.
 # For example, say we have nums = [4,5,6,3], then all the available increasing subsequences are:
 
 # len = 1:  [4], [5], [6], [3] => tails[0] = 3

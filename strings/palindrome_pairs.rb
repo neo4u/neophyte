@@ -20,7 +20,8 @@ def palindrome_pairs(words)
             end
 
             # If suffix is a palindrome then prefix + suffix + reverse_profix will be a palindrome
-            if j != n && palindrome?(suffix)
+            # use the word or reverse to form palindrom only once, that's why j != n, cuz when j = 0, we wud've consider the "" and word as prefix and suffix
+            if j != n && palindrome?(suffix) 
                 back = prefix.reverse
                 if back != word && word_dict.key?(back)
                     valid_pals.push([k, word_dict[back]])
@@ -35,6 +36,8 @@ end
 def palindrome?(word)
     word == word.reverse
 end
+
+
 
 # 336. Palindrome Pairs
 # https://leetcode.com/problems/palindrome-pairs/

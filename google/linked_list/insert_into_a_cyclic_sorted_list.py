@@ -1,32 +1,3 @@
-class Solution(object):
-    def insert(self, head, insertVal):
-        """
-        :type head: Node
-        :type insertVal: int
-        :rtype: Node
-        """
-
-        new_node = Node(insertVal, None)
-        if not head:
-            new_node.next = new_node
-            return new_node
-
-        cur = head
-
-        while not (cur.val < insertVal <= cur.next.val):
-            # cur is max, and cur.next is min. If max < v or min >= v, we stop
-            if cur.next.val <= cur.val:
-                if cur.val < insertVal or cur.next.val >= insertVal:
-                    break
-
-            cur = cur.next
-
-        new_node.next, cur.next = cur.next, new_node
-        return head
-
-
-# One Pass O(n) O(1)
-
 # insert at the end; insert in the middle;
 # insert before head (e.g. all the values are equal in the original list)
 class Solution:
@@ -37,23 +8,31 @@ class Solution:
         :rtype: Node
         """
         new_node = Node(insertVal, head)
-        
-        if not head:  
-            return new_node
-         
+        if not head: return new_node
+
         node = head
         while True:
+            # 1.A. Tipping point exists, and we've hit the peak and invert value is between max and min
             if node.next.val < node.val and (insertVal <= node.next.val or insertVal >= node.val):
                 break
+            # 1.B. Tipping point exists, and we're found a place for the insert value between the list
             elif node.val <= insertVal <= node.next.val:
                 break
+            # 2.   Tipping point doesn't exist, and we've hit the last node, before we loop back to start
             elif node.next == head:
                 break
+
             node = node.next
 
         new_node.next = node.next
         node.next = new_node
         return head
+
+# Approach 1: 3 Cases
+
+# Time: O(n)
+# Space: O(1)
+
 
 # 708. Insert into a Cyclic Sorted List
 # https://leetcode.com/problems/insert-into-a-cyclic-sorted-list/description/

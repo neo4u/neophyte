@@ -32,12 +32,12 @@ end
 # Recursive
 # @param {ListNode} head
 # @return {ListNode}
-def swap_pairs(head)
-    return head if !head || !head.next
+def swap_pairs(first)
+    return first if !first || !first.next
 
-    n = head.next
-    head.next = swap_pairs(n.next)
-    n.next = head
+    second = first.next
+    first.next = swap_pairs(second.next)
+    second.next = first
 
-    n
+    second
 end

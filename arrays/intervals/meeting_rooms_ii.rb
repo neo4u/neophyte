@@ -37,6 +37,33 @@ def min_meeting_rooms(intervals)
     used_rooms
 end
 
+def min_meeting_rooms(intervals)
+    return 0 if !intervals || intervals.empty?
+    used_rooms, n = 0, intervals.size
+    starts, ends = Array.new(n), Array.new(n)
+
+    0.upto(n - 1) do |i|
+        starts[i] = intervals[i][0]
+        ends[i] = intervals[i][1]
+    end
+
+    starts.sort!; ends.sort!
+    sp, ep = 0, 0
+
+    while sp < n
+        if starts[sp] >= ends[ep]
+            ep += 1
+        else
+            used_rooms += 1
+        end
+        sp += 1
+    end
+
+    used_rooms
+end
+
+
+
 # 253. Meeting Rooms II
 # https://leetcode.com/problems/meeting-rooms-ii/
 

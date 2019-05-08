@@ -29,34 +29,6 @@ end
 # 17. Letter Combinations of a Phone Number
 # https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 
-# bt call with index: 0 path:  result: []
-# i: 0
-#     bt call with index: 1 path: a result: []
-#     i: 1
-#         bt call with index: 2 path: ad result: []
-#         bt call with index: 2 path: ae result: ["ad"]
-#         bt call with index: 2 path: af result: ["ad", "ae"]
-#     bt retn with index: 1 path: a result: ["ad", "ae", "af"]
-#     bt call with index: 1 path: b result: ["ad", "ae", "af"]
-#     i: 1
-#         bt call with index: 2 path: bd result: ["ad", "ae", "af"]
-#         bt call with index: 2 path: be result: ["ad", "ae", "af", "bd"]
-#         bt call with index: 2 path: bf result: ["ad", "ae", "af", "bd", "be"]
-#     bt retn with index: 1 path: b result: ["ad", "ae", "af", "bd", "be", "bf"]
-#     bt call with index: 1 path: c result: ["ad", "ae", "af", "bd", "be", "bf"]
-#     i: 1
-#         bt call with index: 2 path: cd result: ["ad", "ae", "af", "bd", "be", "bf"]
-#         bt call with index: 2 path: ce result: ["ad", "ae", "af", "bd", "be", "bf", "cd"]
-#         bt call with index: 2 path: cf result: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce"]
-#     bt retn with index: 1 path: c result: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
-# i: 1
-#     bt call with index: 2 path: d result: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
-#     bt retn with index: 2 path: d result: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
-#     bt call with index: 2 path: e result: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
-#     bt retn with index: 2 path: e result: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
-#     bt call with index: 2 path: f result: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
-#     bt retn with index: 2 path: f result: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
-# bt retn with index: 0 path:  result: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
 
 require 'test/unit'
 extend Test::Unit::Assertions

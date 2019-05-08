@@ -17,13 +17,15 @@ def vertical_order(root)
     while !q.empty?
         node, level = q.shift
         map[level].push(node.val)
+
         min = level if level < min
         max = level if level > max
+
         q.push([node.left, level - 1]) if node.left
         q.push([node.right, level + 1]) if node.right
     end
     
-    (min..max).map { |i| map[i] }.reject(&:empty?)
+    min.upto(max).map { |i| map[i] }.reject(&:empty?)
 end
 
 

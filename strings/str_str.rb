@@ -1,68 +1,5 @@
 class RollingHash
     include Comparable
-    attr_accessor :checksum
-    BASE = 256
-    PRIME = 101
-
-    def initialize(s)
-        @max_power = s.size - 1
-        @checksum = 0
-        s.each_char { |c| add(c) }
-
-        def add(c)
-            @checksum = (@checksum * BASE + c.ord) % PRIME
-        end
-
-        def remove(c)
-            @checksum = (@checksum - (c.ord * BASE**@max_power)) % PRIME
-        end
-
-        def <=>(other_obj)
-            @checksum <=> other_obj.checksum
-        end
-    end
-end
-
-def str_str(haystack, needle)
-    return -1 if !haystack || !needle || haystack.empty?
-    return 0 if needle.empty?
-    m, n = haystack.size, needle.size
-    return -1 if n > m
-
-    hh, hn = RollingHash.new(haystack[0...n]), RollingHash.new(needle)
-    return 0 if hh == hn && haystack[0...n] == needle
-
-    1.upto(m - n) do |i|
-        hh.remove(haystack[i - 1])
-        hh.add(haystack[i - 1 + n])
-        return i if hh == hn && needle == haystack[i...i + n]
-    end
-
-    -1
-end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class RollingHash
-    include Comparable
     attr :checksum
     BASE = 256
     PRIME = 101
@@ -93,21 +30,23 @@ end
 # @param {String} needle
 # @return {Integer}
 def str_str(haystack, needle)
-    m, n = haystack.size, needle.size
     return 0 if !needle || needle.empty?
-    return -1 if !haystack || haystack.empty? || n > m
+    return -1 if !haystack || haystack.empty?
+    m, n = haystack.size, needle.size
+    return -1 if n > m
 
-    hh, nh = RollingHash.new(haystack[0...n]), RollingHash.new(needle)
-    return 0 if hh == nh # && needle == haystack[0...n] not need for 101 but for any other prime we need this statement
+    hh, hn = RollingHash.new(haystack[0...n]), RollingHash.new(needle)
+    return 0 if hh == hn && haystack[0...n] == needle
 
     1.upto(m - n) do |i|
         hh.remove(haystack[i - 1])
         hh.add(haystack[i - 1 + n])
-        return i if hh == nh && needle == haystack[i...i + n]
+        return i if hh == hn && haystack[i...i + n] == needle
     end
 
     -1
 end
+
 
 # Approach 1: O(m * n)
 def str_str(haystack, needle)

@@ -8,6 +8,7 @@ def is_alien_sorted(words, order)
     words.each_cons(2) do |w1, w2|
         m, n = w1.size, w2.size
         min, found_mismatch = [m, n].min, false
+
         0.upto(min - 1) do |i|
             c1, c2 = w1[i], w2[i]
             next if c1 == c2

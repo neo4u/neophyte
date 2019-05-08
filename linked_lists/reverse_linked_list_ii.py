@@ -4,6 +4,9 @@ class Solution:
         if not head: return None
 
         # Move the 2 ptrs to m-1th (prev) node and mth node (curr).
+        # 1 -> 2 -> 3 -> 4 -> 5, m = 2, n = 4
+        # m = 1, n = 3, prev = 1, curr = 2
+
         cur, prev = head, None
         while m > 1:
             prev = cur
@@ -14,6 +17,9 @@ class Solution:
         tail, con = cur, prev
 
         # Iteratively reverse the nodes until n becomes 0.
+        # 1 -> 2 -> 3 -> 4 -> 5, m = 2, n = 4
+        # m = 1, n = 3, prev = 1, curr = 2
+        # 1 <- 2 <- 3 <- 4    5->nil
         while n:
             tmp = cur.next
             cur.next = prev
@@ -22,11 +28,15 @@ class Solution:
             n -= 1
 
         # Adjust the final connections as explained in the algorithm
+        # 1 -> 4 -> 3 -> 2 -> 1, curr = 5, tail = 2
         if con:
             con.next = prev
         else:
+            # when m = 1, con will still be nil in this case
             head = prev
 
+        # 1 -> 4 -> 3 -> 2 -> 1, curr = 5, tail = 2
+        # 1 -> 4 -> 3 -> 2 -> 5
         tail.next = cur
         return head
 
