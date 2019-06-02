@@ -34,17 +34,19 @@ end
 # bt("", 0, 0)
 #     bt("(", 1, 0)
 #         bt("((", 2, 0)
+#             can't open
+#             ret
 #         bt('(()', 2, 1)
 #             bt('(())', 2, 2)
 #             can't open can't close
 #             ret
 #         ret
-#     bt('()', 1, 1)
-#         bt('()(', 2, 1)
-#             bt('()()', 2, 2)
+#         bt('()', 1, 1)
+#             bt('()(', 2, 1)
+#                 bt('()()', 2, 2)
+#                 ret
 #             ret
 #         ret
-#     ret
 
 # *** Example: n = 3 *** Space after each DFS instance
 # backtrack called with  "" 0 0 []

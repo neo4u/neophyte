@@ -2,22 +2,21 @@
 # @return {String}
 def next_closest_time(time)
     ans = start = 60 * time[0...2].to_i + time[3...time.size].to_i # in mins
-    elapsed = 24 * 60
-    allowed = time.chars.select { |c| c.to_i if c != ':' }.map(&:to_i)
+    closest = 24 * 60
+    allowed = time.gsub(":", "").chars.map(&:to_i)
 
     allowed.repeated_permutation(4).each do |h1, h2, m1, m2|
         hours, mins = 10 * h1 + h2, 10 * m1 + m2
 
         # Skip values where the values is not a valid time stamp like 8 can occur in 2nd mins place but can't occur in hours place
         next if hours >= 24 || mins >= 60
-        curr = hours * 60 + mins
+        curr_time = hours * 60 + mins
 
-        # This value is always +ve and hence gives us the nearest value on both sides
-        # this value is our main selection criteria
-        mins_elapsed = (curr - start) % (24 * 60)
-        if mins_elapsed.between?(1, elapsed - 1)
-            ans = curr
-            elapsed = mins_elapsed
+        # This value is always +ve and hence gives us the nearest value on both sides this value is our main selection criteria
+        mins_elapsed = (curr_time - start) % (24 * 60)
+        if mins_elapsed.between?(1, closest - 1)
+            ans = curr_time
+            closest = mins_elapsed
         end
     end
 

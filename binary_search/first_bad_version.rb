@@ -10,7 +10,6 @@ def first_bad_version(n)
 
     while l < r
         mid = (l + r)/ 2
-        
         is_bad_version(mid) ? r = mid : l = mid + 1
     end
 
@@ -22,7 +21,6 @@ def first_bad_version(n)
 
     while l <= r
         mid = (l + r)/ 2
-        
         is_bad_version(mid) ? r = mid - 1 : l = mid + 1
     end
 

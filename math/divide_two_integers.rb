@@ -59,7 +59,7 @@ end
 # dividend = 4 - 2, q = 3 + 1 = 4
 # at this point temp = 4, dividend = 2 hence we reset temp = 2
 # dividend = 2 - 2, q = 4 + 1 = 5
-# our loop breaks here as divided = 0 and divident >= divisor fails
+# our loop breaks here as divided = 0 and dividend >= divisor fails
 
 # See demo prints for 10/3
 # outer

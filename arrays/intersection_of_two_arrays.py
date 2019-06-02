@@ -68,5 +68,5 @@ class Solution(object):
                     res.append(nums1[i])
                 i += 1
                 j += 1
-        
+
         return res

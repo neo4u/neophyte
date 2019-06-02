@@ -10,6 +10,7 @@ class Solution(object):
 
         return dist[K&1][dst] if dist[K&1][dst] < float('inf') else -1
 
+
 # Approach 2: Dijkstra's with a priority queue
 from heapq import heappush, heappop
 class Solution:
@@ -30,6 +31,9 @@ class Solution:
 # Approach 2: Dijkstra's with a priority queue
 import collections
 import heapq
+
+
+# Traverse K + 2  nodes we get to k + 2 th node with k stops excluding src and dst
 class Solution2(object):
     def findCheapestPrice(self, n, flights, src, dst, K):
         graph = collections.defaultdict(dict)
@@ -38,7 +42,8 @@ class Solution2(object):
         # {
         #     0: {
         #         1: 100,
-        #         2: 500},
+        #         2: 500
+        #     },
         #     1: {
         #         2: 100
         #     }
@@ -47,20 +52,66 @@ class Solution2(object):
         pq = [(0, 0, src)]
 
         while pq:
-            cost, k, city = heapq.heappop(pq)
-
-            # Ignore node if:
-            # 1. it has more than K + 1?
-            # 2. it has highest cost than the best found so far
-            if k > K+1 or cost > best_cost_to_city.get((k, city), float('inf')): continue
+            cost, stops, city = heapq.heappop(pq)
             if city == dst: return cost
+            if stops > K+1 or cost > best_cost_to_city.get((stops, city), float('inf')): continue
 
             for n, wt in graph[city].items():
                 newcost = cost + wt
-                if newcost < best_cost_to_city.get((k+1, n), float('inf')):
-                    heapq.heappush(pq, (newcost, k+1, n))
-                    best_cost_to_city[k+1, n] = newcost
+                if newcost < best_cost_to_city.get((stops + 1, n), float('inf')):
+                    heapq.heappush(pq, (newcost, stops + 1, n))
+                    best_cost_to_city[stops + 1, n] = newcost
 
+        return -1
+
+
+import collections
+import heapq
+class Solution(object):
+    def findCheapestPrice(self, n, flights, src, dst, K):
+        graph = collections.defaultdict(dict)
+        for u, v, w in flights: graph[u][v] = w
+
+        costs = {}
+        pq = [(0, 0, src)]
+
+        while pq:
+            cost, stops, city = heapq.heappop(pq)
+
+            if stops >= K + 2 and cost > costs.get((stops, city), float('inf')): continue
+            if city == dst: return cost
+
+            for nbr, wt in graph[city].items():
+                new_cost = cost + wt
+                if new_cost < costs.get((stops + 1, nbr), float('inf')):
+                    heapq.heappush(pq, (new_cost, stops + 1, nbr))
+                    costs[stops + 1, nbr] = new_cost
+
+        return -1
+
+
+from collections import defaultdict
+import heapq
+class Solution:
+    def findCheapestPrice(self, int, flights, src, dst, K):
+        graph = defaultdict(dict)
+        for u, v, w in flights: graph[u][v] = w
+        
+        visited = set()
+        queue = [[0, 0, src]]
+        while queue:
+            cost, step, u = heapq.heappop(queue)
+            #print(cost, step, u)
+            if u == dst: return cost
+            if step > K: continue
+            
+            #if u in visited: continue
+            
+            visited.add(u)
+            
+            for v in graph[u]:
+                if v not in visited:
+                    heapq.heappush(queue, [cost + graph[u][v], step + 1, v])
         return -1
 
 # Approach 3: Bellman-Ford (which is a case of DP)
@@ -128,13 +179,13 @@ class Solution3:
 # we start with dp[0], which is easy to initialize as we described above
 
 
-sol = Solution2()
-n = 3
-edges = [[0,1,100],[1,2,100],[0,2,500]]
-src = 0
-dst = 2
-k = 1
-assert sol.findCheapestPrice(n, edges, src, dst, k) == 200
+# sol = Solution2()
+# n = 3
+# edges = [[0,1,100],[1,2,100],[0,2,500]]
+# src = 0
+# dst = 2
+# k = 1
+# assert sol.findCheapestPrice(n, edges, src, dst, k) == 200
 
 # n = 3
 # edges = [[0,1,100],[1,2,100],[0,2,500]]

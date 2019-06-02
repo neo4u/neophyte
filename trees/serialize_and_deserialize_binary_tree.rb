@@ -34,15 +34,33 @@ end
 
 def dfs_deserialize(pre_order)
     return if pre_order.empty?
-    
-    val = pre_order.shift
-    val == '#' ? return : val = val.to_i
+
+    val = pre_order.first
+    return if val == '#'
+
+    pre_order.shift()
+    val = val.to_i
     root = TreeNode.new(val)
     root.left = dfs_deserialize(pre_order)
     root.right = dfs_deserialize(pre_order)
 
     root
 end
+
+#      1
+
+#  2      3
+#       4   5
+
+# 1,2,#,#,3,4,#,#,5,#,#
+
+    #       1
+    #    2     3
+    #        4   5
+    #       # # # # 
+
+
+
 
 # 297. Serialize and Deserialize Binary Tree
 # https://leetcode.com/problems/serialize-and-deserialize-bst/description/

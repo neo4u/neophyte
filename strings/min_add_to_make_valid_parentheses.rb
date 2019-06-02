@@ -1,17 +1,17 @@
 # @param {String} s
 # @return {Integer}
 def min_add_to_make_valid(s)
-    open, count = 0, 0
+    open, invalid_close = 0, 0
 
     s.each_char do |paren|
         if paren == "("
             open += 1
         else
-            open > 0 ? open -= 1 : count += 1
+            open > 0 ? open -= 1 : invalid_close += 1
         end
     end
 
-    count + open
+    invalid_close + open
 end
 
 # Faster ruby specific version

@@ -66,3 +66,6 @@ assert_equal(counter.get_hits(4), 3)
 counter.hit(300)
 assert_equal(counter.get_hits(300), 4)
 assert_equal(counter.get_hits(301), 3)
+
+# t 10 11 2 3 0 0 0 0 0 0
+# h 1  1 2 1 0 0 0 0 0 0

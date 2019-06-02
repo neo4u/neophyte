@@ -4,9 +4,9 @@ def find_peak_element(nums)
     n = nums.size
     l, r = 0, n - 1
 
-    while l <= r
+    while l < r
         mid = (l + r) / 2
-        nums[mid] < nums[mid + 1] ? l = mid + 1 : r = mid - 1
+        nums[mid] < nums[mid + 1] ? l = mid + 1 : r = mid
     end
 
     l
@@ -19,6 +19,4 @@ end
 
 
 # nums = [1,2,3,1]
-
-
 # nums = [1,2,1,3,5,6,4]

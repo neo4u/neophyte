@@ -1,10 +1,5 @@
-class Solution(object):
-    def treeToDoublyList(self, root):
-        """
-        :type root: Node
-        :rtype: Node
-        """
-
+class Solution:
+    def treeToDoublyList(self, root: 'Node') -> 'Node':
         if not root:
             return None
 

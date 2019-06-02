@@ -11,13 +11,15 @@ def dist(x, y)
 end
 
 def quick_select(a, l, r, k)            # Note the k here refers to (n - k) from the question stand-point
-    return if l == r               # Base case of recursion
+    return if l == r                    # Base case of recursion
     mid = rand_partition(a, l, r)         # Pick the pivot using random partition
 
     if k < mid
         quick_select(a, l, mid - 1, k)    # kth smallest is in the lower partition
     elsif k > mid
         quick_select(a, mid + 1, r, k)    # kth smallest is in the higher partition
+    else
+        return
     end
 end
 

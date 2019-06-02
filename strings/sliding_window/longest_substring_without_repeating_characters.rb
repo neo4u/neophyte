@@ -1,3 +1,23 @@
+# Brute force method just for learning purposes. DON'T PROPOSE THIS IN INTERVIEW :P 
+# @param {String} s
+# @return {Integer}
+def length_of_longest_substring_brute(s)
+    max, n = 0, s.size
+    0.upto(n - 1) do |i|
+        i.upto(n - 1) do |j|
+            substr = s[i..j]
+            max = substr.size if all_uniq?(substr) && substr.size > max
+        end
+    end
+
+    max
+end
+
+def all_uniq?(s)
+  s.chars.uniq.length == s.chars.length
+end
+
+
 # @param {String} s
 # @return {Integer}
 def length_of_longest_substring(s)
@@ -6,6 +26,9 @@ def length_of_longest_substring(s)
 
     s.each_char.with_index do |c, r|
         # puts "c: #{c}"
+        # map[c] >= l implies only update l if map[c] is at or ahead of l,
+        # bcuz if it wasn't then updating l will expand the window
+        # instead of contracting it, map[c] >= l also means that curr char c has already been moved out of the window
         if map.key?(c) && map[c] >= l
             l = map[c] + 1
             # puts "contracting window: l: #{l}"

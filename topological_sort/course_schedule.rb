@@ -6,12 +6,8 @@ require 'set'
 # @return {Boolean}
 def can_finish(num_courses, prerequisites)
     @graph = Hash.new { |h, k| h[k] = [] }
-    @visited = Set.new()
-    @on_stack = Set.new()
-
-    prerequisites.each do |u, v|
-        @graph[u].push(v)
-    end
+    @visited, @on_stack = Set.new(), Set.new()
+    prerequisites.each { |u, v| @graph[u].push(v) }
 
     num_courses.times do |node|
         return false if !@visited.include?(node) && dfs_has_cycle?(node) # find one not visited and start from it
@@ -36,27 +32,21 @@ end
 
 
 # Approach 2: BFS tweaked topological sort
-# @param {Integer} num_courses
-# @param {Integer[][]} prerequisites
-# @return {Boolean}
-def can_finish_bfs(n, prereqs)
+def can_finish(n, prereqs)
     graph = Hash.new { |h, k| h[k] = [] }
-    visited = []    # Can't use set cuz of order problem
     in_deg = Hash.new { |h, k| h[k] = 0 }
-    q = []
+    q, visited = [], []
 
     prereqs.each do |u, v|
-        graph[u].push(v)
-        in_deg[v] += 1
+        graph[v].push(u)
+        in_deg[u] += 1
     end
-    # find nodes whose in degree == 0
     n.times { |v| q.push(v) if in_deg[v].zero? }
 
-    # loop all nodes whose in degree == 0
     while !q.empty?
         node = q.shift()
-        visited.unshift(node) # Add from front to maintain the order that we can take courses in
-        
+        visited.push(node)
+
         graph[node].each do |nbr|
             in_deg[nbr] -= 1                    # Think of this as remove 'node' so all nbs have 1 in_degree less
             q.push(nbr) if in_deg[nbr].zero?    # populate q with node whose in_degress is 0
@@ -65,6 +55,7 @@ def can_finish_bfs(n, prereqs)
 
     visited.size == n
 end
+
 
 
 # 207. Course Schedule

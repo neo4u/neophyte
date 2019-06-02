@@ -27,6 +27,7 @@ def max_sub_array2(nums)
     max_sum
 end
 
+
 # 53. Maximum Subarray
 # https://leetcode.com/problems/maximum-subarray/
 

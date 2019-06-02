@@ -15,18 +15,17 @@ def binary_tree_paths(root)
     @paths
 end
 
-def dfs(node, visited = [])
-    return if node.nil?  # Corner case when root itself is null, no leaf node
-    node_val = node.val
+def dfs(node, path = [])
+    return if !node  # Corner case when root itself is null, no leaf node
+    path = path + [node.val]
 
     # As soon as we encounter a leaf node, push the path so far into paths list
     if !node.left && !node.right
-        visited << node_val
-        @paths << visited.join('->')
+        @paths << path.join('->')
     # For all other cases, just traverse down left and right children
     else
-        dfs(node.left, visited + [node_val])
-        dfs(node.right, visited + [node_val])
+        dfs(node.left, path)
+        dfs(node.right, path)
     end
 end
 

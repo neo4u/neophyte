@@ -21,6 +21,59 @@ def bt(nums, path = [], result = [])
     result
 end
 
+
+# # @param {Integer[]} nums
+# # @return {Integer[][]}
+# def permute_unique(nums)
+#     nums.sort!
+#     bt(nums, nums.size)
+# end
+
+# def bt(nums, n, first = 0, result = [])
+#     result.push(nums.dup) if first == n - 1
+
+#     first.upto(n - 1) do |i|
+#         next if i > first && nums[i] == nums[first]
+#         swap(nums, first, i) if first != i
+#         bt(nums, n, first + 1, result)
+#         swap(nums, i, first) if first != i
+#     end
+
+#     result
+# end
+
+# def swap(nums, i, j)
+#     nums[i], nums[j] = nums[j], nums[i]
+# end
+
+
+
+def permute_unique(nums)
+    @result = []
+    bt(nums, nums.size)
+    @result
+end
+
+def bt(nums, n, first = 0)
+    @result.push(nums.dup) if first == n - 1
+    used = Set.new()
+    first.upto(n - 1) do |i|
+        next if used.include?(nums[i])
+        used.add(nums[i])
+        swap(nums, first, i) if first != i
+        bt(nums, n, first + 1)
+        swap(nums, first, i) if first != i
+    end
+end
+
+def swap(nums, i, j)
+    nums[i], nums[j] = nums[j], nums[i]
+end
+
+
+
+
+
 # 47. Permutations II
 # https://leetcode.com/problems/permutations-ii/description/
 

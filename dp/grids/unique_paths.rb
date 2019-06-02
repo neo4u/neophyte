@@ -8,6 +8,6 @@ def unique_paths(m, n)
             dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
         end
     end
-    
+
     dp[m - 1][n - 1]
 end

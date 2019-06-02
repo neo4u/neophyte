@@ -26,22 +26,25 @@ class SolutionBFS:
         return root_clone
 
 # Approach 2: DFS
-class Solution:
-    def cloneGraph(self, node):
-        if not node: return
-        self.cloned = {}
-        return self.dfs(node)
 
-    def dfs(self, node):
+import collections
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        cloned = {}
+        self.dfs(node, cloned)
+        return cloned[node]
+
+    def dfs(self, node, cloned):
         if not node: return
-        if node in self.cloned: return self.cloned[node]
-        
+        if node in cloned: return cloned[node]
+
         clone = Node(node.val, [])
-        self.cloned[node] = clone
-        for nbr in node.neighbors:
-            clone.neighbors.append(self.dfs(nbr))
+        cloned[node] = clone
+        clone.neighbors = [self.dfs(nbr, cloned) for nbr in node.neighbors]
 
         return clone
+
+
 
 
 

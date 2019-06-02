@@ -11,12 +11,12 @@ end
 # @return {Integer[][]}
 def vertical_order(root)
     return [] if !root
-    q, map = [[root, 0]], Hash.new { |h, k| h[k] = [] }
+    q, level_map = [[root, 0]], Hash.new { |h, k| h[k] = [] }
     min, max = 0, 0
 
     while !q.empty?
         node, level = q.shift
-        map[level].push(node.val)
+        level_map[level].push(node.val)
 
         min = level if level < min
         max = level if level > max
@@ -24,8 +24,8 @@ def vertical_order(root)
         q.push([node.left, level - 1]) if node.left
         q.push([node.right, level + 1]) if node.right
     end
-    
-    min.upto(max).map { |i| map[i] }.reject(&:empty?)
+
+    min.upto(max).map { |i| level_map[i] }
 end
 
 

@@ -15,7 +15,7 @@
 # folder id of shared, K cows have explicit access, K ids (M=2) 2 1 1
 # folder id of shared, K cows have explicit access, K ids (M=2) 3 3 0 1 2
 # folder id of confidential, K cows with explicit access, K ids 2
-# single non-negative int G	1 2 U,V.
+# single non-negative int G    1 2 U,V.
 # U folder id of parent, V child folder id (G=2) 1 3
 # U,V. U folder id of parent, V child folder id (G=2) Output:
 # (Return ID of uncool cow, cow that cannot access at least one leaf)
@@ -52,13 +52,13 @@ nodenames = []
 shared = []
 confidential = []
 for i in range(0, M):
-	n_name = sdata[1+1+i][0]
-	nodenames.append(n_name)
-	shared.append(n_name)
+    n_name = sdata[1+1+i][0]
+    nodenames.append(n_name)
+    shared.append(n_name)
 for i in range(0, N):
-	n_name = sdata[1+1+M+i][0]
-	nodenames.append(n_name)
-	confidential.append(n_name)
+    n_name = sdata[1+1+M+i][0]
+    nodenames.append(n_name)
+    confidential.append(n_name)
 # print(nodenames)
 # print(shared)
 # print(confidential)
@@ -66,39 +66,39 @@ for i in range(0, N):
 
 nodelist = {} #map of node: children
 for node in nodenames:
-	nodelist[node] = []
+    nodelist[node] = []
 #print(nodelist)
 
 for i in range(0, G): #loop for G # of edges
-	parent = sdata[3+M+N+i][0]
-	child = sdata[3+M+N+i][1]
-	
-	if parent not in nodelist:
-		nodelist[parent] = [child]
-	else:
-		nodelist[parent].append(child)
+    parent = sdata[3+M+N+i][0]
+    child = sdata[3+M+N+i][1]
+    
+    if parent not in nodelist:
+        nodelist[parent] = [child]
+    else:
+        nodelist[parent].append(child)
 #print(nodelist)
 
 
 accesslist = {} #map of node: cows that have access
 for i in range(1+1, 1+1+M+N):
-	node = sdata[i][0]
-	numcows = int(sdata[i][1])
-	accesslist[node] = []
-	for j in range(0, numcows):
-		accesslist[node].append(sdata[i][1+1+j])
+    node = sdata[i][0]
+    numcows = int(sdata[i][1])
+    accesslist[node] = []
+    for j in range(0, numcows):
+        accesslist[node].append(sdata[i][1+1+j])
 #print(accesslist)
 
 
 #update recursively which nodes can be accessed by which cow
 def grantPermissions(nodelist, accesslist, sharedlist):
-	for node in accesslist:
-		for child in nodelist[node]:
-			if child in sharedlist:
-				for cow in accesslist[node]:
-					if cow not in accesslist[child]:
-						accesslist[child].append(cow)
-						grantPermissions(nodelist, accesslist, sharedlist)
+    for node in accesslist:
+        for child in nodelist[node]:
+            if child in sharedlist:
+                for cow in accesslist[node]:
+                    if cow not in accesslist[child]:
+                        accesslist[child].append(cow)
+                        grantPermissions(nodelist, accesslist, sharedlist)
 
 
 grantPermissions(nodelist, accesslist, shared)
@@ -106,19 +106,19 @@ grantPermissions(nodelist, accesslist, shared)
 
 leaflist = []
 for node in nodelist:
-	if nodelist[node] == []:
-		leaflist.append(node)
+    if nodelist[node] == []:
+        leaflist.append(node)
 #print(leaflist)
 
 cows = set(range(0,Q))
 coolcows = set(range(0,Q))
 #print(coolcows)
 for leaf in leaflist:
-	lst = accesslist[leaf]
-	s = set(list(map(int, lst)))
-	coolcows = coolcows.intersection(s)
+    lst = accesslist[leaf]
+    s = set(list(map(int, lst)))
+    coolcows = coolcows.intersection(s)
 
 #print(coolcows)
 uncoolcows = cows.symmetric_difference(coolcows)
 for sadcow in uncoolcows:
-	print (sadcow)
+    print (sadcow)

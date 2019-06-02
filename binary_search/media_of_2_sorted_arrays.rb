@@ -11,7 +11,7 @@ def find_median_sorted_arrays(nums1, nums2)
     while imin <= imax
         i = (imin + imax) / 2
         j = halflen - i
-  
+
         if i < imax && nums2[j - 1] > nums1[i] # i is too small
             imin = i + 1
         elsif i > imin && nums1[i - 1] > nums2[j] # i is too big
@@ -28,11 +28,25 @@ def find_median_sorted_arrays(nums1, nums2)
             if i == m then min_right = nums2[j]
             elsif j == n then min_right = nums1[i]
             else min_right = [nums2[j], nums1[i]].min end
-    
+
             return (max_left + min_right) / 2.0
         end
     end
 end
+#           i
+# 1 2 3 4   5 6 7 8
+
+# 4 5 6 7 8    9 1 2 5 6
+#              j
+
+
+#                i
+# 1 2 3 4 5 6    7 8
+
+# 4 5 6          7 8 9 1 2 5 6
+#                j
+
+
 
 def find_median_sorted_arrays_same_size(nums1, nums2)
     n = nums1.size
@@ -69,6 +83,8 @@ def median_sorted(a)
         a[n / 2]
     end
 end
+
+
 
 # https://leetcode.com/problems/median-of-two-sorted-arrays/description/
 # 4. Median of Two Sorted Arrays

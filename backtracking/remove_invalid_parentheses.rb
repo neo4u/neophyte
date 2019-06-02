@@ -4,7 +4,7 @@
 def remove_invalid_parentheses_bt(s)
     # Set to avoid duplicates, because removing same number of diff parentheses, can lead to same result
     @str, @result = s, Set.new()
-    l, r = get_counts(@str)
+    l, r = get_invalid_counts(@str)
 
     return [""] if l + r == @str.size
     backtrack(0, l, r, 0, "")
@@ -19,7 +19,7 @@ def backtrack(i, l_rem, r_rem, l_cnt, prefix, depth = 0)
     puts "#{"\t" * depth}bt_call i: #{i}, l_rem: #{l_rem}, r_rem: #{r_rem}, l_cnt: #{l_cnt}, prefix: #{prefix}"
     if i == @str.size
         if l_cnt == 0 && l_rem.zero? && r_rem.zero?
-            @result.add(prefix) 
+            @result.add(prefix)
             puts "pushing prefix: #{prefex} to result"
             return
         end
@@ -38,7 +38,7 @@ def backtrack(i, l_rem, r_rem, l_cnt, prefix, depth = 0)
     end
 end
 
-def get_counts(s)
+def get_invalid_counts(s)
     l, r = 0, 0
     s.each_char do |c|
         l += c == "(" ? 1 : 0
@@ -49,6 +49,7 @@ def get_counts(s)
             l -= c == ")" ? 1 : 0 # Decrement count of left parentheses because we have found a right which CAN be a matching one for a left.
         end
     end
+
     [l, r]
 end
 
@@ -227,3 +228,6 @@ assert_equal(remove_invalid_parentheses_bt("())"), ["()"])
 # assert_equal(remove_invalid_parentheses("(a)())()"), ["(a())()", "(a)()()"])
 # assert_equal(remove_invalid_parentheses(")("), [""])
 # assert_equal(remove_invalid_parentheses("())"), ["()"])
+
+
+# ()(()((()

@@ -7,18 +7,22 @@ require 'set'
 def find_order_dfs(n, prereqs)
     @graph = Hash.new { |h, k| h[k] = Set.new() }
     @visited, @on_stack, @result = Set.new(), Set.new(), []
+
     prereqs.each { |u, v| @graph[u].add(v) }
     n.times { |node| return [] if !@visited.include?(node) && dfs_has_cycle?(node) } # find one not visited and start from it
+
     @result.size == n ? @result : []
 end
 
 def dfs_has_cycle?(node)
     @visited.add(node)
     @on_stack.add(node)
+
     @graph[node].each do |v|
         return true if @on_stack.include?(v)
         return true if !@visited.include?(v) && dfs_has_cycle?(v)
     end
+
     @result.push(node)
     @on_stack.delete(node) # Making DFS a post-order traversal: popping current when all its children are done
     false
@@ -32,11 +36,13 @@ end
 def find_order_bfs(n, prereqs)
     graph, in_deg = Hash.new { |h, k| h[k] = Set.new }, Hash.new { |h, k| h[k] = 0 }
     visited, q = [], []                                     # Can't use set cuz of order problem
+
     prereqs.each do |u, v|
         graph[v].add(u)
         in_deg[u] += 1
     end
     n.times { |v| q.push(v) if in_deg[v].zero? }            # find nodes whose in degree == 0
+
     while !q.empty?                                         # loop all nodes whose in degree == 0
         i = q.shift()
         visited.push(i)                                     # Zero in degree first becomes course we can take last
@@ -45,6 +51,7 @@ def find_order_bfs(n, prereqs)
             q.push(nbr) if in_deg[nbr].zero?                # populate q with node whose in_degress is 0
         end
     end
+
     visited.size == n ? visited : []
 end
 

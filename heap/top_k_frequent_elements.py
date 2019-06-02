@@ -36,15 +36,15 @@ class Solution3:
         n = len(nums)
         counts_bucket = [[] for _ in range(n)]
 
-        for x, c in collections.Counter(nums).items():
-            counts_bucket[c - 1].append(x)
+        for n, c in collections.Counter(nums).items():
+            counts_bucket[c - 1].append(n)
 
         for i in range(n - 1, -1, -1):
             if not counts_bucket[i]: continue
             result += counts_bucket[i]
             if len(result) == k: break
 
-        return result
+        return result[:k]
 
 
 # # Approach 4: Quick-Select

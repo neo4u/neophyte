@@ -34,6 +34,37 @@ def max_profit(prices)
     max_profit
 end
 
+# [7,1,5,3,6,4]
+
+# mp = 0, cp = 0
+# 1
+
+# mp 0, cp 0
+# 5
+# cp = 4, mp = 4
+
+# cp = 4, mp = 4
+# 3
+# cp = 2, mp = 4
+
+# cp = 2, mp = 4
+# 6
+# cp = 5
+
+# Approach 3: One pass
+# public class Solution {
+#     public int maxProfit(int prices[]) {
+#         int minprice = Integer.MAX_VALUE;
+#         int maxprofit = 0;
+#         for (int i = 0; i < prices.length; i++) {
+#             if (prices[i] < minprice)
+#                 minprice = prices[i];
+#             else if (prices[i] - minprice > maxprofit)
+#                 maxprofit = prices[i] - minprice;
+#         }
+#         return maxprofit;
+#     }
+# }
 
 # 121. Best Time to Buy and Sell Stock
 # https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/

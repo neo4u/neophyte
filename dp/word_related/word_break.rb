@@ -44,10 +44,9 @@ end
 # Approach 4: DP
 def word_break_dp(s, word_dict)
     return true if !s || s.empty?
-    word_dict = Set.new(word_dict)  # makes the algorithm O(n^2) making the set containment checks O(1)
-    n = s.size
+    word_dict, n = Set.new(word_dict), s.size           # makes the algorithm O(n^2) making the set containment checks O(1)
     dp = Array.new(n + 1, false)
-    dp[0] = true                    # We assume empty string to be part of dictionary and to be breakable
+    dp[0] = true                                        # We assume empty string to be part of dictionary and to be breakable
 
     1.upto(n) do |i|                                    # consider substrings of lengths from 1 to n
         0.upto(i - 1) do |j|                            # At every potential break point j that goes from 0 to i - 1 (length i) we check if:

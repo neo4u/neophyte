@@ -62,8 +62,8 @@ class Logger_Q
             if timestamp - log.ts >= 10
                 @recent_logs_queue.pop()
                 @recent_messages.delete(log.digest)
-            # else
-            #     break
+            else
+                break
             end
         end
 
@@ -154,6 +154,19 @@ assert_equal(l.should_print_message(10,"foo"), false)
 assert_equal(l.should_print_message(11,"foo"), true)
 
 l = Logger.new()
+assert_equal(l.should_print_message(1,"sairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairam"), true)
+assert_equal(l.should_print_message(2,"bar"), true)
+assert_equal(l.should_print_message(3,"sairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairam"), false)
+assert_equal(l.should_print_message(8,"bar"), false)
+assert_equal(l.should_print_message(10,"sairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairam"), false)
+assert_equal(l.should_print_message(11,"sairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairam"), true)
+assert_equal(l.should_print_message(15,"bar"), true)
+assert_equal(l.should_print_message(20,"sairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairam"), false)
+assert_equal(l.should_print_message(21,"sairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairam"), true)
+assert_equal(l.should_print_message(29,"sairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairam"), false)
+assert_equal(l.should_print_message(31,"sairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairam"), true)
+
+l = Logger_Q.new()
 assert_equal(l.should_print_message(1,"sairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairam"), true)
 assert_equal(l.should_print_message(2,"bar"), true)
 assert_equal(l.should_print_message(3,"sairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairamsairam"), false)

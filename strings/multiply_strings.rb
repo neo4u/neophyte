@@ -1,6 +1,7 @@
 # @param {String} num1
 # @param {String} num2
 # @return {String}
+# From front
 def multiply(num1, num2)
     product, fraction = 0, 0
 
@@ -18,8 +19,28 @@ def multiply(num1, num2)
     product.to_s
 end
 
+# From back
+def multiply(num1, num2)
+    product, fraction = 0, 0
+    tens_product = 1
+
+    num1.chars.reverse_each do |digit1|
+        tens, fraction = 1, 0
+
+        num2.chars.reverse_each do |digit2|
+            fraction += digit1.to_i * (tens * digit2.to_i)
+            tens *= 10
+        end
+        product += tens_product * fraction
+        tens_product *= 10
+    end
+
+    product.to_s
+end
+
 require 'test/unit'
 extend Test::Unit::Assertions
+
 
 assert_equal(multiply("828", "2"), "1656")
 assert_equal(multiply("2", "828"), "1656")

@@ -19,7 +19,7 @@ end
 
 def dfs(node, trgt)
     return if !node
-    
+
     @closest = node.val if (node.val - trgt).abs < (@closest - trgt).abs
     dfs(node.left, trgt) if trgt < node.val
     dfs(node.right, trgt) if trgt > node.val

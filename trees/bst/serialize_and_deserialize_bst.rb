@@ -31,6 +31,7 @@ def dfs_serialize(node, result)
     dfs_serialize(node.right, result)
 end
 
+
 # Decodes your encoded data to tree.
 # @param {string} data
 # @return {TreeNode}
@@ -41,8 +42,10 @@ def deserialize(data)
     dfs_deserialize(pre_order, v_min, v_max)
 end
 
+
 def dfs_deserialize(pre_order, v_min, v_max)
     return if pre_order.empty?
+
     val = pre_order.first.to_i
     return if !val.between?(v_min, v_max)
 
@@ -53,6 +56,9 @@ def dfs_deserialize(pre_order, v_min, v_max)
 
     node
 end
+
+
+
 
 # 449. Serialize and Deserialize BST
 # https://leetcode.com/problems/serialize-and-deserialize-bst/

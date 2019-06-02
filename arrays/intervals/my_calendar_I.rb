@@ -2,9 +2,8 @@ class Node
     attr_accessor :left, :right, :s, :e
 
     def initialize(s, e)
-        @s = s
-        @e = e
-        @left = @right = nil
+        @s, @e = s, e
+        @left, @right = nil, nil
     end
 end
 
@@ -14,23 +13,24 @@ class MyCalendar
     end
 
     def book(s, e)
-        !insert(Node.new(s, e)).nil?
+        !insert(s, e, @root).nil?
     end
 
     private
-    def insert(node, root = nil)
-        return @root = node if @root.nil?
-        root = @root if root.nil?
+    def insert(s, e, insert_root)
+        @root = Node.new(s, e) if !@root
+        return @root if !insert_root
 
-        if node.e <= root.s
-            root.left.nil? ? root.left = node : insert(node, root.left)
-        elsif node.s >= root.e
-            root.right.nil? ? root.right = node : insert(node, root.right)
+        if e <= insert_root.s
+            insert_root.left ? insert(s, e, insert_root.left) : insert_root.left = Node.new(s, e)
+        elsif s >= insert_root.e
+            insert_root.right ? insert(s, e, insert_root.right) : insert_root.right = Node.new(s, e)
         else
             nil
         end
     end
 end
+
 
 # Your MyCalendar object will be instantiated and called as such:
 # obj = MyCalendar.new()

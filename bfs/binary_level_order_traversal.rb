@@ -17,7 +17,7 @@ def level_order(root)
         level, n = [], q.size
         n.times do |i|
             node = q.shift
-            level << node.val
+            level.push(node.val)
             q.push(node.left) if node.left
             q.push(node.right) if node.right
         end

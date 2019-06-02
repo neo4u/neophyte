@@ -6,7 +6,7 @@ class Solution(object):
 
         for ch in s:
             if ch.isdigit():
-              num += ch
+              num = ch
             elif ch == '[':
                 stack.append(["", int(num)])
                 num = ""
@@ -17,3 +17,28 @@ class Solution(object):
                 stack[-1][0] += ch
 
         return stack[0][0]
+
+
+def helper(s):
+    res = ""
+    while s:
+        num = ""
+        while s and s[-1].isdigit():
+            num += s.pop()
+
+        if num:
+            num = int(num)
+            s.pop()
+            res += helper(s) * num
+        else:
+            c = s.pop()
+            if c not in "[]":
+                res += c
+            if c == ']':
+                break
+    return res
+
+class Solution(object):
+    def decodeString(self, s):
+        return helper(list(s)[::-1])
+

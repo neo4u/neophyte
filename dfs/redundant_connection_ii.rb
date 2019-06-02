@@ -47,7 +47,7 @@ def find_redundant_directed_connection(edges)
     end
 
     return edges[second_edge] if cycle_edge == -1   #  no cycle found by removing second
-    return edges[cycle_edge] if second_edge == -1   #  no edge removed
+    return edges[cycle_edge] if second_edge == -1   #  have cycle and have no 2nd edge
     return edges[first_edge]
 end
 
@@ -59,6 +59,11 @@ end
 # Approach 2: Disjoin Set Union Find 
 # https://leetcode.com/problems/redundant-connection-ii/discuss/108058/one-pass-disjoint-set-solution-with-explain
 # https://leetcode.com/problems/redundant-connection-ii/discuss/108070/Python-O(N)-concise-solution-with-detailed-explanation-passed-updated-testcases
+
+# 3 cases to consider
+# 1. There is a loop in the graph, and no vertex has more than 1 parent
+# 2. There is a loop in the graph, and a vertex has more than 1 parent
+# 3. There is a no loop but a vertex has more than 1 parent
 
 # Time: O(n), we process all the edges
 # Space: O(n)

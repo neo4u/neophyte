@@ -24,8 +24,8 @@ def insert(intervals, new_interval)
 
     # If we can't find elements in the array that match the criteria (bsearch returns nil), choose n as the index
     # Before bsearch we're doing to_a as bsearch only works on Array and not on Enumerator type, map however works on enumerator type
-    i = intervals.each_with_index.map.to_a.bsearch { |e, _| e.end >= new_interval.start }&.last || n # equivalent to bisect_left in python, O(log(n))
-    j = intervals.each_with_index.map.to_a.bsearch { |s, _| s.start > new_interval.end }&.last || n # equivalent to bisect_right in python, O(log(n))
+    i = intervals.each_with_index.map.to_a.bsearch { |e, _| e.end > new_interval.start }&.last || n # equivalent to bisect_left in python, O(log(n))
+    j = intervals.each_with_index.map.to_a.bsearch { |s, _| new_interval.end <= s.start  }&.last || n # equivalent to bisect_right in python, O(log(n))
 
     new_interval.start = [new_interval.start, intervals[i].start].min if i < n  # We merge new_int's start with interval[i]'s start,
                                                                                 # i because, all intervals < index i don't have any overlap with the new_intvl, overlap can only occur in ith inteval,
@@ -33,11 +33,29 @@ def insert(intervals, new_interval)
     new_interval.end = [new_interval.end, intervals[j - 1].end].max if 0 < j    # We merge new_int's end with intervals[j - 1]'s end,
                                                                                 # j - 1 because, intervals with index j and greater don't have any overlap with the new_intvl
 
-    left = intervals[0, i]
-    right = intervals[j, n]
+    left = intervals[0...i]
+    right = intervals[j...n]
 
     left + [new_interval] + right # O(n), stiching the arrays together
 end
+
+# [[1, 4], [8, 10]], [5, 6]
+# i = 1
+# j = 1
+
+# [5, 6]
+# [1, 4] + [5, 6] + [8, 10]
+
+# 1,4] [7, 8]  [4,5]
+
+# intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+# i = 1
+# j = 4
+
+# new_interval = [3, 10]
+# l = [1, 2] + [3, 10] + [12, 16]
+
+
 
 
 # 57. Insert Interval
@@ -79,56 +97,73 @@ end
 require 'test/unit'
 extend Test::Unit::Assertions
 
-intervals = [
-    Interval.new(1,3),
-    Interval.new(6,9)
-]
-new_interval = Interval.new(2,5)
-output = insert(intervals, new_interval)
+# intervals = [
+#     Interval.new(1,3),
+#     Interval.new(6,9)
+# ]
+# new_interval = Interval.new(2,5)
+# output = insert(intervals, new_interval)
 
-assert_equal(output[0].start, 1)
-assert_equal(output[0].end, 5)
-assert_equal(output[1].start, 6)
-assert_equal(output[1].end, 9)
+# assert_equal(output[0].start, 1)
+# assert_equal(output[0].end, 5)
+# assert_equal(output[1].start, 6)
+# assert_equal(output[1].end, 9)
 
-intervals = [
-    Interval.new(1,2),
-    Interval.new(3,5),
-    Interval.new(6,7),
-    Interval.new(8,10),
-    Interval.new(12,16)
-]
-new_interval = Interval.new(4,8)
-output = insert(intervals, new_interval)
-[
-    Interval.new(1,2),
-    Interval.new(3,10),
-    Interval.new(12,16)
-]
-assert_equal(output[0].start, 1)
-assert_equal(output[0].end, 2)
-assert_equal(output[1].start, 3)
-assert_equal(output[1].end, 10)
-assert_equal(output[2].start, 12)
-assert_equal(output[2].end, 16)
+# intervals = [
+#     Interval.new(1,2),
+#     Interval.new(3,5),
+#     Interval.new(6,7),
+#     Interval.new(8,10),
+#     Interval.new(12,16)
+# ]
+# new_interval = Interval.new(4,8)
+# output = insert(intervals, new_interval)
+# [
+#     Interval.new(1,2),
+#     Interval.new(3,10),
+#     Interval.new(12,16)
+# ]
+# assert_equal(output[0].start, 1)
+# assert_equal(output[0].end, 2)
+# assert_equal(output[1].start, 3)
+# assert_equal(output[1].end, 10)
+# assert_equal(output[2].start, 12)
+# assert_equal(output[2].end, 16)
 
-intervals = [
-    Interval.new(1,5),
-]
-new_interval = Interval.new(2,3)
-output = insert(intervals, new_interval)
-assert_equal(output[0].start, 1)
-assert_equal(output[0].end, 5)
+# intervals = [
+#     Interval.new(1,5),
+# ]
+# new_interval = Interval.new(2,3)
+# output = insert(intervals, new_interval)
+# assert_equal(output[0].start, 1)
+# assert_equal(output[0].end, 5)
 
+# intervals = [
+#     Interval.new(1,2),
+#     Interval.new(6,9)
+# ]
+# new_interval = Interval.new(3,5)
+# output = insert(intervals, new_interval)
+# assert_equal(output[0].start, 1)
+# assert_equal(output[0].end, 2)
+# assert_equal(output[1].start, 3)
+# assert_equal(output[1].end, 5)
+# assert_equal(output[2].start, 6)
+# assert_equal(output[2].end, 9)
+
+# [1, 4] [7, 9]   [4 6]
+
+
+# 1 4] 4 6  
 intervals = [
-    Interval.new(1,2),
-    Interval.new(6,9)
+    Interval.new(1,4),
+    Interval.new(7,9)
 ]
-new_interval = Interval.new(3,5)
+new_interval = Interval.new(4,6)
 output = insert(intervals, new_interval)
 assert_equal(output[0].start, 1)
-assert_equal(output[0].end, 2)
-assert_equal(output[1].start, 3)
-assert_equal(output[1].end, 5)
-assert_equal(output[2].start, 6)
+assert_equal(output[0].end, 4)
+assert_equal(output[1].start, 4)
+assert_equal(output[1].end, 6)
+assert_equal(output[2].start, 7)
 assert_equal(output[2].end, 9)

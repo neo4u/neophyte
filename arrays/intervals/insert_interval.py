@@ -1,3 +1,5 @@
+import bisect
+
 class Solution(object):
     def insert(self, intervals, newInterval):
         """
@@ -6,11 +8,8 @@ class Solution(object):
         :rtype: List[Interval]
         """
         # corner case
-        if not intervals:
-            return [newInterval]
-        if not newInterval:
-            return intervals
-
+        if not intervals: return [newInterval]
+        if not newInterval: return intervals
         n = len(intervals)
 
         # low is the index of ends such that, for all e in ends[:low], e < newInt.start
@@ -20,7 +19,6 @@ class Solution(object):
         low = bisect.bisect_left([i.end for i in intervals], newInterval.start)     # Find a place for the newInterval start
         high = bisect.bisect_right([i.start for i in intervals], newInterval.end)   # Find a place for the newInterval end
 
-        
         # determine left half, newInterval.start > intervals[low].end
         # if newInterval has overlap with interval[low], merge it by taking min of starts
         if low < n:
@@ -54,20 +52,20 @@ class Solution(object):
 # Space: O(n)
 
 
-Bisect left
-The return value i is such that all e in a[:i] have e < x, and all e in
-a[i:] have e >= x.  So if x already appears in the list, a.insert(x) will
-insert just before the leftmost x already there.
+# Bisect left
+# The return value i is such that all e in a[:i] have e < x, and all e in
+# a[i:] have e >= x.  So if x already appears in the list, a.insert(x) will
+# insert just before the leftmost x already there.
 
-    e < x              x <= e
---------------  --------------------
-0, ...., i - 1, i, i + 1, ..., n - 1
+#     e < x              x <= e
+# --------------  --------------------
+# 0, ...., i - 1, i, i + 1, ..., n - 1
 
-Bisect right
-The return value i is such that all e in a[:i] have e <= x, and all e in
-a[i:] have e > x.  So if x already appears in the list, a.insert(x) will
-insert just after the rightmost x already there.
+# Bisect right
+# The return value i is such that all e in a[:i] have e <= x, and all e in
+# a[i:] have e > x.  So if x already appears in the list, a.insert(x) will
+# insert just after the rightmost x already there.
 
-    e <= x             x < e
---------------  --------------------
-0, ...., i - 1, i, i + 1, ..., n - 1
+#     e <= x             x < e
+# --------------  --------------------
+# 0, ...., i - 1, i, i + 1, ..., n - 1

@@ -1,29 +1,22 @@
-# Little slow but makes sense in an interview
 class Solution(object):
-    def reverseWords(self, str):
-        """
-        :type str: List[str]
-        :rtype: void Do not return anything, modify str in-place instead.
-        """
+    def reverseWords(self, s):
+        arr = list(s)
+        self.reverse(arr, 0, len(arr) - 1)
+        self.reverse_words(arr)
 
-        N = len(str)
-        self.reverse(0, N-1, str)                   # Reverse the whole string
-        slow, fast = 0, 0
+        return ''.join(arr)
 
-        while fast < N:
-            while fast < N and str[fast] != " ":    # This while goes within a word
-                fast += 1
-            # This part execution as soon as we find a space,
-            self.reverse(slow, fast - 1, str)       # We reverse the part of word till before the space (i - 1)
-            slow = fast + 1                         # We set slow pointer to the part after the space
-            fast = slow                             # We set fast to the same point
-            # We cud've done something like this: slow = fast = fast + 1
+    def reverse(self, arr, l, r):
+        while l < r:
+            arr[l], arr[r] = arr[r], arr[l]
+            l += 1; r -= 1
 
-    def reverse(self, i, j, str):
-        while i < j:
-            str[i], str[j] = str[j], str[i]
-            i += 1
-            j -= 1
+    def reverse_words(self, arr):
+        l, r = 0, 0
+        while r < len(arr):
+            while r < len(arr) and not arr[r].isspace(): r += 1
+            self.reverse(arr, l, r - 1)
+            r += 1; l = r
 
 # Python usage seems way faster.
 class Solution2(object):

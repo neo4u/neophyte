@@ -3,7 +3,7 @@
 # @param {String} str
 # @return {Boolean}
 def word_pattern(pattern, str)
-    words = str.split()
+    words = str.split()  # str.chars
     return false if pattern.size != words.size
 
     p_hash, w_hash = {}, {}

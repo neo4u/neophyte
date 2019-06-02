@@ -1,32 +1,35 @@
 # @param {Integer[][]} envelopes
 # @return {Integer}
 def max_envelopes(envelopes)
-    tails, size = [], 0
+    heights, size = [], 0
 
+    # Sort widths in inc order
+    # When width matches, Sort by dec height
     envelopes.sort!() do |x, y|
-        if x[0] != y[0]
-            x[0] - y[0] # Sort widths in inc order
-        else
-            y[1] - x[1] # When width matches, Sort by dec height
-        end
+        x[0] != y[0] ? x[0] - y[0] : y[1] - x[1]
     end
 
     envelopes.each do |e|
-        pos = binary_search(tails, e[1], size)
-        # pos == tails.size ? tails.push(e) : tails[pos] = e # Literal visualization of add or replace (a lil slower)
-        tails[pos] = e[1]
-        size = [size, pos + 1].max
+        pos = binary_search(heights, e[1])
+
+        if pos == heights.size # Literal visualization of add or replace (a lil slower)
+            heights.push(e[1])
+            size += 1
+        else
+            heights[pos] = e[1]
+        end
     end
 
     size
 end
 
-def binary_search(a, key, size)
-    l, r = 0, size
+def binary_search(heights, h)
+    l, r = 0, heights.size - 1
 
-    while l < r
+    while l <= r
         mid = (l + r) / 2
-        a[mid] < key ? l = mid + 1 : r = mid
+        return mid if heights[mid] == h
+        heights[mid] < h ? l = mid + 1 : r = mid - 1
     end
 
     l

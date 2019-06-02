@@ -70,27 +70,27 @@ class TrieNode
 end
 
 class WordDictionary
-  attr_accessor :texts
+    attr_accessor :texts
 
-  def initialize()
-      self.texts = {}
-  end
+    def initialize()
+        self.texts = {}
+    end
 
-  def add_word(text)
-      if self.texts[text.length]
-          self.texts[text.length].push(text)
-      else
-          self.texts[text.length] = [text]
-      end
-  end
+    def add_word(text)
+        if self.texts[text.length]
+            self.texts[text.length].push(text)
+        else
+            self.texts[text.length] = [text]
+        end
+    end
 
-  def search(text)
-      if self.texts[text.length]
-          regexp = Regexp.new(text)
-          self.texts[text.length].each do |value|
-               return true if value.match(regexp)
-          end
-      end
-      false
-  end
+    def search(text)
+        if self.texts[text.length]
+            regexp = Regexp.new(text)
+            self.texts[text.length].each do |value|
+                return true if value.match(regexp)
+            end
+        end
+        false
+    end
 end

@@ -3,8 +3,9 @@ def find_min(nums)
 
     while l < r
         return nums[l] if nums[l] < nums[r]
+
         mid = (l + r) / 2
-        nums[mid] > nums[l] ? l = mid + 1 : r = mid
+        nums[mid] > nums[r] ? l = mid + 1 : r = mid
     end
 
     nums[l]

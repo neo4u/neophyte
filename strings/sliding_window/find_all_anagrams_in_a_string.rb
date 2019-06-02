@@ -6,7 +6,7 @@ def find_anagrams(s, p)
     
     m, n, result = s.size, p.size, []
     curr, desired = [0] * 26, [0] * 26
-    
+
     0.upto(p.size - 1) do |i|
         curr[s[i].ord - 'a'.ord] += 1
         desired[p[i].ord - 'a'.ord] += 1
@@ -58,7 +58,7 @@ def find_anagrams(s, p)
     m, n, result = s.size, p.size, []
     curr, desired = [0] * 26, [0] * 26
     count = 0
-    
+
     0.upto(p.size - 1) do |i|
         curr[s[i].ord - 'a'.ord] += 1
         desired[p[i].ord - 'a'.ord] += 1
@@ -67,7 +67,7 @@ def find_anagrams(s, p)
         count += 1 if curr[i] == desired[i]
     end
     result.push(0) if count == 26
-    
+
     1.upto(m - n) do |i|
         l = s[i - 1].ord - 'a'.ord
         r = s[i - 1 + n].ord - 'a'.ord
