@@ -2,18 +2,18 @@ import bisect
 
 # Approach 1: Insert into sorted structure
 class Solution(object):
-    def kEmptySlots(self, flowers, k):
+    def kEmptySlots(self, bulbs, k):
         active = []
 
-        for day, flower in enumerate(flowers, 1):
-            i = bisect.bisect(active, flower)
-            # print(f"flower: {flower} | day: {day} | active: {active} | i: {i} | active_slice: {active[i - (i > 0):i + 1]}")
+        for day, bulb in enumerate(bulbs, 1):
+            i = bisect.bisect(active, bulb)
+            print(f"bulb: {bulb} | day: {day} | active: {active} | i: {i} | active_slice: {active[i - (i > 0):i + 1]}")
             nbs = active[i - (i > 0):i + 1]
             for nb in nbs:
-                if abs(nb - flower) - 1 == k:
+                if abs(nb - bulb) - 1 == k:
                     # print("\n")
                     return day
-            active.insert(i, flower)
+            active.insert(i, bulb)
         # print("\n")
 
         return -1
@@ -141,7 +141,7 @@ class Solution4(object):
 # Space: O(n), the size of our window.
 
 
-sol = Solution3()
+sol = Solution()
 
 # assert sol.kEmptySlots([1,3,2], 1) == 2
 # assert sol.kEmptySlots([1,2,3], 1) == -1

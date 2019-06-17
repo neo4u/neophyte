@@ -5,8 +5,7 @@ class Solution(object):
 
     def generate_contest(self, teams):
         n = len(teams)
-        if n == 1:
-            return teams[0]
+        if n == 1: return teams[0]
 
         level_teams = []
         for i in range(n // 2):
@@ -16,7 +15,7 @@ class Solution(object):
         return self.generate_contest(level_teams)
 
 
-class Solution(object):
+class Solution2(object):
     def findContestMatch(self, n):
         items = [i for i in range(1, n + 1)]
 
@@ -27,7 +26,7 @@ class Solution(object):
         return items[0]
 
 
-class Solution:
+class Solution3:
     def findContestMatch(self, n):
         res = list(map(str, range(1, n + 1)))
         while n > 1:

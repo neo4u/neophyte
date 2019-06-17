@@ -15,6 +15,7 @@ class Solution:
 
         return max_len
 
+
 # k = 3
 # 1 1 2
 

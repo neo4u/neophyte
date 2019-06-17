@@ -22,11 +22,11 @@ class MyCalendar
         return @root if !insert_root
 
         if e <= insert_root.s
-            insert_root.left ? insert(s, e, insert_root.left) : insert_root.left = Node.new(s, e)
+            return insert_root.left ? insert(s, e, insert_root.left) : insert_root.left = Node.new(s, e)
         elsif s >= insert_root.e
-            insert_root.right ? insert(s, e, insert_root.right) : insert_root.right = Node.new(s, e)
+            return insert_root.right ? insert(s, e, insert_root.right) : insert_root.right = Node.new(s, e)
         else
-            nil
+            return nil
         end
     end
 end

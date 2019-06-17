@@ -2,27 +2,27 @@
 # @param {String} s
 # @return {Boolean}
 def is_palindrome(s)
-  return true if !s || s.empty?
-  l, r = 0, s.size - 1
+    return true if !s || s.empty?
+    l, r = 0, s.size - 1
 
-  while l < r
-      l += 1 while !alpha_num?(s[l]) && l < r # Skip non-alpha numeric from left, within bounds
-      r -= 1 while !alpha_num?(s[r]) && l < r # Skip non-alpha numeric from right, within bounds
+    while l < r
+        l += 1 while !alpha_num?(s[l]) && l < r # Skip non-alpha numeric from left, within bounds
+        r -= 1 while !alpha_num?(s[r]) && l < r # Skip non-alpha numeric from right, within bounds
 
-      return false unless s[l].casecmp(s[r]).zero?
-      l += 1; r -= 1
-  end
+        return false unless s[l].casecmp(s[r]).zero?
+        l += 1; r -= 1
+    end
 
-  true
+    true
 end
 
 def alpha_num?(s)
-  s.match(/[a-zA-Z0-9]/)
+    s.match(/[a-zA-Z0-9]/)
 end
 
 # Gsub method
 def is_palindrome(s)
-  s.gsub(/[^a-z0-9]/i, '').tap { |str| return str.casecmp(str.reverse).zero? }
+    s.gsub(/[^a-z0-9]/i, '').tap { |str| return str.casecmp(str.reverse).zero? }
 end
 
 # 125. Valid Palindrome

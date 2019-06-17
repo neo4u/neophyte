@@ -15,10 +15,10 @@ def find_anagrams(s, p)
     
     1.upto(m - n) do |i|
         curr[s[i - 1].ord - 'a'.ord] -= 1
-        desired[s[i - 1 + n].ord - 'a'.ord] += 1
+        curr[s[i - 1 + n].ord - 'a'.ord] += 1
         result.push(i) if curr == desired
     end
-    
+
     result
 end
 
@@ -37,8 +37,8 @@ def find_anagrams(s, p)
         h2[s[i].ord - 'a'.ord] += 1
         h1[p[i].ord - 'a'.ord] += 1
     end
-
     result.push(0) if h1 == h2
+
     1.upto(m - n) do |i|
         h1[s[i - 1].ord - 'a'.ord] -= 1     # Remove from window
         h1[s[i - 1 + n].ord - 'a'.ord] += 1 # Add to window

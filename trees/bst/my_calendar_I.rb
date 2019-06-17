@@ -18,12 +18,12 @@ class MyCalendar
     end
 
     private
-    def insert(node, root = nil)
+    def insert(node, insert_root = nil)
         return @root = node if @root.nil?
-        root = @root if root.nil?
+        insert_root = @root if root.nil?
 
-        if node.e <= root.s
-            root.left.nil? ? root.left = node : insert(node, root.left)
+        if node.e <= insert_root.s
+            insert_root.left.nil? ? root.left = node : insert(node, root.left)
         elsif node.s >= root.e
             root.right.nil? ? root.right = node : insert(node, root.right)
         else

@@ -1,6 +1,7 @@
 class Solution:
     def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
         if not board or not board[0]: return board
+
         m, n = len(board), len(board[0])
         dirs = [[0, -1], [0, 1], [-1, 0], [1, 0], [-1, -1], [-1, 1], [1, -1], [1, 1]]
         i, j = click
@@ -11,8 +12,7 @@ class Solution:
         q = [click]
         while q:
             i, j = q.pop(0)
-            mines = 0
-            blnk_nbrs = []
+            mines, blnk_nbrs = 0, []
             for dx, dy in dirs:
                 x, y = i + dx, j + dy
                 if self.valid_mine(board, x, y):

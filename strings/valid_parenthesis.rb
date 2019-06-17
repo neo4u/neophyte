@@ -2,7 +2,7 @@
 # @return {Boolean}
 def is_valid(s)
     stack = []
-    
+
     s.each_char do |c|
         if c == '(' then stack.push(')')    # open case
         elsif c == '{' then stack.push('}') # open case

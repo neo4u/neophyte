@@ -50,3 +50,5 @@ class Solution:
             ans[parent_email].append(email)
 
         return [[email_name_map[emails[0]]] + sorted(emails) for emails in ans.values()]
+
+# Accounts Merge

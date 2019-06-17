@@ -1,28 +1,4 @@
 # Approach 1: Top-Down Approach
-# class Solution {
-#     public boolean isMatch(String s, String p) {
-#         return solve(s, p, 0, 0, new Boolean[s.length() + 1][p.length() + 1]);
-#     }
-    
-#     boolean solve(String s, String p, int i, int j, Boolean[][] dp) {
-#         if (dp[i][j] != null) return dp[i][j];
-        
-#         if (j == p.length()) {
-#             dp[i][j] = (i == s.length());
-#             return dp[i][j];
-#         } 
-        
-#         boolean base = i < s.length() && (p.charAt(j) == '.' || s.charAt(i) == p.charAt(j));
-#         if (j + 1 < p.length() && p.charAt(j + 1) == '*') {
-#             dp[i][j] =  solve(s, p, i, j + 2, dp) ||
-#                 base && solve(s, p, i + 1, j, dp);
-#         } else {
-#             dp[i][j] = base && solve(s, p, i + 1, j + 1, dp);
-#         }
-        
-#         return dp[i][j];
-#     }
-# }
 def is_match(s, p)
     solve(s, p, 0, 0, Array.new(s.size + 1) { Array.new(p.size + 1, nil) })
 end
@@ -104,11 +80,6 @@ def is_match(s, p)
 
     dp[m][n]
 end
-
-
-
-
-
 
 
 # 10. Regular Expression Matching

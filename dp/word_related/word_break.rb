@@ -6,6 +6,15 @@ def word_break(s, word_dict)
     dfs(s, Set.new(word_dict), Set.new())    # use of set for faster access time to make dfs
 end
 
+# s = "catsandog"
+# catsandog
+#     sandog
+#         og
+#     andog
+#         og
+
+# wordDict = ["cat", "cats", "and", "sand", "dog"]
+
 def dfs(s, word_dict, checked)
     return true if !s || s.empty?   # empty string is considered to be a match
     return false if checked.include?(s)
@@ -32,14 +41,25 @@ def word_break_bfs(s, word_dict)
         next if visited.include?(i)
         (i + 1).upto(n) do |j|
             next if !word_dict.include?(s[i...j])
-            q.push(j)
             return true if j == s.size
+            q.push(j)
         end
         visited.add(i)
     end
 
     false
 end
+
+# s = "catsandog"
+# catsandog
+# 0 q [2, 3] v:[0]
+# 2 q [3] v:[0, 2]
+# 3 q [6] v:[0, 2, 3]
+# 6 q [8] v: [0, 2, 3, 6]
+# 8 q []  v; [0, 2, 3, 6, 8]
+
+# wordDict = ["cat", "cats", "and", "sand", "dog"]
+
 
 # Approach 4: DP
 def word_break_dp(s, word_dict)

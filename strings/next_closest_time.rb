@@ -32,8 +32,8 @@ end
 # as this represents the time that has elapsed since start,
 # and where the modulo operation is taken to be always non-negative.
 # For example, if we have start = 720 (ie. noon),
-# then times like 12:05 = 725 means that (725 - 720) % (24 * 60) = 5 seconds have elapsed;
-# while times like 00:10 = 10 means that (10 - 720) % (24 * 60) = -710 % (24 * 60) = 730 seconds have elapsed.
+# then times like 12:05 = 725 means that (725 - 720) % (24 * 60) = 5 mins have elapsed;
+# while times like 00:10 = 10 means that (10 - 720) % (24 * 60) = -710 % (24 * 60) = 730 mins have elapsed.
 
 # Also, we should make sure to handle cand_elapsed carefully.
 # When our current candidate time cur is equal to the given starting time,
@@ -45,3 +45,12 @@ end
 # Complexity Analysis
 # Time Complexity: O(1). We all 4^4 possible times and take the best one.
 # Space Complexity: O(1).
+
+# int mod(int a, int n)
+# {
+#     int result = a % n;
+#     if ((result<0 && n>0) || (result>0 && n<0)) {
+#         result += n;
+#     }
+#     return result;
+# }

@@ -1,8 +1,8 @@
 class BSTIterator:
     # @param root, a binary search tree's root node
     def __init__(self, root):
-        self.stack = list()
-        self.pushAll(root)
+        self.stack = []
+        self.push_left(root)
 
     # @return a boolean, whether we have a next smallest number
     def hasNext(self):
@@ -10,12 +10,12 @@ class BSTIterator:
 
     # @return an integer, the next smallest number
     def next(self):
-        tmpNode = self.stack.pop()
-        self.pushAll(tmpNode.right)
-        return tmpNode.val
-        
-    def pushAll(self, node):
-        while node is not None:
+        tmp = self.stack.pop()
+        self.push_left(tmp.right)
+        return tmp.val
+
+    def push_left(self, node):
+        while node:
             self.stack.append(node)
             node = node.left
 

@@ -4,7 +4,7 @@ def search(nums, target)
     while l <= r
         mid = (l + r) / 2
         return mid if nums[mid] == target
-    
+
         if nums[mid] < nums[r]
             target.between?(nums[mid], nums[r]) ? l = mid + 1 : r = mid - 1
         else

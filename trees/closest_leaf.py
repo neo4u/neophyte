@@ -1,51 +1,60 @@
-class Solution(object):
-    def findClosestLeaf(self, root, k):
-        annotation = {}
-        def closest_leaf(root):
-            if root not in annotation:
-                if not root:
-                    ans = float('inf'), None
-                elif not root.left and not root.right:
-                    ans = 0, root
-                else:
-                    d1, leaf1 = closest_leaf(root.left)
-                    d2, leaf2 = closest_leaf(root.right)
-                    ans = min(d1, d2) + 1, leaf1 if d1 < d2 else leaf2
-                annotation[root] = ans
-            return annotation[root]
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-        #Search for node.val == k
-        path = []
-        def dfs(node):
-            if not node:
-                return
-            if node.val == k:
-                path.append(node)
-                return True
+class Solution:
+    def findClosestLeaf(self, root: TreeNode, k: int) -> int:
+        self.path = None
+        self.closest_leaf_map = {}
+        self.dfs(root, k, [])
+        self.dfs_closest_leaf(root)
 
-            path.append(node)
-            ans1 = dfs(node.left)
-            if ans1: return True
-            ans2 = dfs(node.right)
-            if ans2: return True
-            path.pop()
+        min_dist, closest_leaf, n = float('inf'), None, len(self.path)
+        for i, node in enumerate(self.path):
+            l, d = self.closest_leaf_map[node]
+            d += n - 1 - i
+            if d < min_dist:
+                min_dist = d
+                closest_leaf = l
 
-        dfs(root)
-        dist, leaf = float('inf'), None
-        for i, node in enumerate(path):
-            d0, leaf0 = closest_leaf(node)
-            d0 += len(path) - 1 - i
-            if d0 < dist:
-                dist = d0
-                leaf = leaf0
+        return closest_leaf.val
 
-        return leaf.val
+    def dfs_closest_leaf(self, node):
+        if not node: return None, float('inf')
+        if not node.left and not node.right:
+            self.closest_leaf_map[node] = node, 0
+            return node, 0
 
+        l_node, l_dist, r_node, r_dist = None, float('inf'), None, float('inf')
+        l_node, l_dist = self.dfs_closest_leaf(node.left)
+        r_node, r_dist = self.dfs_closest_leaf(node.right)
 
-class Solution(object):
+        closest_leaf_dist = min(l_dist, r_dist) + 1
+        closest_leaf = l_node if l_dist < r_dist else r_node
+
+        self.closest_leaf_map[node] = closest_leaf, closest_leaf_dist
+        return closest_leaf, closest_leaf_dist
+
+    def dfs(self, node, k, path):
+        if not node: return
+        path = path + [node]
+
+        if node.val == k:
+            self.path = path
+            return
+
+        self.dfs(node.left, k, path)
+        self.dfs(node.right, k, path)
+
+import collections
+class Solution2(object):
     def findClosestLeaf(self, root, k):
         graph = collections.defaultdict(list)
-        def dfs(node, par = None):
+
+        def dfs(node, par=None):
             if node:
                 graph[node].append(par)
                 graph[par].append(node)
@@ -65,3 +74,19 @@ class Solution(object):
                     if nei not in seen:
                         seen.add(nei)
                         queue.append(nei)
+
+
+n1, n2 = TreeNode(1), TreeNode(2)
+n1.left = n2
+
+sol = Solution()
+assert sol.findClosestLeaf(n1, 1) == 2
+
+n1 = TreeNode(1)
+
+sol = Solution()
+assert sol.findClosestLeaf(n1, 1) == 1
+
+
+
+

@@ -5,7 +5,7 @@
 def maxLen(arr):
     # NOTE: Dictonary in python in implemented as Hash Maps 
     # Create an empty hash map (dictionary) 
-    hash_map = {} 
+    hash_map = {}
 
     # Initialize result
     max_len = 0
@@ -39,17 +39,17 @@ def maxLen(arr):
 
 
 # test array 
-arr = [15, -2, 2, -8, 1, 7, 10, 13]
+# arr = [15, -2, 2, -8, 1, 7, 10, 13]
 
-print("Length of the longest 0 sum subarray is %d" % maxLen(arr))
-Input: arr[] = {15, -2, 2, -8, 1, 7, 10, 23};
-Output: 5
-The largest subarray with 0 sum is -2, 2, -8, 1, 7
+# print("Length of the longest 0 sum subarray is %d" % maxLen(arr))
+# Input: arr[] = {15, -2, 2, -8, 1, 7, 10, 23};
+# Output: 5
+# The largest subarray with 0 sum is -2, 2, -8, 1, 7
 
-Input: arr[] = {1, 2, 3}
-Output: 0
-There is no subarray with 0 sum
+# Input: arr[] = {1, 2, 3}
+# Output: 0
+# There is no subarray with 0 sum
 
-Input: arr[] = {1, 0, 3}
-Output: 1
+# Input: arr[] = {1, 0, 3}
+# Output: 1
 

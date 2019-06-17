@@ -39,14 +39,14 @@ end
 # @return {Integer}
 def find_length_of_lcis(nums)
     return 0 if !nums || nums.empty?
-    longest_so_far, longest_curr = 1, 1
+    max_len, curr_len = 1, 1
 
     1.upto(nums.size - 1) do |i|
-        nums[i] > nums[i - 1] ? longest_curr += 1 : longest_curr = 1 # Extend or reset
-        longest_so_far = [longest_so_far, longest_curr].max
+        nums[i] > nums[i - 1] ? curr_len += 1 : curr_len = 1 # Extend or reset
+        max_len = [max_len, curr_len].max
     end
 
-    longest_so_far
+    max_len
 end
 
 # 674.Longest Continuous Increasing Subsequence

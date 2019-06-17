@@ -10,11 +10,12 @@ def bt(s, word_dict, map)
     map[s] = [] if !map[s] # This is the init for a new key
 
     word_dict.each do |w|
-        map[s] << s if w == s # This only happens at the deepest dfs level when we hit an actual word from the dictionary
+        map[s].push(s) if w == s # This only happens at the deepest dfs level when we hit an actual word from the dictionary
         next if !s.start_with?(w)
         result_of_rest = bt(s[w.size...s.size], word_dict, map)
+
         result_of_rest.each do |other_w|
-            map[s] << "#{w} #{other_w}"
+            map[s].push("#{w} #{other_w}")
         end
     end
 
@@ -44,6 +45,14 @@ def word_break_dp(s, word_dict)
 
     dp[n]
 end
+
+# [s, and, sand, dog]
+
+# cat
+
+# "s and dog"
+# "sand dog"
+
 
 # 140. Word Break II
 # https://leetcode.com/problems/word-break-ii/solution/

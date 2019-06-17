@@ -1,17 +1,17 @@
 # @param {Integer[]} nums
 # @return {Integer}
-def rob(a)
-    return 0 if a.empty?
-    return a.max if a.size <= 2
+def rob(nums)
+    return 0 if nums.empty?
+    return nums.max if nums.size <= 2
+    n = nums.size
+    dp = [-1] * n
+    dp[0], dp[1] = nums[0], [nums[0], nums[1]].max
 
-    n, dp = a.size - 1, [-Float::INFINITY] * a.size
-    dp[0], dp[1] = a[0], [a[0], a[1]].max
-
-    2.upto(n) do |i|
-        dp[i] = [dp[i - 1], dp[i - 2] + a[i]].max
+    2.upto(n - 1) do |i|
+        dp[i] = [dp[i - 1], dp[i - 2] + nums[i]].max
     end
 
-    dp[n]
+    dp[n - 1]
 end
 
 require 'test/unit'

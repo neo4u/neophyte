@@ -38,6 +38,9 @@ def multiply(num1, num2)
     product.to_s
 end
 
+# 43. Multiply Strings
+# https://leetcode.com/problems/multiply-strings/description/
+
 require 'test/unit'
 extend Test::Unit::Assertions
 

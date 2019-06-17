@@ -5,11 +5,7 @@ class TreeNode(object):
         self.left = None
         self.right = None
 
-import sys
-import collections
-
 class Codec:
-
     def serialize(self, root):
         """
         Encodes a tree to a single string.
@@ -17,15 +13,16 @@ class Codec:
         :type root: TreeNode
         :rtype: str
         """
-        def dfs(root, res):
-            if not root: return
-            res.append(str(root.val))
-            dfs(root.left, res)
-            dfs(root.right, res)
+        self.pre_order = []
+        self.dfs_serialize(root)
+        return ','.join(self.pre_order)
 
-        res = []
-        dfs(root, res)
-        return ','.join(res)
+    def dfs_serialize(self, root):
+        if not root: return
+
+        self.pre_order.append(str(root.val))
+        self.dfs_serialize(root.left)
+        self.dfs_serialize(root.right)
 
     def deserialize(self, data):
         """
@@ -34,20 +31,22 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        def dfs(data, vmin, vmax):
-            if not data: return None
-            val = int(data[0])
-            if val < vmin or val > vmax: return None
-            data.popleft()
-            node = TreeNode(val)
-            node.left = dfs(data, vmin, val)
-            node.right = dfs(data, val, vmax)
-            return node
-
         if not data: return None
-        vmin, vmax = -sys.maxint-1, sys.maxint
-        nodes = collections.deque(data.split(','))
-        return dfs(nodes, vmin, vmax)
+        pre_order = data.split(',')
+        return self.dfs_deserialize(pre_order, -float('inf'), float('inf'))
+
+    def dfs_deserialize(self, pre_order, vmin, vmax):
+        if not pre_order: return None
+
+        val = int(pre_order[0])
+        if val < vmin or val > vmax: return None
+        pre_order.pop(0)
+
+        node = TreeNode(val)
+        node.left = self.dfs_deserialize(pre_order, vmin, val)
+        node.right = self.dfs_deserialize(pre_order, val, vmax)
+
+        return node
 
 
 # Your Codec object will be instantiated and called as such:

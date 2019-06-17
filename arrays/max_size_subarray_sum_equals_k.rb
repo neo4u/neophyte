@@ -4,20 +4,17 @@
 # @return {Integer}
 def max_sub_array_len(nums, k)
     pre_sum, max = 0, 0
-    map = {}
+    map = { 0 => -1}
     0.upto(nums.size - 1) do |i|
         pre_sum += nums[i]
-        if pre_sum == k
-            max = i + 1     # Window is everything from 0 to i (len i + 1)
-        elsif map.key?(pre_sum - k)
-            max = [i - map[sum - k], max].max
+        if map.key?(pre_sum - k)
+            max = [i - map[pre_sum - k], max].max
         end
-        map[sum] = i if !map.key?(sum)
+        map[pre_sum] = i if !map.key?(pre_sum)
     end
 
     max
 end
-
 # 325. Maximum Size Subarray Sum Equals k
 # https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/description/
 

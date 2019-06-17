@@ -1,5 +1,4 @@
 class MyCalendarTwo:
-    
     def __init__(self):
         self.root = None
 
@@ -16,40 +15,36 @@ class MyCalendarTwo:
         return True
 
     def is_insertable(self, start, end, root):
-        if not root:
-            return True
-
-        if start >= end:
-            return True
+        if not root: return True
+        if start == end: return True
 
         if end <= root.start:
             return self.is_insertable(start, end, root.left)
-
         elif start >= root.end:
             return self.is_insertable(start, end, root.right)
-
         else: #overlap
             if root.single_overlap:
                 return False
             elif start >= root.start and end <= root.end:
                 return True
             else:
-                return self.is_insertable(start, root.start, root.left) and self.is_insertable(root.end, end, root.right)
+                a = min(root.start, start)
+                b = max(root.start, start)
+                c = min(root.end, end)
+                d = max(root.end, end)
+                return self.is_insertable(a, b, root.left) and self.is_insertable(c, d, root.right)
 
     def insert(self, start, end, root):
         if not root:
             root = Node(start, end)
             return root
 
-        if start >= end:
-            return root
+        if start == end: return root
 
         if start >= root.end:
             root.right = self.insert(start, end, root.right)
-
         elif end <= root.start:
             root.left = self.insert(start, end, root.left)
-
         else:
             root.single_overlap = True
             a = min(root.start, start)

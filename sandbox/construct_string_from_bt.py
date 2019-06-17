@@ -13,12 +13,15 @@ class Solution:
     def convert(self, root):
         if not root: return ""
 
-        result = str(root.val)
+        subtree_str = str(root.val)
         if root.left or root.right:
             l, r = self.convert(root.left), self.convert(root.right)
 
-            result += "(" + l + ")"
-            if r: result += "(" + r + ")"
+            subtree_str += "(" + l + ")"
+            if r: subtree_str += "(" + r + ")"
 
-        return result
+        return subtree_str
 
+# 4
+#   (2(3)(1))
+#   (6(5))

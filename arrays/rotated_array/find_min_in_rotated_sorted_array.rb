@@ -1,35 +1,17 @@
 def find_min(nums)
     l, r = 0, nums.size - 1
 
-    while l < r
-        # Base case left and right meet. If this was a search it would be finding our number.
-        # return  if nums[l] < nums[r] || l == r
+    while l <= r
+        l += 1 while l < r && nums[l] == nums[l + 1]
+        r -= 1 while r > l and nums[r] == nums[r - 1]
+        return nums[l] if nums[l] < nums[r] || l == r
 
-        mid = (l + r) / 2
-        # Setup l and r for next iteration, eliminating the useless half based on requirement conditions.
-        nums[mid] > nums[r] ? l = mid + 1 : r = mid
-    end
-
-    nums[l]
-end
-
-
-# Concise
-def find_min(nums)
-    l, r = 0, nums.size - 1
-
-    while l < r
         mid = (l + r) / 2
         nums[mid] > nums[r] ? l = mid + 1 : r = mid
     end
 
-    nums[l]
+    -1
 end
-
-def find_min_simple(nums)
-    nums.bsearch { |num| num <= nums.last  }
-end
-
 
 # 154. Find Minimum in Rotated Sorted Array II
 # https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii

@@ -25,7 +25,7 @@ class Solution:
         return count
 
 
-class Solution:
+class Solution2:
     def numComponents(self, head, G):
         G = set(G)
         count = 0
@@ -40,8 +40,8 @@ class Solution:
             head = head.next
         return count
 
-[3,4,0,2,1]
-[4]
+# [3,4,0,2,1]
+# [4]
 
 # 817. Linked List Components
 # https://leetcode.com/problems/linked-list-components/description/

@@ -55,12 +55,13 @@ end
 def add_binary(a, b)
     i, j = a.size - 1, b.size - 1
     result, carry = '', 0
-    
+
     while i >= 0 || j >= 0
         d1 = i >= 0 ? a[i].to_i : 0
         d2 = j >= 0 ? b[j].to_i : 0
 
         sum = d1 + d2 + carry
+
         if sum == 1 || sum == 0
             result = sum.to_s + result
             carry = 0

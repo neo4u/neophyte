@@ -39,7 +39,7 @@ end
 # https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/
 
 # Steps
-# 1. Iterate through the possible max distinct char sizes (1 to more_than_k)
+# 1. Iterate through the possible max distinct char sizes (1 to k_or_more)
 # 2. For each distinct char length u (from 1 to more_than_k)
 #    we find the longest substring with at most u distinct chars like in:
 #    https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/

@@ -45,7 +45,7 @@ class Solution:
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == "0": continue
-                ds.set_parent((i, j))
+                if not ds.has_parent((i, j)): ds.set_parent((i, j))
 
                 for dx, dy in dirs:
                     x, y = i + dx, j + dy

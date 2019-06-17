@@ -31,18 +31,20 @@
 
 # @note Method using buckets
 def contains_nearby_almost_duplicate(nums, k, t)
-  return false if t < 0 
-  n, d, w = nums.size, {}, t + 1
-  0.upto(n - 1) do |i|
-    m = nums[i] / w
-    return true if d.key?(m)
-    return true if d.key?(m - 1) && (nums[i] - d[m - 1]).abs < w
-    return true if d.key?(m + 1) and (nums[i] - d[m + 1]).abs < w
-    d[m] = nums[i]
-    d.delete(nums[i - k] / w) if i >= k
-  end
+    return false if t < 0
+    n, d, w = nums.size, {}, t + 1
 
-  return false
+    0.upto(n - 1) do |i|
+        m = nums[i] / w
+        return true if d.key?(m)
+        return true if d.key?(m - 1) && (nums[i] - d[m - 1]).abs < w
+        return true if d.key?(m + 1) && (nums[i] - d[m + 1]).abs < w
+
+        d[m] = nums[i]
+        d.delete(nums[i - k] / w) if i >= k
+    end
+
+    return false
 end
 
 # 220. Contains Duplicate III

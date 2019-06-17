@@ -82,7 +82,7 @@ end
 # 2. We have to reach ALL the 1 points
 # 3. We want to choose a 0 point that has the least total distance to all such 1 points
 # 4. All 1's should be reachable from each other,
-#    because they're not connected means that  there is no 0 point between them
+#    because they're not connected means that there is no 0 point between them
 #    to consider as a potential house building point
 
 # Approach 1: BFS from each building to all the 0s
@@ -90,7 +90,7 @@ end
 # 1. Perform BFS from each building to each 0
 # 2. Keep d as a matrix of distances from each 0 to 1s,
 #    then calculate min of them all
-# 3. We can use the 4th insight, to prune further BFSs as all 1st must be connected to each other
+# 3. We can use the 4th insight, to prune further BFSs as all 1s must be connected to each other
 # 4. We do this by maintaining a count of reachable 1s during each BFS and comparing to number of buildings
 # 5. We also maintain array c to count the number of buildings reachable from each 0, and don't consider 0s
 #    that can't reach all the buildings

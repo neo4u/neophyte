@@ -24,9 +24,7 @@ class Solution:
 
             if lc in p_hash and p_hash[lc] == s_hash[lc]: formed -= 1
             s_hash[lc] -= 1
-            if lc in p_hash and p_hash[lc] == s_hash[lc]: formed += 1
 
-            if rc in p_hash and p_hash[rc] == s_hash[rc]: formed -= 1
             s_hash[rc] += 1
             if rc in p_hash and p_hash[rc] == s_hash[rc]: formed += 1
 
@@ -34,6 +32,12 @@ class Solution:
             r += 1
 
         return result
+
+
+# 'aabc' 'abc'
+
+# formed = 2
+# desired = 3
 
 
 # "aab"

@@ -15,4 +15,3 @@ class Solution:
             r += 1
 
         return 0 if min_len == n + 1 else min_len
-

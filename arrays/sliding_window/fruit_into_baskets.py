@@ -1,18 +1,24 @@
-class Solution:
+import collections
+class Solution(object):
     def totalFruit(self, tree):
-        l, r = 0, 0
-        fruit_map, max_len = {}, 0
+        fruits, l, r, n = 0, 0, 0, len(tree)
+        counts = collections.Counter()
 
-        while r < len(tree):
-            fruit_map[tree[r]] = fruit_map.get(tree[r], 0) + 1
+        while r < n:
+            counts[tree[r]] += 1
 
-            while len(fruit_map) > 2:
-                fruit_map[tree[l]] -= 1
-                if not fruit_map[tree[l]]:
-                    del fruit_map[tree[l]]
+            while len(counts) > 2:
+                l_tree = tree[l]
+                counts[l_tree] -= 1
+                if counts[l_tree] == 0: del counts[l_tree]
                 l += 1
 
-            max_len = max(r - l + 1, max_len)
+            fruits = max(fruits, r - l + 1)
             r += 1
 
-        return max_len
+        return fruits
+
+
+
+# 904. Fruit Into Baskets
+# https://leetcode.com/problems/fruit-into-baskets/description/

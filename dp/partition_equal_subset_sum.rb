@@ -6,14 +6,14 @@ def can_partition(nums)
     # Edge case — return False if we can't divide sum by 2 without remainders
     return false if sum % 2 != 0
     target = sum / 2
-            
+
     dp = Array.new(n + 1) { Array.new(target + 1, false) }
     0.upto(n) { |i| dp[i][0] = true }
-    
-    0.upto(n) do |i|
-        0.upto(target) do |j|
+
+    1.upto(n) do |i|
+        1.upto(target) do |j|
             dp[i][j] = dp[i - 1][j] # Don't pick the current number
-            dp[i][j] ||= dp[i - 1][j - nums[i - 1]] if j >= nums[i - 1] # Pick the current number
+            dp[i][j] ||= dp[i - 1][j - nums[i - 1]] if nums[i - 1] <= j # Pick the current number
         end
     end
 
@@ -37,7 +37,7 @@ def can_partition(nums)
     1.upto(n - 1) do |i|
         target.downto(0) do |j|
             num = nums[i]
-            dp[j] = dp[j] || dp[j - num] if j >= num
+            dp[j] = dp[j] || dp[j - num] if num <= j
         end
     end
     
@@ -55,13 +55,14 @@ end
 # Actually, this is a 0/1 knapsack problem, for each number, we can pick it or not.
 
 # Let dp[i][j] represents the bool of whether we can get sum j from nums 0 to i.
-# dp[i][j] = true If we can pick such a numbers from 0-i whose sum is j,
+# dp[i][j] = true If we can pick such numbers from 0-i whose sum is j,
 #          = false, otherwise
 # Base case: dp[0][0] is true; (zero number consists of sum 0 is true)
 
 # Transition function: For each number, if we don't pick it, dp[i][j] = dp[i - 1][j],
-# which means if the first i - 1 elements has made it to j, dp[i][j] would also
-# make it to j (we can just ignore nums[i]). If we pick nums[i].
+# which means if the first i - 1 elements have made it to j, dp[i][j] would also
+# make it to j (we can just ignore nums[i]).
+# If we pick nums[i].
 # dp[i][j] = dp[i-1][j-nums[i]], which represents that j is composed of the current value nums[i]
 # and the remaining composed of other previous numbers.
 # Thus, the transition function is dp[i][j] = dp[i-1][j] || dp[i-1][j-nums[i]]

@@ -31,10 +31,10 @@ end
 require 'test/unit'
 extend Test::Unit::Assertions
 
-assert_equal(valid_word_abbreviation("internationalization", "i12iz4n"), true)
-assert_equal(valid_word_abbreviation("apple", "a2e"), false)
-assert_equal(valid_word_abbreviation("a", "1"), true)
-assert_equal(valid_word_abbreviation("a", "2"), false)
+# assert_equal(valid_word_abbreviation("internationalization", "i12iz4n"), true)
+# assert_equal(valid_word_abbreviation("apple", "a2e"), false)
+# assert_equal(valid_word_abbreviation("a", "1"), true)
+# assert_equal(valid_word_abbreviation("a", "2"), false)
 assert_equal(valid_word_abbreviation("a", "01"), false)
 
 

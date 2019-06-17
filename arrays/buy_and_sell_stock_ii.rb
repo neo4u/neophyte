@@ -33,10 +33,10 @@ def max_profit(prices)
     return 0 if prices.empty?
     n = prices.size
     max_profit = 0
-    dp_sell = Array.new(n, 0) # dp_sell for profits on day i before purchase
-    dp_buy = Array.new(n, 0) # dp_buy for profits on day i after purchase
+    dp_sell = Array.new(n, 0) # dp_sell[i] represents your value after selling on day i
+    dp_buy = Array.new(n, 0) # dp_buy[i] represents your value after buying on day i
 
-    # dp_sell[i] = max(dp1[i-1]+price[i],dp_sell[i-1]) --> Sell on day i or do nothing
+    # dp_sell[i] = max(dp_buy[i-1]+price[i],dp_sell[i-1]) --> Sell on day i or do nothing
     # dp_buy[i] = max(dp_sell[i-1])-price[i],dp_buy[i-1]) --> Buy on day i or do nothing
     # dp_sell[0] = 0, dp_buy[0]=-Float::INFINITY (Least number)
     # before purchase on day 0 u've no profit or loss,

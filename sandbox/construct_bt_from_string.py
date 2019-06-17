@@ -12,8 +12,7 @@ class Solution:
         return root
 
     def construct_subtree(self, s, i):
-        if i == len(s):
-            return None, -1
+        if i == len(s): return None, -1
 
         num = ""
         while i < len(s) and s[i] not in [self.open, self.close]:  # Construct root
@@ -26,7 +25,7 @@ class Solution:
             return root, i
         if s[i] == self.close:
             return root, i + 1
-        else:  # Construct left
+        else:  # Construct left, hit open
             root.left, j = self.construct_subtree(s, i + 1)
 
         if j == len(s):
@@ -48,3 +47,6 @@ class Solution:
 #     2     6
 #    / \   / 
 #   3   1 5  
+
+
+# Construct Binary Tree from String

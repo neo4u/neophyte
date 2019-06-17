@@ -16,7 +16,7 @@ class Solution(object):
         return tree_list[1][n]
 
 # Using reversed
-class Solution:
+class Solution2:
     # @return a list of tree node
 
     def generateTrees(self, n):
@@ -33,4 +33,5 @@ class Solution:
                             root = TreeNode(k)
                             (root.left, root.right) = (left, right)
                             tree_list[j][i].append(root)
+
         return tree_list[1][n]

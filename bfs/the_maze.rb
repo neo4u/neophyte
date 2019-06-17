@@ -1,7 +1,7 @@
 # Approach 1: BFS
 def has_path(maze, src, dst)
     @maze = maze
-    q, @m, @n = [start], @maze.size, @maze[0].size
+    q, @m, @n = [src], @maze.size, @maze[0].size
     dirs = [[0, 1], [0, -1], [1, 0], [-1, 0]] # [right, left, down, up]
 
     while !q.empty?
@@ -11,7 +11,7 @@ def has_path(maze, src, dst)
 
         dirs.each do |x, y|
             r, c = i, j
-            while valid?(r + x, c + y)
+            while valid_empty?(r + x, c + y)
                 r += x; c += y
             end
             q.push([r, c]) if @maze[r][c].zero?
@@ -21,7 +21,7 @@ def has_path(maze, src, dst)
     false
 end
 
-def valid?(r, c)
+def valid_empty?(r, c)
     r.between?(0, @m - 1) && c.between?(0, @n - 1) && @maze[r][c] != 1
 end
 
