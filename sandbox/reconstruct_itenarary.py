@@ -20,6 +20,11 @@ class Solution:
 
 # https://www.geeksforgeeks.org/euler-circuit-directed-graph/
 
+
+# Hamiltonian Path vs Spanning Tree
+# https://www.quora.com/What-is-the-difference-between-hamiltonian-path-and-spanning-tree
+
+
 sol = Solution()
 assert sol.findItinerary(
     [["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]

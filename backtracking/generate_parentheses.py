@@ -1,19 +1,14 @@
-class Solution(object):
-    def generateParenthesis(self, N):
-        ans = []
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        return self.bt(n, 0, 0, "", [])
 
-        def backtrack(S = '', left = 0, right = 0):
-            print("S is %s" % S)
-            if len(S) == 2 * N:
-                ans.append(S)
-                return
-            if left < N:
-                backtrack(S+'(', left+1, right)
-            if right < left:
-                backtrack(S+')', left, right+1)
+    def bt(self, n, l, r, path, res):
+        if len(path) == 2 * n:
+            return res.append(path)
 
-        backtrack()
-        return ans
+        if l < n:
+            self.bt(n, l + 1, r, path + "(", res)
+        if r < l:
+            self.bt(n, l, r + 1, path + ")", res)
 
-sol = Solution()
-sol.generateParenthesis(3)
+        return res

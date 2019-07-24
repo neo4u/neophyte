@@ -25,31 +25,32 @@ class Solution:
 
         return res
 
+
 # Approach 2: 1 Stack
 class Solution:
     def calculate(self, s):
-        res, num, sign, stack = 0, 0, 1, []
+        result, num, prev_sign, stack = 0, 0, 1, []
         for c in s:
             print(f"c: {c}")
-            print(f"before: num: {num} | sign: {sign} | stack: {stack} | res: {res}")
+            print(f"before: num: {num} | sign: {prev_sign} | stack: {stack} | res: {result}")
             if c.isdigit():
-                num = 10*num + int(c)       # calculate the full digit, so add c at 10s digts to current num
+                num = 10 * num + int(c)  # calculate the full digit, so add c at 10s digts to current num
             elif c in ["-", "+"]:
-                res += sign*num
-                num = 0                     # reset the num variable to 0 for next digit
-                sign = 1 if c == "+" else -1
+                result += prev_sign * num
+                num = 0  # reset the num variable to 0 for next digit
+                prev_sign = 1 if c == "+" else -1
             elif c == "(":
-                stack.append(res)
-                stack.append(sign)
-                sign, res = 1, 0
+                stack.append(result)
+                stack.append(prev_sign)
+                prev_sign, result = 1, 0
             elif c == ")":
-                res += sign*num
-                res *= stack.pop()
-                res += stack.pop()
+                result += prev_sign * num
+                result *= stack.pop()
+                result += stack.pop()
                 num = 0
-            print(f"after: num: {num} | sign: {sign} | stack: {stack} | res: {res}")
+            print(f"after: num: {num} | sign: {prev_sign} | stack: {stack} | res: {result}")
 
-        return res + num*sign
+        return result + num * prev_sign
 
 
 # Approach 3: 2 Stacks

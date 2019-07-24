@@ -12,3 +12,7 @@ class Solution:
             sum_map[pre_sum] += 1
 
         return result
+
+
+# 560. Subarray Sum Equals K
+# https://leetcode.com/problems/subarray-sum-equals-k/description/

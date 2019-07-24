@@ -6,25 +6,27 @@ class Node:
 
 class Solution:
     def insert(self, head: 'Node', insertVal: int) -> 'Node':
-        new_node = Node(insertVal, head)
-        if not head: return new_node
+        new_node = Node(insertVal, None)
+        if not head:
+            new_node.next = new_node
+            return new_node
 
-        node = head
+        curr = head
         while True:
             # 1.A. Tipping point exists, and we've hit the peak and insert value is between max and min
-            if node.next.val < node.val and (insertVal <= node.next.val or insertVal >= node.val):
+            if curr.next.val < curr.val and (insertVal <= curr.next.val or insertVal >= curr.val):
                 break
             # 1.B. Tipping point exists, and we're found a place for the insert value between the list
-            elif node.val <= insertVal <= node.next.val:
+            elif curr.val <= insertVal <= curr.next.val:
                 break
             # 2.   Tipping point doesn't exist, and we've hit the last node, before we loop back to start
-            elif node.next == head:
+            elif curr.next == head:
                 break
 
-            node = node.next
+            curr = curr.next
 
-        new_node.next = node.next
-        node.next = new_node
+        new_node.next = curr.next
+        curr.next = new_node
         return head
 
 

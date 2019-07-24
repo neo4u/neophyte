@@ -14,7 +14,7 @@ class Solution:
             if a2 < b2: i += 1
             elif b2 < a2: j += 1
             else:
-                i +=1 ; j += 1
+                i += 1; j += 1
 
         return result
 
@@ -22,7 +22,8 @@ class Solution:
         return b1 <= a1 <= b2 or a1 <= b1 <= a2
 
 
-
+# 986. Interval List Intersections
+# https://leetcode.com/problems/interval-list-intersections/description/
 
 
 

@@ -14,7 +14,7 @@ def find_strobogrammatic(n)
         outer, inner = find_strobogrammatic(n - 2), two_size_mid_candidates
     end
 
-    mid = outer.first.size / 2 # Outer elements are always even, cuz n being odd or even we convert it to a problem of even
+    mid = outer[0].size / 2 # Outer elements are always even, cuz n being odd or even we convert it to a problem of nearest even
     result = []
     outer.each do |o|
         inner.each do |i|

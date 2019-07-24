@@ -1,22 +1,23 @@
 # @param {Integer[]} height
 # @return {Integer}
 def trap(height)
-  l, r = 0, height.size - 1
-  l_max, r_max, water = 0, 0, 0
+    l, r = 0, height.size - 1
+    l_max, r_max, water = 0, 0, 0
 
-  while l < r
-    l_max = [l_max, height[l]].max
-    r_max = [r_max, height[r]].max
-    if l_max < r_max
-      water += l_max - height[l]
-      l += 1
-    else
-      water += r_max - height[r]
-      r -= 1
+    while l < r
+        l_max = [l_max, height[l]].max
+        r_max = [r_max, height[r]].max
+
+        if l_max < r_max
+            water += l_max - height[l]
+            l += 1
+        else
+            water += r_max - height[r]
+            r -= 1
+        end
     end
-  end
 
-  water
+    water
 end
 
 # 42. Trapping Rain Water

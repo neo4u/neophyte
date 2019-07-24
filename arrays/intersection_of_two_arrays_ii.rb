@@ -1,4 +1,4 @@
-# Approach 1: Two Pointers Time: O(nlog(n)), Space: O(n)
+# Approach 1: Two Pointers Time: O(nlog(n)), Space: O(1)
 # @param {Integer[]} nums1
 # @param {Integer[]} nums2
 # @return {Integer[]}
@@ -17,7 +17,7 @@ def intersect(nums1, nums2)
             j += 1
         end
     end
-    
+
     result
 end
 
@@ -52,7 +52,7 @@ end
 # 1. What if the given array is already sorted? How would you optimize your algorithm?
 # 2. What if nums1's size is small compared to nums2's size? Which algorithm is better?
 # 3. What if elements of nums2 are stored on disk, and the memory is
-# limited such that you cannot load all elements into the memory at once?
+#    limited such that you cannot load all elements into the memory at once?
 
 # Answer for 3. If only nums2 cannot fit in memory, put all elements of nums1 into a HashMap,
 # read chunks of array that didn't fit into the memory, and record the intersections.

@@ -44,6 +44,27 @@ class Solution(object):
         return new_head
 
 
+
+class Solution(object):
+    def copyRandomList(self, head):
+        if not head: return
+
+        cloned = {}
+        self.dfs(head, cloned)
+        return cloned[head]
+
+    def dfs(self, node, cloned):
+        if not node: return
+        if node in cloned: return cloned[node]
+
+        clone = Node(node.val, None, None)
+        cloned[node] = clone
+
+        clone.next = self.dfs(node.next, cloned)
+        clone.random = self.dfs(node.random, cloned)
+
+        return clone
+
 # 138. Copy List with Random Pointer
 # https://leetcode.com/problems/copy-list-with-random-pointer/description/
 

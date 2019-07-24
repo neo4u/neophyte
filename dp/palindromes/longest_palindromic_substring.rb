@@ -39,8 +39,8 @@ def longest_palindrome2(s)
 
     0.upto(n - 1) do |i|
         longest = [
-            get_longest_palindrome(s, i, i),     # Case of Odd length palindromes
-            get_longest_palindrome(s, i, i + 1), # Case of Even length palindromes
+            get_longest_palindrome(s, i, i),     # Case of ith char as center
+            get_longest_palindrome(s, i, i + 1), # Case of between ith and i + 1th char as center
             longest
         ].max_by(&:size)
     end

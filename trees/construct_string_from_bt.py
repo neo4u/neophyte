@@ -8,16 +8,19 @@ class TreeNode:
 
 class Solution:
     def tree2str(self, t: TreeNode) -> str:
-        return self.convert(t)
+        return self.dfs(t)
 
-    def convert(self, root):
+    def dfs(self, root):
         if not root: return ""
 
         result = str(root.val)
         if root.left or root.right:
-            l, r = self.convert(root.left), self.convert(root.right)
+            l, r = self.dfs(root.left), self.dfs(root.right)
 
             result += "(" + l + ")"
             if r: result += "(" + r + ")"
 
         return result
+
+# 606. Construct String from Binary Tree
+# https://leetcode.com/problems/construct-string-from-binary-tree/description/

@@ -8,7 +8,7 @@ class Solution1(object):
         heapq.heapify(heap) # O(n)
         result = []
 
-        for i in range(k):
+        for _ in range(k):
             result.append(heapq.heappop(heap)[1])
         return result
 
@@ -19,13 +19,13 @@ from collections import Counter
 class Solution:
     def topKFrequent(self, nums, k):
         heap = []
-        for n, c in Counter(nums).items():
-            if len(heap) < k:
-                heapq.heappush(heap, (c, n))
-            else:
-                if c > heap[0][0]: heapq.heapreplace(heap, (c, n))
+        for num, freq in Counter(nums).items():
+            heapq.heappush(heap, (freq, num))
 
-        return [c[1] for c in heap]
+            if len(heap) > k:
+                heapq.heappop(heap)
+
+        return [item[1] for item in heap]
 
 
 # Approach 3: Bucket Sort
@@ -36,13 +36,13 @@ class Solution3:
         n = len(nums)
         counts_bucket = [[] for _ in range(n)]
 
-        for n, c in collections.Counter(nums).items():
-            counts_bucket[c - 1].append(n)
+        for num, freq in collections.Counter(nums).items():
+            counts_bucket[freq - 1].append(num)
 
         for i in range(n - 1, -1, -1):
             if not counts_bucket[i]: continue
             result += counts_bucket[i]
-            if len(result) == k: break
+            if len(result) >= k: break
 
         return result[:k]
 
@@ -56,13 +56,15 @@ class Solution:
             if l == r: return
             mid = rand_partition(a, l, r)
 
+# 5,6,5,3,4,5,2
+
             if K < mid:
                 quick_select(a, l, mid - 1, K)
             elif K > mid:
                 quick_select(a, mid + 1, r, K)
             else:
                 return
-            
+
         def rand_partition(a, l, r):
             i = random.randint(l, r)
             a[r], a[i] = a[i], a[r]
@@ -75,7 +77,7 @@ class Solution:
                 if a[j][1] > pivot: continue
                 i += 1
                 a[i], a[j] = a[j], a[i]
-            
+
             a[i + 1], a[r] = a[r], a[i + 1]
             return i + 1
 

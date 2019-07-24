@@ -1,17 +1,14 @@
 # @param {Integer} n
 # @return {String[]}
 def generate_parenthesis(n)
-    backtrack(n)
+    bt(n)
 end
 
-def backtrack(n, path = "", l = 0, r = 0, result = [])
-    if path.size == 2 * n
-        result.push(path)
-        return
-    end
+def bt(n, path = "", l = 0, r = 0, result = [])
+    return result.push(path) if path.size == 2 * n
 
-    backtrack(n, path + "(", l + 1, r, result) if l < n
-    backtrack(n, path + ")", l, r + 1, result) if r < l
+    bt(n, path + "(", l + 1, r, result) if l < n
+    bt(n, path + ")", l, r + 1, result) if r < l
 
     result
 end

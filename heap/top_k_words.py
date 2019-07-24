@@ -3,18 +3,29 @@ class Solution(object):
     def topKFrequent(self, words, k):
         count = collections.Counter(words)
         candidates = count.keys()
-        candidates.sort(key = lambda w: (-count[w], w))
+        candidates.sort(key=lambda w: (-count[w], w))
         return candidates[:k]
 
+
 # Approach 2: Heap
-class Solution(object):
+class Solution2(object):
     def topKFrequent(self, words, k):
         count = collections.Counter(words)
         heap = [(-freq, word) for word, freq in count.items()]
         heapq.heapify(heap)
         return [heapq.heappop(heap)[1] for _ in range(k)]
 
-
+# Solution doesn't work because words same frequency have to be returned in lexicographical order
+class Solution:
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+        count = collections.Counter(words)
+        heap = []
+        for word, freq in count.items():
+            heapq.heappush(heap, (freq, word))
+            if len(heap) > k:
+                heapq.heappop(heap)
+        
+        return [heapq.heappop(heap)[1] for _ in range(k)][::-1]
 # 692. Top K Frequent Words
 # https://leetcode.com/problems/top-k-frequent-words/description/
 

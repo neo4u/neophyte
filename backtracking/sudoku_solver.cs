@@ -52,7 +52,7 @@ public class Solution
                     board[row][col] = ch;
                     RemoveVisited(row, col, c, visited);
                 }
-                return false;                
+                return false;
             }
         }
         return true;

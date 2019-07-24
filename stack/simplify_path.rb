@@ -6,7 +6,7 @@ def simplify_path(path)
     dirs.each do |dir|
         next if dir == '.' || dir == ''
         if dir == '..'
-            simple_dirs.pop unless simple_dirs.empty?
+            simple_dirs.pop if !simple_dirs.empty?
         else
             simple_dirs.push(dir)
         end

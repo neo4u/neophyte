@@ -45,7 +45,7 @@ class Solution:
 def subarraySum(self, nums, k):
         count, cur, res = {0: 1}, 0, 0
         for v in nums:
-            cur += vcount.get(cur, 0)
+            cur += count.get(cur, 0)
             res += count.get(cur - k, 0)
             count[cur] =  + 1
         return res

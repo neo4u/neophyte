@@ -13,6 +13,7 @@
 # @return {ListNode}
 def merge_two_lists(l1, l2)
     dummy = cur = ListNode.new(0)
+
     while l1 || l2
         if (l1 && l2 && l1.val < l2.val) || l2.nil?
             cur.next, l1 = l1, l1.next
@@ -35,10 +36,10 @@ def merge_two_lists(l, r)
 
     if l.val < r.val
         l.next = merge_two_lists(l.next, r)
-        l
+        return l
     else
         r.next = merge_two_lists(l, r.next)
-        r
+        return r
     end
 end
 

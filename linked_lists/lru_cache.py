@@ -8,7 +8,7 @@ class Node:
 class LRUCache:
     def __init__(self, capacity):
         self.capacity = capacity
-        self.dic = dict()
+        self.dic = {}
         self.head = Node(0, 0)
         self.tail = Node(0, 0)
         self.head.next = self.tail
@@ -26,6 +26,7 @@ class LRUCache:
     def put(self, key, value):
         if key in self.dic:
             self._remove(self.dic[key])
+
         n = Node(key, value)
         self._add(n)
         self.dic[key] = n
@@ -44,6 +45,6 @@ class LRUCache:
     def _add(self, node):
         p = self.tail.prev
         p.next = node
-        self.tail.prev = node
         node.prev = p
+        self.tail.prev = node
         node.next = self.tail

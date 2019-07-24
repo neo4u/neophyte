@@ -5,9 +5,8 @@ class Solution(object):
         :rtype: void Do not return anything, modify str in-place instead.
         """
         new_str = ""
-
-        for i, v in enumerate(s.split(" ")):
-            new_str += v[::-1] + " "
+        for w in s.split(" "):
+            new_str += w[::-1] + " "
 
         return new_str.rstrip()
 

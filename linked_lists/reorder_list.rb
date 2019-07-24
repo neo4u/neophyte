@@ -20,6 +20,15 @@ def split_list(head)
     [head, find_middle(head)]
 end
 
+# 1 2 3 4     5 6
+#                 f
+#       s
+
+# 1 2 3 4    5 6 7
+#                f
+#       s
+
+
 def find_middle(head)
     slow, fast = head, head
 
@@ -45,7 +54,7 @@ def reverse_list(head)
 end
 
 def merge_lists(h1, h2)
-    head = tmp = h1
+    new_head = tmp = h1
     h1 = h1.next # Advance the first list as first node is in final place
 
     while h1 && h2
@@ -61,7 +70,7 @@ def merge_lists(h1, h2)
     end
 
     tmp.next = h1 || h2 # Attach remaining part of non-nil list without alternating
-    head
+    new_head
 end
 
 # Alternative merge with lesser lines but hard to understand

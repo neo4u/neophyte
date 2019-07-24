@@ -3,7 +3,7 @@ class Solution(object):
         arr = list(s)
         self.reverse(arr, 0, len(arr) - 1)
         self.reverse_words(arr)
-
+        arr = self.trim_sides(arr)
         return ''.join(arr)
 
     def reverse(self, arr, l, r):
@@ -13,10 +13,16 @@ class Solution(object):
 
     def reverse_words(self, arr):
         l, r = 0, 0
-        while r < len(arr):
-            while r < len(arr) and not arr[r].isspace(): r += 1
+        n = len(arr)
+        while r < n:
+            while r < n and not arr[r].isspace(): r += 1
             self.reverse(arr, l, r - 1)
-            r += 1; l = r
+            if r < n:
+                r += 1; l = r
+
+    # efg abc
+    #     l
+    #         r
 
     # def trim_sides(self, arr):
     #     '''str.strip() basically'''

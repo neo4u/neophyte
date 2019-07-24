@@ -9,6 +9,7 @@ class Solution(object):
             if ageA == 0: continue
             for ageB, countB in enumerate(count):
                 if ageB == 0: continue
+
                 if ageA * 0.5 + 7 >= ageB: continue
                 if ageA < ageB: continue
                 if ageA < 100 < ageB: continue
@@ -19,5 +20,3 @@ class Solution(object):
                     ans += countA * countB
 
         return ans
-
-

@@ -64,6 +64,10 @@ def str_str(haystack, needle)
     -1
 end
 
+# abcdef
+# i   |
+# ef
+
 
 # Approach 1: Search from each index for pattern.length chars
 # Time: O(m * n)

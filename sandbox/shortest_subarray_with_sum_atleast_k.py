@@ -60,6 +60,20 @@ class Solution:
 # And we also update our candidate subarray length simultaneously. So our queue element will be a tuple of (left_index, pre_sum).
 # In such way, if current iterating element a is larger than 0, we only update slide window, if it's smaller or equal to 0, we only update queue.
 
+
+
+# Steps:
+# 1. Have a running min and a queue to store tuples of index and pre_sum's
+# 2. We use a monotonically increasing q (Reason for using monotonically increasing is below)
+# 3. Now we iterate through the array and do the following for each new number:
+#     - Calculate the pre_sum with the incoming number
+#     - If the number we're processing is positive then we can keep looking for valid windows of sum >= K (at least K)
+#     - Since K >= 1, we don't need to consider decreasing pre_sum elements,
+#       so in the else case we just ensure that the current element can
+#       be inserted to maintain the monotonically increasing property
+# 4. 
+
+
 # Why does monotone increasing help us find candidates:
 # 1. Infeasible candidates at the start may cause us to expand our window to right, without being able to contract,
 #    and while contracting the window from left, our bad candidates cause our window to look bad thus preventing us

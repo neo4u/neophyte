@@ -47,10 +47,7 @@ def permute(nums)
 end
 
 def bt(nums, n, first = 0)
-    if first == n
-        @results.push(nums.dup)
-        return
-    end 
+    return @results.push(nums.dup) if first == n - 1
 
     first.upto(n - 1) do |i|
         nums[first], nums[i] = nums[i], nums[first] if first != i
@@ -95,7 +92,19 @@ assert_equal(permute([1,2,3]), [
     [1,3,2],
     [2,1,3],
     [2,3,1],
-    [3,1,2],
-    [3,2,1]
+    [3,2,1],
+    [3,1,2]
 ])
+assert_equal(permute([1,2]), [[1, 2], [2, 1]])
 
+
+# Input: [1,2,3]
+# Output:
+# [
+#   [1,2,3],
+#   [1,3,2],
+#   [2,1,3],
+#   [2,3,1],
+#   [3,1,2],
+#   [3,2,1]
+# ]

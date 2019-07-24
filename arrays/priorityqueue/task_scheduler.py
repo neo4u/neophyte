@@ -31,7 +31,7 @@ class Solution(object):
             cool_timer, temp = 0, []
             while cool_timer <= n and (q or temp): # q is empty or but we have cooling to do cuz there are items in temp
                 time += 1
-                cool_timer += 1                              # keep inrementing the cooling timer
+                cool_timer += 1                              # keep incrementing the cooling timer
 
                 if q:
                     x = heappop(q)

@@ -11,3 +11,6 @@ class Solution:
                 if final_s: final_s.pop()
 
         return final_s
+
+# 844. Backspace String Compare
+# https://leetcode.com/problems/backspace-string-compare/description/

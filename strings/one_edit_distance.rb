@@ -10,7 +10,7 @@ def is_one_edit_distance(s, t)
         return s[i...m] == t[i + 1...n]                 # If unqual len, check if mismatch char is deleteable
     end
 
-    m + 1 == n                                          # If match upto m, then n must only have 1 extra deleteable char
+    true
 end
 
 

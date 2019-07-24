@@ -1,10 +1,7 @@
 class Solution(object):
-    def reverseWords(self, s):
-        arr = list(s)
-        self.reverse(arr, 0, len(arr) - 1)
-        self.reverse_words(arr)
-
-        return ''.join(arr)
+    def reverseWords(self, s: List[str]) -> None:
+        self.reverse(s, 0, len(s) - 1)
+        self.reverse_words(s)
 
     def reverse(self, arr, l, r):
         while l < r:
@@ -25,8 +22,8 @@ class Solution2(object):
         :type str: List[str]
         :rtype: void Do not return anything, modify str in-place instead.
         """
-        s[:] = str(''.join(s[:])).split(' ')
-        s[:] = s[::-1]
+        s[:] = str(''.join(s)).split(' ')
+        s[:] = reversed(s)
         s[:] = list(' '.join(s))
 
 # 186. Reverse Words in a String II

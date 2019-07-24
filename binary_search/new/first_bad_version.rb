@@ -17,6 +17,7 @@ def first_bad_version(n)
 end
 
 
+
 # 278. First Bad Version
 # https://leetcode.com/problems/first-bad-version/
 

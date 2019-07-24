@@ -4,6 +4,7 @@ def generate_palindromes(s)
     counts_map = Hash.new { |h, k| h[k] = 0 }
     odd_count, mid, result = 0, '', []
     s.each_char { |c| counts_map[c] += 1 }
+
     counts_map.each do |k, v|
         if v % 2 == 1
             odd_count += 1

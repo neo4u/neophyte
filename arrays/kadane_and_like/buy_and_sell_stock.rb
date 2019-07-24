@@ -49,7 +49,11 @@ end
 
 # cp = 2, mp = 4
 # 6
-# cp = 5
+# cp = 5, mp = 5
+
+# cp= 5, mp = 5
+# 4
+# cp = 3, mp = 5
 
 # Approach 3: One pass
 # public class Solution {

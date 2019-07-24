@@ -13,13 +13,13 @@ def bt(pattern, str, i = 0, j = 0, p_hash = {}, w_hash = {})
     p = pattern[i]
     j.upto(str.size - 1) do |k|
         w = str[j..k]
-        next if (p_hash.key?(p) && p_hash[p] != w) ||
-                (w_hash.key?(w) && w_hash[w] != p)
+        next if (p_hash.key?(p) && p_hash[p] != w) || (w_hash.key?(w) && w_hash[w] != p)
 
-        p_hash[p], w_hash[w], mapped = w, p, true if !p_hash.key?(p) && !w_hash.key?(w)
+        mapped_at_this_iter = false
+        p_hash[p], w_hash[w], mapped_at_this_iter = w, p, true if !p_hash.key?(p) && !w_hash.key?(w)
         remainder = bt(pattern, str, i + 1, k + 1, p_hash, w_hash)
         return true if remainder
-        if mapped
+        if mapped_at_this_iter
             p_hash.delete(p)
             w_hash.delete(w)
         end
@@ -28,6 +28,7 @@ def bt(pattern, str, i = 0, j = 0, p_hash = {}, w_hash = {})
     false
 end
 
+# pattern = "abab", str = "redblueredblue"
 
 require 'set'
 

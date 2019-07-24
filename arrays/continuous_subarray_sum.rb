@@ -79,6 +79,7 @@ end
 
 # if we didn't, have the 0 and -1 added to the map
 # consider the corner cases:
+# nums, k
 # [0], 0        -> false. Map would be {0 => -1}, 0 - -1 == 1 not >= 2 causes us to return false
 # [5, 2, 4], 5  -> false. Map would be {0 => -1, 2 => 1, 1 => 2}. Thus never returning true
 # [0, 0], 100   -> true, Map would be {0 => -1}, but when i = 1, i - map[pre_sum%k] == 1 - -1 == 2, thus we return true

@@ -19,7 +19,7 @@ class Solution:
 
         r = n
         while r < m:
-            l = r - n + 1
+            l = r - n + 1 # get 1st char in n size window
             lc, rc = s[l - 1], s[r]
 
             if lc in p_hash and p_hash[lc] == s_hash[lc]: formed -= 1
@@ -33,6 +33,10 @@ class Solution:
 
         return result
 
+
+
+# 438. Find All Anagrams in a String
+# https://leetcode.com/problems/find-all-anagrams-in-a-string/description/
 
 # 'aabc' 'abc'
 

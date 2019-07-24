@@ -4,8 +4,8 @@ def count_substrings(s)
     count, n = 0, s.size
 
     0.upto(n - 1) do |i|
-        count += count_for_center(s, i, i)       # Case of centers between chars
-        count += count_for_center(s, i, i + 1)   # Case of centers around a char
+        count += count_for_center(s, i, i)       # Case of center at a char
+        count += count_for_center(s, i, i + 1)   # Case of between two chars
     end
 
     count

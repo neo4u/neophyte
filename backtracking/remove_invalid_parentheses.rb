@@ -16,37 +16,36 @@ def backtrack(i, l_rem, r_rem, l_cnt, prefix, depth = 0)
     # If we reached the end of the string, just check if the resulting expression is
     # valid or not and also if we have removed the total number of left and right
     # parentheses that we should have removed.
-    puts "#{"\t" * depth}bt_call i: #{i}, l_rem: #{l_rem}, r_rem: #{r_rem}, l_cnt: #{l_cnt}, prefix: #{prefix}"
     if i == @str.size
-        if l_cnt == 0 && l_rem.zero? && r_rem.zero?
-            @result.add(prefix)
-            puts "pushing prefix: #{prefex} to result"
-            return
-        end
+        @result.add(prefix) if l_cnt == 0 && l_rem.zero? && r_rem.zero?
+        return
     end
 
     # The discard case. Note that here we have our pruning condition.
     # We don't recurse if the remaining count for that parenthesis is == 0.
     if @str[i] == "("
-        backtrack(i + 1, l_rem - 1, r_rem, l_cnt, prefix, depth + 1) if l_rem > 0  # The discard case, it will work without the if condition, which is for pruning/optimization
-        backtrack(i + 1, l_rem, r_rem, l_cnt + 1, prefix + "(", depth + 1)         # The consider case
+        backtrack(i + 1, l_rem - 1, r_rem, l_cnt, prefix) if l_rem > 0      # The discard case, it will work without the if condition, which is for pruning/optimization
+        backtrack(i + 1, l_rem, r_rem, l_cnt + 1, prefix + "(", depth + 1)  # The consider case
     elsif @str[i] == ")"
-        backtrack(i + 1, l_rem, r_rem - 1, l_cnt, prefix, depth + 1) if r_rem > 0        # The discard case, it will work without the if, which is for pruning
+        backtrack(i + 1, l_rem, r_rem - 1, l_cnt, prefix) if r_rem > 0        # The discard case, it will work without the if, which is for pruning
         backtrack(i + 1, l_rem, r_rem, l_cnt - 1, prefix + ")", depth + 1) if l_cnt > 0  # The consider case, but only when more left than right
     else
-        backtrack(i + 1, l_rem, r_rem, l_cnt, prev + @str[i], depth + 1)
+        backtrack(i + 1, l_rem, r_rem, l_cnt, prefix + @str[i])
     end
 end
 
 def get_invalid_counts(s)
     l, r = 0, 0
-    s.each_char do |c|
-        l += c == "(" ? 1 : 0
 
-        if l == 0
-            r += c == ")" ? 1 : 0 # If we don't have a matching left, then this is a misplaced right, record it.
-        else
-            l -= c == ")" ? 1 : 0 # Decrement count of left parentheses because we have found a right which CAN be a matching one for a left.
+    s.each_char do |c|
+        if c == '('
+            l += 1
+        elsif c == ')'
+            if l == 0   # If we don't have a matching left, then this is a misplaced right, record it.
+                r += 1
+            else
+                l -= 1  # Decrement count of left parentheses because we have found a right which CAN be a matching one for a left.
+            end
         end
     end
 
@@ -107,6 +106,11 @@ end
 
 # Example Walkthrough
 # Input: "())()))()", Output: ["(())()", "()()()"]
+
+# l 
+# ())()))()
+#   i
+
 
 # ())()))()
 # i: 0, stack: 1
@@ -173,7 +177,7 @@ end
 # For this, we keep tracking the last removal position and only remove ‘)’ after that.
 
 
-# Approach 2: 
+# Approach 2:
 # refer same name file in leetcode_solutions directory
 # 1. We use l_rem, r_rem for maintaining "(" and ")" to be removed
 # 2. We use l_cnt to track if there is an imbalance of left vs right parans
@@ -217,10 +221,10 @@ require 'set'
 require 'test/unit'
 extend Test::Unit::Assertions
 
-# assert_equal(remove_invalid_parentheses_bt('())())()'), ["(())()", "()()()"])
-# assert_equal(remove_invalid_parentheses_bt('()())()'), ["(())()", "()()()"])
-# assert_equal(remove_invalid_parentheses_bt("(a)())()"), ["(a())()", "(a)()()"])
-# assert_equal(remove_invalid_parentheses_bt(")("), [""])
+assert_equal(remove_invalid_parentheses_bt('())())()'), ["(())()", "()()()"])
+assert_equal(remove_invalid_parentheses_bt('()())()'), ["(())()", "()()()"])
+assert_equal(remove_invalid_parentheses_bt("(a)())()"), ["(a())()", "(a)()()"])
+assert_equal(remove_invalid_parentheses_bt(")("), [""])
 assert_equal(remove_invalid_parentheses_bt("())"), ["()"])
 
 # assert_equal(remove_invalid_parentheses('())()))()'), ["(())()", "()()()"])

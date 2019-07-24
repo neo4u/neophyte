@@ -12,7 +12,7 @@ class SolutionBFS:
         root_clone = Node(root.val, [])
         d = {root: root_clone}
         q = deque([root])
-        
+
         while q:
             node = q.popleft()
             for nbr in node.neighbors:
@@ -35,7 +35,7 @@ class Solution:
         return cloned[node]
 
     def dfs(self, node, cloned):
-        if not node: return
+        if not node: return None
         if node in cloned: return cloned[node]
 
         clone = Node(node.val, [])
@@ -43,10 +43,6 @@ class Solution:
         clone.neighbors = [self.dfs(nbr, cloned) for nbr in node.neighbors]
 
         return clone
-
-
-
-
 
 # 133. Clone Graph
 # https://leetcode.com/problems/clone-graph/description/

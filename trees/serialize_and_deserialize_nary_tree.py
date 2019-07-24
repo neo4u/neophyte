@@ -16,10 +16,27 @@ class Codec:
             self.dfs_serialize(child, pre_order)
         pre_order.append("#")                       # indicates no more children, continue serialization from parent
 
+#      1
+#   2 3 4 
+# 456
+
+# [1, 2, 4, '#', 5, '#', 6, '#', '#', 3, '#', 4, '#', '#']
+
+
     def serialize(self, root):
         pre_order = []
         self.dfs_serialize(root, pre_order)
         return ",".join(pre_order)
+
+    def deserialize(self, data):
+        if not data: return None
+
+        pre_order = deque(data.split(","))
+        root = Node(int(pre_order.popleft()), [])
+        self.dfs_deserialize(root, pre_order)
+        return root
+
+# []
 
     # Deserialization
     def dfs_deserialize(self, node, pre_order):
@@ -31,13 +48,6 @@ class Codec:
             self.dfs_deserialize(child, pre_order)
 
         pre_order.popleft()                         # discard the "#"
-
-    def deserialize(self, data):
-        if not data: return None
-        pre_order = deque(data.split(","))
-        root = Node(int(pre_order.popleft()), [])
-        self.dfs_deserialize(root, pre_order)
-        return root
 
 
 # Approach 2: BFS Iterative using pre-order traversal and a queue, Faster on Leetcode inputs

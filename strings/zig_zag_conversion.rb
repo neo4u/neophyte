@@ -13,7 +13,7 @@ def convert(s, num_rows)
         row += down ? 1 : -1
     end
 
-    result.join('') 
+    result.join('')
 end
 
 # 6. ZigZag Conversion

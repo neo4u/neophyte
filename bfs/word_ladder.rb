@@ -4,6 +4,13 @@ require 'set'
 def ladder_length_preprocess(begin_word, end_word, word_list)
     return 0 if end_word.empty? || begin_word.empty? || word_list.empty?
 
+    # abc, cbc
+    # map
+    # *bc [abc, cbc]
+    # a*c [abc]
+    # ab* [abc]
+    # c*c [cbc]
+    # cb* [cbc]
     n = begin_word.size
     all_combo_dict = Hash.new { |h, k| h[k] = [] }
     word_list.each do |word|

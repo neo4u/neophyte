@@ -62,7 +62,7 @@ end
 def coin_change(coins, amount)
     dp = Array.new(amount + 1, -1)
     dp[0] = 0
-    
+
     coins.each do |c|
         puts "dp: #{dp}"
         1.upto(amount) do |i|
@@ -74,6 +74,50 @@ def coin_change(coins, amount)
 
     dp[amount]
 end
+
+def coin_change(coins, amount)
+    dp = Array.new(amount + 1, -1)
+    dp[0] = 0
+
+    1.upto(amount) do |i|
+        coins.each do |c|
+            next if i < c || dp[i - c] == -1
+            dp[i] = dp[i - c] + 1 if dp[i] == -1 || dp[i - c] + 1 < dp[i]
+        end
+    end
+
+    dp[amount]
+end
+
+
+# class Solution {
+#     public:
+#     int coinChange(vector<int>& coins, int amount) {
+#         sort(coins.begin(), coins.end());
+#         int n = coins.size();
+#         int a[coins.size()+1][amount+1];
+#         vector<vector<int> > a(n+1,vector<int>(amount+1, INT_MAX-1));
+#         a[0][0] = 0;
+#         for(int i =1; i <= n; i++) {
+#             a[i][0] = 0;
+#         }
+#         for(int i = 1; i <= n; i++) {
+#             for(int j = 1; j <= amount; j++) {
+#                 if(j >= coins[i-1]) {
+#                     a[i][j] =  min(a[i-1][j], 1 + a[i][j-coins[i-1]]);
+#                 }
+#                 else {
+#                     a[i][j] = a[i-1][j];
+#                 }
+#             }
+#         }
+#         if(a[n][amount] == (INT_MAX-1)) {
+#             return -1;
+#         } else {
+#             return a[n][amount];
+#         }
+#     }
+# };
 
 
 

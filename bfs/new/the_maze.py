@@ -21,7 +21,7 @@ class Solution:
     def hasPath(self, maze, start, destination):
             Q, n, m = [start], len(maze), len(maze[0])
             dirs = ((0, 1), (0, -1), (1, 0), (-1, 0))
-            
+
             while Q:
                 # Use Q.pop() as DFS or Q.popleft() with deque from collections library for better performance. Kudos to @whglamrock
                 i, j = Q.pop(0)

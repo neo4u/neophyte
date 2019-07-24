@@ -5,6 +5,7 @@
 def max_sub_array_len(nums, k)
     pre_sum, max = 0, 0
     map = { 0 => -1}
+
     0.upto(nums.size - 1) do |i|
         pre_sum += nums[i]
         if map.key?(pre_sum - k)

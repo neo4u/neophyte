@@ -22,7 +22,7 @@ def dfs(node)
     l, r = dfs(node.left), dfs(node.right)
     @result = [@result, l + r + 1].max
 
-    [l, r].max + 1
+    [l, r].max + 1 # return length of the longer sub-tree + 1
 end
 
 
@@ -35,11 +35,11 @@ end
 # Note: The length of path between two nodes is represented by the number of edges between them.
 # Example:
 # Given a binary tree
-# 1
-# / 
-# 2 3
-# / \
-# 4 5
+#     1
+#    /  \
+#   2    3
+#  /  \
+# 4    5
 # Return 3, which is the length of the path [4,2,1,3] or [5,2,1,3].
 # It's returning 3. But the number of nodes in the diameter is 4. but the edges between them are 3. Hence the return value is 3
 

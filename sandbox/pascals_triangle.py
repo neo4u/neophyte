@@ -7,6 +7,7 @@ class Solution:
             for j in range(i + 1):
                 to_insert = 1 if j == 0 or j == i else prev[j - 1] + prev[j]
                 curr.append(to_insert)
+
             prev = curr
             result.append(curr)
 

@@ -1,21 +1,18 @@
 class Solution:
-    def gameOfLife(self, board):
-        """
-        :type board: List[List[int]]
-        :rtype: void Do not return anything, modify board in-place instead.
-        """
+    def gameOfLife(self, board: List[List[int]]) -> None:
+        DEAD = [0, 2]
         self.neighbors = [
             (0, 1), (0, -1), (1, 0), (-1, 0),
             (-1, -1), (1, 1), (-1, 1), (1, -1)
         ]
 
-        m,n = len(board), len(board[0])
+        m, n = len(board), len(board[0])
         for i in range(m):
             for j in range(n):
-                count = self.nnb(board,i,j)
-                if board[i][j] in [0, 2]:
+                count = self.live_neighbours(board, i, j)
+                if board[i][j] in DEAD:             # dead and 3 nbrs -> bring to life
                     if count == 3: board[i][j] = 2
-                else:
+                else:                               # alive and bad conditions -> make dead
                     if count < 2 or count > 3: board[i][j] = 3
 
         for i in range(m):
@@ -23,19 +20,24 @@ class Solution:
                 if board[i][j] == 2: board[i][j] = 1
                 if board[i][j] == 3: board[i][j] = 0
 
-    def nnb(self, board, i, j):
+    def live_neighbours(self, board, i, j):
         count = 0
         m, n = len(board), len(board[0])
-        for d in self.neighbors:
-            if 0 <= i + d[0] < m and 0 <= j + d[1] < n:
-                count += board[i + d[0]][j + d[1]] % 2 
+        for dx, dy in self.neighbors:
+            x, y = i + dx, j + dy
+            if not self.valid_alive(board, x, y, m, n): continue
+            count += 1 # returns 1 for 1, 3, and 0 for 0, 2, Remember it could be either of 0, 1, 2, 3
+
         return count
+
+    def valid(self, board, x, y, m, n):
+        return 0 <= x <= m - 1 and 0 <= y <= n - 1 and board[x][y] % 2 == 1
 
 
 # 289. Game of Life
 # https://leetcode.com/problems/game-of-life/
 
-# We denote:
+# We denote two transistion states:
 # 2 to represent trainsition dead -> live
 # 3 to represent trainsition live -> dead
 
@@ -55,11 +57,15 @@ class Solution:
 # - == 3    -> remain alive
 # - > 3     -> make dead
 
+# while counting live neighbors:
+# - 2 represents a dead nbr
+# - 3 represents a live nbr
+
 # We only need to care about the following two conditions as they cause a switch of state:
-# | State |live neighbrs | new value | change |
-# |-------|--------------|-----------|--------|
-# | alive | < 2 and > 3  | 3         | 1->0   |
-# | dead  | 3            | 2         | 0->1   |
+# | State |live neighbrs | new value | transition it represents |
+# |-------|--------------|-----------|--------------------------|
+# | dead  | 3            | 2         | 0  ->  1                 |
+# | alive | < 2 and > 3  | 3         | 1  ->  0                 |
 
 # Complexity
 # Time: O(m * n)

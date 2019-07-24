@@ -12,8 +12,7 @@ class Solution:
         return root
 
     def construct_subtree(self, s, i):
-        if i == len(s):
-            return None, -1
+        if i == len(s): return None, -1
 
         num = ""
         while i < len(s) and s[i] not in [self.open, self.close]:  # Construct root
@@ -22,18 +21,30 @@ class Solution:
 
         root = TreeNode(int(num))
 
-        if i == len(s):
-            return root, i
+        if i == len(s): return root, i
         if s[i] == self.close:
             return root, i + 1
         else:  # Construct left
             root.left, j = self.construct_subtree(s, i + 1)
 
-        if j == len(s):
-            return root, j
+        if j == len(s): return root, j
         if s[j] == self.close:
             return root, j + 1
         else:  # Construct right
             root.right, k = self.construct_subtree(s, j + 1)
 
         return root, k + 1
+
+# 536. Construct Binary Tree from String
+# https://leetcode.com/problems/construct-binary-tree-from-string/description/
+
+# Input: "4(2(3)(1))(6(5))"
+# Output: return the tree root node representing the following tree:
+
+#        4
+#      /   \
+#     2     6
+#    / \   / 
+#   3   1 5   
+
+# 5(1(2))(4(6))

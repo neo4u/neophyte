@@ -3,23 +3,23 @@
 # @return {Integer[][]}
 def combination_sum2(candidates, target)
     return [] if !candidates || candidates.empty?
+    @result = []
     # Sorting is to avoid the repeated combinations in the form like [1 2 3], [3 2 1]
     candidates.sort!()
-    bt(candidates, 0, [], [], target)
+    bt(candidates, 0, [], target)
+
+    @result
 end
 
-def bt(nums, idx, path, result, target, level = -1)
-    return if target < 0
-    return result.push(path) if target == 0                         # Base case: if path sum == target, it as a solution so push & return
+def bt(nums, idx, path, target)
+    return @result.push(path) if target == 0                         # Base case: if path sum == target, it as a solution so push & return
 
     idx.upto(nums.size - 1) do |i|
         break if nums[i] > target
         next if i != idx && nums[i] == nums[i - 1]                  # Skip duplicates, after i crosses idx
-        bt(nums, i + 1, path + [nums[i]], result, target - nums[i]) # Check for solutions for target - curr number,
+        bt(nums, i + 1, path + [nums[i]], target - nums[i]) # Check for solutions for target - curr number,
                                                                     # Use i + 1 as start index for next level, to avoid repition in combination
     end
-
-    result
 end
 
 
@@ -32,7 +32,7 @@ end
 
 # Points to remember
 # 1. No duplicates combinations in result               (So we should consider each unique combination only once)
-# 2. Combination can contain a number only once         (This means combination without repitition)
+# 2. Can't pick same element twice Combination can contain a number only once         (This means combination without repitition)
 # 3. All numbers are +ve                                (Allows for pruning totals > target)
 
 # Approach 1: Backtracking

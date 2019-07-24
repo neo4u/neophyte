@@ -41,3 +41,13 @@ def swap_pairs(first)
 
     second
 end
+
+
+# 1->2->3->4
+
+# curr    f  s
+# dummy ->1->2->3->4
+
+# curr    s  f  
+# dummy ->2->1 ->3->4
+#           cur

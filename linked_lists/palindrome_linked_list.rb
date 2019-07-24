@@ -16,7 +16,12 @@ def is_palindrome(head)
 
     # reverse the second half
     prv, cur = nil, slow
-    prv, prv.next, cur = cur, prv, cur.next while cur
+    while cur
+        nxt = cur.next
+        cur.next = prv
+        prv = cur
+        cur = nxt
+    end
 
     # compare the first and second half nodes
     while prv # as long as prv is not nil
@@ -60,3 +65,18 @@ end
 
 # Time: O(n)
 # Space: O(1)
+
+
+ 
+# 1 ->  2 ->      3 ->  4 -> 5
+#                        f
+#             s
+
+# 1 ->  2 ->  3 ->  4
+#             s
+#                       f
+
+
+# 1 ->  2   3 ->  4 -> 5
+
+#             nil <- 3 <- 4  <- 5

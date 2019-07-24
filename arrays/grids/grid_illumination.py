@@ -1,53 +1,52 @@
-# Given an NxN grid with an array of lamp coordinates.
-# Each lamp provides illumination to every square on its x axis, 
-# every square on its y axis, and every square that lies on its
-# diagonal (think of a Queen in chess). Given an array of 
-# query coordinates, determine whether or not the query point is illuminated.
-# Moreover, whenever you execute a query, all 
-# lamps adjacent to or on that query point are permanently un-illuminated.
-# The ranges for the variables/arrays is:
-# 10^3 < N < 10^9, 10^3 < lamps < 10^9, 10^3 < queries < 10^9.
+# ust like N-queen problem, I use x,y represent the position of each grid
+# all position in the same left diagonals have the same x+y
+# all position in the same right diagonals have the same y-x
 
-class Solution():
-    def gridIlluminator(self, n, lamps):
-        '''Solve the grid illumination problem.
+# so we just need to use index to judge the cell(illuminated or not)
 
-            T(n, l) = O(l)
-            S(n, l) = O(n)
-        '''
-        self.rows = [False for _ in range(n)]
-        self.cols = [False for _ in range(n)]
+# for example, if [1,1] is a lamp, then all x = 1 or y = 1 or x+y=2 or y-x=0 cell will be illuminated.
+from collections import Counter
 
-        self.pos_diags = [False for _ in range((2 * n) - 1)]
-        self.neg_diags = [False for _ in range((2 * n) - 1)]
+class Solution(object):
+    def gridIllumination(self, N, lamps, queries):
+        lamps = list(map(tuple, lamps))
+        light_set = set(lamps)
+        # one cell may be illuminated by many lamps
+        rows, cols, asc_diags, dsc_diags = Counter(), Counter(), Counter(), Counter()
+        for x, y in lamps:
+            rows[x] += 1
+            cols[y] += 1
+            asc_diags[x + y] += 1
+            dsc_diags[y - x] += 1
 
-        for i, j in lamps:
-            self.rows[i], self.cols[j] = True, True
-            self.pos_diags[i + j] = True
-            self.neg_diags[n - 1 + i - j] = True
+        result = []
+        for x, y in queries:
+            # Append answer to query in result
+            if x in rows or y in cols or x + y in asc_diags or y - x in dsc_diags:
+                result.append(1)
+            else:
+                result.append(0)
 
-    def is_lit(self, n, x, y):
-        return self.rows[x] or self.cols[y] or self.pos_diags[x + y] or self.neg_diags[n - 1 + x - y]
+            # Turn of the lamp and reduce the illumination by the light to 8 nbrs
+            for dx, dy in [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 0], [0, 1], [1, -1], [1, 0], [1, 1]]:
+                r, c = x + dx, y + dy
+                if (r, c) not in light_set: continue
+
+                light_set.remove((r, c))
+                rows[r] -= 1
+                if rows[r] == 0: del rows[r]
+
+                cols[c] -= 1
+                if cols[c] == 0: del cols[c]
+
+                asc_diags[r + c] -= 1
+                if asc_diags[r + c] == 0: del asc_diags[r + c]
+
+                dsc_diags[c - r] -= 1
+                if dsc_diags[c - r] == 0: del dsc_diags[c - r]
+
+        return result
 
 
-sol = Solution()
-dim = 6
-sol.gridIlluminator(dim, [(0, 0), (2, 3), (1, 5)])
-
-for i in range(dim):
-    for j in range(dim):
-        if (i, j) in [(3, 1), (5, 2), (5, 4)]:
-            assert not sol.is_lit(dim, i, j)
-        else:
-            assert sol.is_lit(dim, i, j)
-
-sol = Solution()
-dim = 6
-sol.gridIlluminator(dim, [(2, 3), (1, 5)])
-
-for i in range(dim):
-    for j in range(dim):
-        if (i, j) in [(0, 0), (0, 2), (3, 0), (3, 1), (4, 0), (4, 4), (5, 2), (5, 4)]:
-            assert not sol.is_lit(dim, i, j)
-        else:
-            assert sol.is_lit(dim, i, j)
+# 1001. Grid Illumination
+# https://leetcode.com/problems/grid-illumination/description/

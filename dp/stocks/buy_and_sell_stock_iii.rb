@@ -24,10 +24,11 @@ end
 
 # Do the below and set k = 2
 # dp[i][j] represents max profit on ith transaction on jth day
-# dp[0][i] = 0 Set by default at 2D array init
-# dp[i][0] = 0 Set by default at 2D array init
+# dp[0][i] = 0 Set by default at 2D array init, 0 transactions, 0 profit
+# dp[i][0] = 0 Set by default at 2D array init, can't complete transaction with 1 day
 
-# dp[i][j] = max { dp[i][j - 1]     Max of not tranacting today and just using previous day's profits for ith transaction
+# recurrence
+# dp[i][j] = max { dp[i][j - 1]     Max of not transacting today and just using previous day's profits for ith transaction
 #                { prices[j] - prices[m] +  dp[i - 1][m] j = 0...j - 1
 #                  prices[j] - prices[m] because to sell on day j we must have bought on day m,
 #                                      so we subtract prices[j] - prices[m]

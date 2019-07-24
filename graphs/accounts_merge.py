@@ -37,6 +37,7 @@ class DS:
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
         email_name_map, ds = {}, DS()
+
         for ac in accounts:
             name, *emails = ac
             for email in emails:
@@ -51,4 +52,14 @@ class Solution:
 
         return [[email_name_map[emails[0]]] + sorted(emails) for emails in ans.values()]
 
-# Accounts Merge
+# 721. Accounts Merge
+# https://leetcode.com/problems/accounts-merge/description/
+
+
+# Input: accounts = [["John", "johnsmith@mail.com", "john00@mail.com"],
+#                     ["John", "johnnybravo@mail.com"],
+#                     ["John", "johnsmith@mail.com", "john_newyork@mail.com"],
+#                     ["Mary", "mary@mail.com"]]
+# Output: [["John", 'john00@mail.com', 'john_newyork@mail.com', 'johnsmith@mail.com'],
+#          ["John", "johnnybravo@mail.com"],
+#          ["Mary", "mary@mail.com"]]

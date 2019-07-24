@@ -14,10 +14,7 @@ def letter_combinations(digits)
 end
 
 def bt(digits, index, path, result)
-    if path.size == digits.size
-        result.push(path)
-        return
-    end
+    return result.push(path) if path.size == digits.size
 
     MAP[digits[index]].each_char do |c|
         bt(digits, index + 1, path + c, result)

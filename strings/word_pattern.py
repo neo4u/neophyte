@@ -6,14 +6,20 @@ class Solution(object):
         :rtype: bool
         """
         words = str.split(" ")
-        if len(pattern) != len(words):
-            return False
+        if len(pattern) != len(words): return False
+
         pcache, wcache = {}, {}
         for p, w in zip(pattern, words):
             if (p in pcache and pcache[p] != w) or (w in wcache and wcache[w] != p):
                 return False
             pcache[p], wcache[w] = w, p
         return True
+
+# abba cat dog dog fish
+
+# pcache     wcache
+
+
 
 class Solution(object):
     def wordPattern(self, pattern, str):

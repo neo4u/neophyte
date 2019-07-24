@@ -63,7 +63,7 @@ class Solution:
 # con     tail
 # 1   ->  2   ->   3   ->    4   ->   5   ->  nil
 
-# We reverse in place, till n == 0, n = 3
+# We reverse in place, till n == 0
 #        prv  cur
 # 1  <-  2     3   ->    4   ->   5   ->  nil
 # n = 3  -= 1 = 2
@@ -82,7 +82,7 @@ class Solution:
 # con.next = prv
 
 # We attach to con
-#                    tail
+#                    tail   cur
 # 1  -> 4 -> 3  ->    2     5   ->  nil
 
 # We attach tail to rest

@@ -4,7 +4,6 @@ def min_total_distance(grid)
 
     m, n = grid.size, grid[0].size          # count is the count of nodes
     d = Array.new(m) { Array.new(n, 0) }    # Matrix of sum of distances from buildings to each point in grid
-    min_dist = Float::INFINITY
 
     0.upto(m - 1) do |i|
         0.upto(n - 1) do |j|
@@ -13,6 +12,7 @@ def min_total_distance(grid)
         end
     end
 
+    min_dist = Float::INFINITY
     0.upto(m - 1) do |i|
         0.upto(n - 1) do |j|
             min_dist = [min_dist, d[i][j]].min
@@ -39,6 +39,16 @@ def bfs(grid, start_x, start_y, d)
         end
     end
 end
+
+
+
+
+
+# 296. Best Meeting Point
+# https://leetcode.com/problems/best-meeting-point/description/
+
+# Manhattan distance: 
+
 
 require 'test/unit'
 extend Test::Unit::Assertions

@@ -4,7 +4,7 @@ class Solution:
 
         while r < n:
             c = s[r]
-            if c in chars_map and chars_map[c] >= l:
+            if c in chars_map and l <= chars_map[c]:
                 l = chars_map[c] + 1
             else:
                 max_len = max(max_len, r - l + 1)

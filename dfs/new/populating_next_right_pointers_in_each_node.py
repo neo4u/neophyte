@@ -6,7 +6,15 @@ class Solution:
             root.left.next = root.right
             if root.next:
                 root.right.next = root.next.left
-            else:
-                root.right.next = None
+
             self.connect(root.left)
             self.connect(root.right)
+
+        return root
+
+    
+#    1
+#   /  \
+#  2 -> 3
+#      / \
+#     4 -> 5

@@ -14,7 +14,7 @@ def remove_nth_from_end(head, n)
     dummy = ListNode.new(nil)
     dummy.next = head
     slow = fast = dummy
-    
+
     (n + 1).times { |i| fast = fast.next }
     fast, slow = fast.next, slow.next while fast
     slow.next = slow.next.next
@@ -40,3 +40,7 @@ end
 # Time: O(L), The algorithm makes one traversal of the list of L nodes.
 #             Therefore time complexity is O(L).
 # Space : O(1), We only used constant extra space.
+
+
+()->1 ->  2 ->  3 ->  4 -> 5
+                

@@ -6,17 +6,24 @@ class Solution(object):
 
         for ch in s:
             if ch.isdigit():
-              num = ch
+                num += ch
             elif ch == '[':
                 stack.append(["", int(num)])
                 num = ""
             elif ch == ']':
                 st, k = stack.pop()
-                stack[-1][0] += st*k
+                stack[-1][0] += st * k
             else:
                 stack[-1][0] += ch
 
         return stack[0][0]
+
+# 3[a2[c]]
+
+# [['', 1]]
+
+# num = 3
+# [['', 1], ['', 3]], num = ''
 
 
 def helper(s):

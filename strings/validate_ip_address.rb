@@ -22,50 +22,52 @@
 # end
 
 
-# def valid_ip_address_detailed(ip)
-#     tryIP4 = ip.split(".")
-#     return 'IPv4' if tryIP4.length == 4 && ip[0] != "." && ip[-1] != "." && validateIPv4(tryIP4)
+def valid_ip_address_detailed(ip)
+    tryIP4 = ip.split(".")
+    return 'IPv4' if tryIP4.length == 4 && ip[0] != "." && ip[-1] != "." && validateIPv4(tryIP4)
 
-#     tryIP6 = ip.split(":")
-#     return 'IPv6' if tryIP6.length == 8 && ip[0] != ":" && ip[-1] != ":" && validateIPv6(tryIP6)
+    tryIP6 = ip.split(":")
+    return 'IPv6' if tryIP6.length == 8 && ip[0] != ":" && ip[-1] != ":" && validateIPv6(tryIP6)
 
-#     "Neither"
-# end
-
-# def validateIPv4(groups)
-#     groups.each do |group|
-#         return false if group[0] == '0' && group != '0'
-#         return false if group.length < 1
-#         return false if group.to_i > 255
-#         digits = '1234567890'.chars
-#         group.each_char {|char| return false if !digits.include?(char)}
-#     end
-#     true
-# end
-
-def validate_ip(ip)
-    parts = ip.split('.')
-    return false if parts.size != 4
-    return parts.map { |part| valid_part?(part) }.all?
+    "Neither"
 end
 
-def valid_part?(part)
-    ip = ''
-    part.each_char do |c|
-        ip += c if c.between?('0', '9')
+def validateIPv4(groups)
+    groups.each do |group|
+        return false if group[0] == '0' && group != '0'
+        return false if group.length < 1
+        return false if group.to_i > 255
+        digits = '1234567890'.chars
+        group.each_char {|char| return false if !digits.include?(char)}
     end
-
-    ip.to_i.between?(0, 255)
+    true
 end
 
-# def validateIPv6(groups)
-#     groups.each do |group|
-#         return false if group.empty? || group.length > 4
-#         chars = "1234567890abcdefABCDEF".chars
-#         group.each_char {|char| return false if !chars.include?(char)}
-#     end
-#     true
+def validateIPv6(groups)
+    groups.each do |group|
+        return false if group.empty? || group.length > 4
+        chars = "1234567890abcdefABCDEF".chars
+        group.each_char {|char| return false if !chars.include?(char)}
+    end
+    true
+end
+
+# def validate_ip(ip)
+#     parts = ip.split('.')
+#     return false if parts.size != 4
+#     return parts.map { |part| valid_part?(part) }.all?
 # end
+
+# def valid_part?(part)
+#     ip = ''
+#     part.each_char do |c|
+#         ip += c if c.between?('0', '9')
+#     end
+
+#     ip.to_i.between?(0, 255)
+# end
+
+
 
 
 # 468. Validate IP Address
