@@ -36,5 +36,8 @@ class Solution(object):
         return dummy.next
 
 
+# https://www.geeksforgeeks.org/amazon-interview-experience-set-189-for-sde1/
+
+
 # 430. Flatten a Multilevel Doubly Linked List
 # https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/

@@ -1,17 +1,22 @@
+from typing import List
+
+
 class Solution:
-    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        next_greater, stack = {}, []
+    def nextGreaterElements(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        result, stack = [-1] * n, [] 
 
-        for num in nums2:
-            while stack and stack[-1] < num:
-                next_greater[stack.pop()] = num
-            stack.append(num)
+        for i in list(range(n)) * 2:
+            while stack and nums[stack[-1]] < nums[i]:
+                result[stack.pop()] = nums[i]
+            stack.append(i)
 
-        return list(map(lambda x: next_greater.get(x, -1), nums1))
+        return result
 
 
-# 496. Next Greater Element I
-# https://leetcode.com/problems/next-greater-element-i/description/
+# 503. Next Greater Element II
+# https://leetcode.com/problems/next-greater-element-ii/description/
+
 
 
 # https://medium.com/algorithms-and-leetcode/monotonic-queue-explained-with-leetcode-problems-7db7c530c1d6

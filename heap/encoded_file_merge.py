@@ -15,3 +15,6 @@ def minimumTime(numOfSubFiles, files):
     return time
 
 assert minimumTime(4, [8, 4, 6, 12]) == 58
+
+
+# https://leetcode.com/discuss/interview-question/344650/amazon-online-assessment-questions-2019
