@@ -7,21 +7,19 @@ class MyCircularQueue:
         self.tail = -1
 
     def enQueue(self, value: int):
-        if self.isFull():
-            return False
-        else:
-            self.tail = (self.tail + 1) % self.capacity
-            self.arr[self.tail] = value
-            self.size += 1
-            return True
+        if self.isFull(): return False
+
+        self.tail = (self.tail + 1) % self.capacity
+        self.arr[self.tail] = value
+        self.size += 1
+        return True
 
     def deQueue(self):
-        if self.isEmpty():
-            return False
-        else:
-            self.head = (self.head + 1) % self.capacity
-            self.size -= 1
-            return True
+        if self.isEmpty(): return False
+
+        self.head = (self.head + 1) % self.capacity
+        self.size -= 1
+        return True
 
     def Front(self):
         return -1 if self.isEmpty() else self.arr[self.head]
@@ -35,6 +33,10 @@ class MyCircularQueue:
     def isFull(self):
         return True if self.size == self.capacity else False
 
+
+
+# 622. Design Circular Queue
+# https://leetcode.com/problems/design-circular-queue/description/
 
 # Your MyCircularQueue object will be instantiated and called as such:
 # obj = MyCircularQueue(k)

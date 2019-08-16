@@ -1,7 +1,7 @@
 # @param {Integer[][]} matrix
 # @return {Void} Do not return anything, modify matrix in-place instead.
 def rotate(matrix)
-    m, n = matrix.length, matrix[0].length
+    m = matrix.length
     puts "Before"
     0.upto(m - 1) do |i|
         0.upto(i - 1) do |j|
@@ -14,7 +14,7 @@ def rotate(matrix)
 end
 
 def anti_rotate(matrix)
-    m, n = matrix.length, matrix[0].length
+    m = matrix.length
     puts "Before"
     puts matrix.map(&:inspect)
     matrix.each { |row| row.reverse! }

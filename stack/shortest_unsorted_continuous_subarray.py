@@ -6,6 +6,7 @@ class Solution:
 
         mono_stack = []
         # use increasing mono stack to find left bound
+        # [2, 6, 4, 8, 10, 9, 15]
         for i, v in enumerate(nums):
             while mono_stack and v < nums[mono_stack[-1]]:
                 l = min(l, mono_stack.pop())

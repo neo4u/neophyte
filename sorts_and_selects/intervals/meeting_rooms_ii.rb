@@ -21,7 +21,7 @@ def min_meeting_rooms(intervals)
     starts.sort!
     ends.sort!
     s_ptr, e_ptr = 0, 0
-    
+
     while s_ptr < n
         if starts[s_ptr] >= ends[e_ptr]
             used_rooms -= 1

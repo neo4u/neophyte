@@ -1,96 +1,40 @@
 # Approach 1: Sub-Optimal, Backtracking with pruning Time: O(2^n), Space: O(n)
-# @param {String} s
-# @return {String[]}
-def remove_invalid_parentheses_bt(s)
-    # Set to avoid duplicates, because removing same number of diff parentheses, can lead to same result
-    @str, @result = s, Set.new()
-    l, r = get_invalid_counts(@str)
+class Solution:
+    def removeInvalidParentheses(self, s: str) -> List[str]:
+        self.n, self.result, self.s = len(s), set(), s
+        l, r = self.get_invalid_counts(s)
+        if l + r == self.n: return ['']
+        self.bt(0, l, r, 0, '')
 
-    return [""] if l + r == @str.size
-    backtrack(0, l, r, 0, "")
+        return list(self.result)
 
-    @result.to_a
-end
+    def bt(self, i, l_rem, r_rem, balance, path):
+        if i == self.n:
+            if balance == 0: self.result.add(path)
+            return
 
-def backtrack(i, l_rem, r_rem, l_cnt, prefix)
-    # If we reached the end of the string, just check if the resulting expression is
-    # valid or not and also if we have removed the total number of left and right
-    # parentheses that we should have removed.
-    if i == @str.size
-        @result.add(prefix) if l_cnt == 0 && l_rem.zero? && r_rem.zero?
-        return
-    end
+        if self.s[i] == '(':
+            if l_rem: self.bt(i + 1, l_rem - 1, r_rem, balance, path)
+            self.bt(i + 1, l_rem, r_rem, balance + 1, path + '(')
+        elif self.s[i] == ')':
+            if r_rem: self.bt(i + 1, l_rem, r_rem - 1, balance, path)
+            if balance: self.bt(i + 1, l_rem, r_rem, balance - 1, path + ')')
+        else:
+            self.bt(i + 1, l_rem, r_rem, balance, path + self.s[i])
 
-    # The discard case. Note that here we have our pruning condition.
-    # We don't recurse if the remaining count for that parenthesis is == 0.
-    if @str[i] == "("
-        backtrack(i + 1, l_rem - 1, r_rem, l_cnt, prefix) if l_rem > 0      # The discard case, it will work without the if condition, which is for pruning/optimization
-        backtrack(i + 1, l_rem, r_rem, l_cnt + 1, prefix + "(")  # The consider case
-    elsif @str[i] == ")"
-        backtrack(i + 1, l_rem, r_rem - 1, l_cnt, prefix) if r_rem > 0        # The discard case, it will work without the if, which is for pruning
-        backtrack(i + 1, l_rem, r_rem, l_cnt - 1, prefix + ")") if l_cnt > 0  # The consider case, but only when more left than right
-    else
-        backtrack(i + 1, l_rem, r_rem, l_cnt, prefix + @str[i])
-    end
-end
+    def get_invalid_counts(self, s):
+        l, r = 0, 0
+        for c in s:
+            if c == '(':
+                l += 1
+            elif c == ')':
+                if l == 0:
+                    r += 1
+                else:
+                    l -= 1
 
-def get_invalid_counts(s)
-    l, r = 0, 0
+        return l, r
 
-    s.each_char do |c|
-        if c == '('
-            l += 1
-        elsif c == ')'
-            if l == 0   # If we don't have a matching left, then this is a misplaced right, record it.
-                r += 1
-            else
-                l -= 1  # Decrement count of left parentheses because we have found a right which CAN be a matching one for a left.
-            end
-        end
-    end
-
-    [l, r]
-end
-
-
-# Best solution
-def remove_invalid_parentheses(s)
-    @result, parens  = [], ['(', ')']
-    remove(s, 0, 0, parens)
-    @result
-end
-
-# To keep track of:
-
-def remove(s, last_valid_loc, last_remove_loc, parens)
-    stack = 0
-    open, close = parens[0], parens[1]
-    last_valid_loc.upto(s.size - 1) do |i|
-        stack += 1 if s[i] == open
-        stack -= 1 if s[i] == close
-        next if stack >= 0
-        # s is not valid, try removing every possible closeParen, skipping duplicates
-
-        # normally we should use i + 1 and j + 1 as next starting location
-        # but after deleting one char, i and j are effectivelly increased by 1 already
-        last_remove_loc.upto(i) do |j|
-            if s[j] == close && (j == last_remove_loc || s[j - 1] != s[j])
-                remove(s[0...j] + s[j + 1..-1], i, j, parens)
-            end
-        end
-        return # whenever was is invalid, the child of recursive pushes valid sub string into the result, so return as nothing to after this
-    end
-    #  if we reach here, current s is valid without any fix.
-    #  But each s should go through two pass, the second pass is for reversed string.
-    #  so we need to check if this is the first pass, if yes, reverse s and check again
-    #  if this is second pass, just save result
-    #  how to check if it's first pass? use the order of open/close Parentheses as flag
-    if open == '('
-        remove(s.reverse, 0, 0, [')', '('])
-    else
-        @result << s.reverse
-    end
-end
 
 # Approach 1:
 # 1. We use last_valid_loc, last_remove_loc which start at 0, 0 to keep track of:

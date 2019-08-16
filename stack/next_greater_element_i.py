@@ -24,3 +24,5 @@ class Solution:
 # https://leetcode.com/problems/next-greater-element-i/
 # https://leetcode.com/problems/largest-rectangle-in-histogram/
 # https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
+# https://leetcode.com/problems/sum-of-subarray-minimums/description/
+# https://leetcode.com/problems/odd-even-jump/description/

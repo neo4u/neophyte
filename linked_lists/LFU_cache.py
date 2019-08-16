@@ -16,14 +16,14 @@ class DLinkedList:
     def __len__(self):
         return self._size
 
-    def append(self, node):
+    def add(self, node):
         node.next = self._sentinel.next
         node.prev = self._sentinel
         node.next.prev = node
         self._sentinel.next = node
         self._size += 1
 
-    def pop(self, node=None):
+    def remove(self, node=None):
         if self._size == 0: return
         if not node: node = self._sentinel.prev
 
@@ -37,20 +37,20 @@ class LFUCache:
     def __init__(self, capacity):
         self._size = 0
         self._capacity = capacity
-        self._cache = dict() # key: Node
+        self._cache = {} # key: Node
         self._freq = collections.defaultdict(DLinkedList)
         self._minfreq = 0
 
     def _update(self, node):
         freq = node.freq
 
-        self._freq[freq].pop(node)
+        self._freq[freq].remove(node)
         if self._minfreq == freq and not self._freq[freq]:
             self._minfreq += 1
 
         node.freq += 1
         freq = node.freq
-        self._freq[freq].append(node)
+        self._freq[freq].add(node)
 
     def get(self, key: int) -> int:
         if key not in self._cache: return -1
@@ -68,13 +68,13 @@ class LFUCache:
             node.val = value
         else:
             if self._size == self._capacity:
-                node = self._freq[self._minfreq].pop()
+                node = self._freq[self._minfreq].remove()
                 del self._cache[node.key]
                 self._size -= 1
 
             node = Node(key, value)
             self._cache[key] = node
-            self._freq[1].append(node)
+            self._freq[1].add(node)
             self._minfreq = 1
             self._size += 1
 
@@ -92,10 +92,8 @@ class LFUCache:
 
 
 
-# LFUCache Methods
-# __init___()
-# Three things to maintain:
 
+# Three key things to maintain:
 # 1. a dict, named as `self._cache`, for the reference of all nodes given key.
 #     That is, O(1) time to retrieve node given a key.
 # 2. Each frequency has a doubly linked list, store in `self._freq`, where key
