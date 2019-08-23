@@ -1,4 +1,6 @@
-class Solution:
+from typing import List
+
+class Solution2:
     def oddEvenJumps(self, A: 'List[int]') -> 'int':
         # sort indexes of A by values in A
         sorted_indexes = sorted(range(len(A)), key = lambda i: A[i])
@@ -62,6 +64,7 @@ class Solution:
 
         idxs_sorted_by_value = sorted(range(n), key=lambda i: A[i])
         odd_next_hops = self.get_next_hops(idxs_sorted_by_value)
+
         idxs_sorted_by_value.sort(key=lambda i: -A[i])
         even_next_hops = self.get_next_hops(idxs_sorted_by_value)
 
@@ -119,7 +122,7 @@ sol.oddEvenJumps([10, 13, 12, 14, 15])
 
 # Example:
 # nums: [10, 13, 12, 14, 15]
-# Step 1: sorted_indexes inc: [0, 2, 1, 3, 4]
-# Step 2: sorted_indexes dec: [4, 3, 1, 2, 0]
+# Step 1: indexes sorted by inc value at indexes: [0, 2, 1, 3, 4]
+# Step 2: indexes sorted by dec value at indexes: [4, 3, 1, 2, 0]
 # Step 3: odd_next_hops: [2, 3, 3, 4, None]
 # Step 4: even_next_hops: [None, 2, None, None, None]
