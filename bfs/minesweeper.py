@@ -1,9 +1,9 @@
+from typing import List
 
-class Solution(object):
-    def updateBoard(self, board, click):
+
+class Solution:
+    def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
         if not board: return []
-
-        m, n = len(board), len(board[0])
         i, j = click[0], click[1]
 
         # If a mine ('M') is revealed, then the game is over - change it to 'X'.
@@ -39,10 +39,9 @@ class Solution(object):
             return
 
 
-class Solution:
+class Solution2:
     def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
         if not board or not board[0]: return board
-        m, n = len(board), len(board[0])
         dirs = [[0, -1], [0, 1], [-1, 0], [1, 0], [-1, -1], [-1, 1], [1, -1], [1, 1]]
         i, j = click
         if board[i][j] == "M":

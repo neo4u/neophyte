@@ -1,3 +1,6 @@
+from typing import List
+
+
 import collections
 class TrieNode():
     def __init__(self):
@@ -16,13 +19,14 @@ class Trie():
 
     def search(self, word):
         node = self.root
+
         for w in word:
             node = node.children.get(w)
-            if not node:
-                return False
+            if not node: return False
+
         return node.isWord
-    
-class Solution(object):
+
+class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         result = []
         trie = Trie()

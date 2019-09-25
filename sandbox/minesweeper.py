@@ -1,8 +1,6 @@
 class Solution:
     def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
         if not board or not board[0]: return board
-
-        m, n = len(board), len(board[0])
         dirs = [[0, -1], [0, 1], [-1, 0], [1, 0], [-1, -1], [-1, 1], [1, -1], [1, 1]]
         i, j = click
         if board[i][j] == "M":
@@ -35,4 +33,3 @@ class Solution:
     def valid_mine(self, board, i, j):
         m, n = len(board), len(board[0])
         return 0 <= i <= m - 1 and 0 <= j <= n - 1 and board[i][j] == "M"
-
