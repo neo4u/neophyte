@@ -10,8 +10,7 @@ class Solution:
 
         for num in nums:
             for t in range(target, -1, -1):
-                if num > t:
-                    continue
+                if num > t: continue
                 dp[t] = dp[t] or dp[t - num]
 
         return dp[target]
@@ -37,6 +36,34 @@ class Solution2:
         return dp.get(target, False)
 
 
+# WHat in the hell???
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        s = 0
+        dp = 1
+        for num in nums:
+            s += num
+            dp |= dp << num
+        
+        return (not s & 1) and ((dp >> s // 2) & 1)
+
+
+# FASTEST????
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        tot=sum(nums)
+        if tot%2==1:
+            return False
+        target=tot//2
+        nums.sort(reverse=True)
+        for i in range(len(nums)):
+            temp=0
+            for j in range(i,len(nums)):
+                if temp+nums[j]==target:
+                    return True
+                elif temp+nums[j]<target:
+                    temp+=nums[j]
+        return False
 # [1, 5, 11, 5]
 
 

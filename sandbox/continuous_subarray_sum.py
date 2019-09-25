@@ -1,15 +1,13 @@
 import collections
 
-
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
-        pre_sum, sum_map = 0, collections.defaultdict(int, 3)
+        pre_sum, sum_map = 0, collections.defaultdict(int)
         sum_map[0] = -1
 
         for i, n in enumerate(nums):
             pre_sum += n
-            if k != 0:
-                pre_sum %= k
+            if k != 0: pre_sum %= k
 
             if pre_sum in sum_map:
                 j = sum_map[pre_sum]

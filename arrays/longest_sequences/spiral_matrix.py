@@ -1,30 +1,33 @@
-class Solution(object):
-    def spiralOrder(self, matrix):
+from typing import List
 
-        def spiral_coords(r1, c1, r2, c2):
-            for c in range(c1, c2 + 1):
-                yield r1, c
-            for r in range(r1 + 1, r2 + 1):
-                yield r, c2
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        if matrix == []: return []
+        left, right = 0, len(matrix[0]) - 1
+        up, down = 0, len(matrix) - 1
+        res = []
 
-            if r1 < r2 and c1 < c2:
-                for c in range(c2 - 1, c1, -1):
-                    yield r2, c
-                for r in range(r2, r1, -1):
-                    yield r, c1
+        while left <= right and up <= down:
+            for i in range(left, right+1):
+                res.append(matrix[up][i])
+            up += 1
 
-        if not matrix:
-            return []
+            for i in range(up, down+1):
+                res.append(matrix[i][right])
+            right -= 1
 
-        ans = []
-        r1, r2 = 0, len(matrix) - 1
-        c1, c2 = 0, len(matrix[0]) - 1
+            if up <= down:
+                for i in range(right, left-1, -1):
+                    res.append(matrix[down][i])
+            down -= 1
 
-        while r1 <= r2 and c1 <= c2:
-            for r, c in spiral_coords(r1, c1, r2, c2):
-                ans.append(matrix[r][c])
-            r1 += 1
-            r2 -= 1
-            c1 += 1
-            c2 -= 1
-        return ans
+            if left <= right:
+                for i in range(down, up-1, -1):
+                    res.append(matrix[i][left])
+            left += 1
+
+        return res
+
+
+# 54. Spiral Matrix
+# https://leetcode.com/problems/spiral-matrix/description/

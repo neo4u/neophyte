@@ -8,8 +8,8 @@ def my_pow(x, n)
     return 1 / my_pow(x, -n) if n < 0
 
     half = my_pow(x, n / 2)
-    half_half = half * half
-    n.even? ? half_half : half_half * x  # exmaple 2 ^ 7 = (2 ^ 3) * (2 ^ 3) * 2
+    half_x_half = half * half
+    n.even? ? half_x_half : half_x_half * x  # exmaple 2 ^ 7 = (2 ^ 3) * (2 ^ 3) * 2
 end
 
 # Approach 3: Iterative

@@ -18,11 +18,12 @@ from collections import Counter
 # 2. Pick the task in each round of 'n' with highest frequency. (heappop)
 # 3. As you pick the task, decrease the frequency, and put them back after the round.
 
+
 # Time: O(n), Actually it is: O(Nlog(N) * n) where N is the number of tasks and n is the cool-off period.
 #       N <= 26 so we have O(Nlog(N) * n) => O(26log(26) * n) => O(n)
 # Space: O(1), will not be more than O(26).
-class Solution(object):
-    def leastInterval(self, tasks, n):
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
         time, q = 0, []
         for v in Counter(tasks).values():
             heappush(q, -v) # Use negatives to get max heap
@@ -39,6 +40,33 @@ class Solution(object):
             for item in temp: heappush(q, item)     # push all pending task frequencies onto maxheap (min heap with -ve values)
                                                     # or ADT priority queue (hence the variable name q)
         return time
+
+
+# CLEANER VERSION OF ABOVE CODE
+from collections import Counter
+from heapq import heappush, heappop, heapify
+
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        time = 0
+        q = [-v for v in Counter(tasks).values()]
+        heapify(q)
+
+        while q:
+            cool, temp = n + 1, []
+
+            while cool > 0 and (q or temp):
+                time += 1
+                cool -= 1
+                if q:
+                    x = heappop(q)
+                    if -x > 1: temp.append(x + 1)
+            if temp:
+                q.extend(temp)
+                heapify(q)
+
+        return time
+
 
 # Approach 3: Calculating the idle slots, Time: O(n), Space: O(1)
 class Solution2(object):

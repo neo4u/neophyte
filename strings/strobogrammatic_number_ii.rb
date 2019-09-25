@@ -39,11 +39,11 @@ end
 # n == 1: [0, 1, 8]
 # n == 2: [11, 88, 69, 96]
 # How about n == 3
-# => it can be retrieved if you insert [0, 1, 8] to the middle of solution of n == 2
+# => it can be retrieved if you insert each one of [0, 1, 8] in the middle of solution of n == 2
 # n == 4?
-# => it can be retrieved if you insert [11, 88, 69, 96, 00] to the middle of solution of n == 2
+# => it can be retrieved if you insert each one of [11, 88, 69, 96, 00] in the middle of solution of n == 2
 # n == 5?
-# => it can be retrieved if you insert [0, 1, 8] to the middle of solution of n == 4
+# => it can be retrieved if you insert each one of [0, 1, 8] to the middle of solution of n == 4
 # the same, for n == 6, it can be retrieved if you insert [11, 88, 69, 96, 00] to the middle of solution of n == 4
 
 require 'set'

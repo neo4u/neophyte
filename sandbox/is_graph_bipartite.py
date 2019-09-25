@@ -15,8 +15,7 @@ class Solution:
         self.colors[node] = color
 
         for nbr in graph[node]:
-            if not self.dfs(graph, nbr, -color):
-                return False
+            if not self.dfs(graph, nbr, -color): return False
 
         return True
 

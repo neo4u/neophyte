@@ -1,51 +1,63 @@
-class Solution(object):
-    def decodeString(self, s):
-        stack = []
-        stack.append(["", 1])
-        num = ""
+# Approach 1: Iterative using Stack
+class Solution:
+    def decodeString(self, s: str) -> str:
+        stack, num = [["", 1]], ""
 
-        for ch in s:
-            if ch.isdigit():
-                num += ch
-            elif ch == '[':
+        for c in s:
+            if c.isdigit(): num += c
+            elif c == '[':
                 stack.append(["", int(num)])
                 num = ""
-            elif ch == ']':
-                st, k = stack.pop()
-                stack[-1][0] += st * k
+            elif c == ']':
+                top_num, count = stack.pop()
+                stack[-1][0] += top_num * count
             else:
-                stack[-1][0] += ch
+                stack[-1][0] += c
 
-        return stack[0][0]
-
-# 3[a2[c]]
-
-# [['', 1]]
-
-# num = 3
-# [['', 1], ['', 3]], num = ''
+        return stack[-1][0]
 
 
-def helper(s):
-    res = ""
-    while s:
-        num = ""
-        while s and s[-1].isdigit():
-            num += s.pop()
+# Approach 2: Recursive
+class SolutionRecurse:
+    def decodeString(self, s: str) -> str:
+        return self.recurse(list(s))
 
-        if num:
-            num = int(num)
-            s.pop()
-            res += helper(s) * num
-        else:
-            c = s.pop()
-            if c not in "[]":
-                res += c
-            if c == ']':
-                break
-    return res
+    def recurse(self, s):
+        result = ""
 
-class Solution(object):
-    def decodeString(self, s):
-        return helper(list(s)[::-1])
+        while s:
+            num = ""
+            while s and s[0].isdigit(): num += s.pop(0)
+
+            if num:
+                num = int(num)
+                s.pop(0)
+                result += self.recurse(s) * num
+            else:
+                c = s.pop(0)
+                if c not in "[]": result += c
+                if c == ']': break
+
+        return result
+
+
+# 394. Decode String
+# https://leetcode.com/problems/decode-string/description/
+
+
+# Intuition
+# 1. The tricky part here is the nested chars
+# 2. We can use recursion, or iteratively we can use stack to simulate the recursion ourselves
+
+
+# Approach 1: Stack, Iterative
+# Steps:
+# 1. We'll use stack and initialize it with current string ""
+#    and the repitition count of 1, ["", 1] will be the bottom of the stack
+# 2. Each time we hit a '[', means we've contructed the rep count,
+#    so we add an item in the stack with an empty string and repitition count
+# 3. As long as we see a digit keep constructing the digit
+# 4. As long as its a alphabet char keep appending to the string part of the top item on stack
+# 5. As soon as we see a ']', we pop the top item and
+#    multiply the string part with the count part and add to top of stack
 

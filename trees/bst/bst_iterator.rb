@@ -66,8 +66,13 @@ end
 #    v << i.next
 # end
 
+
 # 173. Binary Search Tree Iterator
 # https://leetcode.com/problems/binary-search-tree-iterator/
+
+# Intuition
+# 1. Iterating nodes of a BST is nothing but getting nodes in an in-order traversal order
+# 2. We need some temp storage for nodes
 
 # Approach 1: Simple list to store all elements (Sub-Optimal)
 # Steps:
@@ -77,15 +82,17 @@ end
 # Time: next(): O(1), has_next(): O(1), init: ()
 # Space: O(n)
 
-# Approach 2: Using Stack to get nodes on demand
+# Approach 2: Using Stack
 # Steps:
-# 1. Save root, root.left, root.left.left ... and so on until leaf node
-#    into stack in order to get left leaf as the first pop from the stack.
-# 2. Each time next() is called pop the node on top of stack,
-#    check if it has a right sub-tree and recursively push the
-#    right sub-tree using the first step
+# 1. We keep a stack and at init we push the entire left sub-tree in reverse order
+#    Like so, save root, root.left, root.left.left ... and so on until leaf node
+# 2. When next is called, we pop the stack push the right sub-tree of the popped node
+#    and return the value at the node
+# 3. For hasNext() we just return if there are any nodes left in the stack
+# 4. For push_left, we just iteratively push nodes into the stack
+#    and move to the left node until the leaf
 
-# Time: next(): O(1) per call, called n times | has_next(): O(1) | init: O(log(n)) cuz we only iterate down the left sub-tree
-# Space: O(log(n)), The max depth of tree will be max size of the stack
-
-# Example
+# Time: init: O(log(n)) cuz we only iterate down the left sub-tree
+#       next(): O(1) per call, called n times
+#       has_next(): O(1)
+# Space: O(n)

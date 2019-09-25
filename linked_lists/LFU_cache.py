@@ -79,6 +79,40 @@ class LFUCache:
             self._size += 1
 
 
+# TEST TEST TEST
+class Node:
+    def __init__(self, key, val):
+        self.key = key
+        self.val = val
+        self.freq = 1
+        self.prev = self.next = None
+
+class DLinkedList:
+    def __init__(self):
+        self._sentinel = Node(None, None) # dummy node
+        self._sentinel.next = self._sentinel.prev = self._sentinel
+        self._size = 0
+
+    def __len__(self):
+        return self._size
+
+    def add(self, node):
+        node.next = self._sentinel.next
+        node.prev = self._sentinel
+        node.next.prev = node
+        self._sentinel.next = node
+        self._size += 1
+
+    def remove(self, node=None):
+        if self._size == 0: return
+        if not node: node = self._sentinel.prev
+
+        node.prev.next = node.next
+        node.next.prev = node.prev
+        self._size -= 1
+        return node
+# TEST TEST TEST
+
 
 # Steps:
 
@@ -89,7 +123,6 @@ class LFUCache:
 # pop(node=None): remove the referenced node. 
 #                 If None is given, remove the one from tail, which is the least recently used.
 # Both operation, apparently, are in O(1) complexity.
-
 
 
 

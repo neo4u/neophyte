@@ -1,0 +1,12 @@
+bt(idx=0, path=[], rem=7)
+    bt(idx=0, path=[2], rem=5)
+        bt(idx=0, path=[2, 2], rem=3)
+            bt(idx=0, path=[2, 2, 2], rem=1)
+            bt(idx=1, path=[2, 2, 3], rem=0)
+Adding path: [2, 2, 3]
+                bt(idx=1, path=[2, 3], rem=2)
+        bt(idx=1, path=[3], rem=4)
+                bt(idx=1, path=[3, 3], rem=1)
+        bt(idx=2, path=[6], rem=1)
+        bt(idx=3, path=[7], rem=0)
+Adding path: [7]

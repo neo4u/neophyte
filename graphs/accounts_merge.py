@@ -7,8 +7,8 @@ class DS:
         self.count = 0
 
     def find(self, x):
-        if x != self.parent[x]: self.parent[x] = self.find(self.parent[x])
-        return self.parent[x]
+        if x == self.parent[x]: return x
+        return self.find(self.parent[x])
 
     def has_parent(self, x):
         return x in self.parent
@@ -38,8 +38,7 @@ class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
         email_name_map, ds = {}, DS()
 
-        for ac in accounts:
-            name, *emails = ac
+        for name, *emails in accounts:
             for email in emails:
                 email_name_map[email] = name
                 if not ds.has_parent(email): ds.set_parent(email)
@@ -51,6 +50,7 @@ class Solution:
             ans[parent_email].append(email)
 
         return [[email_name_map[emails[0]]] + sorted(emails) for emails in ans.values()]
+
 
 # 721. Accounts Merge
 # https://leetcode.com/problems/accounts-merge/description/
