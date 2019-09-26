@@ -1,6 +1,7 @@
 from typing import List
 import collections
 
+
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         if not word: return True
@@ -38,6 +39,9 @@ class Solution:
     def valid_char_match(self, board, i, j, word):
         return  0 <= i <= len(board) - 1 and 0 <= j <= len(board[0]) - 1 and word[0] == board[i][j]
 
+
+# 79. Word Search
+# https://leetcode.com/problems/word-search/description/
 
 # Time: O((mn)^2)
 # Space: O(mn)
