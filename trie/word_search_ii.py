@@ -1,63 +1,101 @@
 from typing import List
-
-
 import collections
-class TrieNode():
+
+
+class TrieNode:
     def __init__(self):
         self.children = collections.defaultdict(TrieNode)
-        self.isWord = False
+        self.is_word = False
 
-class Trie():
+
+class Trie:
     def __init__(self):
         self.root = TrieNode()
 
-    def insert(self, word):
+    def insert(self, word) -> None:
         node = self.root
-        for w in word:
-            node = node.children[w]
-        node.isWord = True
+        for c in word: node = node.children[c]
+        node.is_word = True
 
-    def search(self, word):
+    def search(self, word) -> bool:
         node = self.root
 
-        for w in word:
-            node = node.children.get(w)
-            if not node: return False
+        for c in word:
+            if c not in node.children: return False
+            node = node.children[c]
 
-        return node.isWord
+        return node.is_word
+
 
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-        result = []
-        trie = Trie()
-        node = trie.root
+        self.result, trie = [], Trie()
+        root = trie.root
         self.dirs = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        self.m, self.n = len(board), len(board[0])
         for w in words: trie.insert(w)
 
-        m, n = len(board), len(board[0])
-        for i in range(m):
-            for j in range(n):
-                self.dfs(board, node, m, n, i, j, "", result)
+        for i in range(self.m):
+            for j in range(self.n):
+                self.dfs(board, root, i, j, "")
 
-        return result
+        return self.result
 
-    def dfs(self, board, node, m, n, i, j, path, words_found):
-        if node.isWord:
-            words_found.append(path)
-            node.isWord = False
-        if not self.in_bounds(m, n, i, j): return
+    def dfs(self, board, node: TrieNode, i: int, j: int, path: str) -> None:
+        if node.is_word:
+            self.result.append(path)
+            node.is_word = False
+        if not self.in_bounds(i, j): return
 
         c = board[i][j]
-        node = node.children.get(c)
+        node = node.children.get(c) # This is basically same as node.children[c], but somehow using this is causing memory exceeded error
         if not node: return
 
         board[i][j] = "#"
-        for dx, dy in self.dirs:
-            self.dfs(board, node, m, n, i + dx, j + dy, path + c, words_found)
+        for di, dj in self.dirs:
+            x, y = i + di, j + dj
+            self.dfs(board, node, x, y, path + c)
         board[i][j] = c
 
-    def in_bounds(self, m, n, i, j):
-        return  0 <= i <= m - 1 and 0 <= j <= n - 1
+    def in_bounds(self, i: int, j: int) -> bool:
+        return  0 <= i <= self.m - 1 and 0 <= j <= self.n - 1
+
+
+# Quick Version, to focus on efficiency and not on clarity
+class Solution:
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        if not board or not board[0]: return False
+        self.m, self.n, root = len(board), len(board[0]), {}
+
+        for word in words:
+            trie = root
+            for c in word:
+                if c not in trie:
+                    trie[c] = {}
+                trie = trie[c]
+            trie['#'] = word
+
+        self.result = []
+        for i in range(self.m):
+            for j in range(self.n):
+                if board[i][j] in root: self.dfs(board, i, j, root)
+
+        return self.result
+
+    def dfs(self, board, i, j, parent):
+        c, board[i][j] = board[i][j], '{'
+        trie = parent[c]
+        if '#' in trie:
+            self.result.append(trie['#'])
+            trie.pop('#')
+
+        if i and board[i - 1][j] in trie:               self.dfs(board, i - 1, j, trie)
+        if i < self.m - 1 and board[i + 1][j] in trie:  self.dfs(board, i + 1, j, trie)
+        if j and board[i][j - 1] in trie:               self.dfs(board, i, j - 1, trie)
+        if j < self.n - 1 and board[i][j + 1] in trie:  self.dfs(board, i, j + 1, trie)
+
+        board[i][j] = c
+        if not trie: parent.pop(c)
 
 
 # 212. Word Search II

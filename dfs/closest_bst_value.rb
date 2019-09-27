@@ -51,7 +51,7 @@ end
 # Time: O(n)
 # Space: O(1)
 
-
+s
 require 'test/unit'
 extend Test::Unit::Assertions
 

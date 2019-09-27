@@ -17,42 +17,18 @@ end
 # @param {Integer} n
 # @return {Float}
 def my_pow_iter(x, n)
-    m = n
-    n = n.abs
+    m, n = n, n.abs
     ans, curr, i = 1, x, n
+
     while i > 0
         ans *= curr if i % 2 == 1
         
         curr *= curr
         i /= 2
-        puts "ans: #{ans} | curr: #{curr} | i: #{i}"
     end
 
     m < 0 ? 1/ans : ans
 end
-
-# def myPow(self, x, n):
-#     m = abs(n)
-#     ans = 1.0
-#     while m:
-#         if m & 1:
-#             ans *= x
-#         x *= x
-#         m >>= 1
-#     return ans if n >= 0 else 1 / ans
-
-# def my_pow(x, n)
-#     m = n.abs
-#     ans = 1.0
-
-#     while m > 0
-#         ans *= x if m & 1
-#         x *= x
-#         m >>= 1
-#     end
-
-#     n < 0 ? 1/ans : ans
-# end
 
 
 # 50. Pow(x, n)
