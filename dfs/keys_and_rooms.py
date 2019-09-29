@@ -1,15 +1,16 @@
+from typing import List
+
+
 class Solution:
     def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
-        visited = set()
-        self.dfs(rooms, 0, visited)
-        return len(visited) == len(rooms)
+        self.visited = set()
+        self.dfs(rooms, 0)
+        return len(rooms) == len(self.visited)
 
-    def dfs(self, rooms, node, visited):
-        if node in visited: return
-        visited.add(node)
-
-        for nbr in rooms[node]:
-            self.dfs(rooms, nbr, visited)
+    def dfs(self, rooms, src):
+        if src in self.visited: return
+        self.visited.add(src)
+        for nbr in rooms[src]: self.dfs(rooms, nbr)
 
 
 # 841. Keys and Rooms

@@ -49,19 +49,19 @@ class Solution(object):
     def copyRandomList(self, head):
         if not head: return
 
-        cloned = {}
-        self.dfs(head, cloned)
-        return cloned[head]
+        self.cloned = {}
+        self.dfs(head)
+        return self.cloned[head]
 
-    def dfs(self, node, cloned):
+    def dfs(self, node):
         if not node: return
-        if node in cloned: return cloned[node]
+        if node in self.cloned: return self.cloned[node]
 
         clone = Node(node.val, None, None)
-        cloned[node] = clone
+        self.cloned[node] = clone
 
-        clone.next = self.dfs(node.next, cloned)
-        clone.random = self.dfs(node.random, cloned)
+        clone.next = self.dfs(node.next)
+        clone.random = self.dfs(node.random)
 
         return clone
 

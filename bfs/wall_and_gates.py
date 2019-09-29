@@ -1,31 +1,30 @@
+from typing import List
+
+
 class Solution:
     INF = 2**31 - 1
 
     def wallsAndGates(self, rooms: List[List[int]]) -> None:
-        """
-        Do not return anything, modify rooms in-place instead.
-        """
         if not rooms or not rooms[0]: return
 
-        m, n = len(rooms), len(rooms[0])
-        q, dirs = [], [[0, -1], [0, 1], [-1, 0], [1, 0]]
+        q, self.m, self.n = [], len(rooms), len(rooms[0])
+        self.dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
-        for i in range(m):
-            for j in range(n):
+        for i in range(self.m):
+            for j in range(self.n):
                 if rooms[i][j] != 0: continue
-                q.append([i, j, 0])
+                q.append((i, j, 0))
 
         while q:
             i, j, d = q.pop(0)
-
-            for dx, dy in dirs:
-                x, y = i + dx, j + dy
-                if not self.valid_empty(x, y, m, n, rooms): continue
-                q.append([x, y, d + 1])
+            for di, dj in self.dirs:
+                x, y = i + di, j + dj
+                if not self.is_valid_empty_room(rooms, x, y): continue
+                q.append((x, y, d + 1))
                 rooms[x][y] = d + 1
 
-    def valid_empty(self, i, j, m, n, rooms):
-        return 0 <= i <= m - 1 and 0 <= j <= n - 1 and rooms[i][j] == self.INF
+    def is_valid_empty_room(self, rooms, i, j):
+        return 0 <= i <= self.m - 1 and 0 <= j <= self.n - 1 and rooms[i][j] == self.INF
 
 
 # 286. Walls and Gates

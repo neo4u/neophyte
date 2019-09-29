@@ -8,48 +8,35 @@ class TreeNode(object):
 
 class Codec:
     def serialize(self, root):
-        """Encodes a tree to a single string.
+        self.pre_order = []
+        self.dfs_serialize(root)
+        return ",".join(self.pre_order)
 
-        :type root: TreeNode
-        :rtype: str
-        """
-        def dfs(root, ans):
-            if root is None:
-                ans.append("#")
-                return
-            ans.append(str(root.val))
-            dfs(root.left, ans)
-            dfs(root.right, ans)
+    def dfs_serialize(self, node):
+        if not node: return self.pre_order.append('#')
 
-        ans = []
-        dfs(root, ans)
-        astr = ",".join(ans)
-        return astr
+        self.pre_order.append(str(node.val))
+        self.dfs_serialize(node.left)
+        self.dfs_serialize(node.right)
 
     def deserialize(self, data):
-        """Decodes your encoded data to tree.
+        if not data: return None
 
-        :type data: str
-        :rtype: TreeNode
-        """
-        def dfs(data, index):
-            if index[0] >= len(data):
-                return None
-            val = data[index[0]]
-            if val == '#':
-                return None
-            root = TreeNode(int(val))
-            index[0] += 1
-            root.left = dfs(data, index)
-            index[0] += 1
-            root.right = dfs(data, index)
-            return root
+        pre_order = data.split(',')
+        return self.dfs_deserialize(pre_order)
 
-        if not data:
+    def dfs_deserialize(self, pre_order):
+        if not pre_order: return None
+
+        if pre_order[0] == '#':
+            pre_order.pop(0)
             return None
-        data = data.split(",")
-        index = [0]
-        return dfs(data, index)
+
+        root = TreeNode(int(pre_order.pop(0)))
+        root.left = self.dfs_deserialize(pre_order)
+        root.right = self.dfs_deserialize(pre_order)
+
+        return root
 
 # Approach 2: BFS pre-order / Iterative approach (Seems faster on LC inputs)
 import collections

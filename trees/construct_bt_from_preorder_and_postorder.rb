@@ -22,7 +22,6 @@ def construct_from_pre_post(pre, post)
     root
 end
 
-
 #      1
 #   2     3
 # 4  5

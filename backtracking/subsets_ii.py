@@ -1,36 +1,41 @@
 from typing import List
 
+
 # Approach 1: With sort and without set
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        if not nums: return []
         nums.sort()
-        return self.bt(nums, len(nums), 0, [], [])
+        self.result = []
+        self.bt(nums, 0, [])
+        return self.result
 
-    def bt(self, nums, n, start, path, result):
-        result.append(path)
+    def bt(self, nums: List[int], s_idx: int, path: List[int]) -> None:
+        self.result.append(path)
+        if s_idx == len(nums): return
         used = set()
 
-        for i in range(start, n):
+        for i in range(s_idx, len(nums)):
             if nums[i] in used: continue
             used.add(nums[i])
-            self.bt(nums, n, i + 1, path + [nums[i]], result)
+            self.bt(nums, i + 1, path + [nums[i]])
 
-        return result
 
 # Approach 2: With sort and set for used numbers
 class Solution2:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
-        return self.bt(nums, len(nums), 0, [], [])
+        self.result = []
+        self.bt(nums, 0, [])
+        return self.result
 
-    def bt(self, nums, n, start, path, result):
-        result.append(path)
+    def bt(self, nums: List[int], s_idx: int, path: List[int]) -> None:
+        self.result.append(path)
+        if s_idx == len(nums): return
 
-        for i in range(start, n):
-            if i > start and nums[i] == nums[i - 1]: continue
-            self.bt(nums, n, i + 1, path + [nums[i]], result)
-
-        return result
+        for i in range(s_idx, len(nums)):
+            if i > s_idx and nums[i] == nums[i - 1]: continue
+            self.bt(nums, i + 1, path + [nums[i]])
 
 
 # Approach 3: Using the number and frequency

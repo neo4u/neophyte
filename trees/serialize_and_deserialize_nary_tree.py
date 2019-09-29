@@ -1,21 +1,14 @@
 from collections import deque
 
+
 # Definition for a Node.
-class Node(object):
+class Node:
     def __init__(self, val, children):
         self.val = val
         self.children = children
 
-# Approach 1: DFS Recursive using pre-order traversal
-class Codec:
-    # Serialization
-    def dfs_serialize(self, node, pre_order):
-        if not node: return
-        pre_order.append(str(node.val))
-        for child in node.children:
-            self.dfs_serialize(child, pre_order)
-        pre_order.append("#")                       # indicates no more children, continue serialization from parent
 
+# Example
 #      1
 #   2 3 4 
 # 456
@@ -23,67 +16,71 @@ class Codec:
 # [1, 2, 4, '#', 5, '#', 6, '#', '#', 3, '#', 4, '#', '#']
 
 
+# Approach 1: DFS Recursive using pre-order traversal
+class Codec:
     def serialize(self, root):
-        pre_order = []
-        self.dfs_serialize(root, pre_order)
-        return ",".join(pre_order)
+        self.pre_order = []
+        self.dfs_serialize(root)
+        return ",".join(self.pre_order)
+
+    def dfs_serialize(self, node, pre_order):
+        if not node: return
+        pre_order.append(str(node.val))
+        for child in node.children: self.dfs_serialize(child)
+        pre_order.append("#")                       # indicates no more children, continue serialization from parent
 
     def deserialize(self, data):
         if not data: return None
-
-        pre_order = deque(data.split(","))
-        root = Node(int(pre_order.popleft()), [])
+        pre_order = data.split(",")
+        root = Node(int(pre_order.pop(0)), [])
         self.dfs_deserialize(root, pre_order)
         return root
 
-# []
-
-    # Deserialization
     def dfs_deserialize(self, node, pre_order):
         if not pre_order: return
         while pre_order[0] != "#":                  # add child nodes with subtrees
-            value = pre_order.popleft()
+            value = pre_order.pop(0)
             child = Node(int(value), [])
             node.children.append(child)
             self.dfs_deserialize(child, pre_order)
 
-        pre_order.popleft()                         # discard the "#"
+        pre_order.pop(0)                            # discard the "#"
 
 
 # Approach 2: BFS Iterative using pre-order traversal and a queue, Faster on Leetcode inputs
-class Codec:
-    def serialize(self, root):
-        if root == None: return ''
-        pre_order = [str(root.val)]
-        queue = deque([root])
-        while queue:
-            front = queue.popleft()
-            if len(front.children) > 0:
-                queue.extend(front.children)
-                serialized_children = [str(child.val) for child in front.children]
-                pre_order.append(','.join(serialized_children))
-            else:
-                pre_order.append('')
+# class Codec:
+#     def serialize(self, root):
+#         if root == None: return ''
+#         pre_order = [str(root.val)]
+#         queue = deque([root])
+#         while queue:
+#             front = queue.popleft()
+#             if len(front.children) > 0:
+#                 queue.extend(front.children)
+#                 serialized_children = [str(child.val) for child in front.children]
+#                 pre_order.append(','.join(serialized_children))
+#             else:
+#                 pre_order.append('')
 
-        return ';'.join(pre_order)
+#         return ';'.join(pre_order)
 
-    def deserialize(self, data):
-        if len(data) == 0: return None
-        pre_order = deque(data.split(';'))
-        root = Node(int(pre_order.popleft()), [])
-        queue = deque([root])
+#     def deserialize(self, data):
+#         if len(data) == 0: return None
+#         pre_order = deque(data.split(';'))
+#         root = Node(int(pre_order.popleft()), [])
+#         queue = deque([root])
 
-        while queue:
-            node = queue.popleft()
-            serialized_children = pre_order.popleft()
-            if len(serialized_children) > 0:
-                values = [int(child) for child in serialized_children.split(',')]
-                children = []
-                for val in values: children.append(Node(val, []))
-                node.children = children
-                queue.extend(children)
+#         while queue:
+#             node = queue.popleft()
+#             serialized_children = pre_order.popleft()
+#             if len(serialized_children) > 0:
+#                 values = [int(child) for child in serialized_children.split(',')]
+#                 children = []
+#                 for val in values: children.append(Node(val, []))
+#                 node.children = children
+#                 queue.extend(children)
 
-        return root
+#         return root
 
 
 # 428. Serialize and Deserialize N-ary Tree

@@ -5,48 +5,41 @@ class TreeNode(object):
         self.left = None
         self.right = None
 
+
 class Codec:
     def serialize(self, root):
-        """
-        Encodes a tree to a single string.
-
-        :type root: TreeNode
-        :rtype: str
-        """
         self.pre_order = []
         self.dfs_serialize(root)
         return ','.join(self.pre_order)
 
-    def dfs_serialize(self, root):
-        if not root: return
+    def dfs_serialize(self, node):
+        if not node: return
 
-        self.pre_order.append(str(root.val))
-        self.dfs_serialize(root.left)
-        self.dfs_serialize(root.right)
+        self.pre_order.append(str(node.val))
+        self.dfs_serialize(node.left)
+        self.dfs_serialize(node.right)
 
     def deserialize(self, data):
-        """
-        Decodes your encoded data to tree.
+        if not data: return
 
-        :type data: str
-        :rtype: TreeNode
-        """
-        if not data: return None
         pre_order = data.split(',')
-        return self.dfs_deserialize(pre_order, -float('inf'), float('inf'))
+        return self.dfs_deserialize(pre_order)
 
-    def dfs_deserialize(self, pre_order, vmin, vmax):
-        if not pre_order: return None
-
+    def dfs_deserialize(self, pre_order, vmin=float('-inf'), vmax=float('inf')):
+        if not pre_order: return
         val = int(pre_order[0])
-        if val < vmin or val > vmax: return None
+        if not vmin <= val <= vmax: return
         pre_order.pop(0)
 
-        node = TreeNode(val)
-        node.left = self.dfs_deserialize(pre_order, vmin, val)
-        node.right = self.dfs_deserialize(pre_order, val, vmax)
+        root = TreeNode(val)
+        root.left = self.dfs_deserialize(pre_order, vmin, val - 1)
+        root.right = self.dfs_deserialize(pre_order, val + 1, vmax)
+        return root
 
-        return node
+
+# Your Codec object will be instantiated and called as such:
+# codec = Codec()
+# codec.deserialize(codec.serialize(root))
 
 
 # Your Codec object will be instantiated and called as such:
