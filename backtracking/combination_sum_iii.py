@@ -6,15 +6,15 @@ class Solution:
         if k == 0 or n == 0: return []
         self.result = []
         nums = list(range(1, 10))
-        self.bt(nums, 0, k, [], n)
+        self.bt(nums, k, 0, [], n)
         return self.result
 
-    def bt(self, nums, s_idx, k, path, rem):
+    def bt(self, nums, k, s_idx, path, rem):
         if rem == 0 and len(path) == k: return self.result.append(path)
 
         for i in range(s_idx, len(nums)):
             if nums[i] > rem: continue
-            self.bt(nums, i + 1, k, path + [nums[i]], rem - nums[i])
+            self.bt(nums, k, i + 1, path + [nums[i]], rem - nums[i])
 
 
 # 216. Combination Sum III
@@ -22,6 +22,6 @@ class Solution:
 
 
 # Approach 1: Backtracking
-# 1. Similar to problem Combination Sum 2.
-# 2. Only difference being we also check check length of the path
+# 1. Similar to problem Combination Sum 1.
+# 2. Only difference being we also check length of the path
 # 3. The other important thing is we don't want duplicatesj, so we use i + 1

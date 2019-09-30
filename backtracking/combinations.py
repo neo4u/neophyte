@@ -48,27 +48,26 @@ class Solution1:
         self.bt(n, k, 1, [])
         return self.output
 
-    def bt(self, n, k, first, path):
+    def bt(self, n, k, s_idx, path):
         if len(path) == k: return self.output.append(path[:])   # Prune paths at the point where path len reaches k
 
-        for i in range(first, n + 1):
+        for i in range(s_idx, n + 1):
             path.append(i)                              # add i into the current combination
             self.bt(n, k, i + 1, path)                  # use next integers to complete the combination
             path.pop()                                  # backtrack
 
 
 # Approach 1: Classic BT with slight change by passing the copy to next level BT call
-class Solution1A:
+class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
         self.result = []
-        self.bt(n, k, 1, [])
+        self.nums = list(range(1, n + 1))
+        self.bt(k, 0, [])
         return self.result
 
-    def bt(self, n: int, k: int, start: int, path: List[int]):
-        if len(path) == k: return self.result.append(path) # Prune paths at the point where path len reaches k
-
-        for i in range(start, n + 1):
-            self.bt(n, k, i + 1, path + [i])
+    def bt(self, k, s_idx, path):
+        if len(path) == k: self.result.append(path)
+        for i in range(s_idx, len(self.nums)): self.bt(k, i + 1, path + [self.nums[i]])
 
 
 # Approach 2: Lexicographic (Binary Sorted) Combinations (Optimal)

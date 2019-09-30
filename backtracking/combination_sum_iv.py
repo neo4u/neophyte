@@ -20,7 +20,7 @@ class Solution:
 
 
 # Approach 2: Bottom-Up DP a.k.a Tabulation
-class Solution:
+class Solution2:
     def combinationSum4(self, nums: List[int], target: int) -> int:
         results = [0] * (target + 1)
         results[0] = 1
@@ -32,8 +32,7 @@ class Solution:
         return results[target]
 
 
-
-# Combination Sum IV 
+# Combination Sum IV
 # https://leetcode.com/problems/combination-sum-iv/
 
 # Approach 1: Top Down DP a.k.a Memoization
