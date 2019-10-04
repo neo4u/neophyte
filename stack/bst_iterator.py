@@ -42,7 +42,7 @@ class BSTIterator:
 #    Like so, save root, root.left, root.left.left ... and so on until leaf node
 # 2. When next is called, we pop the stack push the right sub-tree of the popped node
 #    and return the value at the node
-# 3. For hasNext() we just return if there are any nodes left in the stack
+# 3. For hasNext(), we just return true if there are any nodes left in the stack
 # 4. For push_left, we just iteratively push nodes into the stack
 #    and move to the left node until the leaf
 

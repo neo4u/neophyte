@@ -1,11 +1,9 @@
+from typing import List
 import collections
 
-class Solution():
-    def numIslandsBFS(self, grid):
-        """
-        :type grid: List[List[str]]
-        :rtype: int
-        """
+
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
         if not grid or not grid[0]: return 0
         m, n = len(grid), len(grid[0])
         count = 0
@@ -78,7 +76,7 @@ class DS:
 
 
 class Solution:
-    def numIslands(self, grid):
+    def numIslands(self, grid: List[List[str]]) -> int:
         if not grid or not grid[0]: return 0
         m, n, ds = len(grid), len(grid[0]), DS()
         dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
@@ -100,8 +98,8 @@ class Solution:
         return 0 <= r <= m - 1 and 0 <= c <= n - 1 and grid[r][c] == "1"
 
 
-class Solution:
-    def numIslands(self, grid):
+class Solution2:
+    def numIslands(self, grid: List[List[str]]) -> int:
         if not grid or not grid[0]: return 0
         m, n = len(grid), len(grid[0])
 

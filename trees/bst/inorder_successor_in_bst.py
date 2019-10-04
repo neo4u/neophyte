@@ -1,9 +1,10 @@
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
 
 class Solution:
     def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
@@ -15,6 +16,7 @@ class Solution:
             # entering this block means the current root is either p's parent or a node in p's right branch.
             left = self.inorderSuccessor(root.left, p)
             return left if left else root
+
 
 # When the code runs into the else block,
 # that means the current root is either p's parent or a node in p's right branch.
@@ -61,13 +63,28 @@ class Solution:
         # there is no successor
         return None
 
-
+# Without comments its about 20 lines
 class Solution:
-    def inorderPredeccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
-        if not root: return
+    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
+        if p.right:
+            p = p.right
+            while p.left: p = p.left
+            return p
 
-        if root.val >= p.val:
-            return self.inorderPredeccessor(root.left, p)
-        else:
-            right = self.inorderPredeccessor(root.right, p)
-            return right if right else root
+        stack, inorder = [], float('-inf')
+        while stack or root:
+            while root:
+                stack.append(root)
+                root = root.left
+
+            root = stack.pop()
+            if inorder == p.val: return root
+            inorder = root.val
+            root = root.right
+
+        return None
+
+
+
+# 285. Inorder Successor in BST
+# https://leetcode.com/problems/inorder-successor-in-bst/description/

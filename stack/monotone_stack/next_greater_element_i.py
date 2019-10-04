@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         next_greater, stack = {}, []
@@ -10,8 +13,11 @@ class Solution:
         return list(map(lambda x: next_greater.get(x, -1), nums1))
 
 
+
 # 496. Next Greater Element I
 # https://leetcode.com/problems/next-greater-element-i/description/
+
+
 
 
 # https://medium.com/algorithms-and-leetcode/monotonic-queue-explained-with-leetcode-problems-7db7c530c1d6

@@ -1,41 +1,41 @@
 # Definition for a binary tree node.
 # class TreeNode
-#	 attr_accessor :val, :left, :right
-#	 def initialize(val)
-#		 @val = val
-#		 @left, @right = nil, nil
-#	 end
+#    attr_accessor :val, :left, :right
+#    def initialize(val)
+#        @val = val
+#        @left, @right = nil, nil
+#    end
 # end
 
 # @param {TreeNode} root
 # @param {Integer} sum
 # @return {Integer}
 def path_sum(root, sum)
-	return 0 if !root
-	@paths, @nodes = 0, []
-	dfs(root)
+    return 0 if !root
+    @paths, @nodes = 0, []
+    dfs(root)
 
-	@nodes.each do |node|
-		dfs_sum(node, sum)
-	end
+    @nodes.each do |node|
+        dfs_sum(node, sum)
+    end
 
-	@paths
+    @paths
 end
 
 def dfs(node)
-	return if !node
-	
-	dfs(node.left)
-	@nodes << node
-	dfs(node.right)
+    return if !node
+
+    dfs(node.left)
+    @nodes << node
+    dfs(node.right)
 end
 
 def dfs_sum(node, sum)
-	return if !node
-	@paths += 1 if node.val == sum
+    return if !node
+    @paths += 1 if node.val == sum
 
-	dfs_sum(node.left, sum - node.val)
-	dfs_sum(node.right, sum - node.val)
+    dfs_sum(node.left, sum - node.val)
+    dfs_sum(node.right, sum - node.val)
 end
 
 # 1.2 Complexity analysis

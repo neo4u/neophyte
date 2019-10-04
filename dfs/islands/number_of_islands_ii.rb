@@ -18,7 +18,7 @@ def cc(grid, m, n)
             count += 1
         end
     end
-    puts count
+
     count
 end
 
@@ -97,6 +97,20 @@ def num_islands2(m, n, positions)
 
     result
 end
+
+class Solution:
+    def numIslands2(self, m: int, n: int, positions: List[List[int]]) -> List[int]:
+        result, ds = [], DS()
+        dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+        for i, j in positions:
+            ds.set_parent((i, j))
+            for di, dj in dirs:
+                x, y = i + di, j + dj
+                if not self.valid_land(self, m, n, x, y, ds): continue
+                ds.union((i, j), (x, y))
+            result.append(ds.count)
+        return result
 
 # 305. Number of Islands II
 # https://leetcode.com/problems/number-of-islands-ii/description/

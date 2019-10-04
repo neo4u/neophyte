@@ -24,3 +24,7 @@ class Solution:
 
 # 112. Path Sum
 # https://leetcode.com/problems/path-sum/description/
+
+
+# Time: O(n)
+# Space: Avg Case: O(log(n)), Worst Case: O(n)

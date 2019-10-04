@@ -18,9 +18,9 @@ class TreeNode:
 #     def dfs(self, node, sum, path):
 #         if not node and sum == 0: return self.result.append(path)
 
-#         val = node.val
-#         self.dfs(node.left, sum - val, path + val)
-#         self.dfs(node.right, sum - val, path + val)
+#         val, diff = node.val, sum - node.val
+#         self.dfs(node.left, sum - val, path + [val])
+#         self.dfs(node.right, sum - val, path + [val])
 
 
 class Solution:
@@ -36,9 +36,9 @@ class Solution:
             path.append(node.val)
             self.result.append(path)
 
-        val = node.val
-        self.dfs(node.left, sum - node.val, path + [val])
-        self.dfs(node.right, sum - node.val, path + [val])
+        val, diff = node.val, sum - node.val
+        self.dfs(node.left, diff, path + [val])
+        self.dfs(node.right, diff, path + [val])
 
     def is_leaf(self, node):
         return not node.left and not node.right

@@ -63,8 +63,8 @@ def ladder_length(begin_word, end_word, word_list)
     0
 end
 
-# https://leetcode.com/problems/word-ladder
 # 127. Word Ladder
+# https://leetcode.com/problems/word-ladder
 
 # Approach 1: BFS
 # To avoid TLE you must replace word_list with a Set.new(word_list)
@@ -90,10 +90,21 @@ end
 #     "co*"=>["cog"]
 # }
 
+# Another example of pre-processing
+# wordList = [abc, cbc]
+# map
+# {
+#     '*bc: [abc, cbc],
+#     'a*c: [abc],
+#     'ab*: [abc],
+#     'c*c: [cbc],
+#     'cb*: [cbc]
+# }
 
-# > Algo：BFS
-# > Time Complexity O(n * 26 ^ l) where n = word_list.size and l = word.size
-# > Space Complexity O(n) queue and visited
+
+# Approach：BFS
+# Time Complexity O(n * 26 ^ l) where n = word_list.size and l = word.size
+# Space Complexity O(n) queue and visited
 
 require 'set'
 require 'test/unit'
