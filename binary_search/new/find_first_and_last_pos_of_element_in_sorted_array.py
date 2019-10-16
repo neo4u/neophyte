@@ -24,3 +24,4 @@ class Solution:
             return [-1, -1]
 
         return [left_idx, self.extreme_insertion_index(nums, target, False)-1]
+        

@@ -1,24 +1,26 @@
+from typing import List
+
+
 class Solution:
     def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
         if not logs: return []
-        stack, prev_time = [], 0
-        result = [0] * n
+        result, stack = [0] * n, []
 
         for log in logs:
-            fn, typ, ts = log.split(":")
-            fn, ts = int(fn), int(ts)
+            fid, ftype, ts = log.split(':')
+            fid, ts = int(fid), int(ts)
 
-            if typ == 'start':
+            if ftype == 'start':
                 curr_time = ts
                 if stack: result[stack[-1]] += curr_time - prev_time
-                stack.append(fn)
-                prev_time = curr_time
+                stack.append(fid)
             else:
                 curr_time = ts + 1
                 result[stack.pop()] += curr_time - prev_time
-                prev_time = curr_time
+            prev_time = curr_time
 
         return result
+
 
 # n = 2
 # logs = [

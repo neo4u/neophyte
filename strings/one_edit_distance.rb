@@ -1,6 +1,6 @@
 def is_one_edit_distance(s, t)
     m, n = s.size, t.size
-    s, t, m, n = t, s, n, m if m > n
+    s, t, m, n = t, s, n, m if m > n # ensure len(s) > len(t)
     return false if s == t
     return false if n - m > 1
 
@@ -16,5 +16,3 @@ end
 
 # 161. One Edit Distance
 # https://leetcode.com/problems/one-edit-distance/description/
-
-

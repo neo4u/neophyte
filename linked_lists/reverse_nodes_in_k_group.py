@@ -1,3 +1,35 @@
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+# Follow up: Please reverse the list into K Group
+class Solution:
+    def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+        count, curr = 0, head
+
+        while curr and count < k:
+            curr = curr.next
+            count += 1
+        if count < k: return head
+
+        last_head, curr_head = self.reverse_k(head, count)
+        head.next = self.reverseKGroup(curr_head, k)
+        return last_head
+
+    def reverse_k(self, head, k):
+        prev, curr = None, head
+
+        while k:
+            nxt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nxt
+            k -= 1
+
+        return prev, curr
+
+
 # class Solution:
 #     def reverseList(self, head):
 #         if not head or not head.next:
@@ -11,39 +43,9 @@
 #             cur = nxt
 #         return prev
 
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+# 25. Reverse Nodes in k-Group
+# https://leetcode.com/problems/reverse-nodes-in-k-group/description/
 
-# Follow up: Please reverse the list into K Group
-class Solution(object):
-    def reverseKGroup(self, head, k):
-        count, node = 0, head
-
-        while node and count < k:
-            node = node.next
-            count += 1
-
-        if count < k:
-            return head
-
-        new_head, prev_head = self.reverse(head, k)
-        head.next = self.reverseKGroup(new_head, k)
-
-        return prev_head
-
-    def reverse(self, head, count):
-        prev, cur, nxt = None, head, head
-
-        while count > 0:
-            nxt = cur.next
-            cur.next = prev
-            prev = cur
-            cur = nxt
-            count -= 1
-
-        return (cur, prev)
 
 def print_list(head):
     s = ""
@@ -67,8 +69,7 @@ node4.next = node5
 sol = Solution()
 print_list(sol.reverseKGroup(node1, 2))
 
-1->2->3->null
+# 2->1->4->3->5->
+# 1->2->3->null
 
-null <- 1 <- 2-> 3
-
-
+# null <- 1 <- 2-> 3

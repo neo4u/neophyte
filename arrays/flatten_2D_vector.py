@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Vector2D:
     def __init__(self, v: List[List[int]]):
         self.col = 0
@@ -20,6 +23,7 @@ class Vector2D:
             self.row += 1
 
         return False
+
 
 # 251. Flatten 2D Vector
 # https://leetcode.com/problems/flatten-2d-vector/description/

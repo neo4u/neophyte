@@ -1,19 +1,24 @@
+from typing import List
+
+
 class Solution:
-    def findMissingRanges(self, A, lower, upper):
+    def findMissingRanges(self, nums: List[int], lower: int, upper: int) -> List[str]:
         result = []
-        A.append(upper+1)
+        nums.append(upper + 1)
         prev = lower - 1
 
-        for i in A:
-            if (i - prev == 2):
-                result.append(str(i - 1))
-            elif (i - prev > 2):
-                result.append(str(prev + 1) + "->" + str(i - 1))
-
-            prev = i
+        for curr in nums:
+            if curr - prev == 2:
+                result.append(str(curr - 1))
+            elif curr - prev > 2:
+                result.append(f"{prev + 1}->{curr - 1}")
+            prev = curr
 
         return result
 
+
+# 163. Missing Ranges
+# https://leetcode.com/problems/missing-ranges/description/
 
 # sam, 123, 4
 # sai, 345, 20

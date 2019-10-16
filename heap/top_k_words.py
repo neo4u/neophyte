@@ -1,5 +1,9 @@
+from typing import List
+import collections
+
+
 # Approach 1: Sort
-class Solution(object):
+class Solution3:
     def topKFrequent(self, words, k):
         count = collections.Counter(words)
         candidates = count.keys()
@@ -8,24 +12,31 @@ class Solution(object):
 
 
 # Approach 2: Heap
-class Solution2(object):
-    def topKFrequent(self, words, k):
-        count = collections.Counter(words)
-        heap = [(-freq, word) for word, freq in count.items()]
+from collections import Counter
+import heapq
+
+class Solution2:
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+        heap = [(-freq, w) for w, freq in Counter(words).items()]
         heapq.heapify(heap)
         return [heapq.heappop(heap)[1] for _ in range(k)]
 
+
 # Solution doesn't work because words same frequency have to be returned in lexicographical order
+# If order wasn't important then this would've been a good solution, to keep the inserts O(log(k))
+# Thus the algorithm will only take O(n * log(k))
+import heapq
 class Solution:
     def topKFrequent(self, words: List[str], k: int) -> List[str]:
         count = collections.Counter(words)
         heap = []
         for word, freq in count.items():
             heapq.heappush(heap, (freq, word))
-            if len(heap) > k:
-                heapq.heappop(heap)
-        
+            if len(heap) > k: heapq.heappop(heap)
+
         return [heapq.heappop(heap)[1] for _ in range(k)][::-1]
+
+
 # 692. Top K Frequent Words
 # https://leetcode.com/problems/top-k-frequent-words/description/
 
@@ -45,6 +56,7 @@ class Solution:
 
 # Time: O(nlog(n))
 # Space: O(n)
+
 
 # Approach 2: Heap
 # Steps:

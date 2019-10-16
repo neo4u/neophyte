@@ -1,10 +1,9 @@
 class Solution(object):
     def numFriendRequests(self, ages):
         count = [0] * 121
-        for age in ages:
-            count[age] += 1
+        for age in ages: count[age] += 1
 
-        ans = 0
+        result = 0
         for ageA, countA in enumerate(count):
             if ageA == 0: continue
             for ageB, countB in enumerate(count):
@@ -15,8 +14,12 @@ class Solution(object):
                 if ageA < 100 < ageB: continue
 
                 if ageA == ageB:
-                    ans += countA * (countA - 1)
+                    result += countA * (countA - 1)
                 else:
-                    ans += countA * countB
+                    result += countA * countB
 
-        return ans
+        return result
+
+
+# 825. Friends Of Appropriate Ages
+# https://leetcode.com/problems/friends-of-appropriate-ages/description/

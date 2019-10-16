@@ -14,13 +14,11 @@ class RollingHash:
     def __eq__(self, other):
         return self.checksum == other.checksum
 
-
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
         if not needle: return 0
         if not haystack: return -1
-        m, n = len(haystack), len(needle)
-        if n > m: return -1
+
 
         hh, hn = RollingHash(haystack[:n]), RollingHash(needle)
         if hh == hn and haystack[:n] == needle: return 0
@@ -32,6 +30,9 @@ class Solution:
 
         return -1
 
+
+# 28. Implement strStr()
+# https://leetcode.com/problems/implement-strstr/description/
 
 # abcdef
 # i   |
@@ -69,7 +70,7 @@ class Solution:
 # 1. Keep a rolling hash for the pattern and the string
 # 2. Initially just calculate the hash for the needle and the first n chars of haystack.
 #    If the hashes match then return 0, also 
-# 3. Iterate through all indices on the string and recompute hash for that window of size n (needle size)
+# 3. Iterate through all indicess on the string and recompute hash for that window of size n (needle size)
 
 # Time: O(m + n)
 # Space: O(1)

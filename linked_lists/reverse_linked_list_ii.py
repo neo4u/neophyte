@@ -7,24 +7,24 @@ class Solution:
         # 1 -> 2 -> 3 -> 4 -> 5, m = 2, n = 4
         # m = 1, n = 3, prev = 1, curr = 2
 
-        cur, prev = head, None
+        curr, prev = head, None
         while m > 1:
-            prev = cur
-            cur = cur.next
+            prev = curr
+            curr = curr.next
             m -= 1; n -= 1
 
         # The two pointers that will fix the final connections.
-        tail, con = cur, prev
+        tail, con = curr, prev
 
         # Iteratively reverse the nodes until n becomes 0.
         # 1 -> 2 -> 3 -> 4 -> 5, m = 2, n = 4
         # m = 1, n = 3, prev = 1, curr = 2
         # 1 <- 2 <- 3 <- 4    5->nil
         while n:
-            tmp = cur.next
-            cur.next = prev
-            prev = cur
-            cur = tmp
+            nxt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nxt
             n -= 1
 
         # Adjust the final connections as explained in the algorithm
@@ -37,7 +37,7 @@ class Solution:
 
         # 1 -> 4 -> 3 -> 2 -> 1, curr = 5, tail = 2
         # 1 -> 4 -> 3 -> 2 -> 5
-        tail.next = cur
+        tail.next = curr
         return head
 
 

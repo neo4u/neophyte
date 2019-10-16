@@ -23,11 +23,10 @@ class Solution(object):
         while n:
             buf4 = [''] * 4
             count = read4(buf4)
-
             if not count: return idx # EOF
-            
+
             if count > n:               # We called read with n = 1 but read4 returned 4, we need to cache 3 chars
-                self.q += buf4[n:]      # Think of this as taken what you need this run, and saving the rest for next run, Same as buf4[n:count]
+                self.q += buf4[n:]      # Think of this as taking what you need this run, and saving the rest for next run, Same as buf4[n:count]
 
             for i in range(min(count, n)):
                 buf[idx] = buf4[i]
@@ -36,8 +35,9 @@ class Solution(object):
 
         return idx
 
-# 157. Read N Characters Given Read4
-# https://leetcode.com/problems/read-n-characters-given-read4/
+
+# 158. Read N Characters Given Read4 II - Call multiple times
+# https://leetcode.com/problems/read-n-characters-given-read4-ii-call-multiple-times/description/
 
 # Approach
 # Difference from the first instance is that we can call read in parts, and some part can be less than 4

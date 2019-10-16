@@ -69,10 +69,7 @@ class Solution:
 
 
 # FASTEST
-
-
 import random
-
 class Solution:
     def same_matches(self, origin, word, expected_matches):
         matches = 0
@@ -80,14 +77,13 @@ class Solution:
             if origin[i] == word[i]:
                 matches += 1
         return matches == expected_matches
-    
+
     def findSecretWord(self, wordlist, master):
         """
         :type wordlist: List[Str]
         :type master: Master
         :rtype: None
         """
-        
         random_word = wordlist[random.randint(0,len(wordlist)-1)]
         matches = master.guess(random_word)
         if matches == 6:
@@ -98,7 +94,7 @@ class Solution:
             if self.same_matches(random_word, w, matches):
                 filtered_wordlist.append(w)
         self.findSecretWord(filtered_wordlist, master)
-        
+
 
 # 843. Guess the Word
 # https://leetcode.com/problems/guess-the-word/description/

@@ -1,30 +1,27 @@
 class Solution:
-    def calculate(self, s):
-        s += "+0"
-        stack, num, prevOp = [], 0, "+"
+    def calculate(self, s: str) -> int:
+        s = '+0'
+        stack, num, prev_op = [], 0, '+'
 
-        for c in s:                 # loop invariant is that stack contents are always addable
+        for c in s:
             if c.isspace(): continue
 
-            if c.isdigit():
-                num = num * 10 + int(c)
+            if c.isdigit(): num = num * 10 + int(c)
             else:
-                if prevOp == "-":
-                    stack.append(-num)
-                elif prevOp == "+":
-                    stack.append(num)
-                elif prevOp == "*":
-                    stack.append(stack.pop() * num)
-                else:
-                    stack.append(int(stack.pop() / num))
+                if prev_op == '-':      stack.append(-num)
+                elif prev_op == '+':    stack.append(num)
+                elif prev_op == '/':    stack.append(int(stack.pop() / num))
+                elif prev_op == '*':    stack.append(stack.pop() * num)
 
-                prevOp, num = c, 0
+                prev_op, num = c, 0
 
         return sum(stack)
+
 
 # 227. Basic Calculator II
 # https://leetcode.com/problems/basic-calculator-ii/description/
 
+# loop invariant is that stack contents are always addable
 
 # Example: "3+2*2+0"
 # i = 0, s[0] = 3, an operand, so we'll be setting n

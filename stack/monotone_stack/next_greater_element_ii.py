@@ -20,7 +20,7 @@ class Solution:
 
 # Intuition:
 # 1. We need a way to simulate the wrap around. We solve this using a copy of the array
-# 2. We need a way to find the next greatest element
+# 2. We need a way to find the next greatest element, for this we use a monotone stack of indexes
 
 
 # https://medium.com/algorithms-and-leetcode/monotonic-queue-explained-with-leetcode-problems-7db7c530c1d6

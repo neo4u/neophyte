@@ -1,17 +1,3 @@
-"""
-The read4 API is already defined for you.
-
-    @param buf, a list of characters
-    @return an integer
-    def read4(buf):
-
-# Below is an example of how the read4 API can be called.
-file = File("abcdefghijk") # File is "abcdefghijk", initially file pointer (fp) points to 'a'
-buf = [' '] * 4 # Create buffer with enough space to store characters
-read4(buf) # read4 returns 4. Now buf = ['a','b','c','d'], fp points to 'e'
-read4(buf) # read4 returns 4. Now buf = ['e','f','g','h'], fp points to 'i'
-read4(buf) # read4 returns 3. Now buf = ['i','j','k',...], fp points to end of file
-"""
 class Solution:
     def read(self, buf, n):
         """
@@ -19,19 +5,20 @@ class Solution:
         :type n: Number of characters to read (int)
         :rtype: The number of actual characters read (int)
         """
-        idx = 0
+        b_idx = 0
+
         while n:
-            buf4 = [' '] * 4
-            count = read4(buf4)
-            # if not count: return idx # EOF
-            for i in range(min(count, n)):
-                buf[idx] = buf4[i]
+            buf4 = [''] * 4
+            count_read = read4(buf4)
+            if not count_read: break
+
+            for j in range(min(count_read, n)):
+                buf[b_idx] = buf4[j]
+                b_idx += 1
                 n -= 1
-                idx += 1
-            
-        return idx
-    
-        
+
+        return b_idx
+
 
 # 157. Read N Characters Given Read4
 # https://leetcode.com/problems/read-n-characters-given-read4/

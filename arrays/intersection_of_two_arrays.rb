@@ -28,7 +28,7 @@ def intersect(nums1, nums2)
         result.push(num)
         map[num] -= 1
     end
-    
+
     result
 end
 

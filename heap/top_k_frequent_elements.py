@@ -1,3 +1,5 @@
+from typing import List
+
 
 # Approach 1: Max Heap
 import heapq
@@ -28,12 +30,11 @@ class Solution:
         return [item[1] for item in heap]
 
 
-# Approach 3: Bucket Sort
+# Approach 3: Bucket Sort (Worst case this is the best performant in time, but uses O(n) space)
 import collections
 class Solution3:
-    def topKFrequent(self, nums, k):
-        result = []
-        n = len(nums)
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        n, result = len(nums), []
         counts_bucket = [[] for _ in range(n)]
 
         for num, freq in collections.Counter(nums).items():
@@ -41,10 +42,11 @@ class Solution3:
 
         for i in range(n - 1, -1, -1):
             if not counts_bucket[i]: continue
-            result += counts_bucket[i]
+            result.extend(counts_bucket[i])
             if len(result) >= k: break
 
         return result[:k]
+
 
 
 # # Approach 4: Quick-Select
@@ -56,14 +58,9 @@ class Solution:
             if l == r: return
             mid = rand_partition(a, l, r)
 
-# 5,6,5,3,4,5,2
-
-            if K < mid:
-                quick_select(a, l, mid - 1, K)
-            elif K > mid:
-                quick_select(a, mid + 1, r, K)
-            else:
-                return
+            if K < mid:     quick_select(a, l, mid - 1, K)
+            elif K > mid:   quick_select(a, mid + 1, r, K)
+            else:           return
 
         def rand_partition(a, l, r):
             i = random.randint(l, r)
@@ -117,7 +114,7 @@ class Solution:
 # Steps:
 # 1. Create a count_bucket array of size = len(nums), initialized with values []
 # 2. Use Counter class to get frequencies of each number
-# 3. Use count as buckets to append every element with count c to index c - 1 in count
+# 3. Use 'count' as buckets to append every element with count c to index c - 1 in 'count'
 # 4. Now we move from back of the count array, pick buckets that aren't empty and add them to the result
 #    until the result is of size k.
 
@@ -132,8 +129,9 @@ class Solution:
 # 3. Now we'll have the elements after n - kth positing all having k largest frequencies
 # 4. Return the actual elements from those items
 
-# Time: O(n), Avg case due to randomization
+# Time: O(n): Avg case due to randomization, O(n^2): Worst Case Time
 # Space: O(1)
+
 
 sol = Solution()
 assert sol.topKFrequent([1,1,1,2,2,3], 2) in ([1,2], [2,1])

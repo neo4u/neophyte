@@ -1,36 +1,32 @@
-import heapq
-
 # Definition for a Node.
 class Node:
     def __init__(self, val, prev, next, child):
         self.val = val
-        self.prev = prev
-        self.next = next
+        self.prev, self.next = prev, next
         self.child = child
 
 
-class Solution(object):
+class Solution:
     def flatten(self, head):
         if not head: return
-
-        dummy = Node(0, None, head, None)
+        prev = dummy = Node(0, None, head, None)
         stack = []
         stack.append(head)
-        prev = dummy
 
         while stack:
-            root = stack.pop()
+            node = stack.pop()
 
-            root.prev = prev
-            prev.next = root
+            node.prev = prev
+            prev.next = node
 
-            if root.next:
-                stack.append(root.next)
-                root.next = None
-            if root.child:
-                stack.append(root.child)
-                root.child = None
-            prev = root
+            if node.next:
+                stack.append(node.next)
+                node.next = None
+            if node.child:
+                stack.append(node.child)
+                node.child = None
+
+            prev = node
 
         dummy.next.prev = None
         return dummy.next

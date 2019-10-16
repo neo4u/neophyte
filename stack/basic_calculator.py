@@ -3,10 +3,8 @@ import re
 # Approach 1: Regex and Stack
 class Solution:
     def arithmetic(self, res, op, num):
-        if not op:
-            res = num
-        else:
-            res += num * [-1, 1][(op == "+") * 1]
+        if not op:  res = num
+        else:       res += num * [-1, 1][(op == "+") * 1]
         return res
 
     def calculate(self, s):
@@ -33,8 +31,7 @@ class Solution:
         for c in s:
             print(f"c: {c}")
             print(f"before: num: {num} | sign: {prev_sign} | stack: {stack} | res: {result}")
-            if c.isdigit():
-                num = 10 * num + int(c)  # calculate the full digit, so add c at 10s digts to current num
+            if c.isdigit(): num = 10 * num + int(c)  # calculate the full digit, so add c at 10s digts to current num
             elif c in ["-", "+"]:
                 result += prev_sign * num
                 num = 0  # reset the num variable to 0 for next digit
@@ -121,6 +118,6 @@ class Solution:
 
 
 sol = Solution()
-# assert sol.calculate("1 + 1") == 2
+assert sol.calculate("1 + 1") == 2
 assert sol.calculate(" 2-1 + 2 ") == 3
-# assert sol.calculate("(1+(4+5+2)-3)+(6+8)") == 23
+assert sol.calculate("(1+(4+5+2)-3)+(6+8)") == 23

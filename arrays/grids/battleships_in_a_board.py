@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def countBattleships(self, board: List[List[str]]) -> int:
         if not board or not board[0]: return 0

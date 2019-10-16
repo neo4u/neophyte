@@ -26,21 +26,21 @@ end
 # https://leetcode.com/problems/remove-nth-node-from-end-of-list/
 
 # Approach 1: Two pass
+
 # Aprroach 2: One Pass
-# - We use two pointers slow and fast
-# - We also use a dummy pointer before head and set slow and fast to dummy which is 1 node before head
-# - We iterate n + 1 times and advance fast
-# - So fast is n nodes ahead of slow
-# - Now we advance slow and fast until fast hits the end
-# - At this point slow is pointing to the nth node from the end
-# - We swap slow.next and slow.next.next
-# - We return the dummy.next pointing to the head
+# Steps:
+# 1. We use two pointers slow and fast
+# 2. We also use a dummy pointer before head and set slow and fast to dummy which is 1 node before head
+# 3. We iterate n + 1 times and advance fast
+# 4. So fast is n nodes ahead of slow
+# 5. Now we advance slow and fast until fast hits the end
+# 6. At this point slow is pointing to the nth node from the end
+# 7. We swap slow.next and slow.next.next
+# 8. We return the dummy.next pointing to the head
 
-# Complexity Analysis
-# Time: O(L), The algorithm makes one traversal of the list of L nodes.
-#             Therefore time complexity is O(L).
-# Space : O(1), We only used constant extra space.
+# Time: O(n),
+# Space : O(1)
 
 
-()->1 ->  2 ->  3 ->  4 -> 5
+# ()->1 ->  2 ->  3 ->  4 -> 5
                 

@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def validUtf8(self, data: List[int]) -> bool:
         # Number of bytes in the current UTF-8 character
@@ -42,19 +45,19 @@ class Solution:
     def validUtf8(self, data: List[int]) -> bool:
         n_bytes = 0
         mask1, mask2 = 1 << 7, 1 << 6
+
         for num in data:
             mask = 1 << 7
-            if n_bytes == 0:
+
+            if n_bytes == 0: # Header byte
                 while mask & num:
                     n_bytes += 1
                     mask = mask >> 1
 
-                if n_bytes == 0: continue
-                if not 2 <= n_bytes <= 4:
-                    return False
-            else:
-                if not (num & mask1 and not (num & mask2)):
-                    return False
+                if not n_bytes: continue
+                if n_bytes not in {2, 3, 4}: return False
+            else:           # Every other byte
+                if not (num & mask1 and not num & mask2): return False
 
             n_bytes -= 1
 
@@ -67,10 +70,10 @@ class Solution:
 
 # A character in UTF8 can be from 1 to 4 bytes long, subjected to the following rules:
 
-# For 1-byte character, the first bit is a 0, followed by its unicode code.
-# For n-bytes character, the first n-bits are all one's, the n+1 bit is 0, followed by n-1 bytes with most significant 2 bits being 10.
+# For 1-byte char, the first bit is a 0, followed by its unicode code.
+# For n-bytes chars, the first n-bits are all one's, the n+1 bit is 0, followed by n-1 bytes with most significant 2 bits being 10.
 
-# This is how the UTF-8 encoding would work:
+# This is how the UTF-8 encoding works:
 # Char. number range  |        UTF-8 octet sequence
 #    (hexadecimal)    |              (binary)
 # --------------------+---------------------------------------------
@@ -78,3 +81,13 @@ class Solution:
 # 0000 0080-0000 07FF | 110xxxxx 10xxxxxx
 # 0000 0800-0000 FFFF | 1110xxxx 10xxxxxx 10xxxxxx
 # 0001 0000-0010 FFFF | 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+
+
+# Steps:
+# 1. There are two types of bytes
+#    - One type is the header byte indicating the number of following bytes
+#    - Other type is the following byte which starts with b'10'
+# 2. We use a n_bytes var to distinguish the above 2 conditions
+# 3. If n_bytes == 0, then it means we've encountered a header byte
+#    - when its a header byte we, set n_bytes by counting the number of leading bits
+# 4. if n_bytes != 0, then it means we've encountered a non-header byte

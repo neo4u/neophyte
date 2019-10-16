@@ -14,7 +14,7 @@ class Solution:
         curr = head
         while True:
             # 1.A. Tipping point exists, and we've hit the peak and insert value is between max and min
-            if curr.next.val < curr.val and (insertVal <= curr.next.val or insertVal >= curr.val):
+            if curr.next.val < curr.val and (insertVal >= curr.val or insertVal <= curr.next.val):
                 break
             # 1.B. Tipping point exists, and we're found a place for the insert value between the list
             elif curr.val <= insertVal <= curr.next.val:

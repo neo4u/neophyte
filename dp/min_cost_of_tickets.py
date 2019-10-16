@@ -1,7 +1,8 @@
+from typing import List
 import collections
 
 class Solution:
-    def mincostTickets(self, days: "List[int]", costs: "List[int]") -> "int":
+    def mincostTickets(self, days: List[int], costs: List[int]) -> int:
         cost = 0
         last7 = collections.deque()
         last30 = collections.deque()
@@ -18,13 +19,17 @@ class Solution:
 
         return cost
 
-# Complexity analysis
+
+
+# https://leetcode.com/problems/minimum-cost-for-tickets/discuss/226659/Two-DP-solutions-with-pictures
+
+
 # Time: O(n), where n is the number of travel days.
 # Space: O(38). Stricter, it's a sum of duration for all pass types (1 + 7 + 30 in our case).
 
 
 # 365 day dp
-# dp[i] = min({ 
+# dp[i] = min({
 #               | dp[i - 1] + costs[0],
 #         min   | dp[max(0, i - 7)] + costs[1],
 #               | dp[max(0, i - 30)] + costs[2]});
