@@ -38,6 +38,26 @@ end
 # 322. Coin Change
 # https://leetcode.com/problems/coin-change/
 
+# Approach 1: DP 2D
+ # dp[i][j]: numbers of ways to use up first i elements to reach value j
+
+# Approach 2: BFS
+
+# Approach 3: DP 1D
+
+# Model:
+# dp[i] = no. of ways to form amount i with all coins
+# Base Case:
+# dp[0] = 1
+# Recurrance relation:
+# dp[i] = dp[i] + d[i - coin] for every coin value 'c'
+# dp[i] here represents number of combinations used to form value 'i'
+# dp[i - coin] represents number of combinations used to form the value 'i - coin'
+
+# Approach 3B: DP 1D, with small optimization
+
+# assert_equal(change(5, [1,2, 5]), 4)
+
 require 'test/unit'
 extend Test::Unit::Assertions
 

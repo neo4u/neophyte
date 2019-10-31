@@ -21,11 +21,3 @@ def rob_seq(nums)
 
     dp[n - 1]
 end
-
-require 'test/unit'
-extend Test::Unit::Assertions
-
-assert_equal(rob([]), 0)
-assert_equal(rob([0, 0, 0]), 0)
-assert_equal(rob([1, 1, 1]), 2)
-assert_equal(rob([1, 1]), 1)

@@ -1,4 +1,6 @@
+from typing import List
 import collections
+
 
 class Solution:
     def subarraysDivByK(self, A: List[int], K: int) -> int:
@@ -14,3 +16,9 @@ class Solution:
             sum_map[pre_sum] += 1
 
         return result
+
+
+# 974. Subarray Sums Divisible by K
+# https://leetcode.com/problems/subarray-sums-divisible-by-k/description/
+
+# Similar to LC 523

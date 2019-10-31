@@ -1,8 +1,8 @@
 class Solution(object):
     def wordBreak(self, s, wordDict):
-        return self.dp(s, wordDict, {})
+        return self.dfs(s, wordDict, {})
 
-    def dp(self, s, wordDict, memo):
+    def dfs(self, s, wordDict, memo):
         if s in memo: return memo[s]
         if not s: return []
 
@@ -13,7 +13,7 @@ class Solution(object):
             if len(word) == len(s):
                 result.append(word)
             else:
-                results_of_rest = self.dp(s[len(word):], wordDict, memo)
+                results_of_rest = self.dfs(s[len(word):], wordDict, memo)
                 for item in results_of_rest:
                     item = word + ' ' + item
                     result.append(item)

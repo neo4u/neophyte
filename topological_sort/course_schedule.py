@@ -12,35 +12,6 @@ class Solution:
             graph[prereq].add(course)
             in_degrees[course] += 1
 
-        q, visited = collections.deque(), set()
-
-        # find nodes whose in degree == 0
-        for index, in_degree in in_degrees.items():
-            if in_degree != 0: continue
-            q.append(index)
-
-        # loop all nodes whose in degree == 0
-        while q:
-            index = q.popleft()
-            visited.add(index)
-            for nbr in graph[index]:
-                in_degrees[nbr] -= 1
-                if in_degrees[nbr] == 0:
-                    q.append(nbr)
-
-        return len(visited) == numCourses
-
-
-import collections
-class Solution:
-    def canFinish(self, numCourses: int, prereqs: List[List[int]]) -> bool:
-        graph = collections.defaultdict(set)
-        in_degrees = collections.defaultdict(int)
-
-        for course, prereq in prereqs:
-            graph[prereq].add(course)
-            in_degrees[course] += 1
-
         q = []
         for node in range(numCourses):
             if in_degrees[node] != 0: continue
@@ -59,20 +30,11 @@ class Solution:
         return numCourses == 0
 
 
-# The topological sort is natural for this problem.
-# We always take the courses with no unstudied prereqs and so on until we can't take anymore courses.
-# The oud[i] is the number of prereqs for course i
-# and indegree keeps a list of courses that require course i.
-
-
-
-
-
 # 207. Course Schedule
 # https://leetcode.com/problems/course-schedule/description/
 
 # Key Insight:
-# 1. It comes down to a problem of detecting a cycle in a graph (Checking if it's a DAG)
+# 1. It comes down to a problem of detecting a cycle in a graph (Checking if its a DAG)
 # 2. We need some sort of ordering of courses hence topological sort makes sense
 
 # Approach 1: DFS with keeping track of on_stack nodes (VERY SLOW)
@@ -88,7 +50,6 @@ class Solution:
 #    or in other words if our graph has a cycle.
 #    Example: 1 -> 2 -> 3 -> 4 -> 1, 1 -> 2 -> 3 -> 4 -> 2 or 1 -> 2 -> 3 -> 4 -> 3
 #    Such a combo of prerequirements cannot be met due to the cycle
-
 
 # Time: O(N), Essentially, O(V + E), V - number of courses, E - number of prereqs => O(V + V - 1) => O(N)
 # Space: O(N)
@@ -108,6 +69,11 @@ class Solution:
 # Time: O(N), Essentially, O(V + E), V - number of courses, E - number of prereqs => O(V + V - 1) => O(N)
 # Space: O(N)
 
+
+# The topological sort is natural for this problem.
+# We always take the courses with no unstudied prereqs and so on until we can't take anymore courses.
+# The oud[i] is the number of prereqs for course i
+# and indegree keeps a list of courses that require course i.
 
 
 sol = Solution()

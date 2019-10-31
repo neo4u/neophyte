@@ -4,7 +4,7 @@ class Solution:
         if m > n: s, t, m, n = t, s, n, m
 
         if s == t: return False
-        if n - m > 1: return False
+        if n - 1 > m: return False              # If they differ by more than 1 char, return false
 
         for i in range(m):
             if s[i] == t[i]: continue

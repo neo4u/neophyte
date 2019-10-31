@@ -47,7 +47,7 @@ class Solution {
     }
 
     private void search(String[] words, int i, TrieNode root, List<List<Integer>> res) {
-        for (int j = 0; j < words[i].length(); j++) {	
+        for (int j = 0; j < words[i].length(); j++) {
             if (root.index >= 0 && root.index != i && isPalindrome(words[i], j, words[i].length() - 1)) {
                 res.add(Arrays.asList(i, root.index));
             }
