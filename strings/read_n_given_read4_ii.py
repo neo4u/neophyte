@@ -17,8 +17,8 @@ class Solution(object):
 
         while self.q and n:
             buf[idx] = self.q.pop(0)
-            n -= 1
-            idx += 1
+            idx += 1; n -= 1
+            
 
         while n:
             buf4 = [''] * 4

@@ -63,20 +63,19 @@ class Solution(object):
 
         return self.answer
 
-    def bt(self, index, value, ops, prev_val):
+    def bt(self, index, value, path, prev_val):
         if index == self.n:
-            if value == self.target: self.answer.append("".join(ops))
+            if value == self.target: self.answer.append("".join(path))
             return
 
         current_val = 0
         for i in range(index, self.n):
             current_val = current_val*10 + int(self.nums[i])
-            if index == 0:
-                self.bt(i + 1, current_val, ops + [str(current_val)], current_val)
+            if index == 0: self.bt(i + 1, current_val, path + [str(current_val)], current_val)
             else:
-                self.bt(i + 1, value - prev_val + (prev_val * current_val), ops + ['*' + str(current_val)], prev_val * current_val)
-                self.bt(i + 1, value + current_val, ops + ['+' + str(current_val)], current_val)
-                self.bt(i + 1, value - current_val, ops + ['-' + str(current_val)], -current_val)
+                self.bt(i + 1, value - prev_val + (prev_val * current_val), path + ['*' + str(current_val)], prev_val * current_val)
+                self.bt(i + 1, value + current_val, path + ['+' + str(current_val)], current_val)
+                self.bt(i + 1, value - current_val, path + ['-' + str(current_val)], -current_val)
 
             if self.nums[index] == '0': break
 
@@ -94,8 +93,7 @@ class Solution:
 
     def bt(self, idx, val, prev_val, ops):
         if idx == self.n:
-            if val == self.target:
-                self.result.append("".join(ops))
+            if val == self.target: self.result.append("".join(ops))
         else:
             curr_val = 0
             for i in range(idx, self.n):
@@ -120,24 +118,26 @@ class Solution:
         self.bt(1, 0, int(self.num[0]), int(self.num[0]), self.num[0])
         return self.ans
 
-    def bt(self, i, total, prod, pre, path):
-        cur = int(self.num[i])
+    def bt(self, i, total, prod, prev, path):
+        curr = int(self.num[i])
 
         if i == self.n - 1:
-            if total + prod + cur == self.target:
-                self.ans.append(f'{path}+{self.num[i]}')
-            if total + prod - cur == self.target:
-                self.ans.append(f'{path}-{self.num[i]}')
-            if total + prod * cur == self.target:
-                self.ans.append(f'{path}*{self.num[i]}')
-            if pre:
-                cur = pre * 10 + cur
-                if total + prod // pre * cur == self.target:
+            if total + prod + curr == self.target: self.ans.append(f'{path}+{self.num[i]}')
+            if total + prod - curr == self.target: self.ans.append(f'{path}-{self.num[i]}')
+            if total + prod * curr == self.target: self.ans.append(f'{path}*{self.num[i]}')
+            if prev:
+                curr = prev * 10 + curr
+                if total + prod // prev * curr == self.target:
                     self.ans.append(f'{path}{self.num[i]}')
         else:
-            self.bt(i + 1, total + prod, cur, cur, f'{path}+{self.num[i]}')
-            self.bt(i + 1, total + prod, -cur, cur, f'{path}-{self.num[i]}')
-            self.bt(i + 1, total, prod * cur, cur, f'{path}*{self.num[i]}')
-            if pre:
-                cur = pre * 10 + cur
-                self.bt(i + 1, total, prod // pre * cur, cur, f'{path}{self.num[i]}')
+            self.bt(i + 1, total + prod, curr, curr, f'{path}+{self.num[i]}')
+            self.bt(i + 1, total + prod, -curr, curr, f'{path}-{self.num[i]}')
+            self.bt(i + 1, total, prod * curr, curr, f'{path}*{self.num[i]}')
+            if prev:
+                curr = prev * 10 + curr
+                self.bt(i + 1, total, prod // prev * curr, curr, f'{path}{self.num[i]}')
+
+
+
+# 282. Expression Add Operators
+# https://leetcode.com/problems/expression-add-operators/description/

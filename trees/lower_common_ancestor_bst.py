@@ -19,18 +19,19 @@ class Solution:
         return root
 
 # Approach 2: Iterative
-# def lowest_common_ancestor(root, p, q)
-#     while root
-#         if p.val < root.val && q.val < root.val
-#             root = root.left
-#         elsif root.val < p.val && root.val < q.val
-#             root = root.right
-#         else
-#             return root
-#         end
-#     end
-# end
+class Solution2:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        while root:
+            if p.val < root.val and q.val < root.val:
+                root = root.left
+            elif root.val < p.val and root.val < q.val:
+                root = root.right
+            else:
+                return root
 
+
+# 235. Lowest Common Ancestor of a Binary Search Tree
+# https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/description/
 
 # Approach 1: Recursive
 # Approach 2: Iterative

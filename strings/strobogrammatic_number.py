@@ -1,13 +1,13 @@
 class Solution:
-    def is_strobogrammatic(self, num):
+    def isStrobogrammatic(self, num: str) -> bool:
         if not num: return False
         strobo_set = set([
-            ('0', '0'), ('8', '8'),
-            ('9', '6'), ('6', '9'), ('1', '1')
+            ('0', '0'), ('1', '1'),
+            ('6', '9'), ('8', '8'), ('9', '6'),
         ])
         l, r = 0, len(num) - 1
 
-        while l < r:
+        while l <= r:
             if (num[l], num[r]) not in strobo_set: return False
             l += 1; r -= 1
 
@@ -23,6 +23,6 @@ class Solution:
 
 
 sol = Solution()
-assert sol.is_strobogrammatic("69")
-assert sol.is_strobogrammatic("88")
-assert sol.is_strobogrammatic("962")
+assert sol.isStrobogrammatic("69")
+assert sol.isStrobogrammatic("88")
+assert sol.isStrobogrammatic("962")

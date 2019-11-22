@@ -18,27 +18,23 @@ class Solution:
 
 
 # Approach 2: Recursive
-class SolutionRecurse:
+class SolutionDFS:
     def decodeString(self, s: str) -> str:
-        return self.recurse(list(s))
+        self.pos = 0
+        return self.dfs(s)
 
-    def recurse(self, s):
-        result = ""
+    def dfs(self, s):
+        num, word = '', ''
 
-        while s:
-            num = ""
-            while s and s[0].isdigit(): num += s.pop(0)
+        while self.pos < len(s):
+            c = s[self.pos]
+            self.pos += 1
+            if c.isdigit(): num += c
+            elif c == '[':  word += self.dfs(s) * int(num); num = ''
+            elif c == ']':  return word
+            else:           word += c
+        return word
 
-            if num:
-                num = int(num)
-                s.pop(0)
-                result += self.recurse(s) * num
-            else:
-                c = s.pop(0)
-                if c not in "[]": result += c
-                if c == ']': break
-
-        return result
 
 
 # 394. Decode String
@@ -60,4 +56,3 @@ class SolutionRecurse:
 # 4. As long as its a alphabet char keep appending to the string part of the top item on stack
 # 5. As soon as we see a ']', we pop the top item and
 #    multiply the string part with the count part and add to top of stack
-

@@ -9,11 +9,12 @@ class Node:
 
 
 # Example
-#      1
-#   2 3 4 
-# 456
+#        1
+#   2    3        4 
+# 456   7 8 9 
 
-# [1, 2, 4, '#', 5, '#', 6, '#', '#', 3, '#', 4, '#', '#']
+# 1 [ 2[4# 5# 6#]#  3[7# 8# 9#]# 4#]#
+
 
 
 # Approach 1: DFS Recursive using pre-order traversal
@@ -23,11 +24,11 @@ class Codec:
         self.dfs_serialize(root)
         return ",".join(self.pre_order)
 
-    def dfs_serialize(self, node, pre_order):
+    def dfs_serialize(self, node):
         if not node: return
-        pre_order.append(str(node.val))
+        self.pre_order.append(str(node.val))
         for child in node.children: self.dfs_serialize(child)
-        pre_order.append("#")                       # indicates no more children, continue serialization from parent
+        self.pre_order.append("#")                       # indicates no more children, continue serialization from parent
 
     def deserialize(self, data):
         if not data: return None

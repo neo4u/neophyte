@@ -30,6 +30,7 @@ def max_profit_unlimited_transactions(prices)
     profit
 end
 
+
 # https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
 # 123. Best Time to Buy and Sell Stock III
 
@@ -49,6 +50,7 @@ end
 #                   { prices[j] + max_diff
 #  where max_diff = max { max_diff,
 #                       { dp[i - 1][j] - prices[j] for j from 0 to n - 1
+
 
 require 'test/unit'
 extend Test::Unit::Assertions

@@ -9,6 +9,7 @@ class TreeNode:
 class Solution:
     def bstFromPreorder(self, preorder, vmin=-float('inf'), vmax=float('inf')):
         if not preorder: return
+
         val = preorder[0]
         if not vmin <= val <= vmax: return
         preorder.pop(0)

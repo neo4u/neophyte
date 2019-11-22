@@ -1,79 +1,15 @@
-# Approach 1: Maintain cheapest to target
-class Solution(object):
-    def findCheapestPrice(self, n, flights, src, dst, K):
-        dist = [[float('inf')] * n for _ in range(2)]
-        dist[0][src] = dist[1][src] = 0
-
-        for i in range(K+1):
-            for u, v, w in flights:
-                dist[i&1][v] = min(dist[i&1][v], dist[~i&1][u] + w)
-
-        return dist[K&1][dst] if dist[K&1][dst] < float('inf') else -1
+from typing import List
 
 
 # Approach 2: Dijkstra's with a priority queue
-from heapq import heappush, heappop
+# Traverse K + 2 nodes we get to k + 2th node with k stops excluding src and dst
+import collections
+import heapq
 class Solution:
-    def findCheapestPrice(self, n, flights, src, dst, k):
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, K: int) -> int:
         graph = collections.defaultdict(dict)
         for u, v, w in flights: graph[u][v] = w
-        q = [(0, src, k + 1)]
-
-        while q:
-            p, i, k = heappop(q)
-            if i == dst: return p
-            if k > 0:
-                for j in graph[i]:
-                    heappush(q, (p + graph[i][j], j, k - 1))
-
-        return -1
-
-# Approach 2: Dijkstra's with a priority queue
-import collections
-import heapq
-
-
-# Traverse K + 2  nodes we get to k + 2 th node with k stops excluding src and dst
-class Solution2(object):
-    def findCheapestPrice(self, n, flights, src, dst, K):
-        graph = collections.defaultdict(dict)
-        for u, v, w in flights: graph[u][v] = w
-        # Example: edges = [[0,1,100],[1,2,100],[0,2,500]] would look like this in graph
-        # {
-        #     0: {
-        #         1: 100,
-        #         2: 500
-        #     },
-        #     1: {
-        #         2: 100
-        #     }
-        # }
-        best_cost_to_city = {}
-        pq = [(0, 0, src)]
-
-        while pq:
-            cost, stops, city = heapq.heappop(pq)
-            if city == dst: return cost
-            if stops > K+1 or cost > best_cost_to_city.get((stops, city), float('inf')): continue
-
-            for n, wt in graph[city].items():
-                newcost = cost + wt
-                if newcost < best_cost_to_city.get((stops + 1, n), float('inf')):
-                    heapq.heappush(pq, (newcost, stops + 1, n))
-                    best_cost_to_city[stops + 1, n] = newcost
-
-        return -1
-
-
-import collections
-import heapq
-class Solution(object):
-    def findCheapestPrice(self, n, flights, src, dst, K):
-        graph = collections.defaultdict(dict)
-        for u, v, w in flights: graph[u][v] = w
-
-        costs = {}
-        pq = [(0, 0, src)]
+        costs, pq = {}, [(0, 0, src)]
 
         while pq:
             cost, stops, city = heapq.heappop(pq)
@@ -92,55 +28,52 @@ class Solution(object):
 
 from collections import defaultdict
 import heapq
-class Solution:
-    def findCheapestPrice(self, int, flights, src, dst, K):
+
+class Solution1:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, K: int) -> int:
         graph = defaultdict(dict)
         for u, v, w in flights: graph[u][v] = w
-        
-        visited = set()
-        queue = [[0, 0, src]]
-        while queue:
-            cost, step, u = heapq.heappop(queue)
+
+        visited, q = set(), [[0, 0, src]]
+        while q:
+            cost, step, u = heapq.heappop(q)
             #print(cost, step, u)
             if u == dst: return cost
             if step > K: continue
-            
-            #if u in visited: continue
-            
             visited.add(u)
-            
+
             for v in graph[u]:
-                if v not in visited:
-                    heapq.heappush(queue, [cost + graph[u][v], step + 1, v])
+                if v in visited: continue
+                heapq.heappush(q, [cost + graph[u][v], step + 1, v])
+
         return -1
 
 # Approach 3: Bellman-Ford (which is a case of DP)
-class Solution3:
-    def findCheapestPrice(self, cities, flights, src, dst, stops):
+# class Solution3:
+#     def findCheapestPrice(self, cities, flights, src, dst, stops):
 
-        dp = [inf for i in range(cities)]
-        dp[src] = 0
+#         dp = [inf for i in range(cities)]
+#         dp[src] = 0
 
-        # pre-invariant: dp represents dp[k]
-        for k in range(stops + 1):
-            dpnext = [dp[i] for i in range(cities)]
-            notChanged = True
-            # the order in which we compute the minimum for each dp[k][des] does not matter
-            # so we simply traverse through the edge list and consider each edge once
-            for ori, des, price in flights:
-                if price + dp[ori] < dpnext[des]:
-                    dpnext[des] = price + dp[ori]
-                    notChanged = False
-            # if dp[k+1] is the same as dp[k], then there will be no change in the following
-            # iterations either, so we simply stop right here 
-            # (all absolute cheapest paths have been found)
-            if notChanged:
-                break
-            dp = dpnext
+#         # pre-invariant: dp represents dp[k]
+#         for k in range(stops + 1):
+#             dpnext = [dp[i] for i in range(cities)]
+#             notChanged = True
+#             # the order in which we compute the minimum for each dp[k][des] does not matter
+#             # so we simply traverse through the edge list and consider each edge once
+#             for ori, des, price in flights:
+#                 if price + dp[ori] < dpnext[des]:
+#                     dpnext[des] = price + dp[ori]
+#                     notChanged = False
+#             # if dp[k+1] is the same as dp[k], then there will be no change in the following
+#             # iterations either, so we simply stop right here 
+#             # (all absolute cheapest paths have been found)
+#             if notChanged: break
+#             dp = dpnext
 
-        # by pre-invariant and definition of dp, dp[d] now represents the
-        # cheapest price of all paths from @scr to @d with up to k stops
-        return dp[dst]
+#         # by pre-invariant and definition of dp, dp[d] now represents the
+#         # cheapest price of all paths from @scr to @d with up to k stops
+#         return dp[dst]
 
 
 # 787. Cheapest Flights Within K Stops
@@ -148,15 +81,23 @@ class Solution3:
 
 
 # Approach 1: Maintain cheapest to target
+# Don't bother, it's not clear
+
 # Time: O(E * K), where E is the length of flights.
 # Space: O(n), the space used to store dis and pre.
 
 # Approach 2: Dijkstra's with a priority queue
+# Best for interview
+
 # Time: O(E + (n * log(n))), where E is the total number of flights.
 # Space: O(n), the size of the heap.
 
 # Approach 3: Bellman-Ford (which is a case of DP)
+# Note sure if this is better in anyways, it's complicated and confusing, 
+# First of all why Bellman ford instead of dijstrak's???
+
 # Refer: https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/
+
 # dp[k][d] is the cheapest price of all routes from @src to @d
 # with up to k+1 nodes (k-1 stops)
 # Thus, dp[k][d] = minimum among
@@ -178,18 +119,20 @@ class Solution3:
 # notice that dp[k][...] only depends on dp[k-1][...], thus we only keep a single array
 # we start with dp[0], which is easy to initialize as we described above
 
+# Time: 
+# Space: 
 
-# sol = Solution2()
-# n = 3
-# edges = [[0,1,100],[1,2,100],[0,2,500]]
-# src = 0
-# dst = 2
-# k = 1
-# assert sol.findCheapestPrice(n, edges, src, dst, k) == 200
+sol = Solution()
+n = 3
+edges = [[0,1,100],[1,2,100],[0,2,500]]
+src = 0
+dst = 2
+k = 1
+assert sol.findCheapestPrice(n, edges, src, dst, k) == 200
 
-# n = 3
-# edges = [[0,1,100],[1,2,100],[0,2,500]]
-# src = 0
-# dst = 2
-# k = 0
-# assert sol.findCheapestPrice(n, edges, src, dst, k) == 500
+n = 3
+edges = [[0,1,100],[1,2,100],[0,2,500]]
+src = 0
+dst = 2
+k = 0
+assert sol.findCheapestPrice(n, edges, src, dst, k) == 500

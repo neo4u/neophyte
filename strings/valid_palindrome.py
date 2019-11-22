@@ -1,7 +1,5 @@
-# Two pointer method
-
+# Approach 1: Two pointer method
 import re
-
 class Solution:
     def isPalindrome(self, s: str) -> bool:
         if not s: return True
@@ -19,11 +17,6 @@ class Solution:
     def alpha_num(self, s):
         return re.match('[a-zA-Z0-9]', s) is not None
 
-
-# # Gsub method
-# def is_palindrome(s)
-#     s.gsub(/[^a-z0-9]/i, '').tap { |str| return str.casecmp(str.reverse).zero? }
-# end
 
 # 125. Valid Palindrome
 # https://leetcode.com/problems/valid-palindrome/description/

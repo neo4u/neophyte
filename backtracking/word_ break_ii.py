@@ -23,4 +23,4 @@ class Solution(object):
 
 # cat, cats, sand, and, dog
 
-# catsanddog
+# catsanddogsand

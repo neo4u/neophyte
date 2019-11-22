@@ -21,14 +21,14 @@ class Solution1:
 # Approach 1: Using a hash, But using Counter, Time: O(n) Space: O(n)
 class Solution:
     def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        result, counts = [], collections.Counter(nums1)
-
+        m, n = len(nums1), len(nums2)
+        if m < n: nums1, nums2, m, n = nums2, nums1, n, m   # Ensure that the bigger one is nums1 so that memory is high and time is now
+        h1, result = collections.Counter(nums1), []
         for num in nums2:
-            count = 0 if num not in counts else counts[num]
-            if count == 0: continue
+            if num not in h1: continue
             result.append(num)
-            counts[num] -= 1
-
+            h1[num] -= 1
+            if h1[num] == 0: h1.pop(num)
         return result
 
 
@@ -97,7 +97,7 @@ class Solution:
 
 # Q. What if nums1's size is small compared to nums2's size? Which algorithm is better?
 # A. Suppose lengths of two arrays are N and M,
-#    the time complexity of my solution is O(N+M) and the space complexity if O(N) considering the hash.
+#    the time complexity of my solution is O(N+M) and the space complexity is O(N) considering the hash.
 #    So it's better to use the smaller array to construct the counter hash.
 #    Well, as we are calculating the intersection of two arrays,
 #    the order of array doesn't matter. We are totally free to swap to arrays.

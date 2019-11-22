@@ -29,6 +29,7 @@ class Solution:
     def valid(self, maze, m, n, i, j):
         return 0 <= i <= m - 1 and 0 <= j <= n - 1 and maze[i][j] == 0
 
+
 # no early return, although online judge doesn't test for cases that exercises early return as faulty
 class Solution2:
     def shortestDistance(self, maze, src, dst):
@@ -57,7 +58,6 @@ class Solution2:
 
     def valid(self, maze, m, n, i, j):
         return 0 <= i <= m - 1 and 0 <= j <= n - 1 and maze[i][j] == 0
-
 
 
 # 505. The Maze II

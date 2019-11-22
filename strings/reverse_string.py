@@ -9,11 +9,10 @@ class Solution(object):
 class SolutionClassic(object):
     def reverseString(self, s):
         r = list(s)
-        i, j  = 0, len(r) - 1
+        i, j = 0, len(r) - 1
         while i < j:
             r[i], r[j] = r[j], r[i]
-            i += 1
-            j -= 1
+            i += 1; j -= 1
 
         return "".join(r)
 

@@ -1,12 +1,13 @@
 from typing import List
 
 
+MAP = {
+    "2": "abc", "3": "def",
+    "4": "ghi", "5": "jkl", "6": "mno",
+    "7": "pqrs", "8": "tuv", "9": "wxyz"
+}
+
 class Solution:
-    MAP = {
-        "2": "abc", "3": "def",
-        "4": "ghi", "5": "jkl", "6": "mno",
-        "7": "pqrs", "8": "tuv", "9": "wxyz"
-    }
     def letterCombinations(self, digits: str) -> List[str]:
         if not digits: return []
         self.combos = []
@@ -16,7 +17,7 @@ class Solution:
     def bt(self, digits, i, path):
         if len(path) == len(digits): return self.combos.append(path)
 
-        for c in self.MAP[digits[i]]:
+        for c in MAP[digits[i]]:
             self.bt(digits, i + 1, path + c)
 
 

@@ -1,4 +1,7 @@
-class Solution(object):
+from typing import List
+
+
+class Solution:
     def reverseWords(self, s: List[str]) -> None:
         self.reverse(s, 0, len(s) - 1)
         self.reverse_words(s)
@@ -9,19 +12,16 @@ class Solution(object):
             l += 1; r -= 1
 
     def reverse_words(self, arr):
+        n = len(arr)
         l, r = 0, 0
-        while r < len(arr):
-            while r < len(arr) and not arr[r].isspace(): r += 1
+        while r < n:
+            while r < n and not arr[r].isspace(): r += 1
             self.reverse(arr, l, r - 1)
             r += 1; l = r
 
 # Python usage seems way faster.
-class Solution2(object):
-    def reverseWords(self, s):
-        """
-        :type str: List[str]
-        :rtype: void Do not return anything, modify str in-place instead.
-        """
+class Solution:
+    def reverseWords(self, s: List[str]) -> None:
         s[:] = str(''.join(s)).split(' ')
         s[:] = reversed(s)
         s[:] = list(' '.join(s))

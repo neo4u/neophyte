@@ -1,5 +1,6 @@
 from typing import List
 
+# Intuitive and long
 class Solution:
     def __init__(self):
         self.x, self.y = 0, 0
@@ -39,6 +40,7 @@ class Solution:
         self.curr_dir = self.code_to_dirs[code]
 
 
+# Concise but non-descriptive
 class Solution:
     def robotSim(self, commands: List[int], obstacles: List[List[int]]) -> int:
         x, y, dx, dy = 0, 0, 0, 1
@@ -57,5 +59,10 @@ class Solution:
 
         return result
 
+
 # 874. Walking Robot Simulation
 # https://leetcode.com/problems/walking-robot-simulation/description/
+
+# Intuition:
+# - Here x, y represent cartesian co-ordinates and not indexes of 2-D array
+# - So facing north would man dx, dy = 0, 1

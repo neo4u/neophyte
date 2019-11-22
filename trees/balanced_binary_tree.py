@@ -19,3 +19,11 @@ class Solution:
         if not r_bool: return False, None
 
         return abs(l_depth - r_depth) <= 1, max(l_depth, r_depth) + 1
+
+
+# 110. Balanced Binary Tree
+# https://leetcode.com/problems/balanced-binary-tree/description/
+
+# For everysub-tree, we return:
+# 1. the truth value of is the sub-tree is height balanced or not
+# 2. the max depth of the sub-tree

@@ -13,7 +13,7 @@ class Solution1:
         return max_len
 
 
-# Approach 3: l, r counters, Space: O(1)
+# Approach 4: l, r counters, Space: O(1)
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
         l, r, max_len = 0, 0, 0
@@ -48,8 +48,9 @@ class Solution:
 # 1. We use a stack and push -1 to indicate the index for our math.
 # 2. For every (, we push its index onto the stack.
 # 3. For every ), we pop and do i - stack[-1] to get len and update max_len if better.
-# 4. If the stack becomes empty at any point while popping,
-#    we push the current index onto the stack, again for our math.
+# 4. If the stack becomes empty at any point after popping,
+#    we push the current index onto the stack, again for our math,
+#    to mark the index where a new candidate for valid string starts
 # 5. Since our max_len keeps track of the running max, we return it at the end.
 
 # Example 1: s = '(()'
@@ -110,6 +111,7 @@ class Solution:
 
 
 # Example 1: s = '(()'
+# 1st pass
 # l, r = 0, 0
 # c = (
 # l, r = 1, 0
@@ -118,10 +120,24 @@ class Solution:
 # l, r = 2, 0
 
 # c = )
+# l, r = 2, 1
+# max_len = 0
+
+# 2nd pass
+# reversed = ')(('
 # l, r = 0, 0
+# c = )
+# l, r = 0, 1
 
+# c = (
+# l, r = 1, 1
+# l == r so max_len = l + r = 2
 
-# return 2
+# c = (
+# l, r = 2, 1
+# l > r so l = r = 0
+# we return max_len == 2
+
 
 # Example 2: s = )()())
 # 1st pass

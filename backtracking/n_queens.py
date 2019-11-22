@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def solveNQueens(self, n: int):
         self.n = n
@@ -39,3 +42,27 @@ class Solution:
                 else:
                     self.bt(row + 1)
                 self.remove_queen(row, col)
+
+
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        answers, positions = [], []
+        self.bt(answers, positions, 0, n)
+        return answers
+
+    def compatible(self, prev_cols_list, curr_col, curr_row):
+        for prev_row in range(curr_row):
+            if prev_cols_list[prev_row] == curr_col or curr_row - prev_row == abs(prev_cols_list[prev_row] - curr_col):
+                return False
+        return True
+
+    def bt(self, answers, positions, row, n):
+        if row == n:
+            answers.append(['.' * p + 'Q' + '.' * (n-1-p) for p in positions])
+            return answers
+        for col in range(n):
+            if self.compatible(positions, col, row):
+                positions.append(col)
+                self.bt(answers, positions, row+1, n)
+                positions.pop()
+        return answers

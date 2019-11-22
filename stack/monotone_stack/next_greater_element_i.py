@@ -12,6 +12,14 @@ class Solution:
 
         return list(map(lambda x: next_greater.get(x, -1), nums1))
 
+[]
+
+# 10 6 5 8 
+
+# 10 8 
+# ng[5] 8
+# ng[6] 8
+
 
 
 # 496. Next Greater Element I

@@ -14,11 +14,11 @@ class Solution:
             return
 
         if self.s[i] == '(':
-            if l_rem: self.bt(i + 1, l_rem - 1, r_rem, balance, path)
-            self.bt(i + 1, l_rem, r_rem, balance + 1, path + '(')
+            if l_rem: self.bt(i + 1, l_rem - 1, r_rem, balance, path)   # Ignore
+            self.bt(i + 1, l_rem, r_rem, balance + 1, path + '(')       # Cosider
         elif self.s[i] == ')':
-            if r_rem: self.bt(i + 1, l_rem, r_rem - 1, balance, path)
-            if balance: self.bt(i + 1, l_rem, r_rem, balance - 1, path + ')')
+            if r_rem: self.bt(i + 1, l_rem, r_rem - 1, balance, path)   # Ignore
+            if balance: self.bt(i + 1, l_rem, r_rem, balance - 1, path + ')') # Consider
         else:
             self.bt(i + 1, l_rem, r_rem, balance, path + self.s[i])
 

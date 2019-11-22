@@ -21,10 +21,11 @@ class Solution:
         grid[i][j] = 0
 
         for k, v in self.dirs.items():
-            if not self.valid(grid, m, n, i + v[0], j + v[1]): continue
-            self.dfs(grid, m, n, i + v[0], j + v[1], shape, k)
-        shape.append('b') # back
+            x, y = i + v[0], j + v[1]
+            if not self.valid(grid, m, n, x, y): continue
+            self.dfs(grid, m, n, x, y, shape, k)
 
+        shape.append('b') # back
         return shape
 
     def valid(self, grid, m, n, i, j):

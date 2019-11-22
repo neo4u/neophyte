@@ -10,8 +10,7 @@ class Solution:
     def flatten(self, head):
         if not head: return
         prev = dummy = Node(0, None, head, None)
-        stack = []
-        stack.append(head)
+        stack = [head]
 
         while stack:
             node = stack.pop()

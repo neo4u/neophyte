@@ -13,7 +13,7 @@ class Solution(object):
             possible = [j for j in possible if self.H[guess][j] == matches]
             path = path + (guess,)
 
-    def solve(self, possible, path = ()):
+    def solve(self, possible, path=()):
         if len(possible) <= 2: return possible[0]
 
         ansgrp, ansguess = possible, None
@@ -84,10 +84,10 @@ class Solution:
         :type master: Master
         :rtype: None
         """
-        random_word = wordlist[random.randint(0,len(wordlist)-1)]
+        random_word = wordlist[random.randint(0, len(wordlist) - 1)]
         matches = master.guess(random_word)
-        if matches == 6:
-            return
+        if matches == 6: return
+
         filtered_wordlist = []
         for w in wordlist:
             if w == random_word: continue

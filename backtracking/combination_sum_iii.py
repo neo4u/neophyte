@@ -24,4 +24,4 @@ class Solution:
 # Approach 1: Backtracking
 # 1. Similar to problem Combination Sum 1.
 # 2. Only difference being we also check length of the path
-# 3. The other important thing is we don't want duplicatesj, so we use i + 1
+# 3. The other important thing is we don't want duplicates, so we use i + 1

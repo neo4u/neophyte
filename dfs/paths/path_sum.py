@@ -26,5 +26,12 @@ class Solution:
 # https://leetcode.com/problems/path-sum/description/
 
 
+# Path sum can only be added in a root to leaf path
+# so cases like below will fail if we don't handle leaf node case,
+# rather than checking for zero sum when we hit None
+#     1
+#   2
+
+
 # Time: O(n)
 # Space: Avg Case: O(log(n)), Worst Case: O(n)

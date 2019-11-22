@@ -49,6 +49,7 @@ def find_length_of_lcis(nums)
     max_len
 end
 
+
 # 674.Longest Continuous Increasing Subsequence
 # https://leetcode.com/problems/longest-continuous-increasing-subsequence/
 

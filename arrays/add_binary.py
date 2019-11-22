@@ -1,40 +1,27 @@
-def addBinary(self, a, b):
-    a, b = list(a), list(b)
-    res, carry = [], 0
-    while a or b:
-        n1 = n2 = 0
-        if a: n1 = int(a.pop())
-        if b: n2 = int(b.pop())
-        
-        tmp = n1 + n2 + carry
-        carry = 0
-        if tmp == 1 or tmp == 0:
-            res.append(tmp)
-        elif tmp == 2:
-            res.append(0)
-            carry += 1
-        else:
-            res.append(1)
-            carry += 1
-    if carry:
-        res.append(carry)
-    return ''.join(str(d) for d in res)[::-1]
-
-# add two binary from back to front, I think it is very self explained, when 1+1 we need a carry.
 class Solution:
-    def addBinary(self, a, b):
-        if '' in (a, b): return a or b
-        if a[-1] == '1' and b[-1] == '1':
-            return self.addBinary('1', self.addBinary(a[:-1], b[:-1])) + '0'
-        if a[-1] == '0' and b[-1] == '0':
-            return self.addBinary(a[:-1], b[:-1]) + '0'
+    def addBinary(self, a: str, b: str) -> str:
+        m, n = len(a), len(b)
+        i, j = m - 1, n - 1
+        carry, result = 0, ''
 
-        return self.addBinary(a[:-1], b[:-1]) + '1'
+        while i >= 0 or j >= 0 or carry:
+            d1 = int(a[i]) if i >= 0 else 0
+            d2 = int(b[j]) if j >= 0 else 0
+            s = d1 + d2 + carry
 
-# One liner using in-built constructs
-class Solution:
-    def addBinary(self, a, b):
-        return bin(eval('0b' + a) + eval('0b' + b))[2:]
+            if s in [0, 1]:
+                result = str(s) + result
+                carry = 0
+            elif s == 2:
+                result = '0' + result
+                carry = 1
+            elif s == 3:
+                result = '1' + result
+                carry = 1
+            i -= 1; j -= 1
+
+        return result
+
 
 # 67. Add Binary
 # https://leetcode.com/problems/add-binary/

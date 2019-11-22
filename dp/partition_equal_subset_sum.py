@@ -14,7 +14,7 @@ class Solution1:
         for i in range(1, n + 1):
             for j in range(1, t + 1):
                 dp[i][j] = dp[i - 1][j]
-                if j < nums[i - 1]: continue
+                if nums[i - 1] > j: continue
                 dp[i][j] = dp[i][j] or dp[i - 1][j - nums[i - 1]]
 
         return dp[n][t]

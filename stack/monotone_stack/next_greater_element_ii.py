@@ -7,11 +7,14 @@ class Solution:
         result, stack = [-1] * n, []
 
         for i in list(range(n)) * 2:
-            while stack and nums[stack[-1]] < nums[i]:
-                result[stack.pop()] = nums[i]
+            num = nums[i]
+            while stack and nums[stack[-1]] < num:
+                result[stack.pop()] = num
             stack.append(i)
 
         return result
+
+
 
 
 # 503. Next Greater Element II

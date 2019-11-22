@@ -20,7 +20,7 @@ def find_celebrity(n)
     candidate
 end
 
-# 277. Find the Celebrity
+# 277. Find the Celerity
 # https://leetcode.com/problems/find-the-celebrity/
 
 # Approach: Two Pass

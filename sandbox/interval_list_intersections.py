@@ -15,8 +15,8 @@ class Solution:
                 intersect = [max(a1, b1), min(a2, b2)]
                 result.append(intersect)
 
-            if a2 < b2:     i += 1
-            elif b2 < a2:   j += 1
+            if a2 < b2:     i += 1 # A[i] ends first so advance i, since we've counted its intersection upto a2
+            elif b2 < a2:   j += 1 # B[j] ends first so advance j, since we've counter its intersection upto b2
             else:
                 i += 1; j += 1
 
@@ -32,24 +32,24 @@ class Solution:
 
 # Intuition
 
-# 3 CASES
-# -------
-# 1. No Overlap neither b1 <= a1 <= b2 NOR a1 <= b1 <= a2
-# a1------a2
-#             b1-------b2
-# 2. a1 between b1 and b2
-#         a1-------a2
-#     b1---------------b2
-# 3. b1 between a1 and b2
-#     a1------------a2
-#             b1---------------b2
+# I. There are 3 CASES
+#    1. No Overlap neither b1 <= a1 <= b2 NOR a1 <= b1 <= a2
+#    a1------a2
+#                b1-------b2
+#    2. a1 between b1 and b2
+#            a1-------a2
+#        b1---------------b2
+#    3. b1 between a1 and b2
+#        a1------------a2
+#                b1---------------b2
+# II. Another important point is that the intervals within A and B are already sorted.
 
 # Steps:
 # 1. Use 2 pointers i and j to mark the current interval in A and B
 # 2. Use has_overlap to check if there is an overlap
 # 3. If there is an overlap, get the intersection and insert that into result
 # 4. Based on which interval amongst A[i] and B[j] ends first we advance i or j respectively,
-#    this is because, we have to ensure that the (i + 1)th or (j + 1)th interval might have an
+#    this is because, we have to ensure that the (i + 1)th or (j + 1)th interval might still have an
 #    intersection with the jth or ith interval respectively
 
 # Time: O(n)

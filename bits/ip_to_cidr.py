@@ -3,46 +3,67 @@ from typing import List
 
 class Solution:
     def ipToCIDR(self, ip: str, n: int) -> List[str]:
-        number = self.ip_to_number(ip)
-        print(f"IP: {ip} | Dec: {number}")
-        result = []
+        dec_ip, result = self.ip_to_dec(ip), []
 
         while n > 0:
-            lowbit = self.lowbit(number)
+            dec_t0s = self.trailing_0s_digit(dec_ip)
+            ip = self.dec_to_ip(dec_ip)
 
-            while lowbit > n: lowbit //= 2 # Same as right shift by 1 or >>= 1
-
-            r_zeros = self.right_0_bits(lowbit)
-            ip = self.number_to_ip(number)
-            result.append(f'{ip}/{32 - r_zeros}')
-            n -= lowbit
-            number += lowbit
-
+            while dec_t0s > n: dec_t0s >>= 1
+            t0s = self.trailing_0s(dec_t0s)
+            result.append(f"{ip}/{32 - t0s}")
+            n -= dec_t0s
+            dec_ip += dec_t0s
         return result
 
-    def ip_to_number(self, ip):
-        ip = ip.split('.')
-        return (int(ip[0]) << 24) + \
-                (int(ip[1]) << 16) + \
-                (int(ip[2]) << 8) + \
-                int(ip[3])
+    def ip_to_dec(self, ip):
+        a, b, c, d = list(map(int, ip.split('.')))
+        return a * 256**3 + b * 256**2 + c * 256**1 + d * 256**0
 
-    def number_to_ip(self, number):
-        return '.'.join([
-            str(number >> 24 & 255),
-            str(number >> 16 & 255),
-            str(number >> 8 & 255),
-            str(number & 255)
-        ])
+    def dec_to_ip(self, dec):
+        a, b, c, d = dec // 256**3 % 256, dec // 256**2 % 256, dec // 256**1 % 256, dec // 256**0 % 256
+        return ".".join(map(str, [a, b, c, d]))
 
-    def lowbit(self, number):
-        return number & -number
+    def trailing_0s_digit(self, dec):
+        return dec & -dec
 
-    def right_0_bits(self, number):
+    def trailing_0s(self, dec):
         count = 0
 
-        while number & 1 == 0:
+        while dec & 1 == 0:
+            dec >>= 1
             count += 1
-            number //= 2
 
         return count
+
+
+# 751. IP to CIDR
+# https://leetcode.com/problems/ip-to-cidr/description/
+# Copy this entire text in file and run with python3 and it should run perfectly
+
+# Intuition:
+# - A Subnet mask is a 32-bit number that masks an IP address,
+#   and divides the IP address into network address and host address.
+#   Subnet Mask is made by setting network bits to all "1"s and setting host bits to all "0"s.
+# - CIDR notation is used to represent a block of IPs,
+#   Ex: 192.168.100.0/22 represents 1024 address from from 192.168.100.0 to 192.168.103.255.
+# - In this question, given a starting IP, we need to find CIDR blocks such that they cover n IPs
+# - If you know how to convert a decimal to binary and back, or decimal to hex and back, this approach is similar to that
+
+# Steps:
+# 1. We first convert the IP which can be seen as a base 256 number of 4 digits to it's deciaml value
+# 2. Find number of trailing zeros power 2 (dec_t0s)
+#    Trailing 0s give us the number of bits we are working with to define a mask
+# 3. We reduce 'dec_t0s' by 2 while dec_t0s > n, ensurin we get the largest value without crossing n
+#    THIS STEP IS KEY TO CHOOSING OPTIMAL CIDR BLOCKS to just cover n
+#    Adding 2 ^ no. of trailing 0s to the decimal value of the IP will fill the trailing 0s with 1s
+# 4. Parallely we can also get the IP from the decimal value of the IP we currently have,
+#    (Note that this increase by 'dec_t0s' each iteration of while n > 0)
+# 5. We then add the CIDR block representing the curr 'dec_t0s' size CIDR block
+# 6. Then we add 'dec_t0s' to 'number' to fill the 0s, and also subtract dec_t0s from n,
+#    cuz we've represented another dec_t0s IPs using the respective CIDR block
+# 7. Then we continue looping till n > 0
+
+
+sol = Solution()
+assert sol.ipToCIDR(ip="255.0.0.7", n=10) == ["255.0.0.7/32", "255.0.0.8/29", "255.0.0.16/32"]

@@ -7,7 +7,7 @@ class Solution(object):
         x_count = sum(row.count(FIRST) for row in board)        # Check count of Xs
         o_count = sum(row.count(SECOND) for row in board)       # Check count of Os
 
-        if o_count not in {x_count-1, x_count}: return False
+        if o_count not in {x_count - 1, x_count}: return False
         if self.winner(board, FIRST) and x_count - 1 != o_count: return False   # Check state, if x is winner
         if self.winner(board, SECOND) and x_count != o_count: return False      # Check state, if o is winner
 
@@ -23,6 +23,8 @@ class Solution(object):
         if all(board[i][n - 1 - i] == player for i in range(n)): return True
 
         return False
+
+
 
 
 # 794. Valid Tic-Tac-Toe State

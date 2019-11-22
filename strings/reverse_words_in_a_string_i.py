@@ -1,7 +1,7 @@
 class Solution(object):
     def reverseWords(self, s):
         arr = list(s)
-        self.reverse_string(arr, 0, len(arr)-1)
+        self.reverse_string(arr, 0, len(arr) - 1)
         self.reverse_word(arr)
         # word = self.trim_sides(arr)
         # res = self.trim_space(word)
@@ -16,11 +16,13 @@ class Solution(object):
 
     def reverse_word(self, arr):
         '''reverse every words in a string'''
-        l, r = 0, 0
-        while r < len(arr):
-            while r < len(arr) and not arr[r].isspace(): r += 1
+        l, r, n = 0, 0, len(arr)
+
+        while r < n:
+            while r < n and not arr[r].isspace(): r += 1
             self.reverse_string(arr, l, r-1)
             r += 1; l = r
+
         return arr
 
     # def trim_sides(self, arr):
@@ -39,6 +41,7 @@ class Solution(object):
     #         if res[-1].isspace() and word[i].isspace(): continue
     #         res.append(word[i])
     #     return res
+
 
 # 151. Reverse Words in a String
 # https://leetcode.com/problems/reverse-words-in-a-string-ii/

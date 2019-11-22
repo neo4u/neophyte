@@ -18,6 +18,16 @@ def merge(nums1, m, nums2, n)
     nums1 # Comment this out for submission into leetcode. Bcuz we need in place
 end
 
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        while m > 0 and n > 0:
+            if nums1[m - 1] >= nums2[n - 1]:
+                nums1[m + n - 1] = nums1[m - 1]
+                m -= 1
+            else:
+                nums1[m + n - 1] = nums2[n - 1]
+                n -= 1
+        if n > 0: nums1[:n] = nums2[:n]
 
 # 88. Merge Sorted Array
 # https://leetcode.com/problems/merge-sorted-array/
@@ -148,12 +158,12 @@ end
 #   [4, 0, 0, 4] # If R1 < 0, always write R2's value
 # R1       W 
 #   [1, 2, 3]
-#          R2      
+#          R2
 
 #   [4, 0, 3, 4] # Move W and R2 to the left and repeat
 # R1    W 
 #   [1, 2, 3]
-#       R2           
+#       R2
 # ...
 
 require 'test/unit'

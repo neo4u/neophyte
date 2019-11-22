@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def findLengthOfLCIS(self, nums: List[int]) -> int:
         if not nums: return 0
@@ -16,4 +19,4 @@ class Solution:
         return max_len
 
 # 674. Longest Continuous Increasing Subsequence
-# https://leetcode.com/problems/longest-continuous-increasing-subsequence/description/
+# https://lejetcode.com/problems/longest-continuous-increasing-subsequence/description/

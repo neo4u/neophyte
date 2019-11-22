@@ -24,7 +24,9 @@ class Solution:
 # https://leetcode.com/problems/longest-arithmetic-sequence/description/
 
 # Steps:
-# dp[i] represents a dict of diffs and their max lengths upto i
+# dp[i] represents a dict where keys are diffs and
+# values are length of the subsequence for that diff upto index i
+
 
 # Example: A = [9,4,7,2,10]
 # dp = [{}, {}, {}, {}, {}]
@@ -35,10 +37,10 @@ class Solution:
 
 # i = 2
 # j = 0, diff = -2
-# dp = [{}, {-5: 2}, {}, {}, {}], max_len = 2
+# dp = [{}, {-5: 2}, {-2: 2} {}, {}], max_len = 2
 
 # j = 1, diff = 3
-# dp = [{}, {-5: 2}, {-2: 2, 3, 2}, {}, {}], max_len = 2
+# dp = [{}, {-5: 2}, {-2: 2, 3: 2}, {}, {}], max_len = 2
 
 
 # i = 3
@@ -65,3 +67,6 @@ class Solution:
 # dp = [{}, {-5: 2}, {-2: 2, 3: 2}, {-7: 2}, {1: 2, 6: 2, 3: 3, 8: 2}], max_len = 3
 
 # return max_len = 3
+
+# Time: O(n^2)
+# Space: O(n^2), worst case, all number before has different diff for n times 

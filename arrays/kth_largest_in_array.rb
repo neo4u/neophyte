@@ -62,7 +62,7 @@ end
 # 4. if k is smaller than pivot index do a quickselect of first half
 # 5. else if k > pivot index do a quick select of 2nd half
 
-# Time: O(n)
+# Time: O(n) average case with good pivot, worst case O(n^2)
 # Space: O(1)
 
 require 'test/unit'

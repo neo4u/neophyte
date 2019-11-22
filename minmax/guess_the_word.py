@@ -28,7 +28,6 @@ class Solution:
         return count
 
 # Approach 2: heuristic 2
-
 class Solution:
     def findSecretWord(self, wordlist: List[str], master: 'Master'):
         while wordlist:
@@ -51,6 +50,7 @@ class Solution:
         return max(candidates, key=lambda w: sum(counts[i][c] for i, c in enumerate(w)))
 
 
+
 # 843. Guess the Word
 # https://leetcode.com/problems/guess-the-word/
 
@@ -58,8 +58,18 @@ class Solution:
 
 
 # Approach 2: MinMax with heuristic
-# heuristic 1: Least match
+# heuristic 1: Least zero matches
+# At every stage we eliminate words that don't have the same number of matches as n
+
+# Why 0 matches instead of something higher?
+# The probability of two words with 0 match is (25/26)^6 = 80%.
+# That is to say, for a candidate word, we have 80% chance to see 0 match with the secret word.
+# In this case, we had 80% chance to eliminate the candidate word and its "family" words which have at least 1 match.
+
+# Additionally, in order to delete a max part of words, we select a candidate who has a big "family" (fewest 0 match with other words).
+
 # heuristic 2: most overlap
+# Most overlap is good while elimination? How does this compare with the least over lap heuristic
 
 # Steps:
 # 1. Choose a word that has most overlap [highest matches with hig]

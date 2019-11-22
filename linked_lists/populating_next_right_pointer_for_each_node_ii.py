@@ -6,6 +6,7 @@ class Node:
         self.right = right
         self.next = next
 
+
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
         # curr:   The current node in the upper level

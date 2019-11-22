@@ -38,7 +38,7 @@ end
 
 # Steps:
 # 1. Start windows with 1st k, 2nd k, and 3rd k
-# 2. Keep moving each one and recording the indices of the best sum windows
+# 2. Keep moving each one and recording the indexes of the best sum windows
 
 # Time: O(n), one traversal of list
 # Space: O(1)

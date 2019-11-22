@@ -4,9 +4,10 @@ class Node:
         self.next = next
         self.random = random
 
+
 # Approach 3: Iterative O(1)
-class Solution(object):
-    def copyRandomList(self, head):
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
         if not head: return head
 
         # Creating a new weaved list of original and copied nodes.
@@ -45,8 +46,8 @@ class Solution(object):
 
 
 
-class Solution(object):
-    def copyRandomList(self, head):
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
         if not head: return
 
         self.cloned = {}
@@ -68,6 +69,11 @@ class Solution(object):
 # 138. Copy List with Random Pointer
 # https://leetcode.com/problems/copy-list-with-random-pointer/description/
 
+# Approach 1: Hash Map for storing cloned mapping
+# Similar to clone graph
+
+# Approach 2: without hash map and using interweaved copy nodes
+
 # Key Insight:
 # 1. No hash map needed
 # 2. Just store clones after the originals like this for A->B->C: A->A'->B->B'->C->C'
@@ -76,6 +82,7 @@ class Solution(object):
 # 1. Interweave
 # 2. Copy random ptr
 # 3. Unweave
+
 
 # Time: O(n)
 # Space: O(1)

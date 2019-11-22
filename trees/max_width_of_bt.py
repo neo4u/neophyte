@@ -1,9 +1,9 @@
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 
 class Solution:
@@ -24,5 +24,5 @@ class Solution:
         return max_width
 
 
-# https://leetcode.com/problems/maximum-width-of-binary-tree/
 # 662. Maximum Width of Binary Tree
+# https://leetcode.com/problems/maximum-width-of-binary-tree/

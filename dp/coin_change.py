@@ -70,7 +70,7 @@ class Solution3:
         if not coins: return -1
         n = len(coins)
 
-        dp = [[amount + 1 for i in range(amount + 1) ] for j in range(n + 1)]
+        dp = [[amount + 1 for i in range(amount + 1)] for j in range(n + 1)]
         for i in range(n + 1): dp[i][0] = 0
 
         for i in range(1, n + 1):
@@ -84,18 +84,16 @@ class Solution3:
 # Approach 4: DP 1D
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        if amount == 0: return 0
         if not coins: return -1
+        if amount == 0: return 0
 
-        dp = [amount + 1] * (amount + 1)
-        dp[0] = 0
-
-        for coin in coins:
+        dp = [0] + [float('inf')] * amount
+        for c in coins:
             for i in range(1, amount + 1):
-                if i < coin: continue
-                dp[i] = min(dp[i], dp[i - coin] + 1)
+                if i < c: continue
+                dp[i] = min(dp[i], dp[i - c] + 1)
 
-        return -1 if dp[amount] > amount else dp[amount]
+        return -1 if dp[amount] == float('inf') else dp[amount]
 
 
 # 322. Coin Change

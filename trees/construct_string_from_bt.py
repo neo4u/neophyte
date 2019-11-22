@@ -10,17 +10,17 @@ class Solution:
     def tree2str(self, t: TreeNode) -> str:
         return self.dfs(t)
 
-    def dfs(self, root):
-        if not root: return ""
+    def dfs(self, node):
+        if not node: return ''
 
-        result = str(root.val)
-        if root.left or root.right:
-            l, r = self.dfs(root.left), self.dfs(root.right)
-
-            result += "(" + l + ")"
-            if r: result += "(" + r + ")"
+        result = str(node.val)
+        if node.left or node.right:
+            l, r = self.dfs(node.left), self.dfs(node.right)
+            result += f"({l})"
+            if r: result += f"({r})"
 
         return result
+
 
 # 606. Construct String from Binary Tree
 # https://leetcode.com/problems/construct-string-from-binary-tree/description/

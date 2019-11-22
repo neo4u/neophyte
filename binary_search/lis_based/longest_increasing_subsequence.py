@@ -116,16 +116,21 @@ import bisect
 class Solution4:
     def lengthOfLIS(self, nums: List[int]) -> int:
         seq, result = [], 0
-        for n in nums:
-            i = bisect.bisect_left(seq, n)
+        for num in nums:
+            i = bisect.bisect_left(seq, num)
             if i == len(seq):
-                seq.append(n)
+                seq.append(num)
                 result = seq.copy() # Very expensive, much better solution below
-            elif n < seq[i]:
-                seq[i] = n
+            elif num < seq[i]:
+                seq[i] = num
 
         print(result)
         return result
+
+# [3, 1, 5, 0, 6, 4, 9]
+# result = [1, 5]
+
+# [0, 5, 6]
 
 
 # Python version of:
@@ -165,6 +170,10 @@ class Solution3:
                 r = mid - 1
 
         return l
+
+# [-1, 0, 1, 10, 4, 5]
+
+# p [None, None, None, None, None, None]
 
 
 

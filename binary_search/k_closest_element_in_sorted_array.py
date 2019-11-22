@@ -1,18 +1,30 @@
-# 658. Find K Closest Elements
-# https://leetcode.com/problems/find-k-closest-elements/description/
+from typing import List
+from bisect import bisect_left
 
 class Solution:
-    def findClosestElements(self, A, k, target):
-        left, right = 0, len(A) - k
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        n = len(arr)
 
-        while left < right:
-            mid = (left + right) / 2
-            if A[mid + k] - target < target - A[mid]:
-                left = mid + 1
-            else:
-                right = mid
+        if x < arr[0]:
+            return arr[:k]
+        elif x > arr[-1]:
+            return arr[-k:]
+        else:
+            l, r = 0, len(arr) - k
 
-        return A[left:left + k]
+            while l < r:
+                mid = (l + r) // 2
+
+                if abs(arr[mid + k] - x) < abs(arr[mid] - x):
+                    l = mid + 1
+                else:
+                    r = mid
+
+        return arr[l : l + k]
+
+
+# 658. Find K Closest Elements
+# https://leetcode.com/problems/find-k-closest-elements/description/
 
 
 # [1,2,3,4,5,9,10]

@@ -61,8 +61,7 @@ class NestedIterator(object):
         """
         while self.stack:
             top = self.stack[-1]
-            if top.isInteger():
-                return True
+            if top.isInteger(): return True
 
             l = self.stack.pop()
             self.stack.append(l.getList()[::-1])

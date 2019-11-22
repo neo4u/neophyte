@@ -12,9 +12,8 @@ class Solution:
 
     def bt(self, nums: List[int], s_idx: int, path: List[int]) -> None:
         self.result.append(path)
-        if s_idx == len(nums): return
-        used = set()
 
+        used = set()
         for i in range(s_idx, len(nums)):
             if nums[i] in used: continue
             used.add(nums[i])
@@ -108,3 +107,7 @@ class Solution3:
 # 1 2
 # 1 3
 # 2 3
+
+
+# 90. Subsets II
+# https://leetcode.com/problems/subsets-ii/description/

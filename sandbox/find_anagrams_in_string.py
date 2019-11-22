@@ -20,18 +20,21 @@ class Solution:
         r = n
         while r < m:
             l = r - n + 1 # get 1st char in n size window
-            lc, rc = s[l - 1], s[r]
+            out_c, in_c = s[l - 1], s[r]
 
-            if lc in p_hash and p_hash[lc] == s_hash[lc]: formed -= 1
-            s_hash[lc] -= 1
+            if out_c in p_hash and p_hash[out_c] == s_hash[out_c]: formed -= 1
+            s_hash[out_c] -= 1
 
-            s_hash[rc] += 1
-            if rc in p_hash and p_hash[rc] == s_hash[rc]: formed += 1
+            s_hash[in_c] += 1
+            if in_c in p_hash and p_hash[in_c] == s_hash[in_c]: formed += 1
 
             if formed == desired: result.append(l)
             r += 1
 
         return result
+
+
+
 
 
 

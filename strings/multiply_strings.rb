@@ -19,6 +19,14 @@ def multiply(num1, num2)
     product.to_s
 end
 
+# 123, 456
+# (100 + 20 + 3) * 456
+
+# 1st Iteration
+# digit1 = 1
+# p, f = 0, 0
+
+
 # From back
 def multiply(num1, num2)
     product, fraction = 0, 0
@@ -37,6 +45,7 @@ def multiply(num1, num2)
 
     product.to_s
 end
+
 
 # 43. Multiply Strings
 # https://leetcode.com/problems/multiply-strings/description/

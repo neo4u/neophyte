@@ -5,35 +5,32 @@ class TreeNode:
         self.left = None
         self.right = None
 
+
 class Solution:
     def str2tree(self, s: str) -> TreeNode:
-        self.open, self.close = "(", ")"
-        root, _ = self.construct_subtree(s, 0)
+        if not s: return None
+        root, _ = self.dfs(s, 0)
         return root
 
-    def construct_subtree(self, s, i):
-        if i == len(s): return None, -1
+    def dfs(self, s, i):
+        start = i
+        while i < len(s) and s[i] in '-0123456789': i += 1  # negative sign or digit
+        node = TreeNode(int(s[start:i]))
 
-        num = ""
-        while i < len(s) and s[i] not in [self.open, self.close]:  # Construct root
-            num += s[i]
-            i += 1
+        # Construct left sub-tree
+        if i < len(s) and s[i] == '(':
+            i += 1                          # skip '('
+            node.left, i = self.dfs(s, i)
+            i += 1                          # skip ')'
 
-        root = TreeNode(int(num))
+        # Construct right sub-tree
+        if i < len(s) and s[i] == '(':      # still has '(', create right tree
+            i += 1                          # skip '('
+            node.right, i = self.dfs(s, i)
+            i += 1                          # skip ')'
 
-        if i == len(s): return root, i
-        if s[i] == self.close:
-            return root, i + 1
-        else:  # Construct left
-            root.left, j = self.construct_subtree(s, i + 1)
+        return node, i                      # Return the root of sub-tree, and index to start consuming chars for next level
 
-        if j == len(s): return root, j
-        if s[j] == self.close:
-            return root, j + 1
-        else:  # Construct right
-            root.right, k = self.construct_subtree(s, j + 1)
-
-        return root, k + 1
 
 # 536. Construct Binary Tree from String
 # https://leetcode.com/problems/construct-binary-tree-from-string/description/
@@ -45,6 +42,6 @@ class Solution:
 #      /   \
 #     2     6
 #    / \   / 
-#   3   1 5   
+#   3   1 5
 
 # 5(1(2))(4(6))

@@ -1,26 +1,29 @@
+from typing import List
+
+
 class Solution:
     def maxProfit(self, k: int, prices: List[int]) -> int:
         if not prices: return 0
         n = len(prices)
-        if k >= n // 2: return self.max_profit_unlimited_transactions(prices)
-        dp = [[0 for j in range(n)] for i in range(k + 1)]
+
+        if k >= n // 2: return self.max_profit_unltd(prices)
+        dp = [[0 for _ in range(n)] for _ in range(k + 1)]
 
         for i in range(1, k + 1):
             max_diff = -prices[0]
             for j in range(n):
-                dp[i][j] = max(dp[i][j - 1], prices[j] + max_diff)
+                dp[i][j] = max(max_diff + prices[j], dp[i][j - 1])
                 max_diff = max(max_diff, dp[i - 1][j] - prices[j])
-
         return dp[k][n - 1]
 
-    def max_profit_unlimited_transactions(self, prices):
+    def max_profit_unltd(self, prices):
         profit, n = 0, len(prices)
 
         for i in range(1, n):
-            if prices[i] <= prices[i - 1]: continue
-            profit += prices[i] - prices[i - 1]
-
+            diff = prices[i] - prices[i - 1]
+            if diff > 0: profit += diff
         return profit
+
 
 # 188. Best Time to Buy and Sell Stock IV
 # https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/description/
