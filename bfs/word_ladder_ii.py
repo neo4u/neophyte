@@ -1,65 +1,74 @@
 import collections
 from typing import List
-import string
-
-
-class Solution:
-    def findLadders(self, beginWord, endWord, wordList):
-        wordList, result, q = set(wordList), [], {}
-        q[beginWord] = [[beginWord]]
-
-        while q:
-            level_q = collections.defaultdict(list)
-
-            for w in q:
-                if w == endWord: result.extend(k for k in q[w])
-                else:
-                    for i in range(len(w)):
-                        for c in string.ascii_lowercase:
-                            next_w = w[:i] + c + w[i + 1:]
-                            if next_w not in wordList: continue
-                            level_q[next_w] += [j + [next_w] for j in q[w]]
-
-            wordList -= set(level_q.keys())
-            q = level_q
-
-        return result
 
 
 class Solution:
     def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
-        wordDict = set(wordList)
-        if endWord not in wordDict: return []
+        patt_words = self.get_patt_words(wordList)
+        level = collections.defaultdict(lambda: float('inf'))
+        level[beginWord] = 0
 
-        front, back = {beginWord}, {endWord}
-        parents = collections.defaultdict(set)
-        direction = 1
-        chars = set(string.ascii_lowercase)
+        paths, shortest = [], float('inf')
+        q = [(beginWord, [beginWord])]
 
-        while front and back:
-            if len(front) > len(back):
-                front, back = back, front
-                direction *= -1
+        while q:
+            w, path = q.pop(0)
+            if len(path) >= shortest: return paths
 
-            wordDict -= front
-            next_level = set()
+            for i, _ in enumerate(w):
+                p = w[:i] + '*' + w[i + 1:]
+                for nbr_w in patt_words[p]:
+                    new_path = path + [nbr_w]
+                    if nbr_w == endWord:
+                        paths.append(new_path)
+                        shortest = len(new_path)
+                    elif level[nbr_w] > level[w]:
+                        q.append((nbr_w, new_path))
+                        level[nbr_w] = level[w] + 1
+        return paths
 
-            for w in front:
-                for i in range(len(beginWord)):
-                    p1, p2 = w[:i], w[i + 1:]
-                    for c in chars:
-                        next_w = p1 + c + p2
-                        if next_w in wordDict:
-                            next_level.add(next_w)
-                            if direction == 1:  parents[next_w].add(w)
-                            else:               parents[w].add(next_w)
+    def get_patt_words(self, wordList):
+        patt_words = collections.defaultdict(list)
+        for w in wordList:
+            for i, _ in enumerate(w):
+                patt = w[:i] + '*' + w[i + 1:]
+                patt_words[patt].append(w)
+        return patt_words
 
-            if next_level & back:
-                result = [[endWord]]
-                while result and result[0][0] != beginWord:
-                    result = [[p]+r for r in result for p in parents[r[0]]]
-                return result
 
-            front = next_level
 
-        return []
+class Solution(object):
+    def findLadders(self, beginWord, endWord, wordList):
+        patt_words = self.get_patt_words(wordList)
+        wordList = set(wordList)
+        res, layer = [], {}
+        layer[beginWord] = [[beginWord]]
+
+        while layer:
+            newlayer = collections.defaultdict(list)
+            for w in layer:
+                if w == endWord:
+                    res.extend(k for k in layer[w])
+                else:
+                    for i, _ in enumerate(w):
+                        p = w[:i] + '*' + w[i + 1:]
+                        for nbr_w in patt_words[p]:
+                            if nbr_w not in wordList: continue
+                            newlayer[nbr_w] += [j + [nbr_w] for j in layer[w]]
+
+            wordList -= set(newlayer.keys())
+            layer = newlayer
+
+        return res
+
+    def get_patt_words(self, wordList):
+        patt_words = collections.defaultdict(list)
+        for w in wordList:
+            for i, _ in enumerate(w):
+                patt = w[:i] + '*' + w[i + 1:]
+                patt_words[patt].append(w)
+        return patt_words
+
+
+# 126. Word Ladder II
+# https://leetcode.com/problems/word-ladder-ii/description/

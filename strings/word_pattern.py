@@ -1,49 +1,16 @@
-class Solution(object):
-    def wordPattern(self, pattern, str):
-        """
-        :type pattern: str
-        :type str: str
-        :rtype: bool
-        """
+class Solution:
+    def wordPattern(self, pattern: str, str: str) -> bool:
         words = str.split(" ")
         if len(pattern) != len(words): return False
 
-        pcache, wcache = {}, {}
+        p_hash, w_hash = {}, {}
         for p, w in zip(pattern, words):
-            if (p in pcache and pcache[p] != w) or (w in wcache and wcache[w] != p):
-                return False
-            pcache[p], wcache[w] = w, p
+            if (p in p_hash and p_hash[p] != w) or (w in w_hash and w_hash[w] != p): return False
+            p_hash[p], w_hash[w] = w, p
         return True
 
 # abba cat dog dog fish
-
 # pcache     wcache
-
-
-
-class Solution(object):
-    def wordPattern(self, pattern, str):
-        """
-        :type pattern: str
-        :type str: str
-        :rtype: bool
-        """
-        words = str.split(" ")
-        if len(pattern) != len(words):
-            return False
-        pcache, wcache = {}, {}
-        for idx, (p, w) in enumerate(zip(pattern, words)):
-            if p in pcache:
-                if w not in wcache or pcache[p] != wcache[w]:
-                    return False
-            else:
-                pcache[p] = idx
-            if w in wcache:
-                if p not in pcache or wcache[w] != pcache[p]:
-                    return False
-            else:
-                wcache[w] = idx
-        return True
 
 # 290. Word Pattern
 # https://leetcode.com/problems/word-pattern/

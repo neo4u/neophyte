@@ -3,13 +3,13 @@ from typing import List
 class Solution2:
     def oddEvenJumps(self, A: 'List[int]') -> 'int':
         # sort indexes of A by values in A
-        sorted_indexes = sorted(range(len(A)), key = lambda i: A[i])
+        sorted_indexes = sorted(range(len(A)), key=lambda i: A[i])
 
         # generate list of indexes we can jump to next on odd jumps
         oddnext = self.makeStack(sorted_indexes)
 
         # sort indexes of A by reverse order of their value in A
-        sorted_indexes.sort(key = lambda i: A[i], reverse = True)
+        sorted_indexes.sort(key=lambda i: A[i], reverse=True)
 
         # generate list of indexes we can jump to next on even jumps
         evennext = self.makeStack(sorted_indexes)
@@ -67,6 +67,8 @@ class Solution:
 
         idxs_sorted_by_value.sort(key=lambda i: -A[i])
         even_next_hops = self.get_next_hops(idxs_sorted_by_value)
+        print(odd_next_hops)
+        print(even_next_hops)
 
         odd, even = [False] * n, [False] * n
         odd[-1], even[-1] = True, True
@@ -97,9 +99,11 @@ class Solution:
 
 # Explanation of the problem:
 # 1. Odd and even here refer to the 1st jump (odd jump) 2nd jump (even jump) 3rd jump (odd jump again) and so on.
-# 2. We only jump forward always
-# 3. We need to return how many indexes can actually reach the end.
-# 4. We assume that last position is reachable from an odd and even jump
+# 2. We only jump forward always i < j
+# 3. During odd jumps we can jump such that, A[i] <= A[j] and j is the smallest such index
+#    During even jumps we can jump such that, A[i] >= A[j] and j is the smallest such index
+# 4. We need to return how many indexes can actually reach the end using this kind of jump
+# 5. We assume that last position is reachable from an odd and even jump
 
 # Approach 1: Monotone Stack
 # Time: O(n * log(n))
@@ -112,8 +116,8 @@ class Solution:
 #    i.e. >= from left to right of the stack array or from bottom to top thinking of the stack ADT is monotonically decreasing
 # 4. Find the next jump index for each index in odd_next_greater indexes
 # 5. Find the next jump index for each index in even_next_lower indexes
-# 6. Construct odd and even arrays where odd[i]/even[i] represent:
-#    if we can get to the end from index i using an odd/even next hop respectively.
+# 6. Construct odd and even arrays where odd[i] or even[i] represent:
+#    if we can get to the end from index i using an odd or even next hop respectively.
 # 7. Return sum(odd) to see how many indexes actually get to the end. Why odd? Cuz 1st jump is an odd jump as 1 is odd.
 
 

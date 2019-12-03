@@ -33,5 +33,21 @@ class Solution:
         return result
 
 
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        slow = self.step(n)
+        fast = self.step(slow)
+
+        while fast != 1:
+            if slow == fast:
+                return False
+            else:
+                slow, fast = self.step(slow), self.step(self.step(fast))
+        return True
+
+    def step(self, num):
+        return sum([int(x)**2 for x in str(num)])
+
+
 # 202. Happy Number
 # https://leetcode.com/problems/happy-number/description/

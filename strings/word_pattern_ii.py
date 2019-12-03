@@ -1,64 +1,26 @@
-class Solution(object):
-    def helper(self, pattern, str, i, j, ptable, stable):
-        if i == len(pattern) and j == len(str):
-            return True
-        elif i == len(pattern) or j == len(str):
-            return False
-        else:
-            p, added = pattern[i], False
-            for k in range(j, len(str)):
-                word = str[j:k+1]
-                # Test is using the word violates the rules learned thus far!
-                if (p in ptable and ptable[p] != word) or (word in stable and stable[word] != p):
-                    continue
-                # Either the rules are already learned or they need to be added.
-                # added variable ensures we only remove from dictionary when we had previously added.
-                if p not in ptable and word not in stable:
-                    ptable[p], stable[word], added = word, p, True
-                remainder = self.helper(pattern, str, i+1, k+1, ptable, stable)
-                if added:
-                    del ptable[p]
-                    del stable[word]
-                if remainder:
-                    return True
-        return False
-    
-    def wordPatternMatch(self, pattern, str):
-        """
-        :type pattern: str
-        :type str: str
-        :rtype: bool
-        """
-        return self.helper(pattern, str, 0, 0, {}, {})
+class Solution:
+    def wordPatternMatch(self, p: str, s: str) -> bool:
+        self.bt(p, s, 0, 0, {}, {})
 
-# Backtracking without reusing tables
-# Very similar to the above solution except that we create new ptable and stable for every recursive call.
-class Solution(object):
-    def helper(self, pattern, str, i, j, ptable, stable):
-        if i == len(pattern) and j == len(str):
-            return True
-        elif i == len(pattern) or j == len(str):
-            return False
-        else:
-            p = pattern[i]
-            for k in range(j, len(str)):
-                word = str[j:k+1]
-                if (p in ptable and ptable[p] != word) or (word in stable and stable[word] != p):
-                    continue
-                n_ptable, n_stable = {k1:v1 for k1,v1 in ptable.items()}, {k1:v1 for k1,v1 in stable.items()}
-                n_ptable[p], n_stable[word] = word, p
-                remainder = self.helper(pattern, str, i+1, k+1, n_ptable, n_stable)
-                if remainder:
-                    return True
+    def bt(self, patt, str_, i, j, p_hash, w_hash):
+        m, n = len(patt), len(str_)
+        if i == m and j == n: return True
+        if i == m or j == n: return False
+
+        p, mapped_this_iter = patt[i], False
+        for k in range(j, n):
+            w = str_[j:k + 1]
+            # Test is using the word violates the rules learned thus far!
+            if (p in p_hash and p_hash[p] != w) or (w in w_hash and w_hash[w] != p): continue
+            # Either the rules are already learned or they need to be added.
+            # added variable ensures we only remove from dictionary when we had previously added.
+            if p not in p_hash and w not in w_hash: p_hash[p], w_hash[w], mapped_this_iter = w, p, True
+            remainder = self.bt(patt, str_, i + 1, k + 1, p_hash, w_hash)
+            if mapped_this_iter: del p_hash[p]; del w_hash[w]
+            if remainder: return True
+
         return False
-    
-    def wordPatternMatch(self, pattern, str):
-        """
-        :type pattern: str
-        :type str: str
-        :rtype: bool
-        """
-        return self.helper(pattern, str, 0, 0, {}, {})
+
 
 
 # 291. Word Pattern II

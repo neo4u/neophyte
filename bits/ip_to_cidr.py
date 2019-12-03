@@ -9,7 +9,7 @@ class Solution:
             dec_t0s = self.trailing_0s_digit(dec_ip)
             ip = self.dec_to_ip(dec_ip)
 
-            while dec_t0s > n: dec_t0s >>= 1
+            while dec_t0s > n: dec_t0s >>= 1 # same as div //= 2
             t0s = self.trailing_0s(dec_t0s)
             result.append(f"{ip}/{32 - t0s}")
             n -= dec_t0s
@@ -46,7 +46,7 @@ class Solution:
 #   and divides the IP address into network address and host address.
 #   Subnet Mask is made by setting network bits to all "1"s and setting host bits to all "0"s.
 # - CIDR notation is used to represent a block of IPs,
-#   Ex: 192.168.100.0/22 represents 1024 address from from 192.168.100.0 to 192.168.103.255.
+#   Ex: 192.168.100.0/22 represents 1024 address from 192.168.100.0 to 192.168.103.255.
 # - In this question, given a starting IP, we need to find CIDR blocks such that they cover n IPs
 # - If you know how to convert a decimal to binary and back, or decimal to hex and back, this approach is similar to that
 
@@ -63,7 +63,17 @@ class Solution:
 # 6. Then we add 'dec_t0s' to 'number' to fill the 0s, and also subtract dec_t0s from n,
 #    cuz we've represented another dec_t0s IPs using the respective CIDR block
 # 7. Then we continue looping till n > 0
+# 8. What does the function `trailing_0s_digit` do?
+#    It's an old trick that gives a number with a single bit in it, the bottom bit that was set in n.
+#    At least in two's complement arithmetic, which is just about universal these days.
+#    The reason it works: the negative of a number is produced by inverting the number,
+#    then adding 1 (that's the definition of two's complement).
+#    When you add 1, every bit starting at the bottom that is set will overflow into the next higher bit;
+#    this stops once you reach a zero bit. Those overflowed bits will all be zero,
+#    and the bits above the last one affected will be the inverse of each other,
+#    so the only bit left is the one that stopped the cascade - the one that started as 1 and was inverted to 0.
 
+# P.S. If you're worried about running across one's complement arithmetic here's a version that works with both:
 
 sol = Solution()
 assert sol.ipToCIDR(ip="255.0.0.7", n=10) == ["255.0.0.7/32", "255.0.0.8/29", "255.0.0.16/32"]

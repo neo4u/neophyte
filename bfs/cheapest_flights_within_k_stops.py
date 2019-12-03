@@ -1,28 +1,26 @@
 from typing import List
 
 
-# Approach 2: Dijkstra's with a priority queue
+# Approach 3: Dijkstra's with a priority queue
 # Traverse K + 2 nodes we get to k + 2th node with k stops excluding src and dst
-import collections
+from collections import defaultdict
 import heapq
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, K: int) -> int:
-        graph = collections.defaultdict(dict)
+        graph = defaultdict(dict)
         for u, v, w in flights: graph[u][v] = w
-        costs, pq = {}, [(0, 0, src)]
+        costs, q = defaultdict(lambda: float('inf')), [(0, 0, src)]
 
-        while pq:
-            cost, stops, city = heapq.heappop(pq)
+        while q:
+            cost, dist, node = heapq.heappop(q)
+            if dist >= K + 2 or cost > costs[dist, node]: continue
+            if node == dst: return cost
 
-            if stops >= K + 2 and cost > costs.get((stops, city), float('inf')): continue
-            if city == dst: return cost
-
-            for nbr, wt in graph[city].items():
+            for nbr, wt in graph[node].items():
                 new_cost = cost + wt
-                if new_cost < costs.get((stops + 1, nbr), float('inf')):
-                    heapq.heappush(pq, (new_cost, stops + 1, nbr))
-                    costs[stops + 1, nbr] = new_cost
-
+                if new_cost < costs[dist + 1, nbr]:
+                    heapq.heappush(q, (new_cost, dist + 1, nbr))
+                    costs[dist + 1, nbr] = new_cost
         return -1
 
 
@@ -34,21 +32,20 @@ class Solution1:
         graph = defaultdict(dict)
         for u, v, w in flights: graph[u][v] = w
 
-        visited, q = set(), [[0, 0, src]]
+        visited, q = set(), [(0, 0, src)]
         while q:
             cost, step, u = heapq.heappop(q)
-            #print(cost, step, u)
-            if u == dst: return cost
+            if u == dst and step <= K + 2: return cost
             if step > K: continue
             visited.add(u)
 
             for v in graph[u]:
                 if v in visited: continue
-                heapq.heappush(q, [cost + graph[u][v], step + 1, v])
+                heapq.heappush(q, (cost + graph[u][v], step + 1, v))
 
         return -1
 
-# Approach 3: Bellman-Ford (which is a case of DP)
+# Approach 4: Bellman-Ford (which is a case of DP)
 # class Solution3:
 #     def findCheapestPrice(self, cities, flights, src, dst, stops):
 
@@ -66,7 +63,7 @@ class Solution1:
 #                     dpnext[des] = price + dp[ori]
 #                     notChanged = False
 #             # if dp[k+1] is the same as dp[k], then there will be no change in the following
-#             # iterations either, so we simply stop right here 
+#             # iterations either, so we simply stop right here
 #             # (all absolute cheapest paths have been found)
 #             if notChanged: break
 #             dp = dpnext
@@ -86,13 +83,18 @@ class Solution1:
 # Time: O(E * K), where E is the length of flights.
 # Space: O(n), the space used to store dis and pre.
 
-# Approach 2: Dijkstra's with a priority queue
+
+# Approach 2: Simple DFS
+
+
+# Approach 3: Dijkstra's with a priority queue
 # Best for interview
 
 # Time: O(E + (n * log(n))), where E is the total number of flights.
 # Space: O(n), the size of the heap.
 
-# Approach 3: Bellman-Ford (which is a case of DP)
+
+# Approach 4: Bellman-Ford (which is a case of DP)
 # Note sure if this is better in anyways, it's complicated and confusing, 
 # First of all why Bellman ford instead of dijstrak's???
 
@@ -119,8 +121,7 @@ class Solution1:
 # notice that dp[k][...] only depends on dp[k-1][...], thus we only keep a single array
 # we start with dp[0], which is easy to initialize as we described above
 
-# Time: 
-# Space: 
+
 
 sol = Solution()
 n = 3

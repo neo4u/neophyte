@@ -31,20 +31,20 @@ class Solution:
             # Push left boundary as long as neighbour to left is less than l
             while l > 0 and heights[l - 1] <= heights[l]:
                 l -= 1
-                # At each move push into stack if to height was less than where l was
+                # At each move push into stack if curr height is less than where l was
                 if heights[l] < heights[l + 1]: l_fall.append(l)
 
             # Push right boundary as long as neighbour to right is less than r
             while r < n - 1 and heights[r + 1] <= heights[r]:
                 r += 1
-                # At each move push into stack if to height was less than where r was
+                # At each move push into stack if curr height is less than where r was
                 if heights[r] < heights[r - 1]: r_fall.append(r)
 
             # If we have elements in l_fall stack it means the drop moves left
             if l_fall:
                 fall = l_fall[-1]
                 heights[fall] += 1
-                # Pop the currently filling position if it levels up to its right height
+                # Pop the currently filling position if i levels up to its right height
                 if heights[fall] == heights[fall + 1]: l_fall.pop()
                 # Once the drop has fallen at 'fall' position, the next position to fill would be 'fall - 1', until fall hits l
                 if l < fall: l_fall.append(fall - 1)

@@ -69,6 +69,21 @@ class Solution:
         if len(path) == k: self.result.append(path)
         for i in range(s_idx, len(self.nums)): self.bt(k, i + 1, path + [self.nums[i]])
 
+# Same as above but append and pop the next int
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        self.result = []
+        self.bt(n, k, 1, [])
+        return self.result
+
+    def bt(self, n, k, s_idx, path):
+        if len(path) == k: return self.result.append(path.copy())
+
+        for i in range(s_idx, n + 1):
+            path.append(i)
+            self.bt(n, k, i + 1, path)
+            path.pop()
+
 
 # Approach 2: Lexicographic (Binary Sorted) Combinations (Optimal)
 class Solution:

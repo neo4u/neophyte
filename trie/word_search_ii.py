@@ -17,15 +17,6 @@ class Trie:
         for c in word: node = node.children[c]
         node.is_word = True
 
-    def search(self, word) -> bool:
-        node = self.root
-
-        for c in word:
-            if c not in node.children: return False
-            node = node.children[c]
-
-        return node.is_word
-
 
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
@@ -59,6 +50,8 @@ class Solution:
 
     def in_bounds(self, i: int, j: int) -> bool:
         return  0 <= i <= self.m - 1 and 0 <= j <= self.n - 1
+
+
 
 
 # Quick Version, to focus on efficiency and not on clarity

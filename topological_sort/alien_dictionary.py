@@ -56,7 +56,7 @@ class Solution:
         if not words: return ''
         if len(words) == 1: return words[0][::-1]
 
-        self.graph, self.in_deg, result, q = dict(), [0] * 26, '', []
+        self.graph, self.in_deg, result, q = {}, [0] * 26, '', []
         self.build_graph_bfs(words)
 
         for node in self.graph:
@@ -70,7 +70,7 @@ class Solution:
                 self.in_deg[nbr] -= 1
                 if self.in_deg[nbr] == 0: q.append(nbr)
 
-        return result if len(self.graph) == len(result) else ''
+        return result if len(self.graph) == alen(result) else ''
 
     def build_graph_bfs(self, words):
         for i in range(len(words) - 1):
@@ -96,10 +96,7 @@ class Solution:
 
         return True
 
-    def add_vertices_bfs(self, s):
-        for c in s:
-            d = ord(c) - ord('a')
-            if d not in self.graph: self.graph[d] = set()
+s
 
 
 # 269. Alien Dictionary
@@ -146,18 +143,10 @@ class Solution:
 #        which can be max of 26, neighbors can also only be max of 25
 
 sol = Solution()
-sol.alienOrder(["z", "x"]), "zx"
-sol.alienOrder(["z","z"]) == "z"
-sol.alienOrder(["z", "x", "z"]) == ""
-sol.alienOrder(["aac","aabb","aaba"]) == "cba"
-sol.alienOrder(["wnlb"]) == "blnw"
-sol.alienOrder(["wrt","wrf","er","ett","rftt"]) == "wertf"
-sol.alienOrder(["wrt","wrf","er","ett","rftt","te"]) == "wertf"
-
-# assert_equal(alien_order_bfs(["z", "x"]), "zx")
-# assert_equal(alien_order_bfs(["z","z"]), "z")
-# assert_equal(alien_order_bfs(["z", "x", "z"]), "")
-# assert_equal(alien_order_bfs(["aac","aabb","aaba"]), "cba")
-# assert_equal(alien_order_bfs(["wnlb"]), "blnw")
-# assert_equal(alien_order_bfs(["wrt","wrf","er","ett","rftt"]), "wertf")
-# assert_equal(alien_order_bfs(["wrt","wrf","er","ett","rftt","te"]), "wertf")
+assert sol.alienOrder(["z", "x"]), "zx"
+assert sol.alienOrder(["z","z"]) == "z"
+assert sol.alienOrder(["z", "x", "z"]) == ""
+assert sol.alienOrder(["aac","aabb","aaba"]) == "cba"
+assert sol.alienOrder(["wnlb"]) == "blnw"
+assert sol.alienOrder(["wrt","wrf","er","ett","rftt"]) == "wertf"
+assert sol.alienOrder(["wrt","wrf","er","ett","rftt","te"]) == "wertf"
