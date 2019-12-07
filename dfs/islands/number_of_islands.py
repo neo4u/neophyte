@@ -125,6 +125,11 @@ class Solution2:
         return 0 <= r <= m - 1 and 0 <= c <= n - 1 and grid[r][c] == "1"
 
 
+
+# 200. Number of Islands
+# https://leetcode.com/problems/number-of-islands/description/
+
+
 sol = Solution()
 
 assert sol.numIslands(
