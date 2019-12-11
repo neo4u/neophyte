@@ -1,7 +1,7 @@
 import re
 
 # Approach 1: Regex and Stack
-class Solution:
+class Solution1:
     def arithmetic(self, res, op, num):
         if not op:  res = num
         else:       res += num * [-1, 1][(op == "+") * 1]
@@ -26,28 +26,25 @@ class Solution:
 
 # Approach 2: 1 Stack
 class Solution:
-    def calculate(self, s):
-        result, num, prev_sign, stack = 0, 0, 1, []
+    def calculate(self, s: str) -> int:
+        result, prev_sign, num, stack, s = 0, 1, 0, [], s + '+0'
+
         for c in s:
-            print(f"c: {c}")
-            print(f"before: num: {num} | sign: {prev_sign} | stack: {stack} | res: {result}")
-            if c.isdigit(): num = 10 * num + int(c)  # calculate the full digit, so add c at 10s digts to current num
-            elif c in ["-", "+"]:
+            if c.isdigit(): num = num * 10 + ord(c) - ord('0')
+            elif c in ['+', '-']:
                 result += prev_sign * num
-                num = 0  # reset the num variable to 0 for next digit
-                prev_sign = 1 if c == "+" else -1
-            elif c == "(":
+                num = 0
+                prev_sign = 1 if c == '+' else -1
+            elif c == '(':
                 stack.append(result)
                 stack.append(prev_sign)
                 prev_sign, result = 1, 0
-            elif c == ")":
-                result += prev_sign * num
-                result *= stack.pop()
-                result += stack.pop()
+            elif c == ')':
+                result += prev_sign * num   # last digit inside paren
+                result *= stack.pop()       # sign before paren
+                result += stack.pop()       # result before paren
                 num = 0
-            print(f"after: num: {num} | sign: {prev_sign} | stack: {stack} | res: {result}")
-
-        return result + num * prev_sign
+        return result
 
 
 # Approach 3: 2 Stacks

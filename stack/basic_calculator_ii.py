@@ -1,17 +1,16 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        s = '+0'
-        stack, num, prev_op = [], 0, '+'
+        s += '+0'
+        stack, num, prev_op = [], 0, "+"
 
-        for c in s:
+        for c in s:                 # loop invariant is that stack contents are always addable
             if c.isspace(): continue
-
-            if c.isdigit(): num = num * 10 + int(c)
+            elif c.isdigit(): num = num * 10 + int(c)
             else:
-                if prev_op == '-':      stack.append(-num)
-                elif prev_op == '+':    stack.append(num)
-                elif prev_op == '/':    stack.append(int(stack.pop() / num))
-                elif prev_op == '*':    stack.append(stack.pop() * num)
+                if prev_op == '-':   stack.append(-num)
+                elif prev_op == '+': stack.append(num)
+                elif prev_op == '*': stack.append(stack.pop() * num)
+                elif prev_op == '/': stack.append(int(stack.pop() / num))
 
                 prev_op, num = c, 0
 

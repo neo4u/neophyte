@@ -3,16 +3,16 @@ import collections
 
 
 class Solution:
-    def wordsAbbreviation(self, dict: List[str]) -> List[str]:
+    def wordsAbbreviation(self, dct: List[str]) -> List[str]:
         abbr2word = collections.defaultdict(set)
         word2abbr = {}
 
         # group words into abbreivations
-        for word in dict:
+        for word in dct:
             abbr = self.getAbbreviation(word)
             abbr2word[abbr].add(word)
 
-        #resolve conflicts in each group
+        # resolve conflicts in each group
         for abbr, words in abbr2word.items():
             if len(words) > 1:
                 for word in words:
@@ -24,7 +24,7 @@ class Solution:
                             break
             else:
                 word2abbr[words.pop()] = abbr
-        return [word2abbr[word] for word in dict]
+        return [word2abbr[word] for word in dct]
 
     def checkUnique(self, prefix, words):
         return sum(word.startswith(prefix) for word in words) == 1

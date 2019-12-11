@@ -98,6 +98,51 @@ class DS:
         self.count += 1
 
 
+class DS:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.count = n
+        self.rank = n * [0]
+
+    def find(self, v):
+        if self.parent[v] != v: self.parent[v] = self.find(self.parent[v])
+        return self.parent[v]
+
+    def union(self, v1, v2):
+        i1, i2 = self.find(v1), self.find(v2)
+        if i1!=i2:
+            self.count -= 1
+            self.parent[i2] = i1
+
+
+class Solution:
+    def numSimilarGroups(self, A: List[str]) -> int:
+        ds = DS(len(A))
+
+        def isclose(w1, w2):
+            if len(w1) != len(w2): return False
+            eq = []
+            for i in range(len(w1)):
+                if w1[i] != w2[i]: eq.append(i)
+                if len(eq) > 2: return False
+            if len(eq) == 0: return True
+            if len(eq) == 1: return False
+            return w1[eq[0]] == w2[eq[1]] and w1[eq[1]] == w2[eq[0]]
+
+        n, m = len(A), len(A[0])
+        if m > n:
+            for (i1, w1), (i2, w2) in itertools.combinations(enumerate(A), 2):
+                if isclose(w1, w2): ds.union(i1, i2)
+        else:
+            mapa = dict((w, i) for i, w in enumerate(A))
+            for i, w in enumerate(A):
+                for i1, i2 in itertools.combinations(range(len(w)), 2):
+                    w2 = w[:i1] + w[i2] + w[i1 + 1: i2] + w[i1] + w[i2 + 1:]
+                    if w2 in mapa: ds.union(i, mapa[w2])
+
+        return ds.count
+
+
 
 sol = Solution()
 assert sol.numSimilarGroups(["tars", "rats", "arts", "star"]) == 2

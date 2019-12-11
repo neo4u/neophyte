@@ -1,30 +1,39 @@
 import collections
 from typing import List
 
+
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-        graph = collections.defaultdict(list)
-        for u, v in tickets: graph[u].append(v)
-        for city in graph.keys(): graph[city].sort()
+        self.graph = collections.defaultdict(list)
 
-        return self.dfs(graph, 'JFK', [])[::-1]
+        for src, dst in tickets: self.graph[src].append(dst)
+        for city in self.graph: self.graph[city].sort()
 
-    def dfs(self, graph, city, path):
-        while graph[city]:
-            next_city = graph[city].pop(0)
-            self.dfs(graph, next_city, path)
+        return self.dfs("JFK", [])[::-1]
 
+    def dfs(self, city, path):
+        while self.graph[city]:
+            next_city = self.graph[city].pop(0)
+            self.dfs(next_city, path)
         path.append(city)
+
         return path
 
-# Here is some points to understand this algs and hope it helps.
 
-# In Eulerian paths, there must exist a start node(which is JFK in this problem) and a end node.
-# End node can be start node or another node.
-# end node is start node iff all nodes has even degree.
-# end node is another node iff there is another odd degree node and start node has an odd degree.
-# So, the algorithm is to find the end node first and delete the path to this node(backtrack), meanwhile using PriorityQueue to guarantee lexical order.
-# Really amazing solution, I always don't know how to deal with Euler Path and know I begin to be some less confused.
+# 332. Reconstruct Itinerary
+# https://leetcode.com/problems/reconstruct-itinerary/description/
+
+
+# Intuition:
+# 1. The problem is to reconstruct the exact order or airports travelled given the tickets
+# 2. This is a problem or finding the 'Eulerean Circuit', 
+# 3. It's easy to understand as a reverse of a post order traversal
+# 4. It's like finding a topological sort, but only this is for a Directed Cyclic Graph as opposed to a DAG,
+#    That is the problem of Eulerean Path
+# 5. The only thing is two paths exist from a given airport,
+#    then we pick lexical order hence we sort the destinations, from each city
+# 6. Hierholzer’s Algorithm
+#    https://www.geeksforgeeks.org/hierholzers-algorithm-directed-graph/
 
 
 # Input: [["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]
@@ -66,15 +75,6 @@ class Solution:
 #                 [blr, sjc]
 #             return [blr, sjc, sfo]
 #          ret  [blr, sjc, sfo, lhr]
-
-
-
-# https://www.geeksforgeeks.org/euler-circuit-directed-graph/
-
-
-# Hamiltonian Path vs Spanning Tree
-# https://www.quora.com/What-is-the-difference-between-hamiltonian-path-and-spanning-tree
-
 
 sol = Solution()
 assert sol.findItinerary(

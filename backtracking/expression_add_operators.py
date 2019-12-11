@@ -1,21 +1,24 @@
-class Solution(object):
+from typing import List
+
+
+class Solution:
     def __init__(self):
-        self.answer = []
+        self.result = []
         self.num = None
         self.target = None
 
     def addOperators(self, num: str, target: int) -> List[str]:
-        self.num, self.n  = num, len(num)
+        self.num, self.n = num, len(num)
         self.target = target
         self.recurse(0, 0, [], 0)
 
-        return self.answer
+        return self.result
 
     def recurse(self, index, value, ops, prev_val):
         # Base case. If we have considered all the digits
         if index == self.n:
             # And the value of the expression target, then we record this expression.
-            if value == self.target: self.answer.append("".join(ops))
+            if value == self.target: self.result.append("".join(ops))
             return
 
         # This will keep track of the current operand. Remember that an operand is not necessarily equal
@@ -48,42 +51,7 @@ class Solution(object):
             # If a string starts with '0', then it has to be an operand on its own. We can't have '025' as an operand. That doesn't make sense
             if self.num[index] == '0': break
 
-
-class Solution(object):
-    def __init__(self):
-        self.answer = []
-        self.nums = None
-        self.target = None
-
-    def addOperators(self, nums, target):
-        self.nums = nums
-        self.n = len(nums)
-        self.target = target
-        self.bt(0, 0, [], 0)
-
-        return self.answer
-
-    def bt(self, index, value, path, prev_val):
-        if index == self.n:
-            if value == self.target: self.answer.append("".join(path))
-            return
-
-        current_val = 0
-        for i in range(index, self.n):
-            current_val = current_val*10 + int(self.nums[i])
-            if index == 0: self.bt(i + 1, current_val, path + [str(current_val)], current_val)
-            else:
-                self.bt(i + 1, value - prev_val + (prev_val * current_val), path + ['*' + str(current_val)], prev_val * current_val)
-                self.bt(i + 1, value + current_val, path + ['+' + str(current_val)], current_val)
-                self.bt(i + 1, value - current_val, path + ['-' + str(current_val)], -current_val)
-
-            if self.nums[index] == '0': break
-
-
-
-# Time: O(n^2 * 3^n)
-# Space: O(n^2 * 3^n)
-
+# Without comments, Same as above
 class Solution:
     def addOperators(self, num: str, target: int) -> List[str]:
         self.num, self.target = num, target
@@ -94,50 +62,25 @@ class Solution:
     def bt(self, idx, val, prev_val, ops):
         if idx == self.n:
             if val == self.target: self.result.append("".join(ops))
-        else:
-            curr_val = 0
-            for i in range(idx, self.n):
-                curr_val = 10 * curr_val + int(self.num[i])
-                if idx == 0:
-                    self.bt(i + 1, curr_val, curr_val, ops + [str(curr_val)])
-                else:
-                    v = val - prev_val
-                    self.bt(i + 1, v + prev_val * curr_val, prev_val * curr_val, ops + ["*" + str(curr_val)])
-                    self.bt(i + 1, val + curr_val, curr_val, ops + ["+" + str(curr_val)])
-                    self.bt(i + 1, val - curr_val, -curr_val, ops + ["-" + str(curr_val)])
+            return
 
-                if self.num[idx] == "0": break
+        curr_val = 0
+        for i in range(idx, self.n):
+            curr_val = 10 * curr_val + int(self.num[i])
+            if idx == 0:
+                self.bt(i + 1, curr_val, curr_val, ops + [str(curr_val)])
+            else:
+                v = val - prev_val
+                self.bt(i + 1, v + prev_val * curr_val, prev_val * curr_val, ops + ["*" + str(curr_val)])
+                self.bt(i + 1, val + curr_val, curr_val, ops + ["+" + str(curr_val)])
+                self.bt(i + 1, val - curr_val, -curr_val, ops + ["-" + str(curr_val)])
 
-
-class Solution:
-    def addOperators(self, num: str, target: int) -> List[str]:
-        self.num, self.target = num, target
-        self.ans, self.n = [], len(self.num)
-        if not self.num: return self.ans
-
-        self.bt(1, 0, int(self.num[0]), int(self.num[0]), self.num[0])
-        return self.ans
-
-    def bt(self, i, total, prod, prev, path):
-        curr = int(self.num[i])
-
-        if i == self.n - 1:
-            if total + prod + curr == self.target: self.ans.append(f'{path}+{self.num[i]}')
-            if total + prod - curr == self.target: self.ans.append(f'{path}-{self.num[i]}')
-            if total + prod * curr == self.target: self.ans.append(f'{path}*{self.num[i]}')
-            if prev:
-                curr = prev * 10 + curr
-                if total + prod // prev * curr == self.target:
-                    self.ans.append(f'{path}{self.num[i]}')
-        else:
-            self.bt(i + 1, total + prod, curr, curr, f'{path}+{self.num[i]}')
-            self.bt(i + 1, total + prod, -curr, curr, f'{path}-{self.num[i]}')
-            self.bt(i + 1, total, prod * curr, curr, f'{path}*{self.num[i]}')
-            if prev:
-                curr = prev * 10 + curr
-                self.bt(i + 1, total, prod // prev * curr, curr, f'{path}{self.num[i]}')
-
+            if self.num[idx] == "0": break
 
 
 # 282. Expression Add Operators
 # https://leetcode.com/problems/expression-add-operators/description/
+
+
+# Time: O(n^2 * 3^n)
+# Space: O(n^2 * 3^n)

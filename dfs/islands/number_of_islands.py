@@ -37,6 +37,8 @@ class Solution:
             return False
         return True
 
+
+
 class DS:
     def __init__(self):
         self.parent = {}
@@ -44,7 +46,8 @@ class DS:
         self.count = 0
 
     def find(self, x):
-        if x != self.parent[x]: self.parent[x] = self.find(self.parent[x])
+        if x != self.parent[x]:
+            self.parent[x] = self.find(self.parent[x])
         return self.parent[x]
 
     def has_parent(self, x):
@@ -70,32 +73,27 @@ class DS:
         self.count -= 1
         return True
 
-    def print_ds(self):
-        print(self.parent)
-        print(self.count)
-
 
 class Solution:
-    def numIslands(self, grid: List[List[str]]) -> int:
+    def numIslands(self, grid):
         if not grid or not grid[0]: return 0
-        m, n, ds = len(grid), len(grid[0]), DS()
-        dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        self.m, self.n = len(grid), len(grid[0])
+        dirs = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        ds, self.grid = DS(), grid
 
-        for i in range(m):
-            for j in range(n):
-                if grid[i][j] == "0": continue
+        for i in range(self.m):
+            for j in range(self.n):
+                if self.grid[i][j] == '0': continue
                 if not ds.has_parent((i, j)): ds.set_parent((i, j))
-
                 for dx, dy in dirs:
                     x, y = i + dx, j + dy
-                    if not self.valid_land(grid, m, n, x, y): continue
+                    if not self.valid_land(x, y): continue
                     if not ds.has_parent((x, y)): ds.set_parent((x, y))
                     ds.union((i, j), (x, y))
-
         return ds.count
 
-    def valid_land(self, grid, m, n, r, c):
-        return 0 <= r <= m - 1 and 0 <= c <= n - 1 and grid[r][c] == "1"
+    def valid_land(self, r, c):
+        return 0 <= r <= self.m - 1 and 0 <= c <= self.n - 1 and self.grid[r][c] == "1"
 
 
 class Solution2:
