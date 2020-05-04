@@ -1,3 +1,14 @@
+from typing import Tuple
+
+
+# Definition for a Node.
+class Node:
+    def __init__(self, val, left, right):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
 class Solution:
     def treeToDoublyList(self, root: 'Node') -> 'Node':
         if not root: return None
@@ -6,11 +17,8 @@ class Solution:
         head.left, tail.right = tail, head
         return head
 
-    def dfs(self, root):
-        # if not root.left and not root.right: # Find leaf nodes
-        #     return root, root
-
-        # Note: if left / right subtree is None, root node will become the head / tail of the linked list
+    def dfs(self, root: 'Node') -> Tuple['Node']:
+        # Note: if l/r subtree is None, root node will become the head/tail of the linked list
         # That's why variables below are initialized as root.
         l_head = l_tail = r_head = r_tail = root
         if root.left:
@@ -35,8 +43,8 @@ class Solution:
 
 # Steps:
 # 1. For each call to DFS with a reference to the root of a sub-tree,
-#    we return the left most left and the right most left,
-#    which will be the head of the list, and the tail of the list
+#    we return the left most left and the right most leaf,
+#    which will be the head and tails of the list respectively
 # 2. Within the DFS, we have 4 variables which default to the root
 #    l_head, l_tail, represent 1st and last nodes of the left sub-tree
 #    r_head, r_tail, represent 1st and last nodes of the right sub-tree

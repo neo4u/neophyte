@@ -13,9 +13,11 @@ class Solution:
         return True
 
 
+# 1094. Car Pooling
+# https://leetcode.com/problems/car-pooling/description/
+
 sol = Solution()
 assert sol.carPooling([[2, 1, 5], [3, 5, 7]], 5) == True
 assert sol.carPooling([[2, 1, 5], [3, 3, 7]], 4) == False
-
-# assert sol.carPooling([[2, 1, 5], [3, 3, 7]], 5) == True
-# assert sol.carPooling([[3, 2, 7], [3, 7, 9], [8, 3, 9]], 11) == True
+assert sol.carPooling([[2, 1, 5], [3, 3, 7]], 5) == True
+assert sol.carPooling([[3, 2, 7], [3, 7, 9], [8, 3, 9]], 11) == True

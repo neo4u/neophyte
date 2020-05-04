@@ -25,11 +25,16 @@ class RandomizedSet:
         return random.choice(self.nums)
 
 
-# Your RandomizedSet object will be instantiated and called as such:
-# obj = RandomizedSet()
-# param_1 = obj.insert(val)
-# param_2 = obj.remove(val)
-# param_3 = obj.getRandom()
-
 # 380. Insert Delete GetRandom O(1)
 # https://leetcode.com/problems/insert-delete-getrandom-o1/description/
+
+
+# Intuition
+# Using Array
+# - To get O(1) on insert() is easy, we can just append it at the end
+# - To get O(1) on get_random() is easy cuz we get generate a random number between 1...n and access that index on array
+# - To get O(1) on remove() is hard cuz we have to remove in the middle of contiguous memory block
+
+# Using Dictionary
+# - To get O(1) on insert() and remove() is easy and is the nature of a dictionary
+# - To get O(1) on get_random() is hard cuz we can't access random index element from a dict

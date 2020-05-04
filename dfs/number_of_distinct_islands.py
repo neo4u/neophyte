@@ -1,38 +1,40 @@
 from typing import List
 
+
 class Solution:
     def numDistinctIslands(self, grid: List[List[int]]) -> int:
         shapes = set()
-        m, n = len(grid), len(grid[0])
+        self.m, self.n = len(grid), len(grid[0])
+        self.grid = grid
         self.dirs = {
-            # down       up            right        left
-            'd': [1, 0], 'u': [-1, 0], 'r': [0, 1], 'l': [0, -1]
+            'u': (-1, 0), 'd': (1, 0),
+            'l': (0, -1), 'r': (0, 1)
         }
-
-        for i in range(m):
-            for j in range(n):
-                if grid[i][j] == 0: continue
-                shape = self.dfs(grid, m, n, i, j, [], 'o')  # 'o' for origin
+        for i in range(self.m):
+            for j in range(self.n):
+                if self.grid[i][j] == 0: continue
+                shape = self.dfs(i, j, ['o'])
                 shapes.add("".join(shape))
         return len(shapes)
 
-    def dfs(self, grid, m, n, i, j, shape, di):
-        shape.append(di)
-        grid[i][j] = 0
+    def dfs(self, i, j, shape_path):
+        self.grid[i][j] = 0
 
         for k, v in self.dirs.items():
             x, y = i + v[0], j + v[1]
-            if not self.valid(grid, m, n, x, y): continue
-            self.dfs(grid, m, n, x, y, shape, k)
+            if not self.valid_land(x, y): continue
+            shape_path.append(k)
+            self.dfs(x, y, shape_path)
+        shape_path.append('b')
+        return shape_path
 
-        shape.append('b') # back
-        return shape
+    def valid_land(self, i, j):
+        return 0 <= i <= self.m - 1 and 0 <= j <= self.n - 1 and self.grid[i][j] == 1
 
-    def valid(self, grid, m, n, i, j):
-        return 0 <= i <= m - 1 and 0 <= j <= n - 1 and grid[i][j] == 1
 
 # 694. Number of Distinct Islands
 # https://leetcode.com/problems/number-of-distinct-islands/description/
+
 
 sol = Solution()
 assert sol.numDistinctIslands(

@@ -1,3 +1,6 @@
+from typing import List
+import collections
+
 class Solution:
     def overlap(self, a, b):
         return a.start <= b.end and b.start <= a.end
@@ -52,6 +55,21 @@ class Solution:
         return [self.merge_nodes(nodes_in_comp[comp]) for comp in range(number_of_comps)]
 
 
+
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        if not intervals: return []
+        intervals.sort(key=lambda x: x[0])
+        n, merged = len(intervals), [intervals[0]]
+
+        for i in range(1, n):
+            curr = intervals[i]
+            if curr[0] <= merged[-1][1]:    merged[-1][1] = max(merged[-1][1], curr[1])
+            else:                           merged.append(curr)
+
+        return merged
+
+
 # 56. Merge Intervals
 # https://leetcode.com/problems/merge-intervals/description/
 
@@ -77,3 +95,13 @@ class Solution:
 
 # Time: O(n^2)
 # Space: O(n^2)
+
+
+# Approach 2: Sort by Start Times
+# 1. sort by start times
+# 2. iterate through interval
+# 3. if last of merged has end time < curr intervals start then push the element into merged as it is not overlapping
+# 4. if overlappping then merge with last interval by taking max of the ends of merged.last.end and curr.end
+
+# Time: O(nlgn) Other than the sort invocation,
+# Space: O(1) (or O(n)), If we can sort intervals in place then O(1)

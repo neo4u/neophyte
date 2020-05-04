@@ -14,7 +14,6 @@ class Solution:
             for j in range(min_len):
                 c1, c2 = w1[j], w2[j]
                 if c1 == c2: continue
-
                 if order_map[c1] > order_map[c2]: return False
                 break
             else:
@@ -23,4 +22,9 @@ class Solution:
         return True
 
 
-# Verifying an Alien Dictionary
+# 953. Verifying an Alien Dictionary
+# https://leetcode.com/problems/verifying-an-alien-dictionary/description/
+
+# Intuition
+# - 1st word in 2 consecutive sorted words will have the smaller char at the 1st char mismatch
+# - Sorted words have smaller len word first and longer word second

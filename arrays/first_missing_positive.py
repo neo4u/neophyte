@@ -20,12 +20,12 @@ class Solution:
 
 # Inuition
 # 1. We need to find the first positive number that is missing.
-# 2. The question could be twisted to make the range of numbers in the array 0...N-1 or 1 to N
+# 2. The question could be twisted to make the range of numbers in the array 0...N-1 or 1...N
+# 3. But in this question they specifically refer to +ve integer which means the range of n numbers from 1...N
 
 # Steps:
 # 1. We're going to iteratively visit each number in the array, and in turn form an index out of that number
-#    i.e. if we have nums[i] is x, then we're going to see what is the number at nums[x - 1],
-#    making x - 1 the index using x
+#    i.e. if we have nums[i] is x, then we're going to see what is the number at index x - 1, i.e what is nums[x - 1],
 # 2. We're going to loop as long as:
 #    - The element at the current index i forms a valid index i.e. 0 <= nums[i] - 1 <= n - 1 and
 #    - The number at the index formed by the current number (nums[nums[i] - 1]) is not already nums[i]

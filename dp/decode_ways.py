@@ -23,7 +23,8 @@ class Solution:
 # dp[0] represents ways to decode string of length 0
 #       ***This is key, and we need to make this 1, for this entire thing to work***
 #       cuz Empty int maps to empty string or first 0 chars represent '', so 1 mapping**
-# dp[1] represents ways to decode string of length 1, hence we can't really 
+# dp[1] represents ways to decode string of len 1. We can't have 0 as the char,
+#       hence we use dp[1] = 1 only if s[0] != '0'
 
 # Hence, Base Case:
 # dp[0] = 1

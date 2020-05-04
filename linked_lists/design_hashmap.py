@@ -45,8 +45,7 @@ class MyHashMap:
             curr = self.ht[i]
 
             while curr:
-                if curr.key == key:
-                    return curr.val
+                if curr.key == key: return curr.val
                 curr = curr.next
 
         return -1

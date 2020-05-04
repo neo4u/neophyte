@@ -55,15 +55,15 @@ def lengthOfLIS(self, nums):
 # i = 4:    sub = [1, 8];
 # i = 5:    sub[1] < 9, done.
 def increasingTriplet(self, nums):
-        sub = [float('inf'), float('inf')]
-        for n in nums:
-            if n <= sub[0]:
-                sub[0] = n
-            elif n <= sub[1]:
-                sub[1] = n
-            else:
-                return True
-        return False
+    sub = [float('inf'), float('inf')]
+    for n in nums:
+        if n <= sub[0]:
+            sub[0] = n
+        elif n <= sub[1]:
+            sub[1] = n
+        else:
+            return True
+    return False
 # So back to this question, the idea extends to:
 
 # 1. initial sub = [ ].
@@ -84,43 +84,44 @@ def increasingTriplet(self, nums):
 # i = 7,    sub = [1, 3, 6, 7, 9]    #done! Although the elements are not correct, but the length is correct.
 
 # # O(n*m) solution. m is the sub[]'s length
-def lengthOfLIS(self, nums):
-        sub = []
-        for val in nums:
-            pos , sub_len = 0, len(sub)
-            while(pos <= sub_len):    # update the element to the correct position of the sub.
-                if pos == sub_len:
-                    sub.append(val)
-                    break
-                elif val <= sub[pos]:
-                    sub[pos] = val
-                    break
-                else:
-                    pos += 1
-        
+def lengthOfLIS1(self, nums):
+    sub = []
+    for val in nums:
+        pos, sub_len = 0, len(sub)
+
+        while pos <= sub_len:    # update the element to the correct position of the sub.
+            if pos == sub_len:
+                sub.append(val)
+                break
+            elif val <= sub[pos]:
+                sub[pos] = val
+                break
+            else:
+                pos += 1
+
 #         return len(sub)
 # Because of sub[ ] is incremental, we can use a binary search to find the correct insertion position.
 
 # # O(nlogn) solution with binary search
-def lengthOfLIS(self, nums):
+def lengthOfLIS2(self, nums):
+    def binarySearch(sub, val):
+        l, r = 0, len(sub)-1
 
-        def binarySearch(sub, val):
-            lo, hi = 0, len(sub)-1
-            while(lo <= hi):
-                mid = lo + (hi - lo)//2
-                if sub[mid] < val:
-                    lo = mid + 1
-                elif val < sub[mid]:
-                    hi = mid - 1
-                else:
-                    return mid
-            return lo
-        
-        sub = []
-        for val in nums:
-            pos = binarySearch(sub, val)
-            if pos == len(sub):
-                sub.append(val)
+        while l <= r:
+            mid = l + (r - l)//2
+            if sub[mid] < val:
+                l = mid + 1
+            elif val < sub[mid]:
+                r = mid - 1
             else:
-                sub[pos] = val
-        return len(sub)
+                return mid
+        return l
+
+    sub = []
+    for val in nums:
+        pos = binarySearch(sub, val)
+        if pos == len(sub):
+            sub.append(val)
+        else:
+            sub[pos] = val
+    return len(sub)

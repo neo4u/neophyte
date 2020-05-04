@@ -35,8 +35,8 @@ class Solution:
 
 # Algorithm
 # 1. Build a hash called height_map which records the "heights" (keys) and number of same "height" values
-# 2. Build an array of points , which seaprates out the lef-edge of the building with height (by negating the height value) and right-edge and height (positive value)
-# 3. For each point, the max height is got by the keys and checking the current height and previous height 
+# 2. Build an array of points, which separates out the left-edge of the building with height (by negating the height value) and right-edge and height (positive value)
+# 3. For each point, the max height is got by the keys and checking the current height and previous height
 # 4. Retain if same value is not repeated
 
 # Example:

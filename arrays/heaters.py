@@ -1,19 +1,22 @@
+from typing import List
+
+
 class Solution:
-    def findRadius(self, houses, heaters):
-        prev, heaters, radius, count = None, set(heaters), 0, 0
-        for h in houses:
-            if h in heaters:
-                i = h - 1
-                if prev is None:
-                    radius = i
-                else:
-                    radius = max(radius, (i - prev) // 2)
-                count += 1
-                prev = i
-        if count == 1:
-            radius = max(radius, prev)  # left radius
-            radius = max(radius, len(houses) - 1 - prev)
-        return radius
+    def findRadius(self, houses: List[int], heaters: List[int]) -> int:
+        houses.sort()
+        heaters.sort()
+        heaters = [float("-inf")] + heaters + [float("inf")]    # add 2 fake heaters
+        ans, i = 0, 0
+        for house in houses:
+            while house > heaters[i + 1]:                       # search to put house between heaters
+                i += 1
+            dis = min(house - heaters[i], heaters[i + 1] - house)
+            ans = max(ans, dis)
+        return ans
+
+
+# 475. Heaters
+# https://leetcode.com/problems/heaters/description/
 
 
 # public class Solution {
@@ -30,7 +33,7 @@ class Solution:
 
 #             result = Math.max(result, Math.min(dist1, dist2));
 #         }
-        
+
 #         return result;
 #     }
 # }

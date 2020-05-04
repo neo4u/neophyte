@@ -22,14 +22,16 @@ class Solution1:
 class Solution:
     def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
         m, n = len(nums1), len(nums2)
-        if m < n: nums1, nums2, m, n = nums2, nums1, n, m   # Ensure that the bigger one is nums1 so that memory is high and time is now
-        h1, result = collections.Counter(nums1), []
-        for num in nums2:
-            if num not in h1: continue
-            result.append(num)
-            h1[num] -= 1
-            if h1[num] == 0: h1.pop(num)
+        if m < n: nums1, nums2, m, n = nums2, nums1, n, m
+        counts = collections.Counter(nums1)
+        result = []
+
+        for x in nums2:
+            if x not in counts or counts[x] <= 0: continue
+            result.append(x)
+            counts[x] -= 1
         return result
+
 
 
 # Approach 3: Two pointer, Time: O(nlog(n)), Space: O(1)
@@ -99,8 +101,6 @@ class Solution:
 # A. Suppose lengths of two arrays are N and M,
 #    the time complexity of my solution is O(N+M) and the space complexity is O(N) considering the hash.
 #    So it's better to use the smaller array to construct the counter hash.
-#    Well, as we are calculating the intersection of two arrays,
-#    the order of array doesn't matter. We are totally free to swap to arrays.
 
 # Q. What if elements of nums2 are stored on disk,
 #    and the memory is limited such that you cannot load all elements into the memory at once?

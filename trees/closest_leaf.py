@@ -1,3 +1,6 @@
+import collections
+
+
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, x):
@@ -5,7 +8,9 @@ class TreeNode:
         self.left = None
         self.right = None
 
-class Solution:
+
+# Approach 1: DFS + DFS
+class Solution1:
     def findClosestLeaf(self, root: TreeNode, k: int) -> int:
         self.path = None
         self.closest_leaf_map = {}
@@ -49,31 +54,34 @@ class Solution:
         self.dfs(node.left, k, path)
         self.dfs(node.right, k, path)
 
-import collections
-class Solution2(object):
-    def findClosestLeaf(self, root, k):
-        graph = collections.defaultdict(list)
 
-        def dfs(node, par=None):
-            if node:
-                graph[node].append(par)
-                graph[par].append(node)
-                dfs(node.left, node)
-                dfs(node.right, node)
+# Approach 2: Use DFS to build graph and BFS to find distance
+class Solution:
+    def findClosestLeaf(self, root: TreeNode, k: int) -> int:
+        self.graph = collections.defaultdict(list)
+        self.dfs(root)
 
-        dfs(root)
-        queue = collections.deque(node for node in graph if node and node.val == k)
-        seen = set(queue)
+        q = [node for node in self.graph if node and node.val == k]
+        visited = set(q)
 
-        while queue:
-            node = queue.popleft()
-            if node:
-                if len(graph[node]) == 1:
-                    return node.val
-                for nei in graph[node]:
-                    if nei not in seen:
-                        seen.add(nei)
-                        queue.append(nei)
+        while q:
+            node = q.pop(0)
+            if not node: continue
+            if len(self.graph[node]) == 1: return node.val # Means that the parent is only neighbor
+
+            for nbr in self.graph[node]:
+                if nbr in visited: continue
+                visited.add(nbr)
+                q.append(nbr)
+
+    def dfs(self, node, parent=None):
+        if not node: return
+
+        self.graph[node].append(parent)
+        self.graph[parent].append(node)
+
+        self.dfs(node.left, node)
+        self.dfs(node.right, node)
 
 
 n1, n2 = TreeNode(1), TreeNode(2)
@@ -88,5 +96,11 @@ sol = Solution()
 assert sol.findClosestLeaf(n1, 1) == 1
 
 
+# 742. Closest Leaf in a Binary Tree
+# https://leetcode.com/problems/closest-leaf-in-a-binary-tree/description/
 
 
+# Intuition
+# 1. Use DFS to make a adjacency list
+# 2. Use BFS from every node having node.val to calculate distance from root wave by wave
+# 3. Exit and return dist as soon as you see a leaf of the tree

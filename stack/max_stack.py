@@ -1,35 +1,36 @@
 class MaxStack:
     def __init__(self):
-        self.max_stack = []
         self.stack = []
+        self.max_stack = []
 
     def push(self, x: int) -> None:
-        current_max = self.max_stack[-1] if self.max_stack else float("-inf")
+        if not self.max_stack or x >= self.max_stack[-1][0]:
+            self.max_stack.append((x, len(self.stack)))
         self.stack.append(x)
-        self.max_stack.append(max(current_max, x))
 
     def pop(self) -> int:
-        self.max_stack.pop()
-        return self.stack.pop()
+        result = self.stack.pop()
+        if self.max_stack and self.max_stack[-1][0] == result:
+            self.max_stack.pop()
+        return result
 
     def top(self) -> int:
-        return self.stack[-1]
+        if self.data:
+            return self.stack[-1]
 
     def peekMax(self) -> int:
-        return self.max_stack[-1]
+        if self.max_stack:
+            return self.max_stack[-1][0]
 
     def popMax(self) -> int:
-        cur_max = self.max_stack[-1]
+        if self.max_stack:
+            md = self.max_stack.pop()
+            self.stack.pop(md[1])
+            for i in range(md[1], len(self.stack)):
+                if not self.max_stack or self.data[i] >= self.max_stack[-1][0]:
+                    self.max_stack.append((self.stack[i], i))
+            return md[0]
 
-        tmp_stack = []
-        while self.stack[-1] != cur_max:
-            tmp_stack.append(self.pop())
-
-        popped = self.pop()
-        while tmp_stack:
-            self.push(tmp_stack.pop())
-
-        return popped
 
 # 716. Max Stack
 # https://leetcode.com/problems/max-stack/description/
@@ -38,9 +39,6 @@ class MaxStack:
 import heapq
 class MaxStack:
     def __init__(self):
-        """
-        initialize your data structure here.
-        """
         self.l = []
         self.h = []
         self.l2d = set()
@@ -75,6 +73,7 @@ class MaxStack:
         x, i = heapq.heappop(self.h)
         self.l2d.add(-i)
         return -x
+
 
 # Your MaxStack object will be instantiated and called as such:
 # obj = MaxStack()

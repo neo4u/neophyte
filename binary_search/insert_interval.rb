@@ -43,38 +43,28 @@ end
 # 57. Insert Interval
 # https://leetcode.com/problems/insert-interval/
 
+# Intuition
+# 1. We're given a list of intervals sorted by the start time,
+#    also an interval to insert which could overlap with one or more existing intervals
+# 2. We've to handle overlap accordingly, For ex:
+#    - No Overlap: intervals = [[1, 2], [9, 10]] and to_insert = [5, 8] := result = [[1, 2], [5, 8], [9, 10]]
+#    - Full Overlap: intervals = [[1, 2], [5, 10]] and to_insert = [5, 8] := result = [[1, 2], [5, 10]]
+#    - 1 Overlap: intervals = [[1, 2], [8, 10]] and to_insert = [5, 9] := result = [[1, 2], [5, 10]]
+#    - > 1 Overlap: intervals = [[1, 5], [8, 10]] and to_insert = [4, 9] := result = [[1, 10]]
+
 # Approach 1: Binary Search on starts and ends arrays
 # Steps
-# 1. Binary Search ends for e >= new_interval.start, i.e. Find the index i into intervals where all the ends to the left of i are < new_interval.start
-# 2. Binary Search starts for s > new_interval.end, i.e. Find the index into intervals where all the starts to the right of i are > new_interval.start
+# 1. Binary Search ends for e >= new_interval.start,
+#    i.e. Find the index i into intervals where all the ends to the left of i are < new_interval[0]
+# 2. Binary Search starts for s > new_interval.end,
+#    i.e. Find the index into intervals where all the starts to the right of i are > new_interval[0]
 # 3. Use n if there is no such index for both the searches
 # 4. Merge new_interval's start with interval i's start
 # 5. Merge new_interval's end with interval j - 1's end
 # 6. Final form the left part, middle part and right part
 # 6. Return the combination of the tree parts
 
-# Example 1: intervals = [1, 3], [6, 9] new = [2, 5]
-# starts: [1, 6] | ends: [3, 9]
-# i: 0 | j: 1
-# left: [] | new_interval: [1, 5] | right: [6, 9]
 
-# Example 2: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]] new = [4,8]
-# starts: [1, 3, 6, 8, 12] | ends: [2, 5, 7, 10, 16]
-# i: 1 | j: 4
-# left: [1,2] | new_interval: [3, 10] | right: [12, 16]
-
-# Example 3: intervals = [[1,5]] new = [2,3]
-# starts: [1] | ends: [5]
-# i: 0 | j: 1
-# left: [] | new_interval: [1,5] | right: []
-
-# Example 4: intervals = [[1,2],[6,9]] new = [3,5]
-# starts: [1, 6] | ends: [2, 9]
-# i: 1 | j: 1
-# left: [1,2] | new_interval: [3,5] | right: [6,9]
-
-# Time: O(n)
-# Space: O(n)
 
 require 'test/unit'
 extend Test::Unit::Assertions

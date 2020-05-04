@@ -1,66 +1,31 @@
-"""
-This is the robot's control interface.
-You should not implement it, or speculate about its implementation
-"""
-class Robot:
-    def move(self):
-        """
-        Returns true if the cell in front is open and robot moves into the cell.
-        Returns false if the cell in front is blocked and robot stays in the current cell.
-        :rtype bool
-        """
-        pass
-
-    def turnLeft(self):
-        """
-        Robot will stay in the same cell after calling turnLeft/turnRight.
-        Each turn will be 90 degrees.
-        :rtype void
-        """
-        pass
-
-    def turnRight(self):
-        """
-        Robot will stay in the same cell after calling turnLeft/turnRight.
-        Each turn will be 90 degrees.
-        :rtype void
-        """
-        pass
-
-    def clean(self):
-        """
-        Clean the current cell.
-        :rtype void
-        """
-        pass
-
-
 class Solution:
-    def cleanRoom(self, robot: Robot) -> None:
-        def go_back():
-            robot.turnRight()
-            robot.turnRight()
-            robot.move()
-            robot.turnRight()
-            robot.turnRight()
-
-        def dfs(cell=(0, 0), d=0):
-            visited.add(cell)
-            robot.clean()
-            # going clockwise : 0: 'up', 1: 'right', 2: 'down', 3: 'left'
-            for i in range(4):
-                new_d = (d + i) % 4
-                new_cell = (cell[0] + directions[new_d][0], cell[1] + directions[new_d][1])
-                if not new_cell in visited and robot.move():
-                    dfs(new_cell, new_d)
-                    go_back()
-                # turn the robot following chosen direction : clockwise
-                robot.turnRight()
-
+    def cleanRoom(self, robot: 'Robot') -> None:
         # going clockwise : 0: 'up', 1: 'right', 2: 'down', 3: 'left'
-        directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
-        visited = set()
-        dfs()
+        self.dirs = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+        self.visited = set()
+        self.dfs(robot)
+
+    def go_back(self, robot):
+        robot.turnRight()
+        robot.turnRight()
+        robot.move()
+        robot.turnRight()
+        robot.turnRight()
+
+    def dfs(self, robot, cell=(0, 0), d=0):
+        self.visited.add(cell)
+        robot.clean()
+
+        for i in range(4):
+            new_d = (d + i) % 4
+            new_cell = (cell[0] + self.dirs[new_d][0], cell[1] + self.dirs[new_d][1])
+
+            if not new_cell in self.visited and robot.move():
+                self.dfs(robot, new_cell, new_d)
+                self.go_back(robot)
+
+            # turn the robot following chosen direction : clockwise
+            robot.turnRight()
 
 
 class Solution:

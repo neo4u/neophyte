@@ -50,6 +50,7 @@ class Solution:
 #      ------------------------   ------------------------------
 #      A[0] + A[1] + ... + A[j] + A[j+1] + A[j+2] + ...  + A[t-1]
 
+# Other other important things are: contiguous and subsequence
 
 # Steps:
 # 1. Use a defaultdict sum_map to store the subarray sums and their counts

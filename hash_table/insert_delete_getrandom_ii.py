@@ -21,18 +21,10 @@ class RandomizedCollection:
         self.pos_map[last_val].add(i)
         self.pos_map[last_val].discard(len(self.nums) - 1)
         self.nums.pop()
-
         return True
 
     def getRandom(self) -> int:
         return random.choice(self.nums)
-
-
-# Your RandomizedCollection object will be instantiated and called as such:
-# obj = RandomizedCollection()
-# param_1 = obj.insert(val)
-# param_2 = obj.remove(val)
-# param_3 = obj.getRandom()
 
 
 # 381. Insert Delete GetRandom O(1) - Duplicates allowed

@@ -53,24 +53,23 @@ class Solution1:
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         if not intervals: return 0
+
         starts = sorted(list(map(lambda x: x[0], intervals)))
         ends = sorted(list(map(lambda x: x[1], intervals)))
-        s_ptr, e_ptr, rooms, n = 0, 0, 0, len(intervals)
+        i, j, n, rooms = 0, 0, len(intervals), 0
 
-        while s_ptr < n:
-            prev, curr = ends[e_ptr], starts[s_ptr]
-            if curr >= prev:
-                e_ptr += 1
-            else:
-                rooms += 1
-            s_ptr += 1
-
+        while i < n:
+            prev, curr = ends[j], starts[i]
+            if curr < prev: rooms += 1
+            else:           j += 1
+            i += 1
         return rooms
 
 
 
 # 253. Meeting Rooms II
 # https://leetcode.com/problems/meeting-rooms-ii/
+
 
 # Approach 1: Sort by start times and use Priority Queue for end times.
 # Algorithm

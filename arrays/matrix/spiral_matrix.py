@@ -31,3 +31,12 @@ class Solution:
 
 # 54. Spiral Matrix
 # https://leetcode.com/problems/spiral-matrix/description/
+
+
+# Steps:
+# 1. Set l, r, u, d at the border indexes
+#    Then, have a loop while u <= d and l <= r, i.e. bounds don't crossover
+# 2. Capture u's row items b/w [l, r], then inc u
+# 3. Capture r's col items b/w [u, d], then dec r
+# 4. Capture d's row items b/w [r, l], then inc l, important to check bounds here
+# 5. Capture l's col items b/w [d, u], then important to check bounds here

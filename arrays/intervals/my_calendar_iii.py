@@ -1,5 +1,7 @@
-class MyCalendarThree(object):
-    
+import collections
+
+
+class MyCalendarThree:
     def __init__(self):
         self.delta = collections.Counter()
 
