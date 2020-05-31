@@ -12,9 +12,9 @@ class Solution:
         return self.merge_lists_alt(l1, l2)
 
     def split_list(self, head) -> bool:
-        return head, self.find_mid(head)
+        return head, self.find_split_point(head)
 
-    def find_mid(self, head: ListNode) -> ListNode:
+    def find_split_point(self, head: ListNode) -> ListNode:
         slow, fast = head, head
 
         while fast and fast.next:
@@ -50,6 +50,23 @@ class Solution:
 
 # 143. Reorder List
 # https://leetcode.com/problems/reorder-list/description/
+
+
+
+# 1 -> 2 -> 3 -> 4 -> 5
+
+#     s
+#         f
+# 1 2 3       4 5
+
+#       s
+#             f
+# 1 2 3 4         5 6
+
+# 1 6 2 5 3 4
+
+# 1 -> 5 -> 2 -> 4 -> 3
+
 
 
 # 1 2 3 4     5 6

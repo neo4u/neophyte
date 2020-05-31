@@ -10,6 +10,7 @@ class Solution:
 
         return a1 == a2
 
+
 import collections
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:

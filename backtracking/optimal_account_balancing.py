@@ -2,6 +2,7 @@ import collections
 import itertools
 from typing import List
 
+
 class Solution:
     def minTransfers(self, transactions: List[List[int]]) -> int:
         m = collections.defaultdict(int)
@@ -11,22 +12,25 @@ class Solution:
             m[t[1]] += t[2]
 
         debt = m.values()
+        return self.bt(0, debt)
 
-        def bt(s):
-            while s < len(debt) and debt[s] == 0: s += 1
-            if s == len(debt): return 0
-            r = float('inf')
+    def bt(self, s_idx, debt):
+        while s_idx < len(debt) and debt[s_idx] == 0: s_idx += 1
+        if s_idx == len(debt): return 0
+        result = float('inf')
 
-            for i in range(s + 1, len(debt)):
-                if debt[i] * debt[s] < 0:
-                    # settle s with i
-                    debt[i] += debt[s]
-                    r = min(r, 1 + bt(s+1))
-                    # backtrack
-                    debt[i] -= debt[s]
-            return r
+        for i in range(s_idx + 1, len(debt)):
+            if debt[i] * debt[s_idx] < 0:
+                # settle s with i
+                debt[i] += debt[s_idx]
+                result = min(result, 1 + self.bt(s_idx + 1, debt))
+                # backtrack
+                debt[i] -= debt[s_idx]
 
-        return bt(0)
+        return result
+
+
+# https://leetcode.com/problems/optimal-account-balancing/discuss/95355/Concise-9ms-DFS-solution-(detailed-explanation)
 
 
 class Solution:
@@ -84,16 +88,16 @@ class Solution:
             d[t[0]] += t[2]
             d[t[1]] -= t[2]
 
-        # net = [d[item] for item in d if d[item] != 0]
-        balances = list(filter(lambda x: x != 0, map(lambda x: d[x], d)))
-        self.res = 0
+        balances = [d[person] for person in d if d[person] != 0]
+        # balances = list(filter(lambda x: x != 0, map(lambda x: d[x], d)))
+        self.result = 0
 
         while balances:
             q = []
             q.append((balances[0], [0], 1))
             balances = self.bfs(q, balances)
 
-        return self.res
+        return self.result
 
     def bfs(self, q, balances):
         n = len(balances)
@@ -104,9 +108,14 @@ class Solution:
             for i in range(start, n):
                 q.append((total + balances[i], path + [i], i + 1))
 
-        self.res += len(path) - 1 # edges are payments and nodes are people
+        self.result += len(path) - 1 # edges are payments and nodes are people
         path = set(path)
         return [balances[i] for i in range(n) if i not in path]
+
+1  0
+
+1   1
+  2
 
 
 # 465. Optimal Account Balancing

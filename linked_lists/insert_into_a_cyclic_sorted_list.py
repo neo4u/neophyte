@@ -30,15 +30,15 @@ class Solution:
         return head
 
 
+
+# 708. Insert into a Sorted Circular Linked List
+# https://leetcode.com/problems/insert-into-a-cyclic-sorted-list/description/
+
+
 # Approach 1: 3 Cases
 # insert at the end;
 # insert in the middle;
 # insert before head (e.g. all the values are equal in the original list)
 
-
 # Time: O(n)
 # Space: O(1)
-
-
-# 708. Insert into a Cyclic Sorted List
-# https://leetcode.com/problems/insert-into-a-cyclic-sorted-list/description/

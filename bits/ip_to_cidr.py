@@ -6,7 +6,7 @@ class Solution:
         dec_ip, result = self.ip_to_dec(ip), []
 
         while n > 0:
-            dec_t0s = self.trailing_0s_digit(dec_ip)
+            dec_t0s = self.trailing_0s_pow_2(dec_ip)
             ip = self.dec_to_ip(dec_ip)
 
             while dec_t0s > n: dec_t0s >>= 1 # same as div //= 2
@@ -24,7 +24,8 @@ class Solution:
         a, b, c, d = dec // 256**3 % 256, dec // 256**2 % 256, dec // 256**1 % 256, dec // 256**0 % 256
         return ".".join(map(str, [a, b, c, d]))
 
-    def trailing_0s_digit(self, dec):
+    def trailing_0s_pow_2(self, dec):
+        # Find number of trailing zeros power 2 (dec_t0s
         return dec & -dec
 
     def trailing_0s(self, dec):

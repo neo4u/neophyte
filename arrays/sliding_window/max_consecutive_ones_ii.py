@@ -19,5 +19,9 @@ class Solution:
         return max_len
 
 
+[1,1,0,1,1,1,0,1,1,1,1]
+       l 
+                     r
+
 # 487. Max Consecutive Ones II
 # https://leetcode.com/problems/max-consecutive-ones-ii/description/

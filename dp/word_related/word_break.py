@@ -19,8 +19,8 @@ class Solution:
 # https://leetcode.com/problems/word-break/
 
 
-# dp[i] = can you break s[0:i] into words in the dict
-# dp[i] = True if dp[j] = True and s[j+1:i] is in the dict for every j from 0 to i-1
+# dp[i] = can you break s[0:i-1] (len i) into words in the dict
+# dp[i] = True if dp[j] = True and s[j:i] is in the dict for every j from 0 to i-1
 # dp[0] = True , empty string is in the dict
 
 

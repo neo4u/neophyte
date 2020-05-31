@@ -15,8 +15,10 @@ class Solution:
 
         return count
 
+
 # https://leetcode.com/problems/palindromic-substrings/description/
 # 647. Palindromic Substrings
+
 
 # Approach 1: O(n**2) Time,  O(1) Space
 # Total of 2n - 1 centers
@@ -32,5 +34,5 @@ class Solution:
 # O(n) Manacher's Algorithm uses an array to store palindromes as each enter
 # Uses the concept of not having to check all the centers and mirroring of centers for a palindrome
 
-assert_equal(count_substrings('aaa'), 6)
-assert_equal(count_substrings('aaaaa'), 15)
+# assert_equal(count_substrings('aaa'), 6)
+# assert_equal(count_substrings('aaaaa'), 15)

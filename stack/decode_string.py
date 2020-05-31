@@ -33,9 +33,11 @@ class SolutionDFS:
             elif c == '[':  word += self.dfs(s) * int(num); num = ''
             elif c == ']':  return word
             else:           word += c
+
         return word
 
-
+# 3[a]2[bc]
+# p
 
 # 394. Decode String
 # https://leetcode.com/problems/decode-string/description/

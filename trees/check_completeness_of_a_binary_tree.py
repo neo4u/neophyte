@@ -29,6 +29,9 @@ class Solution(object):
 # 4. We exit when i has gone beyond number of items in the list
 # 5. At this point, the last ID given out should be equal to number of 
 
+# Time: O(n)
+# Space: O(n)
+
 # Input: [1,2,null,4,5]
 #        1
 #      /
@@ -118,3 +121,4 @@ class Solution(object):
 # ...i = 11
 
 # node[-][1] = 12 == len(nums) - 1 = 13 - 1 == 12
+

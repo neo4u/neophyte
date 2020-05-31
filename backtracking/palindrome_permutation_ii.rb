@@ -55,3 +55,6 @@ require 'set'
 
 # 267. Palindrome Permutation II
 # https://leetcode.com/problems/palindrome-permutation-ii/description/
+
+
+# https://leetcode.com/problems/palindrome-permutation-ii/discuss/69717/Backtrack-Summary:-General-Solution-for-10-Questions!!!!!!!!-Python-(Combination-Sum-Subsets-Permutation-Palindrome)

@@ -2,14 +2,14 @@ from typing import List
 
 
 # Approach 1: Binary Search
-class Solution:
+class Solution1:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
         n = len(matrix)
         start, end = matrix[0][0], matrix[n - 1][n - 1]
 
         while start < end:
             mid = start + (end - start) // 2
-            smaller, larger = (matrix[0][0], matrix[n - 1][n - 1])
+            smaller, larger = matrix[0][0], matrix[n - 1][n - 1]
             count, smaller, larger = self.count_less_equal(matrix, mid, smaller, larger)
 
             if count == k:  return smaller
@@ -37,7 +37,6 @@ class Solution:
 
 
 # Approach 2: heap (Optimal)
-import heapq
 class Solution:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
         n = len(matrix)
@@ -46,12 +45,11 @@ class Solution:
 
         for _ in range(k):
             result, r, c = heapq.heappop(heap)
-            new_c = c + 1
-            if new_c < n:
-                heapq.heappush(heap, (matrix[r][new_c], r, new_c))
+            c += 1
+            if c == n: continue
+            heapq.heappush(heap, (matrix[r][c], r, c))
 
         return result
-
 
 
 # 378. Kth Smallest Element in a Sorted Matrix
@@ -61,10 +59,7 @@ class Solution:
 # Approach 1: Binary Search
 # Grokking the coding interview solution
 
-# Similar to
-# Actually, if u've done problem 719. Find K-th Smallest Pair Distance
-# The idea behind the two problems with binary search is exactly the same:
-# Similar solution for 719. Find K-th Smallest Pair Distance
+# Similar to 719. Find K-th Smallest Pair Distance
 
 # Also don't forget to check out this fantastic post by @fun4LeetCode
 # Approach the problem using the "trial and error" algorithm

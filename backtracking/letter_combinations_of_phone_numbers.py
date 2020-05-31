@@ -48,3 +48,9 @@ assert sol.letterCombinations("23") == ["ad", "ae", "af", "bd", "be", "bf", "cd"
 
 #     result
 # end
+
+
+# Time: O(3^N * 4^M)
+#       N is the number of digits in the input that maps to 3 letters (e.g. 2, 3, 4, 5, 6, 8)
+#       M is the number of digits in the input that maps to 4 letters (e.g. 7, 9), and N + M is the total number digits in the input.
+# Space: O(3^N * 4^M)

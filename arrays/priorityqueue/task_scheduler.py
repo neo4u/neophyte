@@ -1,31 +1,12 @@
 from heapq import heappush, heappop
-from collections import Counter
-
-# 621. Task Scheduler
-# https://leetcode.com/problems/task-scheduler/
-
-# Approach 1: Using sorting Time: O(time), Space: O(1)
-# Not implemented, as internet is full of it and its sub-optimal anyways
-
-# Approach 2: Using priority queue, Time: O(n), Space: O(1)
-# Very similar approach and intuition to:
-# https://leetcode.com/problems/rearrange-string-k-distance-apart
-
-# We need to arrange the characters in string such that each same character is K distance apart,
-# where distance in this problems is time b/w two similar task execution.
-
-# 1. Add tasks based on frequency to priority queue. We use negative values to get maxheap.
-# 2. Pick the task in each round of 'n' with highest frequency. (heappop)
-# 3. As you pick the task, decrease the frequency, and put them back after the round.
+import collections
+from typing import List
 
 
-# Time: O(n), Actually it is: O(Nlog(N) * n) where N is the number of tasks and n is the cool-off period.
-#       N <= 26 so we have O(Nlog(N) * n) => O(26log(26) * n) => O(n)
-# Space: O(1), will not be more than O(26).
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
         time, q = 0, []
-        for v in Counter(tasks).values():
+        for v in collections.Counter(tasks).values():
             heappush(q, -v) # Use negatives to get max heap
 
         while q:
@@ -59,8 +40,8 @@ class Solution:
                 time += 1
                 cool -= 1
                 if q:
-                    x = heappop(q)
-                    if -x > 1: temp.append(x + 1)
+                    x = -heappop(q) -1
+                    if x > 0: temp.append(-x)
             if temp:
                 q.extend(temp)
                 heapify(q)
@@ -87,3 +68,26 @@ class Solution2(object):
             if count == longest: ans += 1
 
         return max(len(tasks), ans)
+
+
+# 621. Task Scheduler
+# https://leetcode.com/problems/task-scheduler/
+
+# Approach 1: Using sorting Time: O(time), Space: O(1)
+# Not implemented, as internet is full of it and its sub-optimal anyways
+
+# Approach 2: Using priority queue, Time: O(n), Space: O(1)
+# Very similar approach and intuition to:
+# https://leetcode.com/problems/rearrange-string-k-distance-apart
+
+# We need to arrange the characters in string such that each same character is K distance apart,
+# where distance in this problems is time b/w two similar task execution.
+
+# 1. Add tasks based on frequency to priority queue. We use negative values to get maxheap.
+# 2. Pick the task in each round of 'n' with highest frequency. (heappop)
+# 3. As you pick the task, decrease the frequency, and put them back after the round.
+
+
+# Time: O(n), Actually it is: O(Nlog(N) * n) where N is the number of tasks and n is the cool-off period.
+#       N <= 26 so we have O(Nlog(N) * n) => O(26log(26) * n) => O(n)
+# Space: O(1), will not be more than O(26).

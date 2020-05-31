@@ -34,3 +34,7 @@ class Solution:
             return nxt
 
         return head
+
+
+# 24. Swap Nodes in Pairs
+# https://leetcode.com/problems/swap-nodes-in-pairs/description/

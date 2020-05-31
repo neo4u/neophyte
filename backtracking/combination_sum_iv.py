@@ -35,6 +35,11 @@ class Solution2:
 # Combination Sum IV
 # https://leetcode.com/problems/combination-sum-iv/
 
+# Intution:
+# This is very similar to coin change with a small bug major difference:
+# https://leetcode.com/problems/combination-sum-iv/discuss/111860/Coin-change-AND-this-problem
+
+
 # Approach 1: Top Down DP a.k.a Memoization
 # Time: O(target * nums)
 # Space: O(target * nums)

@@ -16,6 +16,27 @@ class Solution:
             if nums[i] > rem: break
             self.bt(nums, i + 1, path + [nums[i]], rem - nums[i])
 
+
+
+class Solution:
+    def combinationSum2(self, nums: List[int], target: int) -> List[List[int]]:
+        self.result = []
+        nums.sort()
+        self.bt(nums, 0, [], target)
+        return self.result
+
+    def bt(self, nums, s_idx, path, rem):
+        if rem == 0: return self.result.append(path)
+
+        used = set()
+        for i in range(s_idx, len(nums)):
+            if nums[i] > rem: continue
+            if nums[i] in used: continue
+            used.add(nums[i])
+            self.bt(nums, i + 1, path + [nums[i]], rem - nums[i])
+
+
+
 # 40. Combination Sum II
 # https://leetcode.com/problems/combination-sum-ii/description/
 

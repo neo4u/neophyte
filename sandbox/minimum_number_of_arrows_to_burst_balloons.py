@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def findMinArrowShots(self, points: List[List[int]]) -> int:
         if not points:
@@ -14,6 +17,11 @@ class Solution:
         return arrows
 
 
+# 452. Minimum Number of Arrows to Burst Balloons
+# https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/description/
+
+
+
 # [[10,16], [2,8], [1,6], [7,12]]
 # [1,6] [2,8], [7, 12], [10, 16]
 
@@ -23,6 +31,7 @@ class Solution:
 # ce: 12
 # a 2
 
+# Approach 1: Follows the intervals pattern
 
-# 452. Minimum Number of Arrows to Burst Balloons
-# https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/description/
+# Time: O(n * log(n))
+# Space: O(1)

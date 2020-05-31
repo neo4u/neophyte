@@ -28,3 +28,6 @@ require 'test/unit'
 extend Test::Unit::Assertions
 
 assert_equal(number_to_words(123), 'One Hundred Twenty Three')
+# 1123
+
+# 9 Hundred + words[9] + words[9]

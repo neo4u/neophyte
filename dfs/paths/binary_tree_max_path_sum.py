@@ -5,20 +5,20 @@ class TreeNode:
         self.left = None
         self.right = None
 
+
 class Solution:
     def maxPathSum(self, root: TreeNode) -> int:
         self.max_sum = -float('inf')
         self.dfs(root)
         return self.max_sum
 
-    def dfs(self, node):
+    def dfs(self, node: TreeNode) -> None:
         if not node: return 0
 
         l, r = self.dfs(node.left), self.dfs(node.right)
-        cur = l + node.val + r                  # Path sum
-        self.max_sum = max(cur, self.max_sum)
+        self.max_sum = max(self.max_sum, l + node.val + r, l + node.val, r + node.val, node.val)
 
-        return max(0, max(l, r) + node.val)     # Node sum
+        return max(0, max(l, r) + node.val, node.val)
 
 
 # 124. Binary Tree Maximum Path Sum

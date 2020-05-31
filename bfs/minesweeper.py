@@ -3,12 +3,13 @@ from typing import List
 
 class Solution:
     def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
-        if not board: return []
+        if not board:
+            return []
         i, j = click[0], click[1]
 
         # If a mine ('M') is revealed, then the game is over - change it to 'X'.
-        if board[i][j] == 'M':
-            board[i][j] = 'X'
+        if board[i][j] == "M":
+            board[i][j] = "X"
             return board
 
         # run dfs to reveal the board
@@ -16,20 +17,30 @@ class Solution:
         return board
 
     def dfs(self, board, i, j):
-        if board[i][j] != 'E': return
+        if board[i][j] != "E":
+            return
 
         m, n = len(board), len(board[0])
-        directions = [(-1,-1), (0,-1), (1,-1), (1,0), (1,1), (0,1), (-1,1), (-1,0)]
+        directions = [
+            (-1, -1),
+            (0, -1),
+            (1, -1),
+            (1, 0),
+            (1, 1),
+            (0, 1),
+            (-1, 1),
+            (-1, 0),
+        ]
 
         mine_count = 0
 
         for d in directions:
             ni, nj = i + d[0], j + d[1]
-            if 0 <= ni < m and 0 <= nj < n and board[ni][nj] == 'M':
+            if 0 <= ni < m and 0 <= nj < n and board[ni][nj] == "M":
                 mine_count += 1
 
         if mine_count == 0:
-            board[i][j] = 'B'
+            board[i][j] = "B"
             for d in directions:
                 ni, nj = i + d[0], j + d[1]
                 if 0 <= ni < m and 0 <= nj < n:
@@ -41,7 +52,8 @@ class Solution:
 
 class Solution2:
     def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
-        if not board or not board[0]: return board
+        if not board or not board[0]:
+            return board
         dirs = [[0, -1], [0, 1], [-1, 0], [1, 0], [-1, -1], [-1, 1], [1, -1], [1, 1]]
         i, j = click
         if board[i][j] == "M":
@@ -63,7 +75,7 @@ class Solution2:
             if mines == 0:
                 board[i][j] = "B"
                 for nbr_x, nbr_y in blnk_nbrs:
-                    board[nbr_x][nbr_y] = 'VE'
+                    board[nbr_x][nbr_y] = "VE"
                 q.extend(blnk_nbrs)
             else:
                 board[i][j] = str(mines)
@@ -77,3 +89,51 @@ class Solution2:
     def valid_mine(self, board, i, j):
         m, n = len(board), len(board[0])
         return 0 <= i <= m - 1 and 0 <= j <= n - 1 and board[i][j] == "M"
+
+
+# 529. Minesweeper
+# https://leetcode.com/problems/minesweeper/description/
+
+
+class Solution:
+    def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
+        dirs = [[0, -1], [0, 1], [-1, 0], [1, 0], [-1, -1], [-1, 1], [1, -1], [1, 1]]
+        i, j = click
+        q = [(i, j)]
+        if board[i][j] == "M":
+            board[i][j] = "X"
+            return board
+
+        while q:
+            level_q = []
+            for x, y in q:
+                mines = 0
+                blanks = []
+                for dx, dy in dirs:
+                    new_i, new_j = x + dx, y + dy
+
+                    if self.valid_mine(board, new_i, new_j):
+                        mines += 1
+                    elif self.valid_blank(board, new_i, new_j):
+                        blanks.append((new_i, new_j))
+
+                if mines == 0:
+                    board[x][y] = "B"
+                    for u, v in blanks:
+                        board[u][v] = "Qed"
+                    level_q.extend(blanks)
+                else:
+                    board[x][y] = str(mines)
+            q = level_q
+        return board
+
+    def valid_blank(self, board, i, j):
+        m, n = len(board), len(board[0])
+        return 0 <= i <= m - 1 and 0 <= j <= n - 1 and board[i][j] == "E"
+
+    def valid_mine(self, board, i, j):
+        m, n = len(board), len(board[0])
+        return 0 <= i <= m - 1 and 0 <= j <= n - 1 and board[i][j] == "M"
+
+
+

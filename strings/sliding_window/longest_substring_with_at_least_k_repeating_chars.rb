@@ -10,24 +10,24 @@ def longest_substring(s, k)
         more_than_k += 1 if counts[idx] == k
     end
 
-    1.upto(more_than_k) do |u|
+    1.upto(more_than_k) do |desired|
         counts = Array.new(26, 0)
-        l, r, uniq, k_or_more = 0,0,0,0
+        l, r, uniq, formed = 0, 0, 0, 0
         while r < s.size
-            if uniq <= u
+            if uniq <= desired
                 idx = s[r].ord - 'a'.ord
                 uniq += 1 if counts[idx] == 0
                 counts[idx] += 1
-                k_or_more += 1 if counts[idx] == k
+                formed += 1 if counts[idx] == k
                 r += 1
             else
                 idx = s[l].ord - 'a'.ord
                 counts[idx] -= 1
                 uniq -= 1 if counts[idx] == 0
-                k_or_more -= 1 if counts[idx] == k - 1
+                formed -= 1 if counts[idx] == k - 1
                 l += 1
             end
-            longest = [longest, r - l].max if uniq == u && uniq == k_or_more
+            longest = [longest, r - l].max if uniq == desired && uniq == formed
         end
     end
 
@@ -35,11 +35,14 @@ def longest_substring(s, k)
 end
 
 
+
+
+
 # 395. Longest Substring with At Least K Repeating Characters
 # https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/
 
 # Steps
-# 1. Iterate through the possible max distinct char sizes (1 to k_or_more)
+# 1. Iterate through the possible max distinct char sizes (1 to formed)
 # 2. For each distinct char length u (from 1 to more_than_k)
 #    we find the longest substring with at most u distinct chars like in:
 #    https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/

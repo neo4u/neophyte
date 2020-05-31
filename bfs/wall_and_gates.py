@@ -34,6 +34,7 @@ class Solution:
 # 1. We just have to modify distances in place, so nothing to return
 # 2. We don't need a visited set in this case, cuz visited means shortest gate was found
 
+# Approach 1: BFS
 # Steps
 # 1. We can visit all empty spaces from each gate
 # 2. While visiting a cell, if it was already visited from another gate,

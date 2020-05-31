@@ -45,14 +45,11 @@ class Solution:
         return new_head
 
 
-
 class Solution:
     def copyRandomList(self, head: 'Node') -> 'Node':
-        if not head: return
-
         self.cloned = {}
         self.dfs(head)
-        return self.cloned[head]
+        return self.cloned.get(head, None)
 
     def dfs(self, node):
         if not node: return
@@ -66,11 +63,14 @@ class Solution:
 
         return clone
 
+
 # 138. Copy List with Random Pointer
 # https://leetcode.com/problems/copy-list-with-random-pointer/description/
 
 # Approach 1: Hash Map for storing cloned mapping
 # Similar to clone graph
+# Time: O(n)
+# Space: O(n)
 
 # Approach 2: without hash map and using interweaved copy nodes
 
@@ -83,6 +83,14 @@ class Solution:
 # 2. Copy random ptr
 # 3. Unweave
 
+# A -> B -> C
+# dfs(A)
+
+# A' -> next -> dfs(B)
+# A' -> random -> dfs(C)
+# dfs(B)
+
+# B' -> 
 
 # Time: O(n)
 # Space: O(1)

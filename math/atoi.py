@@ -17,6 +17,12 @@ class Solution:
 # 8. String to Integer (atoi)
 # https://leetcode.com/problems/string-to-integer-atoi/
 
+# Similar problem
+# 65. Valid Number
+# https://leetcode.com/problems/valid-number/
+
+
+
 # Approach 1
 # 1. Strip input and get chars in an array
 # 2. capture sign and delete the sign from array start
@@ -25,15 +31,31 @@ class Solution:
 # 5. as soon as we encounter a non-digit exit and return the result
 # 6. Ensure there is no overflow at the return of result. Has to be 32 bit integer.
 
-# Approach 2: Refer java file with same name
-# DFA
+# Time: O(n)
+# Space: O(n), to store ls array
+
+
+# Approach 2: DFA, Refer java file with same name
 # 1. keep track of all the valid states
 # 2. Define valid transitions
 # 3. as soon as we hit an invalid state
 # 4. return the signed current integer value
 
-# Time: O(n)
-# Space: O(n), to store ls array
+# Time: O(n), Iterate the string once and check for matches
+# Space: O(1), Finite and constant number of states
+
+
+# DFA to regex
+# https://www.youtube.com/watch?v=SmT1DXLl3f4 
+# https://www.geeksforgeeks.org/theory-computation-generating-regular-expression-finite-automata/
+
+# Regex to DFA
+# https://www.geeksforgeeks.org/designing-finite-automata-from-regular-expression/
+
+# https://leetcode.com/problems/valid-number/discuss/23728/A-simple-solution-in-Python-based-on-DFA
+
+
+
 
 sol = Solution()
 assert sol.myAtoi("-1 2 3 4") == -1

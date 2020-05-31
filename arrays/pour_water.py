@@ -79,7 +79,7 @@ class Solution:
 
 
 # Approach 2: Two stacks, two pointers
-# - We use l_fall and r_fall to as monotone stacks to store the next fall position
+# - We use l_fall and r_fall as monotone stacks to store the next fall position
 # - We use l and r to mark the left and right boundaries
 
 

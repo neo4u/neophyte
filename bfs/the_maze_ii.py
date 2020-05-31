@@ -35,8 +35,6 @@ class Solution:
 
 # no early return, although online judge doesn't test for cases that exercises early return as faulty
 from heapq import heappush, heappop
-
-
 class Solution:
     def shortestDistance(self, maze: List[List[int]], src: List[int], dst: List[int]) -> int:
         if not maze or not maze[0]: return -1
@@ -80,3 +78,6 @@ MAZE = [[0, 0, 1, 0, 0],
         [1, 1, 0, 1, 1],
         [0, 0, 0, 0, 0]]
 assert sol.shortestDistance(MAZE, [0, 4], [4, 4]) == 12
+
+
+1 

@@ -6,7 +6,7 @@ class Solution(object):
         heap = [(-v, k) for k, v in counts.items()]
         heapq.heapify(heap)
 
-        # If any char has frequency more than double of length + 1,
+        # If any char has frequency more than half of length + 1,
         # return "" as we can't possibly return a string without getting that char twice in sequence
         if any(-nc > (len(S) + 1) / 2 for nc, x in heap): return ""
 
@@ -19,6 +19,7 @@ class Solution(object):
             if nct2 + 1: heapq.heappush(heap, (nct2 + 1, ch2))
 
         return "".join(result) + (heap[0][1] if heap else '')
+
 
 # Condensed
 import heapq
@@ -34,8 +35,9 @@ class Solution:
             nc1, c1 = heapq.heappop(heap)
             nc2, c2 = heapq.heappop(heap)
             result.extend([c1, c2])
-            if nc1 + 1: heapq.heappush(heap, (nc1 + 1, c1))
-            if nc2 + 1: heapq.heappush(heap, (nc2 + 1, c2))
+
+            if nc1 + 1 > 0: heapq.heappush(heap, (nc1 + 1, c1))
+            if nc2 + 1 > 0: heapq.heappush(heap, (nc2 + 1, c2))
 
         return ''.join(result) + (heap[0][1] if heap else '')
 

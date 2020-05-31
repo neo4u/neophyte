@@ -28,6 +28,7 @@ class Solution2:
     def swap(self, nums, i, j):
         nums[i], nums[j] = nums[j], nums[i]
 
+
 # Concise
 class Solution:
     def wiggleSort(self, nums: List[int]) -> None:

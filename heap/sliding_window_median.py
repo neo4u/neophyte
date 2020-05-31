@@ -40,7 +40,7 @@ class Solution:
 
         result = [self.get_med(max_heap, min_heap, k)]
 
-        for i, x in enumerate(nums[k:]):
+        for i, x in enumerate(nums[k:]): # x starts from nums[k] and i starts from 0
             out_n, in_n = nums[i], x
             if in_n >= min_heap[0][0]:
                 heapq.heappush(min_heap, (in_n, i + k))
@@ -66,3 +66,14 @@ class Solution:
 
 # 480. Sliding Window Median
 # https://leetcode.com/problems/sliding-window-median/description/
+
+
+# Approach 1: Simple Sorting
+
+# Time: O(n * klog(k))
+# Space: O(k)
+
+# Approach 2: Two Heaps
+
+# Time: O(n * log(k))
+# Space: O(n)

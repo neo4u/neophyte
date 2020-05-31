@@ -4,22 +4,22 @@ from typing import List
 # Approach: Two Pointer
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
-        p_idx = 0
+        l = 0 # Notation is that everything to the left of l is non-zero
 
         for i, num in enumerate(nums):
             if num == 0: continue   # If curr num == 0, its already after the non-zero idx, so go to next num
-            nums[p_idx], nums[i] = nums[i], nums[p_idx]
-            p_idx += 1
+            nums[l], nums[i] = nums[i], nums[l]
+            l += 1
 
     # Variant: Move all zeros to the front of the list
     def moveZeroesFront(self, nums: List[int]) -> None:
         n = len(nums)
-        p_idx = n - 1
+        r = n - 1 # Notation is that everything to the right of t is non-zero
 
         for i in reversed(range(n)):
             if nums[i] == 0: continue   # If curr num == 0, its already after the non-zero idx, so go to next num
-            nums[p_idx], nums[i] = nums[i], nums[p_idx]
-            p_idx -= 1
+            nums[r], nums[i] = nums[i], nums[r]
+            r -= 1
 
 
 # 283. Move Zeroes

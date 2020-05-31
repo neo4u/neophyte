@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def reorderLogFiles(self, logs: List[str]) -> List[str]:
         return sorted(logs, key=self.custom_cmp)

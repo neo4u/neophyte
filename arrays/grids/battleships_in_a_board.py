@@ -17,3 +17,11 @@ class Solution:
                 count += 1
 
         return count
+
+
+# 419. Battleships in a Board
+# https://leetcode.com/problems/battleships-in-a-board/description/
+
+
+# Time: O(n^2)
+# Space: O(1)

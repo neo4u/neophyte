@@ -26,11 +26,11 @@ class Solution:
 
 # Intuition:
 # 1. The problem is to reconstruct the exact order or airports travelled given the tickets
-# 2. This is a problem or finding the 'Eulerean Circuit', 
+# 2. This is a problem of finding the 'Eulerean Circuit', 
 # 3. It's easy to understand as a reverse of a post order traversal
 # 4. It's like finding a topological sort, but only this is for a Directed Cyclic Graph as opposed to a DAG,
 #    That is the problem of Eulerean Path
-# 5. The only thing is two paths exist from a given airport,
+# 5. The only thing is if two paths exist from a given airport,
 #    then we pick lexical order hence we sort the destinations, from each city
 # 6. Hierholzer’s Algorithm
 #    https://www.geeksforgeeks.org/hierholzers-algorithm-directed-graph/

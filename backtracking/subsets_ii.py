@@ -30,7 +30,6 @@ class Solution2:
 
     def bt(self, nums: List[int], s_idx: int, path: List[int]) -> None:
         self.result.append(path)
-        if s_idx == len(nums): return
 
         for i in range(s_idx, len(nums)):
             if i > s_idx and nums[i] == nums[i - 1]: continue
@@ -109,5 +108,33 @@ class Solution3:
 # 2 3
 
 
+class SolutionLookForward: # DOesn't work WHYYYYY???? (Troubleshoot and find out)
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        self.result = []
+        self.dfs(nums, 0, [])
+        print(self.result)
+        return self.result
+
+    def dfs(self, nums, idx, path):
+        self.result.append(path)
+        n = len(nums)
+
+        for i in range(idx, n):
+            if i < n - 1 and nums[i] == nums[i + 1]: continue
+            self.dfs(nums, i + 1, path + [nums[i]])
+
+
+
 # 90. Subsets II
 # https://leetcode.com/problems/subsets-ii/description/
+
+sol = SolutionLookForward()
+assert sorted(sol.subsetsWithDup([1, 2, 2])) == sorted([
+    [2],
+    [1],
+    [1, 2, 2],
+    [2, 2],
+    [1, 2],
+    []
+])

@@ -32,3 +32,10 @@ class Solution:
 # 4. Based on height[l] and height[r] whichever is lesser,
 #    it contributes l_max - height[l] or r_max - height[r] towards the water
 # 5. we return the total water when l == r
+
+#        |  |
+#     |  |  |
+#     ||||  |
+# -----------
+#        l
+#        r

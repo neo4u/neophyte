@@ -11,8 +11,10 @@ def pivot_index(nums)
     -1
 end
 
+
 # 724. Find Pivot Index
 # https://leetcode.com/problems/find-pivot-index/description/
+
 
 require 'test/unit'
 extend Test::Unit::Assertions

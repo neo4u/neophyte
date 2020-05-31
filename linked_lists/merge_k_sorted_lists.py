@@ -7,29 +7,6 @@ class ListNode:
         self.val = x
         self.next = None
 
-
-# # Approach 1 (Brute-Force)
-# # @param {ListNode[]} lists
-# # @return {ListNode}
-# def merge_k_lists(lists)
-#     nodes = []
-#     lists.each do |l|
-#         while l
-#             nodes << l
-#             l = l.next
-#         end
-#     end
-
-#     nodes = nodes.sort_by(&:val)
-#     dummy = tmp = ListNode.new(nil)
-#     nodes.each do |node|
-#         tmp.next = node
-#         tmp = tmp.next
-#     end
-
-#     dummy.next
-# end
-
 # Approach 5: Divide and Conquer (Merge Sort Way)
 class Solution:
     def mergeKLists(self, lists: List[ListNode], ) -> ListNode:
@@ -56,38 +33,6 @@ class Solution:
         curr.next = l1 or l2
         return dummy.next
 
-
-# # Approach 6: Divide and Conquer, Iterative
-# # @param {ListNode[]} lists
-# # @return {ListNode}
-# def merge_k_lists(lists)
-#     k, interval = lists.size, 1
-
-#     while interval < k
-#         0.step(k - interval, interval * 2) do |i|
-#             l, r = lists[i], lists[i + interval]
-#             lists[i] = merge_two_lists(l, r)
-#         end
-#         interval *= 2
-#     end
-
-#     k > 0 ? lists.first : lists
-# end
-
-# def merge_two_lists(l1, l2)
-#     dummy = curr = ListNode.new(nil)
-
-#     while l1 || l2
-#         if (l1 && l2 && l1.val < l2.val) || !l2
-#             curr.next, l1 = l1, l1.next
-#         elsif (l1 && l2) || !l1
-#             curr.next, l2 = l2, l2.next
-#         end
-#         curr = curr.next
-#     end
-
-#     dummy.next
-# end
 
 # 23. Merge k Sorted Lists
 # https://leetcode.com/problems/merge-k-sorted-lists/description/

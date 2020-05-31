@@ -17,6 +17,7 @@ class Solution:
 
         return l or r
 
+
 # Approach 2: Iterative
 # def lowest_common_ancestor(root, p, q)
 #     stack = [root]

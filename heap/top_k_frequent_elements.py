@@ -134,4 +134,4 @@ class Solution:
 
 
 sol = Solution()
-assert sol.topKFrequent([1,1,1,2,2,3], 2) in ([1,2], [2,1])
+assert sol.topKFrequent([1, 1, 1, 2, 2, 3], 2) in ([1, 2], [2, 1])

@@ -73,7 +73,7 @@ class Solution:
 # Approach 2: Use median
 # Steps:
 # - Find the median and then use (len + 1) / 2 to split into two parts
-# - Less than median to the left and greater than median to the right
+# - Swap Less than median to the left and greater than median to the right
 # - Once it's split using quickselect or 3-way partitioning
 # - Do the distribution in a similar way as the previous approach
 
